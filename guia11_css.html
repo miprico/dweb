@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 11 · Introducción a CSS · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+/* DEMO CSS VIVO */
+.demo-vivo{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.demo-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:700;color:#64748b}
+.demo-content{padding:20px 24px;background:#fff}
+/* demos estilos */
+.d-sin h3{font-size:18px;margin-bottom:6px}
+.d-sin p{font-size:14px;margin-bottom:8px}
+.d-con h3{font-size:18px;font-weight:900;color:#1a4f8a;margin-bottom:8px;border-bottom:2px solid #dbeafe;padding-bottom:6px}
+.d-con p{font-size:14px;color:#334155;line-height:1.7;margin-bottom:10px}
+.d-con a{color:#2563eb;font-weight:700;text-decoration:none}
+.d-con a:hover{text-decoration:underline}
+/* TABLA REFERENCIA */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* ACTIVIDAD */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+/* SEL */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166534}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+/* ESPECIFICIDAD VISUAL */
+.especif-demo{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.esp-item{border-radius:10px;padding:12px 16px;text-align:center;flex:1;min-width:130px}
+.esp-num{font-size:22px;font-weight:900;font-family:'Source Code Pro',monospace}
+.esp-lbl{font-size:12px;font-weight:700;margin-top:4px}
+/* BOX MODEL VISUAL */
+.boxmodel{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin:14px 0;display:flex;justify-content:center}
+/* MÉTODOS CSS */
+.metodos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.metodo-card{border-radius:12px;padding:14px 16px;border:1.5px solid}
+.metodo-card .mc-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.metodo-card h4{font-size:13.5px;font-weight:800;margin-bottom:6px}
+.metodo-card p{font-size:12.5px;line-height:1.5}
+/* RUBRICA */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+/* FOOTER */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .metodos-grid{grid-template-columns:1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 11</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 11 · Grado Décimo · ENSDB 2025</div>
+    <h2>¿Qué es CSS? Sintaxis, métodos y selectores</h2>
+    <p class="gsub">CSS es el lenguaje que le da forma, color y estilo al contenido HTML. Aprenderás cómo funciona, cómo se incluye y cómo seleccionar exactamente lo que quieres transformar. Y a través de eso, a reflexionar sobre algo que también aplica a las personas: la diferencia entre el contenido (lo que eres) y la forma en que te presentas al mundo (cómo te ven).</p>
+    <div class="tags">
+      <span class="tag tag-azul">CSS · Sintaxis · Selector · Propiedad · Valor</span>
+      <span class="tag tag-azul">Métodos: en línea · interno · externo</span>
+      <span class="tag tag-verde">Autoconciencia · Habilidades Relacionales</span>
+      <span class="tag tag-morado">Selectores · Especificidad · Cascada</span>
+      <span class="tag tag-ambar">Forma · Fondo · Identidad · Escuela · Familia</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>La forma en que te presentas — y el fondo que hay debajo</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de escribir una sola línea de CSS.</p>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">👗</span><span class="eti">Con compañeros · La misma persona, diferente presentación</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Mismo día, dos contextos diferentes. En el colegio, Camila llega de uniforme, callada, peinada. En el ensayo de danza de su barrio, Camila llega con ropa suya, habla fuerte, se ríe de todo. <strong>Es la misma persona — el mismo contenido. Pero la forma en que se presenta es completamente distinta según el contexto.</strong> CSS hace exactamente eso con el HTML: el contenido no cambia, pero la presentación sí.</p>
+      <div class="escena-pregunta">💭 ¿Cómo cambias tú según el contexto — con tu familia, en el colegio, con tus amigos?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · Lo que se ve y lo que está debajo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">La casa de Tomás por fuera se ve igual que todas las del barrio. Por dentro tiene las paredes pintadas del color favorito de cada quien, fotos que nadie más ha visto, un mural que él mismo hizo. <strong>La estructura es la misma (HTML). Lo que la hace única está en los detalles de presentación (CSS).</strong> Nadie lo sabe hasta que entra.</p>
+      <div class="escena-pregunta">💭 ¿Hay algo de tu "interior" — de cómo eres por dentro — que la gente no ve porque la presentación externa no lo muestra?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏫</span><span class="eti">En el colegio · La especificidad de las reglas</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el colegio hay reglas generales: todos deben llegar a las 6:45. Pero hay reglas más específicas: el equipo de fútbol puede llegar a las 7:00 los martes de entrenamiento. Y hay reglas todavía más específicas: un estudiante con una condición médica documentada puede llegar más tarde. <strong>La regla más específica gana.</strong> En CSS se llama especificidad — y funciona exactamente igual.</p>
+      <div class="escena-pregunta">💭 ¿Hay reglas en tu vida que se superponen? ¿Cuándo una regla más específica reemplaza a una general?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">Camila es la misma en todos los contextos pero se presenta diferente. La casa de Tomás tiene una estructura estándar por fuera y algo único por dentro. Las reglas del colegio tienen niveles de especificidad. <strong>CSS funciona así: selecciona elementos, aplica reglas, y la regla más específica gana. En esta guía aprenderás cómo.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎨</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Comprender qué es CSS, cuál es su sintaxis y cómo se relaciona con el HTML como lenguaje de presentación.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🔧</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Conocer los tres métodos para incluir CSS (en línea, interno, externo) y saber cuándo usar cada uno.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎯</span><p style="font-size:13.5px;font-weight:700;color:#166534">Usar selectores básicos, combinados, pseudoclases y pseudoelementos para apuntar exactamente al elemento correcto.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">⚖️</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre la diferencia entre lo que somos (contenido) y cómo nos presentamos (estilo), y cuándo esa diferencia nos ayuda o nos limita.</p></div>
+  </div>
+</div>
+<!-- MÓDULO 1: QUÉ ES CSS Y SINTAXIS -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>¿Qué es CSS? Sintaxis: selector, propiedad y valor</h2><p>La gramática del estilo — tres palabras que cambian todo lo que se ve</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>CSS</strong> (Cascading Style Sheets — Hojas de Estilo en Cascada) es el lenguaje que controla cómo se ve el contenido HTML en pantalla: colores, tipografías, tamaños, espacios, posiciones. Sin CSS, una página web es texto y estructura sin forma. Con CSS, esa misma estructura puede verse completamente diferente.</p>
+
+  <p class="tp">Toda regla CSS tiene exactamente tres partes: el <strong>selector</strong> (a qué elemento aplica), la <strong>propiedad</strong> (qué aspecto se cambia) y el <strong>valor</strong> (a qué se cambia).</p>
+
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;margin:14px 0">
+    <svg viewBox="0 0 680 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;margin:0 auto">
+      <rect width="680" height="120" fill="#0f172a" rx="10"/>
+      <!-- código CSS -->
+      <text x="30" y="55" fill="#86efac" font-family="Source Code Pro" font-size="22" font-weight="700">p</text>
+      <text x="60" y="55" fill="#e2e8f0" font-family="Source Code Pro" font-size="22"> { </text>
+      <text x="118" y="55" fill="#f472b6" font-family="Source Code Pro" font-size="22">color</text>
+      <text x="208" y="55" fill="#e2e8f0" font-family="Source Code Pro" font-size="22">:</text>
+      <text x="228" y="55" fill="#fbbf24" font-family="Source Code Pro" font-size="22"> #1a4f8a</text>
+      <text x="388" y="55" fill="#e2e8f0" font-family="Source Code Pro" font-size="22">; }</text>
+      <!-- flechas anotadas -->
+      <line x1="44" y1="70" x2="44" y2="100" stroke="#86efac" stroke-width="1.5"/>
+      <text x="44" y="112" text-anchor="middle" fill="#86efac" font-family="Nunito" font-size="11" font-weight="800">SELECTOR</text>
+      <line x1="178" y1="70" x2="178" y2="100" stroke="#f472b6" stroke-width="1.5"/>
+      <text x="178" y="112" text-anchor="middle" fill="#f472b6" font-family="Nunito" font-size="11" font-weight="800">PROPIEDAD</text>
+      <line x1="320" y1="70" x2="320" y2="100" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="320" y="112" text-anchor="middle" fill="#fbbf24" font-family="Nunito" font-size="11" font-weight="800">VALOR</text>
+    </svg>
+  </div>
+
+  <!-- Comparación sin/con CSS -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0">
+    <div class="demo-vivo">
+      <div class="demo-bar">❌ HTML sin CSS</div>
+      <div class="demo-content d-sin">
+        <h3>Lo que nadie ve de mí</h3>
+        <p>Soy estudiante de décimo. Me gusta la música y el fútbol. Pero también lloro con las películas y eso no lo sabe casi nadie.</p>
+        <a href="#">Ver más</a>
+      </div>
+    </div>
+    <div class="demo-vivo">
+      <div class="demo-bar">✅ HTML con CSS aplicado</div>
+      <div class="demo-content d-con">
+        <h3>Lo que nadie ve de mí</h3>
+        <p>Soy estudiante de décimo. Me gusta la música y el fútbol. Pero también lloro con las películas y eso no lo sabe casi nadie.</p>
+        <a href="#">Ver más</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:6px">
+    <p style="font-size:14px;color:#14532d"><strong>El contenido es exactamente el mismo.</strong> Lo que cambió fue solo el CSS — colores, tipografía, espaciado. Igual que Camila: la misma persona, presentada diferente según el contexto que ella eligió.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 2: MÉTODOS -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>Tres métodos para incluir CSS</h2><p>En línea, interno y externo — igual que hay formas distintas de comunicar lo mismo</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Hay tres maneras de agregar CSS a una página HTML. Cada una tiene un contexto en el que tiene sentido — y todas afectan de manera diferente cuánto alcance tiene el estilo.</p>
+
+  <div class="metodos-grid">
+    <div class="metodo-card" style="background:#fef2f2;border-color:#fecaca">
+      <div class="mc-tag" style="color:#dc2626">⚠️ Método 1 · En línea (inline)</div>
+      <h4 style="color:#991b1b">style="" directamente en la etiqueta</h4>
+      <p style="color:#7f1d1d">El estilo va dentro del atributo style de un elemento específico. Afecta solo ese elemento. Difícil de mantener.</p>
+      <div style="background:#0f172a;border-radius:6px;padding:8px 12px;margin-top:8px;font-family:'Source Code Pro',monospace;font-size:12px;color:#f472b6">&lt;p <span style="color:#86efac">style</span>=<span style="color:#fbbf24">"color:red"</span>&gt;Texto&lt;/p&gt;</div>
+      <p style="font-size:11.5px;color:#dc2626;margin-top:6px;font-weight:700">Usar solo para casos muy específicos o pruebas rápidas.</p>
+    </div>
+    <div class="metodo-card" style="background:#fef9c3;border-color:#fbbf24">
+      <div class="mc-tag" style="color:#d97706">⚡ Método 2 · Interno (&lt;style&gt;)</div>
+      <h4 style="color:#92400e">Dentro del &lt;head&gt; en una etiqueta &lt;style&gt;</h4>
+      <p style="color:#78350f">El CSS va en el mismo archivo HTML. Afecta a toda esa página pero no a otras páginas del proyecto.</p>
+      <div style="background:#0f172a;border-radius:6px;padding:8px 12px;margin-top:8px;font-family:'Source Code Pro',monospace;font-size:12px"><span style="color:#f472b6">&lt;style&gt;</span><br><span style="color:#86efac">  p</span> { <span style="color:#f472b6">color</span>: <span style="color:#fbbf24">red</span>; }<br><span style="color:#f472b6">&lt;/style&gt;</span></div>
+      <p style="font-size:11.5px;color:#d97706;margin-top:6px;font-weight:700">Útil para páginas únicas o prototipos rápidos.</p>
+    </div>
+    <div class="metodo-card" style="background:#f0fdf4;border-color:#86efac">
+      <div class="mc-tag" style="color:#16a34a">✅ Método 3 · Externo (&lt;link&gt;)</div>
+      <h4 style="color:#14532d">Archivo .css separado enlazado con &lt;link&gt;</h4>
+      <p style="color:#166534">El CSS vive en su propio archivo. Se enlaza desde el &lt;head&gt;. Afecta a todas las páginas que lo enlacen. Es la mejor práctica.</p>
+      <div style="background:#0f172a;border-radius:6px;padding:8px 12px;margin-top:8px;font-family:'Source Code Pro',monospace;font-size:12px"><span style="color:#f472b6">&lt;link</span> <span style="color:#86efac">rel</span>=<span style="color:#fbbf24">"stylesheet"</span><br>  <span style="color:#86efac">href</span>=<span style="color:#fbbf24">"estilos.css"</span><span style="color:#f472b6">&gt;</span></div>
+      <p style="font-size:11.5px;color:#16a34a;margin-top:6px;font-weight:700">La forma correcta para proyectos reales. Ya la aprendiste en Guía 09.</p>
+    </div>
+  </div>
+
+  <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px;margin:10px 0">
+    <p style="font-size:14px;color:#7c2d12"><strong>La metáfora de los tres métodos:</strong> CSS en línea es como decirle algo a alguien susurrándole al oído — solo esa persona lo escucha. CSS interno es como hablar en un salón de clases — todos en ese espacio te escuchan. CSS externo es como publicar algo — cualquiera que lo encuentre puede aplicarlo. Cada forma tiene su contexto.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 3: SELECTORES -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>Selectores: apuntar exactamente a quien necesitas</h2><p>No siempre quieres cambiar todo — a veces necesitas llegar a una sola persona</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Un selector define <strong>a qué elemento o elementos</strong> se aplica una regla CSS. Hay selectores que apuntan a todo un tipo de elemento, otros que apuntan a una clase específica, otros a un id único. Cuanto más específico el selector, más control tienes.</p>
+
+  <div class="escena escena-escuela" style="margin-bottom:18px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">La especificidad explicada con el colegio</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Si el rector dice "todos los estudiantes deben usar uniforme", eso aplica a todos — como el selector de elemento. Si el profesor de Educación Física dice "los estudiantes del grupo A usen sudadera hoy", eso aplica solo a ese grupo — como el selector de clase. Si la orientadora llama por nombre a un estudiante específico para una cita, solo ese va — como el selector de id. <strong>Cuanto más específico, más prioridad tiene.</strong></p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">selectores.css</span></div>
+    <div class="ebody"><span class="hc">/* Selector de elemento: aplica a TODOS los párrafos */</span>
+<span class="cs">p</span> {
+  <span class="cp">color</span>: <span class="cv">#334155</span>;
+  <span class="cp">font-size</span>: <span class="cv">15px</span>;
+}
+
+<span class="hc">/* Selector de clase: aplica a TODO elemento con class="importante" */</span>
+<span class="cs">.importante</span> {
+  <span class="cp">color</span>: <span class="cv">#dc2626</span>;
+  <span class="cp">font-weight</span>: <span class="cv">800</span>;
+}
+
+<span class="hc">/* Selector de id: aplica SOLO al elemento con id="titulo-principal" */</span>
+<span class="cs">#titulo-principal</span> {
+  <span class="cp">font-size</span>: <span class="cv">28px</span>;
+  <span class="cp">color</span>: <span class="cv">#1a4f8a</span>;
+}
+
+<span class="hc">/* Selector combinado: solo los p que están dentro de .tarjeta */</span>
+<span class="cs">.tarjeta p</span> {
+  <span class="cp">padding</span>: <span class="cv">12px</span>;
+  <span class="cp">background</span>: <span class="cv">#f8fafc</span>;
+}
+
+<span class="hc">/* Selector de hijo directo: solo li directos del ul */</span>
+<span class="cs">ul &gt; li</span> {
+  <span class="cp">border-bottom</span>: <span class="cv">1px solid #e2e8f0</span>;
+}
+
+<span class="hc">/* Selector de hermano adyacente: el primer p justo después de h2 */</span>
+<span class="cs">h2 + p</span> {
+  <span class="cp">font-size</span>: <span class="cv">16px</span>;
+  <span class="cp">color</span>: <span class="cv">#64748b</span>;
+}</div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Selector</th><th>Sintaxis</th><th>¿Qué selecciona?</th><th>En la vida</th></tr>
+    <tr><td>Elemento</td><td><code>p</code> · <code>h1</code> · <code>div</code></td><td>Todos los elementos de ese tipo</td><td>Regla general para todos</td></tr>
+    <tr><td>Clase</td><td><code>.nombre-clase</code></td><td>Todo elemento con ese class=""</td><td>Regla para un grupo específico</td></tr>
+    <tr><td>ID</td><td><code>#nombre-id</code></td><td>El único elemento con ese id=""</td><td>Regla para una persona específica</td></tr>
+    <tr><td>Descendiente</td><td><code>div p</code></td><td>p que esté dentro de div (a cualquier nivel)</td><td>Todos los que están en ese contexto</td></tr>
+    <tr><td>Hijo directo</td><td><code>ul &gt; li</code></td><td>li que sea hijo directo de ul</td><td>Solo los hijos inmediatos</td></tr>
+    <tr><td>Hermano adyacente</td><td><code>h2 + p</code></td><td>El p que viene justo después de h2</td><td>El siguiente en llegar</td></tr>
+  </table>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Pseudoclases y pseudoelementos</h4>
+  <p class="tp">Las <strong>pseudoclases</strong> seleccionan un elemento en un estado especial — cuando el usuario pasa el cursor por encima (:hover), cuando está haciendo clic (:active), cuando un campo está enfocado (:focus). Los <strong>pseudoelementos</strong> seleccionan una parte virtual del elemento — el contenido antes (::before) o después (::after) del elemento real.</p>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">pseudo.css</span></div>
+    <div class="ebody"><span class="hc">/* :hover — cuando el cursor está encima del enlace */</span>
+<span class="cs">a:hover</span> {
+  <span class="cp">color</span>: <span class="cv">#1d4ed8</span>;
+  <span class="cp">text-decoration</span>: <span class="cv">underline</span>;
+}
+
+<span class="hc">/* :focus — cuando un input está activo (el cursor está dentro) */</span>
+<span class="cs">input:focus</span> {
+  <span class="cp">border-color</span>: <span class="cv">#2563eb</span>;
+  <span class="cp">outline</span>: <span class="cv">none</span>;
+}
+
+<span class="hc">/* :nth-child(2) — el segundo elemento de su padre */</span>
+<span class="cs">li:nth-child(2)</span> {
+  <span class="cp">background</span>: <span class="cv">#eff6ff</span>;
+}
+
+<span class="hc">/* ::before — inserta contenido antes del elemento */</span>
+<span class="cs">.emocion::before</span> {
+  <span class="cp">content</span>: <span class="cv">"→ "</span>;
+  <span class="cp">color</span>: <span class="cv">#2563eb</span>;
+  <span class="cp">font-weight</span>: <span class="cv">800</span>;
+}
+
+<span class="hc">/* ::after — inserta contenido después del elemento */</span>
+<span class="cs">.emocion::after</span> {
+  <span class="cp">content</span>: <span class="cv">" ←"</span>;
+  <span class="cp">color</span>: <span class="cv">#94a3b8</span>;
+}</div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Especificidad: cuando dos reglas se contradicen</h4>
+  <p class="tp">Cuando dos reglas apuntan al mismo elemento, el navegador usa la <strong>especificidad</strong> para decidir cuál gana. La regla con mayor especificidad se aplica. El orden es: ID &gt; clase &gt; elemento.</p>
+
+  <div class="especif-demo">
+    <div class="esp-item" style="background:#f1f5f9;border:1.5px solid #e2e8f0">
+      <div class="esp-num" style="color:#94a3b8">0,0,1</div>
+      <div class="esp-lbl" style="color:#64748b">Selector de elemento</div>
+      <div style="font-family:'Source Code Pro',monospace;font-size:12px;color:#475569;margin-top:6px">p { }</div>
+    </div>
+    <div class="esp-item" style="background:#dbeafe;border:1.5px solid #93c5fd">
+      <div class="esp-num" style="color:#1e40af">0,1,0</div>
+      <div class="esp-lbl" style="color:#1e40af">Selector de clase</div>
+      <div style="font-family:'Source Code Pro',monospace;font-size:12px;color:#2563eb;margin-top:6px">.clase { }</div>
+    </div>
+    <div class="esp-item" style="background:#dcfce7;border:1.5px solid #86efac">
+      <div class="esp-num" style="color:#14532d">1,0,0</div>
+      <div class="esp-lbl" style="color:#14532d">Selector de ID</div>
+      <div style="font-family:'Source Code Pro',monospace;font-size:12px;color:#16a34a;margin-top:6px">#id { }</div>
+    </div>
+    <div class="esp-item" style="background:#fee2e2;border:1.5px solid #fecaca">
+      <div class="esp-num" style="color:#991b1b">∞</div>
+      <div class="esp-lbl" style="color:#991b1b">Estilo en línea</div>
+      <div style="font-family:'Source Code Pro',monospace;font-size:12px;color:#dc2626;margin-top:6px">style="" gana siempre</div>
+    </div>
+  </div>
+
+  <div class="warn"><strong>!important:</strong> Existe la declaración <code>color: red !important</code> que fuerza una regla a ganar sobre todo. Pero usarla en exceso es una mala práctica — es como gritar para que te escuchen en vez de construir confianza. Úsala solo cuando no hay otra solución.</div>
+
+  <!-- Selector de atributos -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 10px">Selectores de atributos</h4>
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">atributos.css</span></div>
+    <div class="ebody"><span class="hc">/* Selecciona todos los input de tipo texto */</span>
+<span class="cs">input[type="text"]</span> {
+  <span class="cp">border</span>: <span class="cv">1.5px solid #e2e8f0</span>;
+  <span class="cp">border-radius</span>: <span class="cv">8px</span>;
+  <span class="cp">padding</span>: <span class="cv">8px 12px</span>;
+}
+
+<span class="hc">/* Selecciona enlaces que abren en nueva pestaña */</span>
+<span class="cs">a[target="_blank"]</span> {
+  <span class="cp">color</span>: <span class="cv">#7c3aed</span>;
+}
+
+<span class="hc">/* Selecciona cualquier elemento con el atributo disabled */</span>
+<span class="cs">[disabled]</span> {
+  <span class="cp">opacity</span>: <span class="cv">0.5</span>;
+  <span class="cp">cursor</span>: <span class="cv">not-allowed</span>;
+}</div>
+  </div>
+</div>
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A1</div>
+    <div><h3>Mi hoja de estilos: darle forma a quien soy</h3><div class="asub">Individual · 25 minutos · Autoconciencia — elegir colores, fuentes y espacios que me representen</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 25 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👤 Individual</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Editor de código</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🎨</span><span class="eti">Antes de escribir — define quién eres visualmente</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Antes de escribir una sola regla CSS, responde en papel: <strong>¿Qué color te representa?</strong> No el que más te gusta en ropa — el que sientes que dice algo de tu personalidad. ¿Qué fuente se parece a cómo piensas — elegante y seria, o amigable y redondeada, o técnica y precisa? ¿Cuánto espacio necesitas — apretado o con mucho aire? Esas respuestas son tu sistema de diseño personal.</p>
+        <div class="escena-pregunta">💭 ¿Si tu personalidad fuera un color y una tipografía, cuáles serían?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Retoma tu proyecto de las Guías 01–10</h4><p>Abre el <code>estilos.css</code> de tu proyecto personal. Esta actividad va a profundizar y mejorar ese archivo con todo lo que aprendiste hoy.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Define variables CSS para tu paleta personal</h4><p>Al inicio del archivo, declara al menos 5 variables con <code>:root { --mi-variable: valor; }</code>: tu color principal, color secundario, color de texto, color de fondo y tu fuente. Estas variables deben decir algo de ti — no son genéricas.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Usa los tres tipos de selector</h4><p>Escribe al menos: 3 reglas con selector de elemento, 3 con selector de clase, 1 con selector de ID. Usa también al menos un selector combinado (<code>header p</code>, <code>nav a</code>), una pseudoclase (<code>:hover</code>) y un pseudoelemento (<code>::before</code> o <code>::after</code>).</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">4</div><div class="pc"><h4>Aplica los tres métodos — aunque sea como prueba</h4><p>En una de tus páginas HTML, añade temporalmente un estilo en línea a un elemento para ver la diferencia. Luego muévelo al CSS externo y observa qué cambia. Finalmente añade un bloque <code>&lt;style&gt;</code> interno con una regla de prueba. Observa qué prevalece.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu estilos.css debe tener</div>
+      <ul>
+        <li>Variables CSS en <code>:root</code> para colores y fuente</li>
+        <li>Al menos 3 selectores de elemento, 3 de clase, 1 de ID</li>
+        <li>Al menos 1 selector combinado y 1 pseudoclase (:hover mínimo)</li>
+        <li>Al menos 1 pseudoelemento (::before o ::after)</li>
+        <li>Comentarios CSS que expliquen cada grupo de reglas</li>
+        <li>Consistencia visual entre las 4 páginas del proyecto</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Elegir los colores y la tipografía de tu página es elegir cómo presentarte al mundo</h4>
+      <p>La autoconciencia incluye "identificar los bienes personales, culturales y lingüísticos". Las decisiones de diseño visual son también decisiones de identidad — qué colores usas, cuánto espacio dejas, qué fuente eliges. Dicen algo de ti. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Por qué elegiste esos colores? ¿Qué dicen de ti?</li>
+        <li><span>→</span> ¿La presentación visual de tu página se parece a cómo te presentas en la vida real o es diferente? ¿Por qué?</li>
+        <li><span>→</span> ¿Hay algo de tu personalidad que quisiste mostrar visualmente y que crees que lograste? ¿Y algo que no?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A2</div>
+    <div><h3>El mismo HTML, estilos completamente distintos</h3><div class="asub">Parejas · 20 minutos · Conciencia social — el mismo contenido, leído de formas diferentes</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Parejas</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Mismo HTML, dos CSS</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🪞</span><span class="eti">Volvamos a Camila — la misma persona, presentada diferente</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Camila es la misma en el colegio y en el ensayo de danza. Pero quienes solo la conocen de un contexto tienen una imagen incompleta. <strong>Esta actividad propone usar el mismo HTML y crear dos hojas de estilo completamente diferentes</strong> — para ver cómo el CSS cambia radicalmente la percepción sin cambiar nada del contenido.</p>
+        <div class="escena-pregunta">💭 ¿Cómo cambia la percepción que tienen de ti las personas que solo te conocen en un contexto?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#ea580c">1</div><div class="pc"><h4>Usen este HTML de base — el mismo para los dos</h4>
+        <div class="editor" style="margin-top:8px"><div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">base_compartida.html</span></div>
+        <div class="ebody"><span style="color:#f472b6">&lt;article </span><span style="color:#86efac">class</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"tarjeta"</span><span style="color:#f472b6">&gt;</span>
+  <span style="color:#f472b6">&lt;h2 </span><span style="color:#86efac">id</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"nombre"</span><span style="color:#f472b6">&gt;</span><span style="color:#e2e8f0">Quién soy</span><span style="color:#f472b6">&lt;/h2&gt;</span>
+  <span style="color:#f472b6">&lt;p </span><span style="color:#86efac">class</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"descripcion"</span><span style="color:#f472b6">&gt;</span><span style="color:#e2e8f0">Estudiante de décimo. Me gusta crear cosas.</span><span style="color:#f472b6">&lt;/p&gt;</span>
+  <span style="color:#f472b6">&lt;p </span><span style="color:#86efac">class</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"emocion"</span><span style="color:#f472b6">&gt;</span><span style="color:#e2e8f0">Lo que siento hoy: motivación mezclada con cansancio.</span><span style="color:#f472b6">&lt;/p&gt;</span>
+  <span style="color:#f472b6">&lt;a </span><span style="color:#86efac">href</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"#"</span><span style="color:#f472b6">&gt;</span><span style="color:#e2e8f0">Conocerme más</span><span style="color:#f472b6">&lt;/a&gt;</span>
+<span style="color:#f472b6">&lt;/article&gt;</span></div></div>
+      </div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">2</div><div class="pc"><h4>Cada uno crea su propio CSS para ese HTML (10 min)</h4><p>Sin ver el del otro. Usando el mismo HTML base. Pueden usar colores, tipografías, backgrounds, márgenes, bordes — todo lo que quieran. El objetivo es que los dos resultados visuales sean completamente distintos.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">3</div><div class="pc"><h4>Comparen los resultados en el navegador (5 min)</h4><p>Abran los dos archivos. ¿Son reconocibles como el mismo HTML? ¿Qué emociones transmite cada versión? ¿Cuál parece más "tú"?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Cada CSS debe tener</div>
+      <ul>
+        <li>Estilos para <code>.tarjeta</code>, <code>#nombre</code>, <code>.descripcion</code>, <code>.emocion</code> y <code>a</code></li>
+        <li>Al menos un <code>:hover</code> en el enlace</li>
+        <li>Al menos un <code>.emocion::before</code> con content</li>
+        <li>Variables CSS para los colores principales</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>El mismo texto se percibe completamente diferente según cómo se presenta</h4>
+      <p>La conciencia social incluye "tomar la perspectiva de otros". La misma oración — "lo que siento hoy: motivación mezclada con cansancio" — con un CSS de colores cálidos y tipografía redondeada se siente cercana y humana. Con un CSS frío y tipografía monoespaciada se siente distante. <em>El medio cambia el mensaje.</em> En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cómo transmitían emociones distintas las dos versiones del mismo HTML?</li>
+        <li><span>→</span> ¿Hay personas en tu vida que tienen una "presentación" que no refleja bien su contenido — personas que parecen difíciles de acercarse pero en realidad son cálidas, o viceversa?</li>
+        <li><span>→</span> ¿Cuándo tu propia "presentación" exterior no refleja cómo eres por dentro?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A3</div>
+    <div><h3>El CSS del salón: especificidad y consenso</h3><div class="asub">Grupos de 4 · 20 minutos · Habilidades relacionales — qué regla prevalece cuando hay conflicto</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 20 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166634">👥 Grupos de 4</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">⚖️</span><span class="eti">La especificidad aplicada al grupo</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">En un grupo siempre hay "reglas" implícitas — cómo se resuelven los conflictos, quién tiene más peso en las decisiones, qué norma prevalece cuando dos personas quieren cosas distintas. En CSS, la especificidad resuelve esos conflictos de forma predecible. <strong>Esta actividad propone que el grupo use CSS para explorar ese tema: ¿qué pasa cuando dos reglas se contradicen?</strong></p>
+        <div class="escena-pregunta">💭 En tu grupo, cuando hay desacuerdo, ¿qué regla implícita resuelve el conflicto?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#16a34a">1</div><div class="pc"><h4>Cada integrante propone 3 reglas CSS para el salón (3 min)</h4><p>Para el mismo HTML del ejercicio anterior. Cada uno las escribe en papel. Las reglas deben reflejar su personalidad en el diseño.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">2</div><div class="pc"><h4>Reúnan las 12 reglas en un solo CSS (8 min)</h4><p>Inevitablemente habrá conflictos: dos personas definieron el color del h2 de manera diferente, o el tamaño del texto. Deben resolver cada conflicto de una de estas formas: a) discutir y elegir una, b) usar especificidad (el selector más específico gana), c) usar <code>!important</code> —  pero justificando por qué.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">3</div><div class="pc"><h4>Documenten cada conflicto y su resolución</h4><p>En comentarios CSS, antes de cada regla que fue disputada, escriban: quién la propuso, cuál era la alternativa y por qué prevalece esta.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">4</div><div class="pc"><h4>Reflexión grupal (5 min)</h4><p>¿El proceso de resolver los conflictos CSS fue parecido a cómo resuelven los conflictos reales en el grupo? ¿Qué "especificidad" tienen las distintas voces en su grupo — quién tiene más peso y por qué?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo CSS colectivo con las reglas de los 4 integrantes integradas</li>
+        <li>Comentarios CSS que documenten cada conflicto y cómo se resolvió</li>
+        <li>Al menos un uso consciente de especificidad para resolver un conflicto</li>
+        <li>Una reflexión grupal en el footer del HTML sobre el proceso</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Resolver conflictos de especificidad en CSS es practicar resolución de conflictos reales</h4>
+      <p>Las habilidades relacionales incluyen "resolver los conflictos constructivamente". Cuando dos reglas CSS apuntan al mismo elemento, el sistema tiene reglas claras para resolverlo — y esas reglas son predecibles, no arbitrarias. En las relaciones humanas, los conflictos se resuelven mejor cuando también hay reglas claras y conocidas. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué regla del grupo prevaleció más seguido? ¿Por qué crees que fue esa?</li>
+        <li><span>→</span> ¿Alguien usó <code>!important</code> para forzar su regla? ¿Cómo se sintió el grupo con eso?</li>
+        <li><span>→</span> ¿Hay conflictos en tu vida real donde sería útil tener una "especificidad" clara para resolverlos?</li>
+        <li><span>→</span> ¿El proceso de hoy fue más difícil técnicamente o relacionalmente?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 11</h3></div>
+  </div>
+  <p class="tp">En tu cuaderno o en <code>bitacora_guia11.html</code> — con CSS externo vinculado usando todo lo que aprendiste hoy.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Los colores y la tipografía que elegiste para tu CSS dicen algo real de ti? ¿O elegiste lo que "se veía bien" sin pensar en lo que te representa?</li>
+        <li><span>→</span> ¿Hay una diferencia entre tu "presentación" CSS y tu "contenido" HTML — entre cómo te presentas y cómo eres?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> Ver el mismo HTML con dos CSS diferentes: ¿cambió algo en cómo ves a las personas que se presentan de manera diferente a cómo esperarías?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno cuya "presentación" (cómo se ve, cómo habla, cómo actúa) te ha impedido ver su "contenido" real?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cómo manejó tu grupo los conflictos de especificidad CSS? ¿Fue similar o diferente a cómo los manejan en otras situaciones?</li>
+        <li><span>→</span> ¿Qué aprendiste sobre la dinámica de tu grupo durante la Actividad 3?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="320" fill="#f8fafc"/>
+      <!-- Sintaxis -->
+      <rect x="18" y="18" width="200" height="140" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="200" height="36" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="42" width="200" height="12" fill="#1a4f8a"/>
+      <text x="118" y="40" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Sintaxis CSS</text>
+      <text x="32" y="72" fill="#1e40af" font-family="Source Code Pro" font-size="11">selector {</text>
+      <text x="44" y="90" fill="#f472b6" font-family="Source Code Pro" font-size="11">  propiedad:</text>
+      <text x="44" y="108" fill="#fbbf24" font-family="Source Code Pro" font-size="11">    valor;</text>
+      <text x="32" y="126" fill="#1e40af" font-family="Source Code Pro" font-size="11">}</text>
+      <text x="118" y="148" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="9">Tres partes siempre</text>
+      <!-- Métodos -->
+      <rect x="234" y="18" width="200" height="140" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="234" y="18" width="200" height="36" rx="10" fill="#ea580c"/>
+      <rect x="234" y="42" width="200" height="12" fill="#ea580c"/>
+      <text x="334" y="40" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">3 Métodos</text>
+      <text x="248" y="72" fill="#c2410c" font-family="Nunito" font-size="10" font-weight="800">1. En línea → style=""</text>
+      <text x="248" y="90" fill="#ea580c" font-family="Nunito" font-size="9">Solo ese elemento</text>
+      <text x="248" y="108" fill="#c2410c" font-family="Nunito" font-size="10" font-weight="800">2. Interno → &lt;style&gt;</text>
+      <text x="248" y="124" fill="#ea580c" font-family="Nunito" font-size="9">Solo esa página</text>
+      <text x="248" y="142" fill="#c2410c" font-family="Nunito" font-size="10" font-weight="800">3. Externo → &lt;link&gt; ✅</text>
+      <!-- Selectores -->
+      <rect x="450" y="18" width="232" height="140" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="450" y="18" width="232" height="36" rx="10" fill="#16a34a"/>
+      <rect x="450" y="42" width="232" height="12" fill="#16a34a"/>
+      <text x="566" y="40" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Selectores</text>
+      <text x="464" y="72" fill="#15803d" font-family="Source Code Pro" font-size="10">p  → elemento</text>
+      <text x="464" y="88" fill="#15803d" font-family="Source Code Pro" font-size="10">.clase → grupo</text>
+      <text x="464" y="104" fill="#15803d" font-family="Source Code Pro" font-size="10">#id → único</text>
+      <text x="464" y="120" fill="#15803d" font-family="Source Code Pro" font-size="10">div p → descendiente</text>
+      <text x="464" y="136" fill="#15803d" font-family="Source Code Pro" font-size="10">a:hover → pseudoclase</text>
+      <text x="464" y="152" fill="#15803d" font-family="Source Code Pro" font-size="10">::before → pseudoelem.</text>
+      <!-- Especificidad -->
+      <rect x="18" y="172" width="664" height="132" rx="10" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.5"/>
+      <rect x="18" y="172" width="664" height="36" rx="10" fill="#7c3aed"/>
+      <rect x="18" y="196" width="664" height="12" fill="#7c3aed"/>
+      <text x="350" y="193" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Especificidad — la regla más específica gana</text>
+      <rect x="32" y="210" width="140" height="50" rx="6" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="102" y="232" text-anchor="middle" fill="#64748b" font-family="Source Code Pro" font-size="14" font-weight="700">0,0,1</text>
+      <text x="102" y="248" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="9">elemento</text>
+      <text x="252" y="232" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="16" font-weight="900">&lt;</text>
+      <rect x="278" y="210" width="140" height="50" rx="6" fill="#dbeafe" stroke="#93c5fd" stroke-width="1"/>
+      <text x="348" y="232" text-anchor="middle" fill="#1e40af" font-family="Source Code Pro" font-size="14" font-weight="700">0,1,0</text>
+      <text x="348" y="248" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">.clase</text>
+      <text x="448" y="232" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="16" font-weight="900">&lt;</text>
+      <rect x="466" y="210" width="140" height="50" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+      <text x="536" y="232" text-anchor="middle" fill="#14532d" font-family="Source Code Pro" font-size="14" font-weight="700">1,0,0</text>
+      <text x="536" y="248" text-anchor="middle" fill="#16a34a" font-family="Nunito" font-size="9">#id</text>
+      <text x="636" y="232" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="16" font-weight="900">&lt;</text>
+      <rect x="648" y="222" width="24" height="30" rx="4" fill="#fee2e2" stroke="#fecaca" stroke-width="1"/>
+      <text x="660" y="241" text-anchor="middle" fill="#dc2626" font-family="Nunito" font-size="9" font-weight="800">!</text>
+      <text x="660" y="275" text-anchor="middle" fill="#dc2626" font-family="Nunito" font-size="8">important</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 11</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Sintaxis CSS correcta</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Las reglas CSS tienen errores de sintaxis (faltan llaves, punto y coma).</td>
+      <td>Todas las reglas tienen sintaxis correcta: selector, propiedad y valor bien escritos.</td>
+      <td>Sintaxis perfecta con variables CSS aplicadas consistentemente.</td>
+    </tr>
+    <tr>
+      <td><strong>Variedad de selectores</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Solo usa selectores de elemento o solo de clase.</td>
+      <td>Usa los tres tipos (elemento, clase, ID) más un combinado y una pseudoclase.</td>
+      <td>Usa todos los tipos incluyendo pseudoelementos y selectores de atributo. Se nota que eligió el selector correcto para cada caso.</td>
+    </tr>
+    <tr>
+      <td><strong>Identidad visual</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>Los colores y tipografía son genéricos o aleatorios.</td>
+      <td>La paleta y tipografía son coherentes y muestran una elección intencional.</td>
+      <td>El CSS transmite algo de la personalidad del estudiante. Se puede decir "esto se parece a esa persona".</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión sobre forma y fondo</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>La reflexión no conecta CSS con situaciones de vida real.</td>
+      <td>Conecta la diferencia entre HTML (contenido) y CSS (presentación) con algo personal.</td>
+      <td>La reflexión muestra comprensión real de cuándo la "presentación" ayuda y cuándo limita — en código y en la vida.</td>
+    </tr>
+    <tr>
+      <td><strong>Trabajo colectivo</strong><br><span style="font-size:11px;color:#64748b">SEL · Habilidades Relacionales</span></td>
+      <td>No participó o impuso sus reglas sin proceso de consenso.</td>
+      <td>Participó y los conflictos de especificidad están documentados en comentarios.</td>
+      <td>El proceso de resolución de conflictos CSS refleja madurez relacional — hay negociación genuina, no imposición.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 11 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Habilidades Relacionales</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 12 → Colores, fuentes, texto y el Box Model</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
