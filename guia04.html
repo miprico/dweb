@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 04 · Enlaces e Imágenes · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+
+/* ══ HEADER ══ */
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+
+/* ══ TÍTULO ══ */
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+
+/* ══ LAYOUT ══ */
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+
+/* ══ CARDS ══ */
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+
+/* ══ ESCENAS ══ */
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+
+.escena-decision .escena-top{background:#dc2626}
+.escena-decision .escena-cuerpo{background:#fef2f2;border:1.5px solid #fecaca;border-top:0}
+.escena-decision .escena-pregunta{color:#991b1b}
+
+/* ══ MÓDULO SEP ══ */
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+
+/* ══ LABEL ══ */
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+
+/* ══ TEXTO ══ */
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+
+/* ══ EDITOR ══ */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ ANATOMÍA DE ETIQUETA ══ */
+.anatomia{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;margin:14px 0;overflow-x:auto}
+.anat-code{font-family:'Source Code Pro',monospace;font-size:15px;font-weight:700;text-align:center;margin-bottom:18px;white-space:nowrap}
+.anat-flechas{display:flex;justify-content:center;gap:0;flex-wrap:wrap;row-gap:12px}
+.anat-item{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;padding:0 8px}
+.anat-flecha{font-size:20px;color:#94a3b8}
+.anat-etiq{font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:20px;text-align:center;white-space:nowrap}
+
+/* ══ PREVIEW NAVEGADOR ══ */
+.brow{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.brow-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.bdots{display:flex;gap:5px}
+.bdots span{width:10px;height:10px;border-radius:50%}
+.bdr2{background:#ef4444}.bdy2{background:#f59e0b}.bdg2{background:#22c55e}
+.burl{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:3px 14px;font-size:11px;color:#64748b;flex:1}
+.bcon{padding:20px 26px;background:#fff}
+.bcon h1{font-size:22px;font-weight:900;color:#111827;margin-bottom:8px}
+.bcon h2{font-size:17px;font-weight:800;color:#1f2937;margin:12px 0 5px}
+.bcon p{font-size:14px;color:#374151;margin-bottom:8px;line-height:1.7}
+.bcon a{color:#2563eb;text-decoration:underline;font-weight:700}
+.bcon a:hover{color:#1d4ed8}
+.bcon ul{margin:6px 0 10px 22px;font-size:14px;color:#374151}
+.bcon li{margin-bottom:4px}
+.bcon .img-placeholder{background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:20px;margin:8px 0;color:#94a3b8;font-size:13px}
+.bcon .img-real{width:100%;max-width:320px;height:140px;background:linear-gradient(135deg,#dbeafe,#ede9fe);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#475569;margin:8px 0}
+
+/* ══ TABLA ══ */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+
+/* ══ TIP / WARN ══ */
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+.danger{background:#fef2f2;border-left:4px solid #dc2626;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#991b1b}
+.danger strong{font-weight:800}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+
+/* ══ PASOS ══ */
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+
+/* ══ CONSIGNA ══ */
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ SEL BLOQUES ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}
+.sel-autocon p{color:#9a3412}
+.sel-autocon .qs li{color:#78350f}
+.sel-autocon .qs li span{color:#ea580c}
+
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}
+.sel-autoctl p{color:#1e40af}
+.sel-autoctl .qs li{color:#1e3a8a}
+.sel-autoctl .qs li span{color:#2563eb}
+
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}
+.sel-social p{color:#166534}
+.sel-social .qs li{color:#14532d}
+.sel-social .qs li span{color:#16a34a}
+
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}
+.sel-relac p{color:#4c1d95}
+.sel-relac .qs li{color:#3b0764}
+.sel-relac .qs li span{color:#7c3aed}
+
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}
+.sel-decision p{color:#6b21a8}
+.sel-decision .qs li{color:#581c87}
+.sel-decision .qs li span{color:#a21caf}
+
+/* ══ ATRIBUTOS VISUAL ══ */
+.attr-card{border-radius:12px;padding:16px 18px;margin-bottom:10px;display:flex;gap:14px;align-items:flex-start}
+.attr-tag{font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:8px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.attr-desc h5{font-size:13.5px;font-weight:800;margin-bottom:3px}
+.attr-desc p{font-size:13px;line-height:1.6}
+
+/* ══ GRID TIPOS ENLACE ══ */
+.enlaces-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.enlace-tipo{border-radius:12px;padding:16px;text-align:center}
+.et-ico{font-size:28px;margin-bottom:8px}
+.et-tit{font-size:13px;font-weight:800;margin-bottom:5px}
+.et-cod{font-family:'Source Code Pro',monospace;font-size:11px;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:6px}
+.et-desc{font-size:12px;line-height:1.5}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+
+/* ══ FOOTER ══ */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .enlaces-grid{grid-template-columns:1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     ENCABEZADO INSTITUCIONAL
+══════════════════════════════════ -->
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 04</div>
+</header>
+
+<!-- TÍTULO -->
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 04 · Grado Décimo · ENSDB 2025</div>
+    <h2>Enlaces e Imágenes: conectar y mostrar</h2>
+    <p class="gsub">Aprenderás a crear vínculos entre páginas y a mostrar imágenes en HTML — y a través de eso, a reflexionar sobre las conexiones que construyes con las personas, sobre lo que decides mostrar de ti mismo y lo que eliges mantener privado.</p>
+    <div class="tags">
+      <span class="tag tag-azul">HTML · &lt;a&gt; · href · target</span>
+      <span class="tag tag-azul">&lt;img&gt; · src · alt · width</span>
+      <span class="tag tag-verde">Autocontrol · Habilidades relacionales</span>
+      <span class="tag tag-morado">Conciencia Social · Toma de decisiones</span>
+      <span class="tag tag-ambar">Escuela · Familia · Identidad digital</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══════════════════════════════════
+     APERTURA: TRES ESCENAS
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div>
+      <div class="sublbl">Para empezar · Lee con atención</div>
+      <h3>Tres situaciones que quizás reconoces</h3>
+    </div>
+  </div>
+
+  <p class="tp">Antes de tocar el teclado, lee. Algo de esto puede sonar conocido.</p>
+
+  <!-- ESCENA 1 -->
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">📱</span>
+      <span class="eti">Con compañeros · Lo que muestras en redes</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Camila tiene dos Instagram. Uno que sabe que su mamá puede ver — con fotos del colegio, de sus viajes, de cosas "normales". Y otro donde pone lo que realmente siente, lo que le gusta, cómo piensa. <strong>No le cuenta a nadie del segundo.</strong> No porque haga algo malo — sino porque hay partes de ella que todavía no sabe si quiere que todo el mundo vea.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay partes de ti que muestras solo a algunas personas? ¿Por qué?</div>
+    </div>
+  </div>
+
+  <!-- ESCENA 2 -->
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">🏠</span>
+      <span class="eti">En casa · Los vínculos que se estiran</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        El papá de Julián lleva ocho meses trabajando en otra ciudad. Se hablan por WhatsApp, a veces. Las conversaciones son cortas: <em>"¿Cómo te fue?"</em> — <em>"Bien."</em> — <em>"Cuídese."</em> Julián quisiera decirle más cosas. Pero <strong>no sabe cómo conectar desde lejos</strong> con alguien con quien siempre le costó conectar de cerca.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay alguien con quien sientes que la distancia — física o emocional — hace difícil la conexión?</div>
+    </div>
+  </div>
+
+  <!-- ESCENA 3 -->
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">🏫</span>
+      <span class="eti">En el colegio · La imagen que proyectas</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Todos en el salón tienen una imagen de Santiago: el que sabe de tecnología, el que no habla mucho, el que siempre está en la computadora. Pero Santiago sabe que esa imagen no es completa. Le falta lo que le gusta cocinar, lo que llora cuando ve películas, lo que piensa sobre la injusticia. <strong>La imagen que los demás tienen de él es como una foto — captura un momento, no a la persona.</strong>
+      </p>
+      <div class="escena-pregunta">💭 ¿La imagen que los demás tienen de ti es la completa? ¿Qué le falta?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      Camila decide qué mostrar y qué guardar. Julián quiere conectar pero no sabe cómo tender ese puente. Santiago es más que la imagen que proyecta. En esta guía aprenderás las dos herramientas HTML que trabajan exactamente eso: <strong>los enlaces &lt;a&gt; — que crean conexiones entre páginas y entre personas — y las imágenes &lt;img&gt; — que muestran algo, pero nunca muestran todo.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PROPÓSITOS
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div>
+      <div class="sublbl">Propósitos de aprendizaje</div>
+      <h3>¿Qué vas a lograr hoy?</h3>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔗</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Crear enlaces <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;a&gt;</code> con los atributos <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">href</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">target</code> para conectar páginas y recursos.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🖼️</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Insertar imágenes con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;img&gt;</code> usando <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">src</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">alt</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">width</code>.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🤝</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Reflexionar sobre las conexiones que construyes — con personas, con información, con el mundo — y cuáles vale la pena fortalecer.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔍</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Pensar críticamente sobre lo que decides mostrar de ti mismo en entornos digitales y en tu vida cotidiana — y las consecuencias de esas decisiones.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 1: ENLACES
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>El enlace &lt;a&gt;: tender puentes entre lugares</h2>
+    <p>En HTML y en la vida — una conexión siempre lleva a algún lado. La pregunta es: ¿a dónde?</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    La etiqueta <strong>&lt;a&gt;</strong> (de "anchor", ancla en inglés) crea un enlace — un texto o elemento en el que el usuario puede hacer clic para ir a otro lugar. Ese "lugar" puede ser otra página web, otro archivo, una sección dentro de la misma página, o incluso abrir el correo electrónico. El destino va en el atributo <strong>href</strong>.
+  </p>
+
+  <!-- Anatomía visual del enlace -->
+  <div class="anatomia">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center">Anatomía de un enlace HTML</div>
+    <div style="font-family:'Source Code Pro',monospace;font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;color:#e2e8f0;background:#0f172a;padding:16px;border-radius:10px;overflow-x:auto;white-space:nowrap">
+      <span style="color:#f472b6">&lt;a </span><span style="color:#86efac">href</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"https://ensdb.edu.co"</span><span style="color:#86efac"> target</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"_blank"</span><span style="color:#f472b6">&gt;</span><span style="color:#e2e8f0">Visita la ENSDB</span><span style="color:#f472b6">&lt;/a&gt;</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center">
+      <div style="background:#fce7f3;border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:900;color:#be185d;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Etiqueta</div>
+        <code style="font-family:'Source Code Pro';font-size:13px;color:#9d174d;font-weight:700">&lt;a&gt;</code>
+        <p style="font-size:11.5px;color:#be185d;margin-top:6px">Abre el enlace. Todo lo que esté dentro se vuelve clickeable.</p>
+      </div>
+      <div style="background:#dcfce7;border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:900;color:#15803d;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">href</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#15803d;font-weight:700">"https://..."</code>
+        <p style="font-size:11.5px;color:#166534;margin-top:6px">El destino. La dirección a donde va el enlace cuando se hace clic.</p>
+      </div>
+      <div style="background:#fef9c3;border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:900;color:#a16207;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">target</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#92400e;font-weight:700">"_blank"</code>
+        <p style="font-size:11.5px;color:#92400e;margin-top:6px">_blank abre en pestaña nueva. Sin target, abre en la misma pestaña.</p>
+      </div>
+      <div style="background:#dbeafe;border-radius:10px;padding:12px">
+        <div style="font-size:10px;font-weight:900;color:#1e40af;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Texto visible</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#1e40af;font-weight:700">"Visita la ENSDB"</code>
+        <p style="font-size:11.5px;color:#1d4ed8;margin-top:6px">Lo que el usuario ve. Debe describir el destino con claridad.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tipos de enlace -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Tres tipos de enlace que usarás frecuentemente</h4>
+  <div class="enlaces-grid">
+    <div class="enlace-tipo" style="background:#dbeafe;border:1.5px solid #93c5fd">
+      <div class="et-ico">🌐</div>
+      <div class="et-tit" style="color:#1e40af">Enlace externo</div>
+      <div class="et-cod" style="background:#1e40af;color:#fff">href="https://..."</div>
+      <div class="et-desc" style="color:#1e3a8a">Va a otra página web en internet. Siempre empieza con https://</div>
+    </div>
+    <div class="enlace-tipo" style="background:#dcfce7;border:1.5px solid #86efac">
+      <div class="et-ico">📄</div>
+      <div class="et-tit" style="color:#166534">Enlace interno</div>
+      <div class="et-cod" style="background:#16a34a;color:#fff">href="pagina2.html"</div>
+      <div class="et-desc" style="color:#14532d">Va a otro archivo HTML en tu mismo proyecto. Sin https://</div>
+    </div>
+    <div class="enlace-tipo" style="background:#ede9fe;border:1.5px solid #c4b5fd">
+      <div class="et-ico">⚓</div>
+      <div class="et-tit" style="color:#4c1d95">Enlace ancla</div>
+      <div class="et-cod" style="background:#7c3aed;color:#fff">href="#seccion"</div>
+      <div class="et-desc" style="color:#3b0764">Va a una sección dentro de la misma página usando el atributo id</div>
+    </div>
+  </div>
+
+  <!-- Conexión con Julián -->
+  <div class="escena escena-familia" style="margin:16px 0">
+    <div class="escena-top">
+      <span class="eco">💡</span>
+      <span class="eti">Volvamos a Julián — el que quiere conectar con su papá</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Julián quiere hacer una página web donde le cuente a su papá cómo le está yendo — en el colegio, con sus amigos, en lo que piensa. Y quiere incluir enlaces a cosas que le gustan: música que escucha, videos que le cambiaron la forma de ver algo, recursos del colegio. <strong>Una página con enlaces es como una conversación que sigue en muchas direcciones.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">carta_para_papa.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;h1&gt;</span><span class="htx">Papá, esto es lo que está pasando</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ln"> 2</span><span class="ht">&lt;h2&gt;</span><span class="htx">Lo que estoy aprendiendo</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 3</span><span class="ht">&lt;p&gt;</span>
+<span class="ln"> 4</span>  <span class="htx">Estoy aprendiendo a hacer páginas web. La página que estás leyendo</span>
+<span class="ln"> 5</span>  <span class="htx">la hice yo. Si quieres ver qué es HTML, mira esto:</span>
+<span class="ln"> 6</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln"> 7</span><span class="hc">&lt;!-- Enlace externo: se abre en pestaña nueva con target="_blank" --&gt;</span>
+<span class="ln"> 8</span><span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"https://developer.mozilla.org/es/docs/Web/HTML"</span>
+<span class="ln"> 9</span>   <span class="ha">target</span><span class="htx">=</span><span class="hv2">"_blank"</span><span class="ht">&gt;</span>
+<span class="ln">10</span>  <span class="htx">¿Qué es HTML? (Mozilla, en español)</span>
+<span class="ln">11</span><span class="ht">&lt;/a&gt;</span>
+
+<span class="ln">12</span><span class="ht">&lt;h2&gt;</span><span class="htx">Cómo me siento</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln">13</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">14</span>  <span class="htx">Hay cosas que me cuesta decirte por WhatsApp. En esta página</span>
+<span class="ln">15</span>  <span class="htx">lo escribí con más calma. Si quieres leerlo,</span>
+<span class="ln">16</span>  <span class="hc">&lt;!-- Enlace interno: va a otra página del mismo proyecto --&gt;</span>
+<span class="ln">17</span>  <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"lo_que_siento.html"</span><span class="ht">&gt;</span><span class="htx">haz clic aquí</span><span class="ht">&lt;/a&gt;</span><span class="htx">.</span>
+<span class="ln">18</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln">19</span><span class="hc">&lt;!-- Enlace ancla: va a una sección dentro de esta misma página --&gt;</span>
+<span class="ln">20</span><span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"#mis-notas"</span><span class="ht">&gt;</span><span class="htx">Ver mis notas del semestre</span><span class="ht">&lt;/a&gt;</span>
+
+<span class="ln">21</span><span class="hc">&lt;!-- La sección a la que apunta el enlace ancla --&gt;</span>
+<span class="ln">22</span><span class="ht">&lt;h2 </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"mis-notas"</span><span class="ht">&gt;</span><span class="htx">Mis notas del semestre</span><span class="ht">&lt;/h2&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">carta_para_papa.html</div>
+    </div>
+    <div class="bcon">
+      <h1>Papá, esto es lo que está pasando</h1>
+      <h2>Lo que estoy aprendiendo</h2>
+      <p>Estoy aprendiendo a hacer páginas web. La página que estás leyendo la hice yo. Si quieres ver qué es HTML, mira esto:</p>
+      <p><a href="#">¿Qué es HTML? (Mozilla, en español)</a></p>
+      <h2>Cómo me siento</h2>
+      <p>Hay cosas que me cuesta decirte por WhatsApp. En esta página lo escribí con más calma. Si quieres leerlo, <a href="#">haz clic aquí</a>.</p>
+      <p><a href="#">Ver mis notas del semestre</a></p>
+      <h2>Mis notas del semestre</h2>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Atributo</th><th>¿Qué hace?</th><th>Valores posibles</th><th>En tu vida</th></tr>
+    <tr>
+      <td><code>href</code></td>
+      <td>Define el destino del enlace. Sin él, el enlace no va a ningún lado.</td>
+      <td><code>https://...</code> · <code>pagina.html</code> · <code>#id</code></td>
+      <td>El lugar al que quieres conectar a alguien</td>
+    </tr>
+    <tr>
+      <td><code>target="_blank"</code></td>
+      <td>Abre el enlace en una pestaña nueva del navegador</td>
+      <td><code>_blank</code> · (sin target = misma pestaña)</td>
+      <td>Cuando quieres que la persona pueda volver fácilmente</td>
+    </tr>
+    <tr>
+      <td>Texto del enlace</td>
+      <td>Lo que el usuario ve y puede hacer clic. Debe ser descriptivo.</td>
+      <td>Cualquier texto entre &lt;a&gt; y &lt;/a&gt;</td>
+      <td>La manera en que presentas una conexión</td>
+    </tr>
+  </table>
+
+  <div class="warn"><strong>Texto de enlace malo:</strong> <em>"Haz clic aquí"</em> o <em>"Ver más"</em> no le dicen al usuario adónde va. Usa siempre texto descriptivo: <em>"Receta de arroz con pollo de mi abuela"</em> es mejor que <em>"clic aquí"</em>. En la vida también: di exactamente qué ofreces antes de pedir que alguien confíe en ti.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 2: IMÁGENES
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>La imagen &lt;img&gt;: mostrar algo — pero nunca todo</h2>
+    <p>Una imagen dice algo, pero también calla algo. Como en la vida.</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    La etiqueta <strong>&lt;img&gt;</strong> inserta una imagen en la página. A diferencia de la mayoría de etiquetas HTML, <strong>no tiene etiqueta de cierre</strong> — es una etiqueta vacía. Sus atributos más importantes son <strong>src</strong> (la dirección de la imagen), <strong>alt</strong> (texto alternativo que describe la imagen) y <strong>width</strong> (el ancho en píxeles o porcentaje).
+  </p>
+
+  <!-- Conexión con Santiago y Camila -->
+  <div class="escena escena-escuela" style="margin:0 0 18px">
+    <div class="escena-top">
+      <span class="eco">💡</span>
+      <span class="eti">Volvamos a Santiago y Camila — la imagen que proyectamos</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Santiago dice que una foto lo captura en un momento, no como persona completa. Camila elige qué mostrar y qué guardar. Cuando agregues imágenes a tu página HTML, también estás tomando esas decisiones: <strong>¿Qué imagen elige mostrar esta página? ¿Para quién? ¿Con qué propósito?</strong> El atributo <em>alt</em> — que describe la imagen en palabras — también te obliga a pensar: ¿qué es lo esencial de esto que estoy mostrando?
+      </p>
+    </div>
+  </div>
+
+  <!-- Anatomía de img -->
+  <div class="anatomia">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center">Anatomía de una imagen HTML</div>
+    <div style="font-family:'Source Code Pro',monospace;font-size:14px;font-weight:700;text-align:center;margin-bottom:20px;color:#e2e8f0;background:#0f172a;padding:16px;border-radius:10px;overflow-x:auto;white-space:nowrap">
+      <span style="color:#f472b6">&lt;img </span><span style="color:#86efac">src</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"mi_foto.jpg"</span><span style="color:#86efac"> alt</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"Foto mía en el descanso del colegio"</span><span style="color:#86efac"> width</span><span style="color:#e2e8f0">=</span><span style="color:#fbbf24">"400"</span><span style="color:#f472b6">&gt;</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center">
+      <div style="background:#dcfce7;border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:900;color:#15803d;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">src</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#15803d;font-weight:700">"mi_foto.jpg"</code>
+        <p style="font-size:12px;color:#166534;margin-top:8px">La dirección de la imagen. Puede ser un archivo local o una URL externa.</p>
+      </div>
+      <div style="background:#fce7f3;border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:900;color:#be185d;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">alt</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#9d174d;font-weight:700">"Foto mía..."</code>
+        <p style="font-size:12px;color:#be185d;margin-top:8px">Texto que describe la imagen. Fundamental para accesibilidad. Si la imagen no carga, el usuario ve este texto.</p>
+      </div>
+      <div style="background:#fef9c3;border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:900;color:#a16207;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">width</div>
+        <code style="font-family:'Source Code Pro';font-size:12px;color:#92400e;font-weight:700">"400"</code>
+        <p style="font-size:12px;color:#92400e;margin-top:8px">Ancho en píxeles. También puedes usar "100%" para que ocupe todo el contenedor.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor" style="margin-top:16px">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">mi_pagina_con_imagenes.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;h1&gt;</span><span class="htx">Mi página personal</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ln"> 2</span><span class="ht">&lt;h2&gt;</span><span class="htx">Una imagen desde mi computador</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 3</span><span class="hc">&lt;!-- src con ruta local: la imagen está en la misma carpeta --&gt;</span>
+<span class="ln"> 4</span><span class="ht">&lt;img </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"foto_barrio.jpg"</span>
+<span class="ln"> 5</span>     <span class="ha">alt</span><span class="htx">=</span><span class="hv2">"Vista del parque de mi barrio un domingo en la tarde"</span>
+<span class="ln"> 6</span>     <span class="ha">width</span><span class="htx">=</span><span class="hv2">"500"</span><span class="ht">&gt;</span>
+
+<span class="ln"> 7</span><span class="ht">&lt;h2&gt;</span><span class="htx">Una imagen desde internet</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 8</span><span class="hc">&lt;!-- src con URL externa: la imagen viene de otra web --&gt;</span>
+<span class="ln"> 9</span><span class="ht">&lt;img </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Carnival-of-barranquilla.jpg/640px-Carnival-of-barranquilla.jpg"</span>
+<span class="ln">10</span>     <span class="ha">alt</span><span class="htx">=</span><span class="hv2">"Danzas del Carnaval de Barranquilla"</span>
+<span class="ln">11</span>     <span class="ha">width</span><span class="htx">=</span><span class="hv2">"100%"</span><span class="ht">&gt;</span>
+
+<span class="ln">12</span><span class="hc">&lt;!-- Imagen que enlaza a otra página --&gt;</span>
+<span class="ln">13</span><span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"https://carnavaldebq.com"</span><span class="ht">&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;img </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"logo_carnaval.png"</span>
+<span class="ln">15</span>       <span class="ha">alt</span><span class="htx">=</span><span class="hv2">"Logo oficial del Carnaval de Barranquilla"</span>
+<span class="ln">16</span>       <span class="ha">width</span><span class="htx">=</span><span class="hv2">"200"</span><span class="ht">&gt;</span>
+<span class="ln">17</span><span class="ht">&lt;/a&gt;</span></div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Atributo</th><th>¿Qué hace?</th><th>¿Obligatorio?</th><th>En tu vida</th></tr>
+    <tr>
+      <td><code>src</code></td>
+      <td>La dirección de la imagen. Sin él, no hay imagen.</td>
+      <td><strong style="color:#dc2626">Sí</strong></td>
+      <td>De dónde viene lo que estás mostrando</td>
+    </tr>
+    <tr>
+      <td><code>alt</code></td>
+      <td>Texto que describe la imagen. Para accesibilidad y cuando la imagen no carga.</td>
+      <td><strong style="color:#dc2626">Sí</strong> (buena práctica)</td>
+      <td>Qué es lo esencial de lo que muestras — lo que vale la pena decir si no hubiera imagen</td>
+    </tr>
+    <tr>
+      <td><code>width</code></td>
+      <td>Ancho en píxeles o %. El alto se ajusta automáticamente.</td>
+      <td>No, pero recomendado</td>
+      <td>El tamaño que das a algo en tu espacio</td>
+    </tr>
+  </table>
+
+  <div class="danger"><strong>El atributo alt importa más de lo que parece:</strong> Las personas con discapacidad visual usan lectores de pantalla que leen el alt en voz alta. Un alt vacío (<code>alt=""</code>) le dice al lector que ignore la imagen. Un alt bien escrito es un acto de inclusión. En tu vida: pregúntate si las personas que no pueden ver lo que tú ves todavía pueden entender lo que intentas comunicar.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 1 · INDIVIDUAL · HABILIDADES RELACIONALES
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>Mi página de conexiones: las personas y lugares que me importan</h3>
+      <div class="asub">Individual · 25 minutos · Habilidades relacionales — reconocer y valorar los vínculos propios</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 25 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👤 Individual</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 Editor de código</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">🔗</span>
+        <span class="eti">Antes de escribir código — piensa en tus conexiones</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Piensa en las conexiones que tienes en tu vida: personas, lugares, cosas que te importan. Tu familia, tus amigos, tu barrio, tu música, tus intereses. No todas esas conexiones son iguales — algunas son cercanas y fuertes, otras están débiles o rotas. <strong>Esta página va a mostrar esas conexiones: las que tienes, las que quisieras tener y las que extrañas.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Cuáles son las tres conexiones más importantes de tu vida ahora mismo?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>mis_conexiones.html</code></h4>
+          <p>Con estructura completa. En el <code>&lt;title&gt;</code>: "Las conexiones de [tu nombre]". El <code>&lt;h1&gt;</code> puede ser: "Lo que me conecta con el mundo" o algo tuyo.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">2</div>
+        <div class="pc">
+          <h4>Crea al menos tres secciones &lt;h2&gt; con enlaces</h4>
+          <p>Cada sección representa un área de tu vida. Elige las tuyas. Algunos ejemplos:</p>
+          <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13.5px;color:#1e3a8a;line-height:1.9">
+            <strong>Mi barrio / mi ciudad:</strong> Enlace a algo de Barranquilla que te representa<br>
+            <strong>Lo que me gusta:</strong> Enlace a música, deporte, arte, algo tuyo<br>
+            <strong>Mi colegio:</strong> Enlace a la página de la ENSDB u otro recurso del colegio<br>
+            <strong>Algo que quiero aprender:</strong> Enlace a un recurso sobre ese tema<br>
+            <strong>Una persona que admiro:</strong> Enlace a algo relacionado con esa persona o lo que hace
+          </div>
+          <p style="margin-top:8px">Mínimo un enlace por sección. Usa texto descriptivo — no "clic aquí".</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">3</div>
+        <div class="pc">
+          <h4>Agrega al menos dos imágenes con &lt;img&gt;</h4>
+          <p>Una imagen que represente algo de tu vida cotidiana (puede ser una imagen de internet que lo simbolice). La otra, algo que quisieras que los demás vieran cuando piensan en ti. Cada imagen debe tener un <code>alt</code> descriptivo y honesto — no genérico.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">4</div>
+        <div class="pc">
+          <h4>Añade un párrafo final: "Una conexión que quiero fortalecer"</h4>
+          <p>En texto, no en enlace. Escribe con quién o con qué quieres conectar mejor — en tu familia, en el colegio, con algo que has dejado de hacer. Sin código especial, solo un <code>&lt;p&gt;</code> honesto.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu archivo debe tener</div>
+      <ul>
+        <li>Al menos tres secciones <code>&lt;h2&gt;</code> con al menos un enlace <code>&lt;a href&gt;</code> cada una</li>
+        <li>Al menos un enlace externo y uno interno o ancla</li>
+        <li>Al menos dos imágenes <code>&lt;img&gt;</code> con <code>src</code>, <code>alt</code> descriptivo y <code>width</code></li>
+        <li>Un párrafo final sobre una conexión que quieres fortalecer</li>
+        <li>Comentarios HTML que expliquen por qué incluiste cada enlace o imagen</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Las conexiones no son solo en internet — son decisiones de vida</h4>
+      <p>Según CASEL, las habilidades relacionales incluyen "establecer y mantener relaciones saludables" y "buscar u ofrecer ayuda cuando sea necesario". Los enlaces que creaste hoy son una metáfora de eso: elegiste qué conectar, cómo presentarlo y qué texto ponerle. Esas mismas decisiones las tomas con las personas. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué sección fue la más difícil de llenar con enlaces? ¿Qué dice eso sobre esa área de tu vida?</li>
+        <li><span>→</span> ¿La conexión que escribiste en el párrafo final es nueva o llevas tiempo sintiendo que está débil?</li>
+        <li><span>→</span> ¿Hay alguna persona en tu familia o en el colegio con quien sientas que la conexión está rota o dañada? ¿Qué necesitaría ese enlace para funcionar de nuevo?</li>
+        <li><span>→</span> ¿Qué le pondrías de texto a ese enlace si pudieras — cuál sería el texto descriptivo honesto?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 2 · PAREJAS · AUTOCONTROL DIGITAL
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>¿Qué muestro y qué guardo? Mi identidad en la web</h3>
+      <div class="asub">Parejas · 20 minutos · Autocontrol — decidir con conciencia lo que se comparte</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 + conversación</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">🧘 SEL: Autocontrol</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">🪞</span>
+        <span class="eti">Volvamos a Camila — lo que muestras y lo que guardas</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Camila tiene dos perfiles porque siente que no puede mostrar todo de ella en el mismo lugar. Eso tiene sentido — no toda nuestra vida tiene que ser pública. Pero también hay momentos en que guardamos cosas por miedo, no por elección real. <strong>Esta actividad invita a pensar: ¿qué partes de mí muestro con confianza, cuáles guardo con intención y cuáles escondo por miedo?</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Tus decisiones sobre lo que muestras de ti son conscientes o automáticas?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">1</div>
+        <div class="pc">
+          <h4>Cada uno responde individualmente (5 min, en papel)</h4>
+          <p>Sin mostrárselo al otro todavía. Completa estas frases:</p>
+          <div style="background:#f5f3ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13.5px;color:#4c1d95;line-height:2">
+            Cosas de mí que muestro con facilidad: ___<br>
+            Cosas de mí que guardo por decisión propia: ___<br>
+            Cosas de mí que escondo porque me da miedo la reacción de los demás: ___<br>
+            Una cosa que quisiera que más personas supieran sobre mí: ___
+          </div>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">2</div>
+        <div class="pc">
+          <h4>Construyan juntos el archivo <code>mi_identidad_digital.html</code></h4>
+          <p>Dos secciones, una por persona. Cada sección tiene: un <code>&lt;h2&gt;</code> con el nombre, una lista <code>&lt;ul&gt;</code> de "lo que muestro" y otra de "lo que decido guardar" — no la tercera lista de "miedo", esa es solo de ustedes. Agrega una imagen que los represente y un enlace a algo que los defina.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">3</div>
+        <div class="pc">
+          <h4>Agreguen una sección conjunta: "Lo que aprendimos del otro"</h4>
+          <p>Con un <code>&lt;h2&gt;</code> y dos <code>&lt;p&gt;</code> — uno por persona — escribiendo: ¿qué descubriste de tu compañero/a que no sabías o no esperabas?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Acuerdo previo entre los dos</div>
+      <p>Antes de empezar, acuerden verbalmente:</p>
+      <ul>
+        <li>Nada de lo de la lista de "miedo" va al código sin permiso explícito.</li>
+        <li>Cada uno tiene derecho de revisar y quitar algo de su sección antes de entregar.</li>
+        <li>Lo que compartan en esta actividad se queda entre los dos y el docente.</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autoctl">
+      <div class="sel-badge">🧘 SEL · Autocontrol</div>
+      <h4>Elegir qué mostrar es un acto de autocontrol — no de ocultamiento</h4>
+      <p>El autocontrol no es solo manejar el enojo o la impulsividad. También es <em>decidir con intención</em> qué parte de ti compartes, cuándo y con quién. No todo tiene que ser público. No todo tiene que estar escondido. La clave es que la decisión sea <strong>tuya</strong>, consciente, no impulsada por el miedo ni por la presión de otros.</p>
+      <ul class="qs">
+        <li><span>→</span> ¿La diferencia entre "guardo por decisión" y "escondo por miedo" fue difícil de distinguir? ¿Por qué?</li>
+        <li><span>→</span> ¿Hay algo en tu lista de "miedo" que en realidad podría estar en "guardo por decisión"? ¿Qué cambiaría si lo pensaras así?</li>
+        <li><span>→</span> ¿Con quién en tu familia o en el colegio te sientes libre de mostrar más partes de ti? ¿Qué hace esa persona diferente?</li>
+        <li><span>→</span> ¿Las imágenes que pusiste en la página te representan realmente o pusiste las que "debían" ir?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 3 · GRUPAL · CONCIENCIA SOCIAL
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>El directorio del salón: una página que nos conecta a todos</h3>
+      <div class="asub">Grupos de 4 · 25 minutos · Conciencia social — ver al grupo como una red</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 25 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Grupos de 4</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 Un archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">🕸️</span>
+        <span class="eti">Un salón de clases es una red — ¿la conoces?</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Llevan casi un año en el mismo salón. Pero probablemente hay personas de las que saben muy poco — no por falta de interés, sino porque el ritmo del colegio no siempre deja espacio para conocerse de verdad. Esta actividad propone crear un pequeño directorio HTML del grupo: <strong>una página donde cada persona es un enlace que lleva a algo que la representa.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Cuántas personas de tu salón conoces de verdad — más allá del nombre y la nota?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">1</div>
+        <div class="pc">
+          <h4>Cada integrante prepara su "tarjeta" (8 min)</h4>
+          <p>En papel o en un bloc de notas, escribe: tu nombre, una imagen que te represente (una URL de internet), un enlace a algo que te define y una frase corta sobre algo que haces bien o algo que pocos saben de ti. Esto es lo que irá en el directorio.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">2</div>
+        <div class="pc">
+          <h4>Un integrante crea el archivo <code>directorio_grupo.html</code> (12 min)</h4>
+          <p>Estructura: <code>&lt;h1&gt;</code> "Directorio del Grupo 10° — ENSDB". Por cada integrante: un <code>&lt;h2&gt;</code> con su nombre, una <code>&lt;img&gt;</code> con la imagen que eligió (con <code>alt</code> descriptivo), un <code>&lt;a&gt;</code> al enlace que aportó, y un <code>&lt;p&gt;</code> con su frase. Los demás dictan o ayudan a escribir.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">3</div>
+        <div class="pc">
+          <h4>Cada integrante revisa su propia sección (3 min)</h4>
+          <p>¿Te representa lo que quedó escrito? ¿El alt de tu imagen dice algo verdadero? ¿El enlace que pusiste muestra algo real de ti? Tienes derecho a cambiar lo que no te representa.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">4</div>
+        <div class="pc">
+          <h4>Socialicen con otro grupo</h4>
+          <p>Intercambien archivos. Abran el directorio del otro grupo en el navegador. Hagan clic en los enlaces. Miren las imágenes y lean los alt. Respondan: ¿Aprendieron algo de alguien que no sabían? ¿Algún alt o imagen los sorprendió?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>directorio_grupo.html</code> con una sección por integrante</li>
+        <li>Cada sección: <code>&lt;h2&gt;</code> nombre, <code>&lt;img&gt;</code> con <code>alt</code> real, <code>&lt;a&gt;</code> con texto descriptivo, <code>&lt;p&gt;</code> con frase</li>
+        <li>Todos los alt escritos con cuidado — no "foto" sino algo real</li>
+        <li>Aprobación de cada integrante sobre su propia sección</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Un salón de clases es una red de historias que apenas conocemos</h4>
+      <p>Según CASEL, la conciencia social incluye "reconocer las fortalezas de los demás" y "mostrar preocupación por los sentimientos y necesidades de otros". El directorio que construyeron no es solo una práctica de HTML — es un mapa de quiénes son como grupo. Un grupo que se conoce de verdad aprende mejor, se cuida más y produce cosas más interesantes juntos. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Descubriste algo de alguien de tu grupo que te sorprendió? ¿Qué cambió en cómo lo/la ves?</li>
+        <li><span>→</span> ¿Qué pasó cuando tuviste que escribir el alt de tu imagen? ¿Fue fácil o difícil describir lo que esa imagen dice de ti?</li>
+        <li><span>→</span> ¿Hay personas en tu salón con quienes sientes que hay una conexión débil o inexistente? ¿Qué podrías hacer para cambiar eso?</li>
+        <li><span>→</span> Si tu salón fuera una página web, ¿cuál sería el enlace roto — la conexión que no está funcionando?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BITÁCORA DE CIERRE
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div>
+      <div class="sublbl">Cierre de la sesión · 10 minutos finales</div>
+      <h3>Bitácora final · Guía 04</h3>
+    </div>
+  </div>
+
+  <p class="tp">Escribe en tu cuaderno o en un archivo <code>bitacora_guia04.html</code>. Esta vez, la estructura de la bitácora también tiene que usar lo que aprendiste hoy: al menos un enlace y una imagen.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué imagen elegiste para representarte en la actividad? ¿Por qué esa y no otra?</li>
+        <li><span>→</span> ¿Hay algo de ti que hoy quedó fuera de todos los archivos que creaste — algo que no quisiste mostrar todavía? ¿Qué es?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-autoctl" style="margin-top:0">
+      <div class="sel-badge">🧘 Autocontrol</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Tomaste alguna decisión consciente sobre qué mostrar y qué guardar en tus páginas de hoy? ¿O fue automático?</li>
+        <li><span>→</span> ¿Qué tan libre te sentiste en esta guía para ser tú mismo/a — en lo que escribiste y en las imágenes que elegiste?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál es la conexión más importante que quieres fortalecer en tu vida? ¿Con quién o con qué?</li>
+        <li><span>→</span> Si pudieras poner un enlace a alguien de tu familia o del colegio — un enlace que dijera "esto es lo que esta persona significa para mí" — ¿cuál sería el texto del enlace?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> Después de ver el directorio de otro grupo, ¿qué aprendiste sobre cómo las personas se presentan a sí mismas?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno que crees que tiene una imagen que no lo representa bien — que muestra menos o más de lo que es? ¿Qué piensas sobre eso?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SÍNTESIS VISUAL HTML
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div>
+      <div class="sublbl">Resumen técnico</div>
+      <h3>Lo que aprendiste en HTML hoy</h3>
+    </div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="310" fill="#f8fafc"/>
+
+      <!-- Col 1: Enlace -->
+      <rect x="18" y="18" width="320" height="274" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="320" height="38" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="44" width="320" height="12" fill="#1a4f8a"/>
+      <text x="178" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">Enlace &lt;a&gt;</text>
+
+      <text x="32" y="76" fill="#1e293b" font-family="Source Code Pro" font-size="10">&lt;a href="URL" target="_blank"&gt;Texto&lt;/a&gt;</text>
+
+      <line x1="32" y1="88" x2="324" y2="88" stroke="#93c5fd" stroke-width="1"/>
+
+      <text x="32" y="105" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="11">href</text>
+      <text x="32" y="120" fill="#3b82f6" font-family="Nunito" font-size="10">Destino del enlace. Obligatorio.</text>
+      <text x="32" y="134" fill="#3b82f6" font-family="Nunito" font-size="10">https:// · archivo.html · #id</text>
+
+      <line x1="32" y1="144" x2="324" y2="144" stroke="#93c5fd" stroke-width="1"/>
+
+      <text x="32" y="160" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="11">target="_blank"</text>
+      <text x="32" y="175" fill="#3b82f6" font-family="Nunito" font-size="10">Abre en pestaña nueva</text>
+
+      <line x1="32" y1="185" x2="324" y2="185" stroke="#93c5fd" stroke-width="1"/>
+
+      <text x="32" y="202" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="11">Tres tipos de enlace</text>
+      <text x="32" y="218" fill="#3b82f6" font-family="Nunito" font-size="10">Externo · https://pagina.com</text>
+      <text x="32" y="232" fill="#3b82f6" font-family="Nunito" font-size="10">Interno · otra_pagina.html</text>
+      <text x="32" y="246" fill="#3b82f6" font-family="Nunito" font-size="10">Ancla · #id-de-seccion</text>
+
+      <line x1="32" y1="256" x2="324" y2="256" stroke="#93c5fd" stroke-width="1"/>
+      <text x="178" y="274" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="10" font-weight="700">Texto descriptivo — nunca "clic aquí"</text>
+
+      <!-- Col 2: Imagen -->
+      <rect x="362" y="18" width="320" height="274" rx="10" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="362" y="18" width="320" height="38" rx="10" fill="#16a34a"/>
+      <rect x="362" y="44" width="320" height="12" fill="#16a34a"/>
+      <text x="522" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">Imagen &lt;img&gt;</text>
+
+      <text x="376" y="76" fill="#1e293b" font-family="Source Code Pro" font-size="10">&lt;img src="foto.jpg" alt="..." width="400"&gt;</text>
+
+      <line x1="376" y1="88" x2="668" y2="88" stroke="#86efac" stroke-width="1"/>
+
+      <text x="376" y="105" fill="#14532d" font-family="Nunito" font-weight="800" font-size="11">src</text>
+      <text x="376" y="120" fill="#166534" font-family="Nunito" font-size="10">Dirección de la imagen. Obligatorio.</text>
+      <text x="376" y="134" fill="#166534" font-family="Nunito" font-size="10">Ruta local o URL de internet</text>
+
+      <line x1="376" y1="144" x2="668" y2="144" stroke="#86efac" stroke-width="1"/>
+
+      <text x="376" y="160" fill="#14532d" font-family="Nunito" font-weight="800" font-size="11">alt</text>
+      <text x="376" y="175" fill="#166534" font-family="Nunito" font-size="10">Texto alternativo. Obligatorio por</text>
+      <text x="376" y="189" fill="#166534" font-family="Nunito" font-size="10">accesibilidad. Describe la imagen.</text>
+
+      <line x1="376" y1="200" x2="668" y2="200" stroke="#86efac" stroke-width="1"/>
+
+      <text x="376" y="216" fill="#14532d" font-family="Nunito" font-weight="800" font-size="11">width</text>
+      <text x="376" y="231" fill="#166534" font-family="Nunito" font-size="10">Ancho en píxeles o porcentaje.</text>
+      <text x="376" y="245" fill="#166534" font-family="Nunito" font-size="10">El alto se ajusta solo.</text>
+
+      <line x1="376" y1="256" x2="668" y2="256" stroke="#86efac" stroke-width="1"/>
+      <text x="522" y="274" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="10" font-weight="700">Etiqueta vacía — sin cierre &lt;/img&gt;</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     RÚBRICA
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div>
+      <div class="sublbl">Criterios de valoración · Guía 04</div>
+      <h3>¿Cómo se evaluará tu trabajo?</h3>
+    </div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Enlaces &lt;a&gt;</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Los enlaces no funcionan o todos apuntan al mismo tipo de destino.</td>
+      <td>Usa correctamente href con distintos tipos de enlace. El texto es descriptivo.</td>
+      <td>Los enlaces tienen sentido dentro del contenido emocional de la página. El texto del enlace es honesto y preciso.</td>
+    </tr>
+    <tr>
+      <td><strong>Imágenes &lt;img&gt;</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Las imágenes no cargan o el alt está vacío o es genérico ("foto").</td>
+      <td>Las imágenes cargan correctamente y el alt describe lo que hay en la imagen.</td>
+      <td>El alt es tan descriptivo y honesto que dice algo real sobre la persona y lo que eligió mostrar.</td>
+    </tr>
+    <tr>
+      <td><strong>Selección de contenido</strong><br><span style="font-size:11px;color:#64748b">SEL · Autocontrol</span></td>
+      <td>El contenido es genérico, copiado o no refleja ninguna decisión personal.</td>
+      <td>Se nota que eligió enlaces e imágenes con cierta intención personal.</td>
+      <td>Las decisiones sobre qué mostrar y qué guardar son conscientes y están justificadas en los comentarios HTML y la reflexión.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas vacías o de una sola línea.</td>
+      <td>Conecta la actividad técnica con situaciones de su vida — familia, pares o colegio.</td>
+      <td>La reflexión muestra que algo se movió: en cómo ve sus conexiones, en cómo entiende lo que muestra de sí mismo o en cómo ve a los demás.</td>
+    </tr>
+    <tr>
+      <td><strong>Participación grupal</strong><br><span style="font-size:11px;color:#64748b">SEL · Relacional</span></td>
+      <td>No contribuyó o su participación fue superficial.</td>
+      <td>Aportó su tarjeta al directorio con los elementos requeridos y participó respetuosamente.</td>
+      <td>Su aporte enriqueció al grupo — imagen bien descrita, enlace significativo, frase que sorprendió a alguien.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 04 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Habilidades Relacionales · Autocontrol · Conciencia Social · Autoconciencia</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 05 → Divisiones, semántica y estructura de página completa</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
