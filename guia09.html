@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 09 · Head completo · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+.head-visual{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;margin:14px 0}
+.hv-bloque{border-left:4px solid;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:10px}
+.hv-bloque:last-child{margin-bottom:0}
+.hv-bloque .hv-tag{font-family:'Source Code Pro',monospace;font-size:11px;font-weight:700;margin-bottom:4px;display:block}
+.hv-bloque .hv-desc{font-size:13px;line-height:1.6}
+.hv-bloque .hv-vida{font-size:12px;font-style:italic;margin-top:5px;padding-top:5px;border-top:1px dashed}
+.og-preview{border-radius:12px;overflow:hidden;border:1.5px solid #e2e8f0;max-width:480px;margin:14px 0}
+.og-img{width:100%;height:120px;background:linear-gradient(135deg,#1a4f8a,#2563eb);display:flex;align-items:center;justify-content:center;font-size:40px}
+.og-content{background:#fff;padding:14px 18px}
+.og-site{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.og-title{font-size:15px;font-weight:800;color:#1e293b;margin-bottom:4px}
+.og-desc{font-size:13px;color:#64748b;line-height:1.5}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+.css-demo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.css-tit{padding:10px 16px;font-size:12px;font-weight:900;text-transform:uppercase}
+.file-tree{background:#0f172a;border-radius:12px;padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;margin:12px 0;line-height:2}
+.ft-folder{color:#fbbf24}.ft-html{color:#f472b6}.ft-css{color:#86efac}.ft-img{color:#a78bfa}.ft-audio{color:#f97316}
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.css-demo{grid-template-columns:1fr}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 09</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 09 · Grado Décimo · ENSDB 2025</div>
+    <h2>El &lt;head&gt; completo: lo invisible que lo sostiene todo</h2>
+    <p class="gsub">Aprenderás a completar el <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;head&gt;</code> con metaetiquetas, título, descripción, viewport, favicon, CSS externo y fuentes. Y a través de eso, a reflexionar sobre lo que sostiene a las personas sin que nadie lo vea — las bases invisibles que hacen posible todo lo demás.</p>
+    <div class="tags">
+      <span class="tag tag-azul">&lt;meta&gt; · &lt;title&gt; · &lt;link&gt; · charset · viewport</span>
+      <span class="tag tag-azul">description · og: · favicon · Google Fonts · CSS externo</span>
+      <span class="tag tag-verde">Autoconciencia · Conciencia social</span>
+      <span class="tag tag-morado">Habilidades relacionales · Toma de decisiones</span>
+      <span class="tag tag-ambar">Lo invisible · Bases · Familia · Escuela · Identidad</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Lo que sostiene sin que nadie lo vea</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones. Tienen algo en común con el <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;head&gt;</code> de una página HTML.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · La persona invisible</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">La abuela de Luciana se levanta a las cinco de la mañana todos los días. Hace el desayuno, abre las ventanas, organiza la ropa de todos. Nadie le pide que lo haga. Nadie se lo agradece explícitamente. Cuando ella viaja, la casa se desordena en dos días. <strong>Todo el mundo nota cuando ella no está. Pero cuando está, su trabajo es invisible.</strong> Es como el <code style="font-family:'Source Code Pro';font-size:12px">&lt;head&gt;</code> de una página: nadie lo ve, pero sin él nada funciona.</p>
+      <div class="escena-pregunta">💭 ¿Hay alguien en tu familia cuyo trabajo sostiene todo sin que nadie lo vea claramente?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏫</span><span class="eti">En el colegio · Lo que ven antes del contenido</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Cuando alguien busca la ENSDB en Google, ve un título y una descripción antes de hacer clic. Esas dos líneas deciden si alguien entra o no. Son la primera impresión — formada antes de ver nada del contenido real. <strong>En HTML, esas líneas están en el &lt;head&gt;, en las metaetiquetas de title y description.</strong> En la vida, es la reputación que precede a las personas: lo que los demás leen de ti antes de conocerte.</p>
+      <div class="escena-pregunta">💭 ¿Qué "descripción" crees que tienen los demás de ti antes de conocerte? ¿Es precisa?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📲</span><span class="eti">Con compañeros · La vista previa que controlas</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Cuando Daniela comparte un link en el grupo de WhatsApp, aparece una vista previa: imagen, título, descripción. Eso no viene del link directamente — viene de las metaetiquetas Open Graph que alguien puso en el <code style="font-family:'Source Code Pro';font-size:12px">&lt;head&gt;</code>. <strong>Alguien decidió cómo querían que se viera su página cuando alguien la compartiera.</strong> Esa decisión es anterior al contenido, invisible para la mayoría, pero determina si alguien va a querer entrar.</p>
+      <div class="escena-pregunta">💭 ¿Qué "vista previa" das tú cuando alguien te ve por primera vez — antes de que te conozca?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">La abuela de Luciana es el <code style="background:#dcfce7;color:#166534;padding:1px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;head&gt;</code> de su familia: invisible, esencial. La descripción de Google es la metaetiqueta que decide si alguien entra. La vista previa de WhatsApp son las Open Graph tags. Hoy aprenderás que el &lt;head&gt; de una página no es solo configuración técnica — <strong>es la identidad invisible de tu página, el contexto que lo sostiene todo antes de que alguien vea el contenido.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🔧</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Construir un <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;head&gt;</code> completo con charset, viewport, title, description, author y Open Graph tags.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎨</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Enlazar CSS externo con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;link rel="stylesheet"&gt;</code> y cargar fuentes desde Google Fonts.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🏷️</span><p style="font-size:13.5px;font-weight:700;color:#166534">Añadir favicon con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;link rel="icon"&gt;</code> y comprender la estructura correcta del &lt;head&gt;.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🫂</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reconocer y valorar lo que sostiene sin ser visto — en la tecnología y en las personas de tu vida.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1 -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>El &lt;head&gt; completo: cada etiqueta tiene un propósito</h2><p>Lo que no se ve en pantalla pero que lo hace todo posible</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">El <strong>&lt;head&gt;</strong> es la zona de configuración de una página HTML. No muestra nada visible directamente, pero define cómo se llama la página, cómo la entienden los buscadores, cómo se ve en móviles, qué estilos usa, qué fuentes carga y cuál es su ícono. Es la inteligencia invisible detrás del contenido.</p>
+
+  <div class="head-visual">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Cada elemento del &lt;head&gt; y lo que hace:</div>
+    <div class="hv-bloque" style="border-color:#2563eb;background:#eff6ff">
+      <span class="hv-tag" style="color:#1e40af">&lt;meta charset="UTF-8"&gt;</span>
+      <div class="hv-desc" style="color:#1e3a8a">Define la codificación de caracteres. Sin esto, las tildes, la ñ y los emojis pueden aparecer como símbolos extraños.</div>
+      <div class="hv-vida" style="color:#3b82f6;border-color:#bfdbfe">En la vida: el idioma en que hablas con alguien. Si no se establece desde el principio, hay malentendidos.</div>
+    </div>
+    <div class="hv-bloque" style="border-color:#16a34a;background:#f0fdf4">
+      <span class="hv-tag" style="color:#15803d">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span>
+      <div class="hv-desc" style="color:#14532d">Le dice al navegador móvil que adapte el ancho de la página al ancho de la pantalla. Sin esto, la página se ve diminuta en celulares.</div>
+      <div class="hv-vida" style="color:#16a34a;border-color:#86efac">En la vida: adaptar cómo hablas según el contexto — no es lo mismo explicar algo a un niño que a un adulto.</div>
+    </div>
+    <div class="hv-bloque" style="border-color:#ea580c;background:#fff7ed">
+      <span class="hv-tag" style="color:#c2410c">&lt;title&gt;Nombre de la página&lt;/title&gt;</span>
+      <div class="hv-desc" style="color:#9a3412">El texto que aparece en la pestaña del navegador y en los resultados de Google. Es el nombre oficial de tu página.</div>
+      <div class="hv-vida" style="color:#ea580c;border-color:#fed7aa">En la vida: cómo te presentas cuando alguien te pregunta tu nombre. Corto, claro, verdadero.</div>
+    </div>
+    <div class="hv-bloque" style="border-color:#7c3aed;background:#f5f3ff">
+      <span class="hv-tag" style="color:#6d28d9">&lt;meta name="description" content="..."&gt;</span>
+      <div class="hv-desc" style="color:#4c1d95">La descripción que aparece debajo del título en Google. Máximo 160 caracteres. Le dice al lector de qué trata la página.</div>
+      <div class="hv-vida" style="color:#7c3aed;border-color:#ddd6fe">En la vida: lo que dirías de ti mismo en dos oraciones si alguien te preguntara quién eres.</div>
+    </div>
+    <div class="hv-bloque" style="border-color:#0d9488;background:#f0fdfa">
+      <span class="hv-tag" style="color:#0f766e">&lt;meta name="author" content="Tu nombre"&gt;</span>
+      <div class="hv-desc" style="color:#134e4a">Indica quién creó la página. No aparece en pantalla, pero queda registrado en el código.</div>
+      <div class="hv-vida" style="color:#0d9488;border-color:#99f6e4">En la vida: firmar tu trabajo. Hacerte responsable de lo que creas.</div>
+    </div>
+    <div class="hv-bloque" style="border-color:#a21caf;background:#fdf4ff">
+      <span class="hv-tag" style="color:#a21caf">&lt;meta property="og:title"&gt; · &lt;meta property="og:description"&gt; · &lt;meta property="og:image"&gt;</span>
+      <div class="hv-desc" style="color:#6b21a8">Las metaetiquetas Open Graph definen cómo se ve la página cuando alguien la comparte en redes sociales o WhatsApp: título, descripción e imagen de vista previa.</div>
+      <div class="hv-vida" style="color:#a21caf;border-color:#f0abfc">En la vida: la foto de perfil, el nombre y la bio que tienes en redes — lo primero que ven antes de conocerte.</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">index.html · &lt;head&gt; completo</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;head&gt;</span>
+<span class="ln"> 2</span>  <span class="hc">&lt;!-- 1. Codificación --&gt;</span>
+<span class="ln"> 3</span>  <span class="ht">&lt;meta </span><span class="ha">charset</span><span class="htx">=</span><span class="hv2">"UTF-8"</span><span class="ht">&gt;</span>
+<span class="ln"> 4</span>  <span class="hc">&lt;!-- 2. Viewport: se ve bien en celulares --&gt;</span>
+<span class="ln"> 5</span>  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"viewport"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"width=device-width, initial-scale=1.0"</span><span class="ht">&gt;</span>
+<span class="ln"> 6</span>  <span class="hc">&lt;!-- 3. Título en pestaña y Google --&gt;</span>
+<span class="ln"> 7</span>  <span class="ht">&lt;title&gt;</span><span class="htx">Quién soy más allá del colegio · Luciana · ENSDB</span><span class="ht">&lt;/title&gt;</span>
+<span class="ln"> 8</span>  <span class="hc">&lt;!-- 4. Descripción para Google (máx. 160 caracteres) --&gt;</span>
+<span class="ln"> 9</span>  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"description"</span>
+<span class="ln">10</span>        <span class="ha">content</span><span class="htx">=</span><span class="hv2">"Página personal de Luciana, 10° ENSDB Barranquilla. Lo que no aparece en ningún boletín."</span><span class="ht">&gt;</span>
+<span class="ln">11</span>  <span class="hc">&lt;!-- 5. Autor --&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"author"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"Luciana Pérez"</span><span class="ht">&gt;</span>
+<span class="ln">13</span>  <span class="hc">&lt;!-- 6. Open Graph: vista previa en redes y WhatsApp --&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:title"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"Quién soy más allá del colegio"</span><span class="ht">&gt;</span>
+<span class="ln">15</span>  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:description"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"Lo que no aparece en ningún boletín."</span><span class="ht">&gt;</span>
+<span class="ln">16</span>  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:image"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"mi_foto_honesta.jpg"</span><span class="ht">&gt;</span>
+<span class="ln">17</span>  <span class="hc">&lt;!-- 7. Favicon: ícono en la pestaña --&gt;</span>
+<span class="ln">18</span>  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"icon"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"favicon.ico"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"image/x-icon"</span><span class="ht">&gt;</span>
+<span class="ln">19</span>  <span class="hc">&lt;!-- 8. Google Fonts --&gt;</span>
+<span class="ln">20</span>  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"preconnect"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"https://fonts.googleapis.com"</span><span class="ht">&gt;</span>
+<span class="ln">21</span>  <span class="ht">&lt;link </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"</span>
+<span class="ln">22</span>        <span class="ha">rel</span><span class="htx">=</span><span class="hv2">"stylesheet"</span><span class="ht">&gt;</span>
+<span class="ln">23</span>  <span class="hc">&lt;!-- 9. CSS externo — siempre al final del head --&gt;</span>
+<span class="ln">24</span>  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"stylesheet"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"estilos.css"</span><span class="ht">&gt;</span>
+<span class="ln">25</span><span class="ht">&lt;/head&gt;</span></div>
+  </div>
+
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">Vista previa al compartir en WhatsApp:</div>
+  <div class="og-preview">
+    <div class="og-img">🧑‍💻</div>
+    <div class="og-content">
+      <div class="og-site">luciana-ensdb.html</div>
+      <div class="og-title">Quién soy más allá del colegio</div>
+      <div class="og-desc">Página personal de Luciana, 10° ENSDB Barranquilla. Lo que no aparece en ningún boletín.</div>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Elemento</th><th>¿Qué hace?</th><th>¿Visible en pantalla?</th></tr>
+    <tr><td><code>&lt;meta charset&gt;</code></td><td>Codificación de caracteres</td><td>No · pero sin esto hay errores</td></tr>
+    <tr><td><code>&lt;meta viewport&gt;</code></td><td>Adaptación a móviles</td><td>No · pero sin esto el móvil se ve mal</td></tr>
+    <tr><td><code>&lt;title&gt;</code></td><td>Nombre en pestaña y Google</td><td>Solo en la pestaña y resultados</td></tr>
+    <tr><td><code>&lt;meta description&gt;</code></td><td>Descripción para buscadores (máx. 160 car.)</td><td>Solo en Google</td></tr>
+    <tr><td><code>&lt;meta author&gt;</code></td><td>Autoría de la página</td><td>No · solo en el código fuente</td></tr>
+    <tr><td>og: tags</td><td>Vista previa en redes sociales y WhatsApp</td><td>Solo al compartir el link</td></tr>
+    <tr><td><code>&lt;link rel="icon"&gt;</code></td><td>Favicon en la pestaña</td><td>Solo en la pestaña del navegador</td></tr>
+    <tr><td><code>&lt;link rel="stylesheet"&gt;</code></td><td>Enlaza CSS externo</td><td>No · el efecto se ve en el body</td></tr>
+  </table>
+</div>
+
+<!-- MÓDULO 2 -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>CSS externo y Google Fonts: separar contenido de estilo</h2><p>Lo que eres (HTML) y cómo te presentas (CSS) son cosas distintas — pero trabajan juntas</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">En proyectos reales, el CSS va en un archivo separado (<code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">.css</code>) que se enlaza desde el HTML. Esto permite que múltiples páginas compartan el mismo estilo, que el código quede organizado y que sea más fácil hacer cambios visuales sin tocar el contenido.</p>
+
+  <div style="margin:14px 0 10px"><div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Estructura de archivos del proyecto:</div>
+  <div class="file-tree"><span class="ft-folder">📁 mi_proyecto/</span>
+│
+├── <span class="ft-html">📄 index.html</span>          <span style="color:#475569">← página principal</span>
+├── <span class="ft-html">📄 sobre_mi.html</span>       <span style="color:#475569">← otra página del proyecto</span>
+├── <span class="ft-css">📄 estilos.css</span>         <span style="color:#475569">← CSS compartido por TODAS las páginas</span>
+│
+├── <span class="ft-folder">📁 imagenes/</span>
+│   ├── <span class="ft-img">🖼️ mi_foto.jpg</span>
+│   └── <span class="ft-img">🖼️ favicon.ico</span>
+│
+└── <span class="ft-folder">📁 media/</span>
+    ├── <span class="ft-audio">🔊 mi_cancion.mp3</span>
+    └── <span class="ft-audio">🎬 presentacion.mp4</span></div></div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">estilos.css — archivo externo</span></div>
+    <div class="ebody"><span class="hc">/* Tipografía general — usando la fuente de Google Fonts */</span>
+<span class="ha">body</span> {
+  <span class="ha">font-family</span>: <span class="hv2">'Nunito'</span>, sans-serif;
+  <span class="ha">background</span>: <span class="hv2">#f0f4f8</span>;
+  <span class="ha">color</span>: <span class="hv2">#1e293b</span>;
+  <span class="ha">line-height</span>: <span class="hv2">1.7</span>;
+  <span class="ha">max-width</span>: <span class="hv2">800px</span>;
+  <span class="ha">margin</span>: <span class="hv2">0 auto</span>;
+  <span class="ha">padding</span>: <span class="hv2">24px</span>;
+}
+
+<span class="ha">h1</span>, <span class="ha">h2</span> {
+  <span class="ha">color</span>: <span class="hv2">#1a4f8a</span>;
+  <span class="ha">font-weight</span>: <span class="hv2">900</span>;
+}
+
+<span class="ha">p</span> {
+  <span class="ha">font-size</span>: <span class="hv2">15px</span>;
+  <span class="ha">margin-bottom</span>: <span class="hv2">14px</span>;
+}
+
+<span class="ha">a</span> {
+  <span class="ha">color</span>: <span class="hv2">#2563eb</span>;
+  <span class="ha">text-decoration</span>: <span class="hv2">none</span>;
+  <span class="ha">font-weight</span>: <span class="hv2">700</span>;
+}
+
+<span class="ha">a</span>:<span class="ha">hover</span> {
+  <span class="ha">text-decoration</span>: <span class="hv2">underline</span>;
+}</div>
+  </div>
+
+  <div class="tip"><strong>Orden del &lt;head&gt;:</strong> charset → viewport → title → description → author → og: → favicon → Google Fonts (preconnect + link) → CSS propio. El CSS siempre al final para que pueda usar las fuentes ya cargadas.</div>
+  <div class="warn"><strong>Sobre &lt;script&gt;:</strong> Los archivos JavaScript se cargan con <code>&lt;script src="archivo.js"&gt;&lt;/script&gt;</code>. Se ponen generalmente al final del <code>&lt;body&gt;</code>, no en el &lt;head&gt;, para que la página cargue más rápido.</div>
+</div>
+
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#1a4f8a,#2563eb)">
+    <div class="act-num">A1</div>
+    <div><h3>El &lt;head&gt; de mi página: mi identidad invisible</h3><div class="asub">Individual · 25 minutos · Autoconciencia — escribir la descripción de ti mismo que el mundo leerá antes de conocerte</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 25 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👤 Individual</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 HTML + CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🪞</span><span class="eti">Antes de escribir — la pregunta más difícil</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">El <code style="font-family:'Source Code Pro';font-size:12px">&lt;title&gt;</code> de tu página es cómo te llamas en el mundo digital. La <code style="font-family:'Source Code Pro';font-size:12px">description</code> es lo que alguien lee de ti antes de conocerte. La imagen Open Graph es la primera impresión visual. <strong>Estas tres cosas juntas forman la identidad invisible de tu página — y en esta actividad, la de ti mismo.</strong></p>
+        <div class="escena-pregunta">💭 Si alguien buscara tu nombre y apareciera una descripción tuya de 160 caracteres, ¿qué querrías que dijera — con honestidad?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#1a4f8a">1</div><div class="pc"><h4>Crea o retoma tu archivo HTML principal</h4><p>Puede ser <code>quien_soy.html</code> de la Guía 05 o uno nuevo llamado <code>mi_pagina_final.html</code>. Este será la base sobre la que construirás el &lt;head&gt; completo.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">2</div><div class="pc"><h4>Escribe el &lt;head&gt; completo</h4><p>Mínimo obligatorio: charset, viewport, title, description, author, tres og: tags, favicon, Google Fonts (preconnect + link) y enlace a <code>estilos.css</code>. Cada elemento con su comentario HTML explicativo.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">3</div><div class="pc"><h4>El &lt;title&gt; y la description con intención real</h4><p>El <code>&lt;title&gt;</code> no puede ser solo tu nombre — debe decir algo de quién eres. La <code>description</code> tiene máximo 160 caracteres: sé preciso. No pongas lo que crees que "se debe" poner; pon lo que quieres que la gente sepa realmente.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">4</div><div class="pc"><h4>Crea el archivo <code>estilos.css</code> en la misma carpeta</h4><p>Con al menos 5 reglas CSS: tipografía con la fuente de Google Fonts que cargaste, color de fondo, color de texto, estilo de encabezados y estilo de párrafos. El CSS debe estar en archivo separado, no en &lt;style&gt; interno.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">5</div><div class="pc"><h4>Verifica en el navegador</h4><p>Abre el archivo. ¿Los estilos se aplican? ¿La fuente cargó? ¿El título en la pestaña dice lo correcto? Inspecciona con clic derecho → "Ver código fuente" para verificar el &lt;head&gt;.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Debes entregar</div>
+      <ul>
+        <li>Archivo HTML con &lt;head&gt; completo (todos los elementos del módulo 1)</li>
+        <li>Archivo <code>estilos.css</code> separado con mínimo 5 reglas</li>
+        <li>Google Fonts correctamente cargada y aplicada en el CSS</li>
+        <li>Un &lt;title&gt; que diga más que solo tu nombre</li>
+        <li>Una description de máximo 160 caracteres con honestidad real</li>
+        <li>Comentarios HTML en cada línea del &lt;head&gt; explicando qué hace</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Escribir tu propia descripción es un ejercicio de autoconocimiento</h4>
+      <p>La <code style="font-family:'Source Code Pro';font-size:12px">description</code> tiene 160 caracteres. No da espacio para todo. Hay que elegir qué es lo más esencial de ti. Ese proceso — decidir qué queda y qué se va — es autoconciencia en acción. Lo mismo que hace la abuela de Luciana todos los días: elegir qué es lo más importante y hacerlo sin que nadie lo pida. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuántas versiones escribiste de tu description antes de quedarte con una? ¿Qué descartaste?</li>
+        <li><span>→</span> ¿Tu &lt;title&gt; dice algo verdadero sobre ti o es la versión que crees que otros quieren leer?</li>
+        <li><span>→</span> ¿La imagen que pusiste en <code style="font-family:'Source Code Pro';font-size:12px">og:image</code> es tu "mejor foto" o una imagen que de verdad te representa?</li>
+        <li><span>→</span> ¿Cómo se sintió escribir una descripción de ti mismo en solo 160 caracteres? ¿Qué fue lo más difícil de dejar por fuera?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+    <div class="act-num">A2</div>
+    <div><h3>La descripción que el otro le pondría a mi página</h3><div class="asub">Parejas · 20 minutos · Conciencia social — ver la diferencia entre cómo me veo y cómo me ven</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fde68a">
+    <div class="meta">
+      <span class="mp" style="background:#fffbeb;border-color:#fde68a;color:#78350f">⏱ 20 min</span>
+      <span class="mp" style="background:#fffbeb;border-color:#fde68a;color:#78350f">👥 Parejas</span>
+      <span class="mp" style="background:#fffbeb;border-color:#fde68a;color:#78350f">💻 + conversación</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🔍</span><span class="eti">La descripción que los demás tienen de ti — antes de conocerte</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">En la vida real, hay una "description" que los demás tienen de ti antes de conocerte — basada en cómo te ven, en lo que dicen, en la reputación que te precede. <strong>Esta actividad compara las dos: la que tú mismo escribiste y la que escribiría alguien que te conoce.</strong></p>
+        <div class="escena-pregunta">💭 ¿Coincide la descripción que tienes de ti mismo con la que tienen los demás?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#d97706">1</div><div class="pc"><h4>Intercambien sus páginas HTML (5 min)</h4><p>Lean el &lt;head&gt; del otro — especialmente el &lt;title&gt;, la description y los og:. No comenten todavía.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#d97706">2</div><div class="pc"><h4>Cada uno escribe la description que le pondría a la página del otro (8 min)</h4><p>Basada en lo que conoce de esa persona. Máximo 160 caracteres. Sin cambiar el archivo original — escríbela aparte.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#d97706">3</div><div class="pc"><h4>Comparen las dos descriptions (7 min)</h4><p>La que cada uno escribió para sí mismo y la que el otro escribió. ¿Son parecidas? ¿Qué incluyó el otro que tú no habrías incluido? ¿Qué dejó por fuera que tú consideras esencial?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Una description escrita por ti para tu compañero/a (máx. 160 caracteres)</li>
+        <li>Un &lt;p&gt; añadido al &lt;footer&gt; de tu página con una reflexión sobre la diferencia entre las dos descriptions</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Cómo nos ven los demás es información — no necesariamente la verdad, pero tampoco ruido</h4>
+      <p>La conciencia social incluye "tomar la perspectiva de otros" y "reconocer las fortalezas de los demás". La description que escribió tu compañero/a sobre ti es una perspectiva externa valiosa — puede mostrarte algo que no ves desde adentro. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué incluyó el otro en su description de ti que tú no habías incluido? ¿Por qué crees que lo notó?</li>
+        <li><span>→</span> ¿Qué dejó el otro por fuera que tú consideras importante? ¿Por qué crees que no lo vio?</li>
+        <li><span>→</span> ¿Hay personas en tu vida cuya forma de verte es muy diferente a cómo te ves a ti mismo? ¿Cómo manejas esa diferencia?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A3</div>
+    <div><h3>El &lt;head&gt; colectivo del salón: una identidad que nos represente a todos</h3><div class="asub">Grupos de 4 · 20 minutos · Habilidades relacionales — construir identidad colectiva con consenso real</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🧩</span><span class="eti">Una identidad colectiva — que no borre a nadie</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Si el salón fuera una página web, ¿cuál sería su &lt;title&gt;? ¿Cuáles 160 caracteres lo representarían sin dejar por fuera a nadie? <strong>Esta actividad propone que el grupo construya el &lt;head&gt; de una página colectiva — y que lograrlo requiera acuerdo real, no solo el criterio de quien habla más.</strong></p>
+        <div class="escena-pregunta">💭 ¿Es posible describir a un grupo en 160 caracteres sin dejar a nadie por fuera?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Cada integrante propone un &lt;title&gt; para el salón (3 min)</h4><p>Individualmente, sin consultar. Máximo 60 caracteres. En papel.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>El grupo elige o construye el &lt;title&gt; por consenso (5 min)</h4><p>No por votación — por conversación. ¿Hay una propuesta que todos sientan que los representa? ¿O hay que construir una nueva tomando partes de cada una? Nadie puede imponer la suya.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Construyan <code>pagina_del_salon.html</code> con &lt;head&gt; completo (8 min)</h4><p>Title consensuado, description de grupo (160 caracteres, también por consenso), og: tags, enlace a <code>estilos_salon.css</code> con mínimo 5 reglas de estilo acordadas colectivamente.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">4</div><div class="pc"><h4>El &lt;footer&gt; del salón</h4><p>Una frase firmada por todos los cuatro: qué fue lo más difícil de ponerse de acuerdo durante esta actividad.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>pagina_del_salon.html</code> con &lt;head&gt; completo consensuado</li>
+        <li>Archivo <code>estilos_salon.css</code> con mínimo 5 reglas acordadas por el grupo</li>
+        <li>&lt;footer&gt; con frase firmada por todos sobre el proceso de consenso</li>
+        <li>Comentarios HTML en cada elemento del head explicando por qué eligieron ese valor</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Construir una identidad colectiva requiere escuchar, ceder y sostener al otro</h4>
+      <p>Las habilidades relacionales incluyen "practicar el trabajo en equipo" y "resolver conflictos constructivamente". Ponerse de acuerdo en un &lt;title&gt; parece pequeño — pero el proceso es el mismo que se necesita para tomar cualquier decisión importante en grupo. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Alguien del grupo tuvo que ceder en su propuesta? ¿Cómo se sintió con eso?</li>
+        <li><span>→</span> ¿El &lt;title&gt; que eligieron representa a todos o hay alguien que siente que no está del todo?</li>
+        <li><span>→</span> ¿Qué fue lo más difícil — la parte técnica o llegar al acuerdo?</li>
+        <li><span>→</span> ¿Cómo cambiaría la dinámica del grupo si tomaran siempre las decisiones colectivas con este proceso?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 09</h3></div>
+  </div>
+  <p class="tp">En tu cuaderno o en <code>bitacora_guia09.html</code> — con un &lt;head&gt; completo y archivo CSS externo vinculado.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> Tu description de 160 caracteres: ¿es la que escribirías si nadie la fuera a leer, o la ajustaste para que sonara bien?</li>
+        <li><span>→</span> ¿Hay alguien en tu vida que sea el &lt;head&gt; de tu familia — invisible, esencial, sin reconocimiento? ¿Quién es?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿La description que escribió tu compañero/a sobre ti cambió algo en cómo te ves? ¿Qué?</li>
+        <li><span>→</span> ¿Qué podrías hacer esta semana para reconocer el trabajo invisible de alguien en tu casa o en el colegio?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿El proceso de consenso del grupo fue fácil o difícil? ¿Qué estrategia usaron para resolver los desacuerdos?</li>
+        <li><span>→</span> ¿Hay decisiones en tu vida — en la familia, con amigos — que deberían tomarse con más consenso? ¿Cuáles?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-decision" style="margin-top:0">
+      <div class="sel-badge">⚖️ Toma de Decisiones</div>
+      <ul class="qs">
+        <li><span>→</span> El &lt;head&gt; toma decisiones sobre cómo se ve la página antes de que nadie entre. ¿Qué decisiones previas tuyas definen cómo te perciben los demás?</li>
+        <li><span>→</span> ¿Hay algo en tu "identidad invisible" — valores, hábitos, formas de ser — que quisieras cambiar? ¿Qué sería el primer paso?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en HTML hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="330" fill="#f8fafc"/>
+      <rect x="18" y="18" width="664" height="294" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="350" y="36" text-anchor="middle" fill="#64748b" font-family="Nunito" font-weight="900" font-size="12">&lt;head&gt; — invisible para el usuario, esencial para todo</text>
+      <rect x="30" y="46" width="300" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="40" y="60" fill="#1e40af" font-family="Source Code Pro" font-size="10">&lt;meta charset="UTF-8"&gt;</text>
+      <text x="40" y="72" fill="#3b82f6" font-family="Nunito" font-size="9">Codificación · tildes y ñ</text>
+      <rect x="350" y="46" width="312" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="360" y="60" fill="#1e40af" font-family="Source Code Pro" font-size="9">&lt;meta name="viewport" content="..."&gt;</text>
+      <text x="360" y="72" fill="#3b82f6" font-family="Nunito" font-size="9">Adaptación a móviles</text>
+      <rect x="30" y="90" width="300" height="34" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <text x="40" y="104" fill="#c2410c" font-family="Source Code Pro" font-size="10">&lt;title&gt;Nombre&lt;/title&gt;</text>
+      <text x="40" y="116" fill="#ea580c" font-family="Nunito" font-size="9">Pestaña del navegador y Google</text>
+      <rect x="350" y="90" width="312" height="34" rx="6" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+      <text x="360" y="104" fill="#6d28d9" font-family="Source Code Pro" font-size="9">&lt;meta name="description" content&gt;</text>
+      <text x="360" y="116" fill="#7c3aed" font-family="Nunito" font-size="9">Descripción en Google · máx 160 caracteres</text>
+      <rect x="30" y="134" width="300" height="34" rx="6" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/>
+      <text x="40" y="148" fill="#0f766e" font-family="Source Code Pro" font-size="10">&lt;meta name="author" content&gt;</text>
+      <text x="40" y="160" fill="#0d9488" font-family="Nunito" font-size="9">Autoría · quién creó la página</text>
+      <rect x="350" y="134" width="312" height="34" rx="6" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.5"/>
+      <text x="360" y="148" fill="#a21caf" font-family="Source Code Pro" font-size="9">og:title · og:description · og:image</text>
+      <text x="360" y="160" fill="#a21caf" font-family="Nunito" font-size="9">Vista previa en redes y WhatsApp</text>
+      <rect x="30" y="178" width="300" height="34" rx="6" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="40" y="192" fill="#a16207" font-family="Source Code Pro" font-size="9">&lt;link rel="icon" href="favicon.ico"&gt;</text>
+      <text x="40" y="204" fill="#d97706" font-family="Nunito" font-size="9">Ícono en la pestaña del navegador</text>
+      <rect x="350" y="178" width="312" height="34" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="360" y="192" fill="#15803d" font-family="Source Code Pro" font-size="9">&lt;link href="fonts.googleapis.com"&gt;</text>
+      <text x="360" y="204" fill="#16a34a" font-family="Nunito" font-size="9">Google Fonts · fuentes externas</text>
+      <rect x="30" y="222" width="632" height="34" rx="6" fill="#1a4f8a"/>
+      <text x="346" y="236" text-anchor="middle" fill="white" font-family="Source Code Pro" font-size="10">&lt;link rel="stylesheet" href="estilos.css"&gt;</text>
+      <text x="346" y="248" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Nunito" font-size="9">CSS externo — siempre al final del head, después de las fuentes</text>
+      <rect x="30" y="266" width="632" height="36" rx="6" fill="#334155"/>
+      <text x="346" y="281" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="10">Orden: charset → viewport → title → description → author → og: → favicon → fonts → CSS</text>
+      <text x="346" y="296" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">Ninguno de estos elementos es visible en pantalla · todo sostiene desde el fondo</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 09</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr><td><strong>Head completo</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td><td>Faltan elementos esenciales (sin viewport, sin description, sin og:)</td><td>Tiene todos los elementos del módulo 1 correctamente escritos.</td><td>Cada elemento tiene su comentario HTML y el orden es correcto (charset primero, CSS al final).</td></tr>
+    <tr><td><strong>CSS externo + Google Fonts</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td><td>El CSS está interno o no se vinculó el archivo externo.</td><td>CSS en archivo separado, vinculado correctamente, con mínimo 5 reglas. Fuente de Google Fonts aplicada.</td><td>El CSS transforma visualmente la página de manera coherente y la fuente elegida tiene sentido con el contenido.</td></tr>
+    <tr><td><strong>Title y Description honestos</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td><td>El title es solo el nombre y la description es genérica o vacía.</td><td>El title dice algo real sobre la persona. La description es específica y cabe en 160 caracteres.</td><td>Title y description son honestos, precisos y reflejan autoconocimiento real — no la versión que "suena bien".</td></tr>
+    <tr><td><strong>Reflexión sobre lo invisible</strong><br><span style="font-size:11px;color:#64748b">SEL · Conciencia Social</span></td><td>La reflexión no conecta el &lt;head&gt; con situaciones de vida real.</td><td>Conecta la idea del "trabajo invisible" con alguien concreto en su familia o entorno.</td><td>La reflexión muestra que reconoció algo que antes daba por sentado y propone una acción concreta de reconocimiento.</td></tr>
+    <tr><td><strong>Consenso colectivo</strong><br><span style="font-size:11px;color:#64748b">SEL · Habilidades Relacionales</span></td><td>El title y el CSS del grupo fueron impuestos por uno solo.</td><td>El grupo llegó a un acuerdo y el footer refleja el proceso.</td><td>El footer muestra reflexión genuina sobre el proceso de consenso — qué costó, cómo lo resolvieron y qué aprendieron.</td></tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 09 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Habilidades Relacionales · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 10 → Proyecto integrador: mi página personal completa</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
