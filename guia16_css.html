@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 16 · Media Queries y Diseño Responsive · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}.cm{color:#93c5fd}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* DEVICE MOCKUPS */
+.devices-row{display:flex;gap:20px;align-items:flex-end;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.device{display:flex;flex-direction:column;align-items:center;gap:8px}
+.device-label{font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px}
+.device-frame{border:3px solid #334155;border-radius:10px;overflow:hidden;background:#fff}
+.device-screen{padding:10px;background:#f0f4f8;font-size:10px;color:#334155;line-height:1.5}
+.d-phone{width:90px}
+.d-tablet{width:160px}
+.d-desktop{width:260px}
+/* UNIDADES GRID */
+.unidades-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.unidad-card{border-radius:12px;padding:14px;border:1.5px solid;text-align:center}
+.uc-valor{font-size:22px;font-weight:900;font-family:'Source Code Pro',monospace;margin-bottom:6px}
+.uc-nombre{font-size:12px;font-weight:800;margin-bottom:4px}
+.uc-desc{font-size:11.5px;line-height:1.5}
+/* ACTIVIDAD */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.unidades-grid{grid-template-columns:1fr 1fr}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 16</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 16 · Grado Décimo · ENSDB 2025</div>
+    <h2>Responsive Design: adaptarse sin perder lo que eres</h2>
+    <p class="gsub">Aprenderás a construir páginas que se adaptan a cualquier tamaño de pantalla usando media queries, unidades relativas (px, %, em, rem, vh, vw) y la filosofía mobile-first. Y a través de eso, a reflexionar sobre algo que los adolescentes conocen muy bien: cómo adaptarse a distintos contextos sin perder lo que uno es.</p>
+    <div class="tags">
+      <span class="tag tag-azul">@media · min-width · max-width · breakpoints</span>
+      <span class="tag tag-azul">px · % · em · rem · vh · vw</span>
+      <span class="tag tag-verde">mobile-first · diseño responsivo</span>
+      <span class="tag tag-morado">viewport · unidades relativas</span>
+      <span class="tag tag-ambar">Adaptarse · Contexto · Identidad · Familia · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Adaptarse sin dejar de ser quien eres</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor.</p>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📱</span><span class="eti">Con compañeros · La misma historia en distintas pantallas</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Gabriel construyó su página web personal. Se veía increíble en su computador. Cuando se la mostró a su mamá en el celular, el texto era microscópico, las imágenes se salían de la pantalla y había que desplazarse horizontalmente para leer. <strong>La misma página, dos experiencias completamente diferentes.</strong> Lo que funciona en una pantalla de 1400px no funciona en una de 390px. Hay que diseñar para ambos — o mejor, empezar por el más pequeño.</p>
+      <div class="escena-pregunta">💭 ¿Cómo cambias tú según el "tamaño de pantalla" del contexto — cuando estás con amigos, con la familia, en el colegio?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🌊</span><span class="eti">En casa · Adaptarse o doblarse</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Cuando la abuela materna viene a quedarse, la dinámica de la casa cambia. La mamá de Sofía habla más bajito, come más temprano, pone menos música. Sofía también ajusta cosas. Pero hay algo que no cambia: Sofía sigue siendo Sofía. <strong>Se adapta a la "pantalla" del contexto sin reprogramarse desde cero.</strong> Eso es exactamente diseño responsive — el contenido es el mismo, el layout se ajusta.</p>
+      <div class="escena-pregunta">💭 ¿Cuándo te adaptas a un contexto sin perder lo que eres, y cuándo sientes que te exigen ser diferente de una manera que te cuesta?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📐</span><span class="eti">En el colegio · Primero lo mínimo, luego lo extra</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el proyecto de grado, la docente les dijo algo que nadie esperaba: <em>"Empiecen por lo mínimo que tiene que funcionar bien. Lo adicional viene después."</em> Primero lo esencial, con los recursos más limitados. Luego, si hay más espacio, más capacidad, más tiempo — se agrega. <strong>Mobile-first es exactamente esa filosofía:</strong> diseñar primero para el dispositivo más pequeño y con más restricciones, y luego expandir para pantallas mayores.</p>
+      <div class="escena-pregunta">💭 ¿Hay algún proyecto en tu vida donde deberías aplicar "mobile-first" — empezar por lo esencial en lugar de lo ideal?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">La página de Gabriel que no funciona en el celular. Sofía que se adapta sin dejar de ser ella. La docente que pide empezar por lo mínimo esencial. <strong>Diseño responsive es adaptación con identidad: el contenido no cambia, el layout se ajusta al contexto. Y mobile-first es la filosofía que lo hace bien: primero lo esencial, luego lo expansivo.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📱</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Escribir media queries con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">@media</code> usando <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">min-width</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">max-width</code> para adaptar el diseño a distintos tamaños de pantalla.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📏</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Usar unidades relativas <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">rem</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">em</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">%</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">vh</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">vw</code> para medidas que se adaptan.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🏗️</span><p style="font-size:13.5px;font-weight:700;color:#166534">Aplicar la filosofía <strong>mobile-first</strong>: escribir los estilos base para móvil y agregar complejidad con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">min-width</code> para pantallas mayores.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🦋</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre la diferencia entre adaptarse saludablemente a distintos contextos y perder la propia identidad por presión externa.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1: UNIDADES -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>Unidades: absolutas y relativas</h2><p>px · % · em · rem · vh · vw — cada una se mide desde un punto diferente</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Las unidades en CSS se dividen en <strong>absolutas</strong> (su valor no cambia: <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">px</code>) y <strong>relativas</strong> (su valor depende de algo más: el padre, la raíz o el viewport). Las unidades relativas son la base del diseño responsive porque se adaptan automáticamente al contexto.</p>
+
+  <div class="unidades-grid">
+    <div class="unidad-card" style="background:#fef9c3;border-color:#fbbf24">
+      <div class="uc-valor" style="color:#92400e">px</div>
+      <div class="uc-nombre" style="color:#92400e">Píxel — absoluta</div>
+      <div class="uc-desc" style="color:#78350f">Siempre el mismo tamaño. No se adapta. Útil para bordes y sombras precisas.</div>
+    </div>
+    <div class="unidad-card" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="uc-valor" style="color:#1e40af">%</div>
+      <div class="uc-nombre" style="color:#1e40af">Porcentaje — relativa al padre</div>
+      <div class="uc-desc" style="color:#1e3a8a">Se calcula sobre el elemento padre. width: 50% = la mitad del padre.</div>
+    </div>
+    <div class="unidad-card" style="background:#f0fdf4;border-color:#86efac">
+      <div class="uc-valor" style="color:#14532d">rem</div>
+      <div class="uc-nombre" style="color:#14532d">Root em — relativa a la raíz</div>
+      <div class="uc-desc" style="color:#166534">Se calcula sobre el font-size del &lt;html&gt; (por defecto 16px). 1rem = 16px. La más recomendada para tipografía y espaciado.</div>
+    </div>
+    <div class="unidad-card" style="background:#fdf4ff;border-color:#f0abfc">
+      <div class="uc-valor" style="color:#6b21a8">em</div>
+      <div class="uc-nombre" style="color:#6b21a8">Em — relativa al padre</div>
+      <div class="uc-desc" style="color:#581c87">Se calcula sobre el font-size del elemento padre. Útil para padding relativo a la fuente.</div>
+    </div>
+    <div class="unidad-card" style="background:#fff7ed;border-color:#fed7aa">
+      <div class="uc-valor" style="color:#9a3412">vh</div>
+      <div class="uc-nombre" style="color:#9a3412">Viewport Height</div>
+      <div class="uc-desc" style="color:#78350f">1vh = 1% de la altura de la pantalla. 100vh = pantalla completa en alto.</div>
+    </div>
+    <div class="unidad-card" style="background:#f5f3ff;border-color:#c4b5fd">
+      <div class="uc-valor" style="color:#4c1d95">vw</div>
+      <div class="uc-nombre" style="color:#4c1d95">Viewport Width</div>
+      <div class="uc-desc" style="color:#3b0764">1vw = 1% del ancho de la pantalla. Útil para elementos que escalan con el ancho.</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">unidades.css</span></div>
+    <div class="ebody"><span class="hc">/* px: absoluto, siempre igual */</span>
+<span class="cs">body</span>       { <span class="cp">font-size</span>: <span class="cv">16px</span>; }        <span class="hc">/* base fija */</span>
+<span class="cs">.borde</span>     { <span class="cp">border</span>: <span class="cv">1px solid #e2e8f0</span>; }
+
+<span class="hc">/* rem: relativo a la raíz (html font-size) */</span>
+<span class="hc">/* Si html { font-size: 16px }, entonces: */</span>
+<span class="cs">h1</span>         { <span class="cp">font-size</span>: <span class="cv">2rem</span>; }     <span class="hc">/* 32px */</span>
+<span class="cs">h2</span>         { <span class="cp">font-size</span>: <span class="cv">1.5rem</span>; }   <span class="hc">/* 24px */</span>
+<span class="cs">p</span>          { <span class="cp">font-size</span>: <span class="cv">1rem</span>; }     <span class="hc">/* 16px */</span>
+<span class="cs">.card</span>      { <span class="cp">padding</span>: <span class="cv">1.5rem</span>; }    <span class="hc">/* 24px */</span>
+
+<span class="hc">/* % : relativo al padre */</span>
+<span class="cs">.sidebar</span>   { <span class="cp">width</span>: <span class="cv">30%</span>; }          <span class="hc">/* 30% del contenedor padre */</span>
+<span class="cs">.main</span>      { <span class="cp">width</span>: <span class="cv">70%</span>; }
+
+<span class="hc">/* vh / vw: relativo a la pantalla */</span>
+<span class="cs">.hero</span>      { <span class="cp">min-height</span>: <span class="cv">100vh</span>; }    <span class="hc">/* toda la altura de pantalla */</span>
+<span class="cs">.titulo-xl</span> { <span class="cp">font-size</span>: <span class="cv">5vw</span>; }      <span class="hc">/* escala con el ancho de ventana */</span>
+<span class="cs">.banner</span>    { <span class="cp">width</span>: <span class="cv">100vw</span>; }        <span class="hc">/* todo el ancho de pantalla */</span>
+
+<span class="hc">/* clamp(): tamaño entre mínimo y máximo */</span>
+<span class="cs">h1</span>         { <span class="cp">font-size</span>: <span class="cv">clamp(1.5rem, 4vw, 3rem)</span>; }
+<span class="hc">/* mínimo: 1.5rem — preferido: 4vw — máximo: 3rem */</span></div>
+  </div>
+
+  <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px;margin-top:8px">
+    <p style="font-size:14px;color:#7c2d12"><strong>Regla práctica:</strong> Usa <code style="font-family:'Source Code Pro';font-size:12px">rem</code> para tipografía y espaciado (respeta la preferencia del usuario), <code style="font-family:'Source Code Pro';font-size:12px">%</code> para anchos de contenedores, <code style="font-family:'Source Code Pro';font-size:12px">px</code> para bordes y sombras, <code style="font-family:'Source Code Pro';font-size:12px">vh/vw</code> para secciones de pantalla completa. Evita usar <code style="font-family:'Source Code Pro';font-size:12px">px</code> para tipografía — no respeta el zoom del usuario.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 2: MEDIA QUERIES -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>@media: cambiar el estilo según el contexto</h2><p>La instrucción que dice "si la pantalla es mayor a X, aplica esto"</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Una <strong>media query</strong> es una condición en CSS. Dice: "si la pantalla cumple esta condición, aplica estas reglas". La condición más común es el ancho de la pantalla (<code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">min-width</code> o <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">max-width</code>). La sintaxis siempre comienza con <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">@media</code>.</p>
+
+  <!-- Demo dispositivos visuales -->
+  <div class="devices-row">
+    <div class="device">
+      <div class="device-frame d-phone">
+        <div class="device-screen">
+          <div style="background:#1a4f8a;color:white;padding:6px;border-radius:4px;font-size:9px;font-weight:700;text-align:center;margin-bottom:4px">Menú ☰</div>
+          <div style="background:#dbeafe;padding:4px;border-radius:4px;font-size:9px;margin-bottom:3px">Título grande</div>
+          <div style="font-size:9px;color:#64748b">Texto en una sola columna...</div>
+        </div>
+      </div>
+      <div class="device-label">📱 < 640px</div>
+    </div>
+    <div class="device">
+      <div class="device-frame d-tablet">
+        <div class="device-screen">
+          <div style="background:#1a4f8a;color:white;padding:6px;border-radius:4px;font-size:9px;font-weight:700;text-align:center;margin-bottom:4px">Nav · Inicio · Sobre mí · Contacto</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <div style="background:#dbeafe;padding:4px;border-radius:4px;font-size:9px">Col 1</div>
+            <div style="background:#dcfce7;padding:4px;border-radius:4px;font-size:9px">Col 2</div>
+          </div>
+        </div>
+      </div>
+      <div class="device-label">📟 640–1024px</div>
+    </div>
+    <div class="device">
+      <div class="device-frame d-desktop">
+        <div class="device-screen">
+          <div style="background:#1a4f8a;color:white;padding:6px;border-radius:4px;font-size:9px;font-weight:700;display:flex;justify-content:space-between;margin-bottom:4px"><span>Logo</span><span>Nav · Inicio · Sobre mí · Historia · Contacto</span></div>
+          <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:4px">
+            <div style="background:#ede9fe;padding:4px;border-radius:4px;font-size:9px">Sidebar</div>
+            <div style="background:#dbeafe;padding:4px;border-radius:4px;font-size:9px">Main content</div>
+            <div style="background:#dcfce7;padding:4px;border-radius:4px;font-size:9px">Aside</div>
+          </div>
+        </div>
+      </div>
+      <div class="device-label">🖥️ > 1024px</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">media-queries.css</span></div>
+    <div class="ebody"><span class="hc">/* ════ SINTAXIS DE UNA MEDIA QUERY ════ */</span>
+<span class="cm">@media</span> (<span class="cp">min-width</span>: <span class="cv">768px</span>) {
+  <span class="hc">/* Estilos que aplican SOLO cuando la pantalla ≥ 768px */</span>
+  <span class="cs">.contenedor</span> {
+    <span class="cp">grid-template-columns</span>: <span class="cv">1fr 1fr</span>;  <span class="hc">/* 2 columnas en tablet */</span>
+  }
+}
+
+<span class="cm">@media</span> (<span class="cp">min-width</span>: <span class="cv">1024px</span>) {
+  <span class="cs">.contenedor</span> {
+    <span class="cp">grid-template-columns</span>: <span class="cv">240px 1fr 200px</span>;  <span class="hc">/* 3 en desktop */</span>
+  }
+  <span class="cs">.nav-movil</span> { <span class="cp">display</span>: <span class="cv">none</span>; }        <span class="hc">/* ocultar menú móvil */</span>
+  <span class="cs">.nav-desktop</span> { <span class="cp">display</span>: <span class="cv">flex</span>; }      <span class="hc">/* mostrar nav desktop */</span>
+}
+
+<span class="hc">/* ════ BREAKPOINTS ESTÁNDAR (mobile-first) ════ */</span>
+<span class="hc">/* Base: móvil (sin media query)  < 640px  */</span>
+<span class="hc">/* @media (min-width: 640px)  sm: tablet pequeña */</span>
+<span class="hc">/* @media (min-width: 768px)  md: tablet        */</span>
+<span class="hc">/* @media (min-width: 1024px) lg: laptop        */</span>
+<span class="hc">/* @media (min-width: 1280px) xl: desktop       */</span>
+
+<span class="hc">/* También se puede combinar: */</span>
+<span class="cm">@media</span> (<span class="cp">min-width</span>: <span class="cv">640px</span>) <span class="cv">and</span> (<span class="cp">max-width</span>: <span class="cv">1023px</span>) {
+  <span class="hc">/* Solo tabletas */</span>
+}
+
+<span class="hc">/* Preferencia del sistema: modo oscuro */</span>
+<span class="cm">@media</span> (<span class="cp">prefers-color-scheme</span>: <span class="cv">dark</span>) {
+  <span class="cs">body</span> { <span class="cp">background</span>: <span class="cv">#0f172a</span>; <span class="cp">color</span>: <span class="cv">#e2e8f0</span>; }
+}</span></div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Condición</th><th>Se activa cuando</th><th>Uso típico</th></tr>
+    <tr><td><code>min-width: 768px</code></td><td>Pantalla ≥ 768px (tablet en adelante)</td><td>Mobile-first: agregar complejidad</td></tr>
+    <tr><td><code>max-width: 767px</code></td><td>Pantalla ≤ 767px (solo móvil)</td><td>Desktop-first: reducir para móvil</td></tr>
+    <tr><td><code>min-width: X and max-width: Y</code></td><td>Solo en ese rango exacto</td><td>Estilos exclusivos para tablet</td></tr>
+    <tr><td><code>prefers-color-scheme: dark</code></td><td>El sistema tiene modo oscuro activo</td><td>Modo oscuro automático</td></tr>
+    <tr><td><code>orientation: landscape</code></td><td>Pantalla en horizontal</td><td>Ajustes para celular girado</td></tr>
+  </table>
+</div>
+
+<!-- MÓDULO 3: MOBILE-FIRST -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>Mobile-first: diseñar desde lo más pequeño</h2><p>Primero lo esencial. Luego lo expansivo.</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>Mobile-first</strong> significa escribir los estilos base para la pantalla más pequeña (el celular) y usar <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">@media (min-width: ...)</code> para agregar complejidad en pantallas mayores. Lo opuesto —<em>desktop-first</em>— empieza desde lo complejo y usa <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">max-width</code> para reducir. Mobile-first es la práctica estándar hoy porque más del 60% del tráfico web viene de celulares.</p>
+
+  <!-- Comparación mobile-first vs desktop-first -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0">
+    <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;overflow:hidden">
+      <div style="background:#16a34a;color:#fff;padding:10px 16px;font-size:12px;font-weight:800">✅ Mobile-first (recomendado)</div>
+      <div style="padding:14px;font-family:'Source Code Pro',monospace;font-size:12px;color:#14532d;line-height:1.8">
+        <span style="color:#86efac">/* Base: 1 columna (móvil) */</span><br>
+        <span style="color:#86efac">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr</span>; }<br><br>
+        <span style="color:#475569">/* Tablet: 2 columnas */</span><br>
+        <span style="color:#93c5fd">@media</span> (min-width: <span style="color:#fbbf24">768px</span>) {<br>
+        &nbsp;&nbsp;<span style="color:#86efac">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr 1fr</span>; }<br>
+        }<br><br>
+        <span style="color:#475569">/* Desktop: 3 columnas */</span><br>
+        <span style="color:#93c5fd">@media</span> (min-width: <span style="color:#fbbf24">1024px</span>) {<br>
+        &nbsp;&nbsp;<span style="color:#86efac">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr 1fr 1fr</span>; }<br>
+        }
+      </div>
+    </div>
+    <div style="background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;overflow:hidden">
+      <div style="background:#dc2626;color:#fff;padding:10px 16px;font-size:12px;font-weight:800">❌ Desktop-first (evitar)</div>
+      <div style="padding:14px;font-family:'Source Code Pro',monospace;font-size:12px;color:#991b1b;line-height:1.8">
+        <span style="color:#ef4444">/* Base: 3 columnas (desktop) */</span><br>
+        <span style="color:#f87171">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr 1fr 1fr</span>; }<br><br>
+        <span style="color:#991b1b">/* Tablet: reducir a 2 */</span><br>
+        <span style="color:#93c5fd">@media</span> (max-width: <span style="color:#fbbf24">1023px</span>) {<br>
+        &nbsp;&nbsp;<span style="color:#f87171">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr 1fr</span>; }<br>
+        }<br><br>
+        <span style="color:#991b1b">/* Móvil: 1 columna */</span><br>
+        <span style="color:#93c5fd">@media</span> (max-width: <span style="color:#fbbf24">767px</span>) {<br>
+        &nbsp;&nbsp;<span style="color:#f87171">.grid</span> { grid-template-columns: <span style="color:#fbbf24">1fr</span>; }<br>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">mobile-first-completo.css</span></div>
+    <div class="ebody"><span class="hc">/* ════ PÁGINA COMPLETA CON MOBILE-FIRST ════ */</span>
+
+<span class="hc">/* BASE — móvil primero (sin media query) */</span>
+<span class="cs">body</span> {
+  <span class="cp">font-size</span>: <span class="cv">1rem</span>;
+  <span class="cp">padding</span>: <span class="cv">1rem</span>;
+}
+
+<span class="cs">.pagina</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+  <span class="cp">grid-template-areas</span>:
+    <span class="cv">"header"</span>
+    <span class="cv">"nav"</span>
+    <span class="cv">"main"</span>
+    <span class="cv">"aside"</span>
+    <span class="cv">"footer"</span>;      <span class="hc">/* en móvil: todo en una columna */</span>
+  <span class="cp">gap</span>: <span class="cv">1rem</span>;
+}
+
+<span class="cs">.nav</span> { <span class="cp">display</span>: <span class="cv">flex</span>; <span class="cp">flex-direction</span>: <span class="cv">column</span>; <span class="cp">gap</span>: <span class="cv">0.5rem</span>; }
+
+<span class="hc">/* TABLET: ≥ 768px */</span>
+<span class="cm">@media</span> (<span class="cp">min-width</span>: <span class="cv">768px</span>) {
+  <span class="cs">.pagina</span> {
+    <span class="cp">grid-template-columns</span>: <span class="cv">1fr 1fr</span>;
+    <span class="cp">grid-template-areas</span>:
+      <span class="cv">"header header"</span>
+      <span class="cv">"nav    nav   "</span>
+      <span class="cv">"main   aside "</span>
+      <span class="cv">"footer footer"</span>;
+  }
+  <span class="cs">.nav</span> { <span class="cp">flex-direction</span>: <span class="cv">row</span>; }  <span class="hc">/* nav horizontal */</span>
+}
+
+<span class="hc">/* DESKTOP: ≥ 1024px */</span>
+<span class="cm">@media</span> (<span class="cp">min-width</span>: <span class="cv">1024px</span>) {
+  <span class="cs">body</span> { <span class="cp">padding</span>: <span class="cv">2rem</span>; <span class="cp">font-size</span>: <span class="cv">1.0625rem</span>; }
+  <span class="cs">.pagina</span> {
+    <span class="cp">grid-template-columns</span>: <span class="cv">240px 1fr 200px</span>;
+    <span class="cp">grid-template-areas</span>:
+      <span class="cv">"header header  header"</span>
+      <span class="cv">"nav    nav     nav   "</span>
+      <span class="cv">"main   main    aside "</span>
+      <span class="cv">"footer footer  footer"</span>;
+  }
+}</div>
+  </div>
+
+  <div class="tip"><strong>El viewport meta tag es indispensable:</strong> Sin <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> en el <code>&lt;head&gt;</code>, los celulares muestran la página como si fuera una pantalla de escritorio — pequeñísima. Ese tag le dice al navegador móvil que use el ancho real del dispositivo. Ya lo aprendiste en la Guía 09 — ahora ves por qué es tan crítico.</div>
+
+  <div class="warn"><strong>No abuses de las media queries:</strong> Si necesitas más de 4 o 5 breakpoints, probablemente el problema está en el diseño base. Flexbox con <code>flex-wrap: wrap</code> y Grid con <code>repeat(auto-fit, minmax())</code> hacen mucho responsive sin necesitar media queries.</div>
+</div>
+
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#1a4f8a,#2563eb)">
+    <div class="act-num">A1</div>
+    <div><h3>Mi proyecto personal, responsive: que funcione en cualquier pantalla</h3><div class="asub">Individual · 25 minutos · Autoconciencia — adaptar sin perder lo que eres</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 25 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👤 Individual</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📱</span><span class="eti">Como Gabriel — que funcione en el celular de la mamá también</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Gabriel hizo la página para su pantalla. Esta actividad hace que funcione para todas. <strong>Pero más allá de la técnica: adaptarse a distintos contextos sin cambiar el contenido — el mensaje, la identidad, lo que quieres decir — es lo que hace que una página (y una persona) sea genuinamente responsiva.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cómo se ve tu proyecto en el celular ahora mismo? ¿Funciona o se rompe?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#1a4f8a">1</div><div class="pc"><h4>Revisa el viewport meta tag en todas tus páginas</h4><p>Abre el inspector del navegador (F12 → ícono de dispositivo móvil). ¿Cómo se ve tu proyecto en 390px de ancho? Si se ve roto, el primer paso es verificar el meta viewport.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">2</div><div class="pc"><h4>Convierte todos los tamaños de fuente a rem</h4><p>En tu <code>estilos.css</code>, reemplaza todos los <code>font-size</code> en px por rem. Si usabas 16px, cambia a 1rem. Si usabas 24px, cambia a 1.5rem. Si usabas 32px, cambia a 2rem.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">3</div><div class="pc"><h4>Aplica mobile-first al layout de tu index.html</h4><p>En el CSS base (sin media query): el grid en una columna, el nav en columna. En <code>@media (min-width: 768px)</code>: el layout de dos columnas. En <code>@media (min-width: 1024px)</code>: el layout completo con sidebar.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">4</div><div class="pc"><h4>Aplica al menos un breakpoint por página</h4><p>Cada una de tus 4 páginas debe tener al menos una media query que cambie algo relevante entre móvil y desktop. No tienen que ser todas iguales — cada página puede necesitar ajustes diferentes.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">5</div><div class="pc"><h4>Agrega modo oscuro como bonus</h4><p>Con <code>@media (prefers-color-scheme: dark)</code>, define al menos el color de fondo y de texto para modo oscuro. Es una media query de preferencia del usuario — una adaptación que respeta su contexto.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS debe incluir</div>
+      <ul>
+        <li>Viewport meta tag verificado en todas las páginas</li>
+        <li>Tipografía en rem, no en px</li>
+        <li>Layout mobile-first con mínimo dos breakpoints (768px y 1024px)</li>
+        <li>Al menos una media query por página del proyecto</li>
+        <li>Bonus: <code>@media (prefers-color-scheme: dark)</code></li>
+        <li>Comentarios CSS que expliquen qué cambia en cada breakpoint y por qué</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Adaptar el layout sin cambiar el contenido es la definición de identidad estable</h4>
+      <p>El diseño responsive hace algo que también hacemos las personas: cambia cómo se presenta según el contexto, pero el contenido — lo que dice, quién es — permanece igual. La autoconciencia incluye "mantener una identidad estable en distintos contextos". En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cómo se ve tu proyecto en el celular versus el computador? ¿El mensaje principal sigue siendo igual de claro?</li>
+        <li><span>→</span> ¿Hay algo de tu página que debería mostrarse diferente según el contexto pero que aún no hayas ajustado?</li>
+        <li><span>→</span> ¿En qué contextos de tu vida cambias cómo te presentas pero mantienes quién eres — como el diseño responsive — y en cuáles sientes que el contexto te cambia demasiado?</li>
+        <li><span>→</span> ¿Elegiste activar el modo oscuro en tu proyecto? ¿Qué significa para ti que una pantalla respete la preferencia visual del usuario?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div><h3>Auditoría responsive: revisar el proyecto del compañero</h3><div class="asub">Parejas · 20 minutos · Habilidades relacionales — dar y recibir feedback constructivo</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Inspector del navegador</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🔍</span><span class="eti">Ver desde los ojos del otro</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Gabriel no vio el problema en su página porque siempre la miró desde su pantalla. A veces necesitamos que alguien más lo vea desde un ángulo diferente. <strong>Esta actividad propone hacer lo mismo: revisar el proyecto del otro en distintos tamaños de pantalla y dar feedback concreto, constructivo y respetuoso.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cómo recibes el feedback sobre tu trabajo? ¿Qué diferencia hay entre feedback que ayuda y feedback que hiere?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Abran el proyecto del otro en el navegador con el inspector (5 min)</h4><p>F12 → ícono de responsive (📱). Prueben en 390px (iPhone), 768px (iPad) y 1280px (laptop). Tomen nota de al menos 3 cosas que funcionan bien y 2 que necesitan ajuste.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Escriban el feedback en un archivo HTML (8 min)</h4><p>Archivo <code>feedback_responsive.html</code>. Con una sección por breakpoint analizado. Para cada problema encontrado: qué pasa, en qué pantalla, y una sugerencia concreta de CSS para solucionarlo.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Intercambien y conversen sobre el feedback (7 min)</h4><p>¿El feedback fue claro? ¿Hubo algo que sorprendió — positivo o a mejorar? ¿Cómo se sintió recibir la opinión de alguien sobre algo que construiste?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Protocolo de feedback</div>
+      <ul>
+        <li>Primero lo que funciona bien — al menos 3 cosas concretas</li>
+        <li>Luego lo que necesita ajuste — con sugerencia específica, no solo crítica</li>
+        <li>Lenguaje técnico + lenguaje de diseño: "en 390px el texto del nav se superpone con el logo — podrías usar flex-direction: column en ese breakpoint"</li>
+        <li>El feedback sobre diseño es sobre el trabajo, no sobre la persona</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Dar y recibir feedback constructivo es una habilidad que se practica</h4>
+      <p>Las habilidades relacionales incluyen "comunicarse claramente" y "resolver conflictos constructivamente". El feedback sobre una página web — como el feedback sobre cualquier trabajo — puede darse de forma que construye o de forma que derriba. La diferencia no está en lo que se dice sino en cómo se dice y con qué intención. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cómo se sintió recibir feedback sobre algo que construiste? ¿Qué necesitaste para poder escucharlo?</li>
+        <li><span>→</span> ¿Hay algo del feedback que recibiste hoy que podrías aplicar no solo al código sino a la forma en que das feedback en otros contextos?</li>
+        <li><span>→</span> ¿Fue más fácil dar el feedback técnico (el CSS) o el de diseño (las decisiones de presentación)? ¿Por qué?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A3</div>
+    <div><h3>Una sola página, tres pantallas: el contexto no cambia lo que somos</h3><div class="asub">Grupos de 4 · 20 minutos · Conciencia social — adaptarse sin perder la identidad colectiva</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-familia" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🦋</span><span class="eti">Como Sofía — adaptarse sin reprogramarse</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Sofía ajusta su comportamiento cuando viene la abuela, pero sigue siendo Sofía. <strong>El grupo va a hacer lo mismo con su página colectiva: el contenido — quiénes son, qué dicen de sí mismos — no cambia. Solo el layout se adapta a cada pantalla.</strong></p>
+        <div class="escena-pregunta">💭 ¿Hay algo de la identidad del grupo que debería ser constante sin importar el "tamaño de pantalla" del contexto?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#ea580c">1</div><div class="pc"><h4>Tomen la página del equipo de la Guía 14 o 15 (si existe)</h4><p>O creen una nueva página del grupo con al menos 4 tarjetas de integrante y un header colectivo. El contenido no cambia entre versiones.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">2</div><div class="pc"><h4>Implementen los tres estados responsive (10 min)</h4><p>Base (móvil): una tarjeta por fila, nav en columna, header centrado. <code>@media (min-width: 640px)</code>: dos tarjetas por fila. <code>@media (min-width: 1024px)</code>: cuatro tarjetas en una fila, sidebar con info del grupo.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">3</div><div class="pc"><h4>Discutan: ¿qué del grupo es "el contenido que no cambia"? (5 min)</h4><p>Independientemente del tamaño de pantalla, ¿qué de su identidad como grupo debe estar siempre visible y claro? ¿Hay algo que se ve mejor en móvil que en desktop, o viceversa?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Página del equipo con tres estados responsive bien implementados</li>
+        <li>Comentarios CSS que expliquen qué cambia en cada breakpoint y por qué</li>
+        <li>Un párrafo colectivo en el footer: ¿qué de la identidad del grupo no cambia con la pantalla?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Los grupos también necesitan adaptarse a distintos contextos sin perder lo que los une</h4>
+      <p>La conciencia social incluye "comprender las influencias de los sistemas sobre el comportamiento". Un grupo escolar se presenta diferente en una exposición que en una reunión informal — pero sus valores, su dinámica, lo que los une, debería ser consistente. El responsive design enseña esa lección técnicamente: el layout cambia, el contenido no. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué del contenido del grupo se "ve mejor" en pantalla grande (con más espacio para mostrar)? ¿Y qué se ve igual de bien en móvil?</li>
+        <li><span>→</span> ¿Hay algún contexto real donde el grupo se presenta diferente a lo que realmente es? ¿Qué los lleva a hacerlo?</li>
+        <li><span>→</span> ¿Qué aprendiste sobre adaptarse sin perder identidad — en CSS y en la vida?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos</div><h3>Bitácora final · Guía 16</h3></div>
+  </div>
+  <p class="tp">En <code>bitacora_guia16.html</code> — completamente responsive, con las tres pantallas definidas y la tipografía en rem.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿En qué "tamaño de pantalla" eres más tú mismo — con más espacio para mostrarte, o en los contextos más pequeños y limitados?</li>
+        <li><span>→</span> ¿Hay algo de tu identidad que "se rompe" cuando el contexto cambia demasiado — como una página sin responsive design?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cómo fue la experiencia de dar y recibir feedback en la Actividad 2? ¿Qué aprendiste del proceso?</li>
+        <li><span>→</span> ¿Hay alguien en tu vida a quien le debes un feedback constructivo que has postergado? ¿Qué necesitarías para dárselo bien?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> Mobile-first propone "primero lo mínimo esencial". ¿Hay algún área de tu vida donde aplicar esa filosofía te ayudaría?</li>
+        <li><span>→</span> ¿Hay contextos donde sientes que te piden cambiar "el contenido" — quién eres — y no solo "el layout" — cómo te presentas?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="300" fill="#f8fafc"/>
+      <!-- Unidades -->
+      <rect x="18" y="18" width="200" height="260" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="18" y="18" width="200" height="32" rx="10" fill="#16a34a"/>
+      <rect x="18" y="38" width="200" height="12" fill="#16a34a"/>
+      <text x="118" y="36" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Unidades</text>
+      <text x="32" y="68" fill="#14532d" font-family="Source Code Pro" font-size="10">px → absoluta</text>
+      <text x="32" y="84" fill="#14532d" font-family="Source Code Pro" font-size="10">% → relativa al padre</text>
+      <text x="32" y="100" fill="#14532d" font-family="Source Code Pro" font-size="10" font-weight="700">rem → root / 16px ✅</text>
+      <text x="32" y="116" fill="#14532d" font-family="Source Code Pro" font-size="10">em → padre</text>
+      <text x="32" y="132" fill="#14532d" font-family="Source Code Pro" font-size="10">vh → viewport alto</text>
+      <text x="32" y="148" fill="#14532d" font-family="Source Code Pro" font-size="10">vw → viewport ancho</text>
+      <line x1="30" y1="160" x2="206" y2="160" stroke="#86efac" stroke-width="1"/>
+      <text x="118" y="178" text-anchor="middle" fill="#0d9488" font-family="Nunito" font-size="9" font-weight="700">Tipografía → rem</text>
+      <text x="118" y="192" text-anchor="middle" fill="#0d9488" font-family="Nunito" font-size="9">Anchos → %</text>
+      <text x="118" y="206" text-anchor="middle" fill="#0d9488" font-family="Nunito" font-size="9">Pantalla completa → vh/vw</text>
+      <text x="118" y="220" text-anchor="middle" fill="#0d9488" font-family="Nunito" font-size="9">Bordes → px</text>
+      <!-- Media queries -->
+      <rect x="234" y="18" width="240" height="260" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="234" y="18" width="240" height="32" rx="10" fill="#1a4f8a"/>
+      <rect x="234" y="38" width="240" height="12" fill="#1a4f8a"/>
+      <text x="354" y="36" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">@media</text>
+      <text x="248" y="64" fill="#1e40af" font-family="Source Code Pro" font-size="9">@media (min-width: 640px) {</text>
+      <text x="260" y="78" fill="#3b82f6" font-family="Source Code Pro" font-size="9">  /* tablet pequeña */</text>
+      <text x="248" y="92" fill="#1e40af" font-family="Source Code Pro" font-size="9">}</text>
+      <text x="248" y="108" fill="#1e40af" font-family="Source Code Pro" font-size="9">@media (min-width: 768px) {</text>
+      <text x="260" y="122" fill="#3b82f6" font-family="Source Code Pro" font-size="9">  /* tablet */</text>
+      <text x="248" y="136" fill="#1e40af" font-family="Source Code Pro" font-size="9">}</text>
+      <text x="248" y="152" fill="#1e40af" font-family="Source Code Pro" font-size="9">@media (min-width: 1024px) {</text>
+      <text x="260" y="166" fill="#3b82f6" font-family="Source Code Pro" font-size="9">  /* laptop / desktop */</text>
+      <text x="248" y="180" fill="#1e40af" font-family="Source Code Pro" font-size="9">}</text>
+      <line x1="236" y1="192" x2="472" y2="192" stroke="#93c5fd" stroke-width="1"/>
+      <text x="354" y="210" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9" font-weight="700">También:</text>
+      <text x="354" y="224" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">prefers-color-scheme: dark</text>
+      <text x="354" y="238" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">orientation: landscape</text>
+      <!-- Mobile first -->
+      <rect x="490" y="18" width="192" height="260" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="490" y="18" width="192" height="32" rx="10" fill="#ea580c"/>
+      <rect x="490" y="38" width="192" height="12" fill="#ea580c"/>
+      <text x="586" y="36" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Mobile-first</text>
+      <text x="504" y="64" fill="#92400e" font-family="Nunito" font-size="9" font-weight="700">1. Estilos base (móvil)</text>
+      <text x="504" y="78" fill="#92400e" font-family="Nunito" font-size="9">Sin media query</text>
+      <text x="504" y="92" fill="#92400e" font-family="Nunito" font-size="9">1 columna · nav en col</text>
+      <line x1="492" y1="104" x2="680" y2="104" stroke="#fed7aa" stroke-width="1"/>
+      <text x="504" y="120" fill="#92400e" font-family="Nunito" font-size="9" font-weight="700">2. min-width: 768px</text>
+      <text x="504" y="134" fill="#92400e" font-family="Nunito" font-size="9">2 columnas · nav row</text>
+      <line x1="492" y1="146" x2="680" y2="146" stroke="#fed7aa" stroke-width="1"/>
+      <text x="504" y="162" fill="#92400e" font-family="Nunito" font-size="9" font-weight="700">3. min-width: 1024px</text>
+      <text x="504" y="176" fill="#92400e" font-family="Nunito" font-size="9">3 columnas · layout full</text>
+      <line x1="492" y1="188" x2="680" y2="188" stroke="#fed7aa" stroke-width="1"/>
+      <text x="586" y="210" text-anchor="middle" fill="#c2410c" font-family="Nunito" font-size="9" font-weight="700">Primero lo esencial.</text>
+      <text x="586" y="224" text-anchor="middle" fill="#c2410c" font-family="Nunito" font-size="9" font-weight="700">Luego lo expansivo.</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 16</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Unidades relativas</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Toda la tipografía y el espaciado en px.</td>
+      <td>Tipografía en rem. Anchos en % o fr. Al menos vh/vw usado en un elemento.</td>
+      <td>Cada unidad fue elegida por una razón: rem para tipografía, % para anchos, vh para secciones de pantalla completa. clamp() como bonus.</td>
+    </tr>
+    <tr>
+      <td><strong>Media queries mobile-first</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No hay media queries o usa max-width (desktop-first).</td>
+      <td>Al menos dos breakpoints con min-width que cambian el layout de forma significativa.</td>
+      <td>El proyecto funciona perfectamente en móvil, tablet y desktop. El layout base es de una columna y crece con min-width.</td>
+    </tr>
+    <tr>
+      <td><strong>Adaptación coherente</strong><br><span style="font-size:11px;color:#64748b">Técnico + SEL</span></td>
+      <td>El layout cambia pero el contenido se ve roto o incompleto en alguna pantalla.</td>
+      <td>El contenido es legible y accesible en las tres pantallas.</td>
+      <td>En cada tamaño de pantalla, lo más importante del contenido se ve primero y con claridad. El layout sirve al mensaje.</td>
+    </tr>
+    <tr>
+      <td><strong>Feedback constructivo</strong><br><span style="font-size:11px;color:#64748b">SEL · Habilidades Relacionales</span></td>
+      <td>El feedback fue solo crítica sin sugerencias concretas.</td>
+      <td>El feedback tiene al menos 3 aspectos positivos y 2 sugerencias con CSS específico.</td>
+      <td>El feedback combina lenguaje técnico y de diseño, es respetuoso, y se nota que quien lo escribió genuinamente quería que el proyecto mejorara.</td>
+    </tr>
+    <tr>
+      <td><strong>Adaptación e identidad</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>La reflexión no conecta el responsive design con situaciones personales.</td>
+      <td>Identifica al menos un contexto real donde se adapta sin perder identidad.</td>
+      <td>La reflexión es precisa y honesta: distingue entre adaptarse saludablemente y cambiar bajo presión lo que no debería cambiar.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 16 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Habilidades Relacionales · Conciencia Social</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 17 → Animaciones, transiciones, filtros y variables CSS</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
