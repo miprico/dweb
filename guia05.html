@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 05 · Divisiones y Semántica · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+
+/* ══ HEADER ══ */
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+
+/* ══ TÍTULO ══ */
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+
+/* ══ LAYOUT ══ */
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+
+/* ══ CARDS ══ */
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+
+/* ══ ESCENAS ══ */
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+
+/* ══ MÓDULO SEP ══ */
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+
+/* ══ LABEL ══ */
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+
+/* ══ TEXTO ══ */
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+
+/* ══ EDITOR ══ */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ PÁGINA DEMO SEMÁNTICA ══ */
+.demo-pagina{border:2px solid #e2e8f0;border-radius:14px;overflow:hidden;margin:14px 0;font-size:13px}
+.dp-header{background:#1a4f8a;color:#fff;padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
+.dp-header .dp-tag{font-family:'Source Code Pro';font-size:10px;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:4px}
+.dp-nav{background:#1e3a8a;color:#bfdbfe;padding:8px 18px;display:flex;gap:16px;font-size:12px;font-weight:700}
+.dp-nav span{cursor:default;padding:3px 8px;border-radius:6px}
+.dp-nav span:hover{background:rgba(255,255,255,.1)}
+.dp-body{display:grid;grid-template-columns:1fr 220px;gap:0}
+.dp-main{padding:16px 18px;border-right:1px solid #f1f5f9}
+.dp-aside{background:#f8fafc;padding:14px 16px}
+.dp-main .dp-tag-label,.dp-aside .dp-tag-label{font-family:'Source Code Pro';font-size:9px;color:#94a3b8;background:#f1f5f9;padding:1px 6px;border-radius:4px;margin-bottom:8px;display:inline-block}
+.dp-section{border-left:3px solid #bfdbfe;padding-left:12px;margin-bottom:12px}
+.dp-article{border-left:3px solid #86efac;padding-left:12px;margin-bottom:10px}
+.dp-footer{background:#1e293b;color:#94a3b8;padding:10px 18px;font-size:11px;display:flex;justify-content:space-between}
+.dp-footer .dp-tag{font-family:'Source Code Pro';font-size:9px;background:rgba(255,255,255,.1);padding:1px 6px;border-radius:4px}
+
+/* ══ GRILLA DIV VS SEMÁNTICO ══ */
+.cmp2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.cmp-lado{border-radius:12px;overflow:hidden}
+.cmp-tit{padding:10px 16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+.cmp-body{padding:16px;font-size:13px;line-height:1.7;font-family:'Source Code Pro',monospace}
+
+/* ══ TABLA SEMÁNTICA ══ */
+.sem-tabla{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.sem-tabla th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.sem-tabla td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.sem-tabla tr:hover td{background:#f8fafc}
+.sem-tabla code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.sem-tabla .rol{font-size:11px;color:#64748b;font-style:italic}
+
+/* ══ TIP / WARN ══ */
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ SEL BLOQUES ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166534}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+
+/* ══ FOOTER ══ */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .cmp2{grid-template-columns:1fr}
+  .dp-body{grid-template-columns:1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 05</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 05 · Grado Décimo · ENSDB 2025</div>
+    <h2>Divisiones, Elementos Semánticos y Estructura de Página</h2>
+    <p class="gsub">Aprenderás a organizar una página completa usando <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;div&gt;</code>, <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;span&gt;</code> y los elementos semánticos. Y a través de eso, a pensar en los roles que juegas en tu vida — en la familia, en el colegio, con tus amigos — y si esos roles te representan o simplemente te ponen en un contenedor que no elegiste.</p>
+    <div class="tags">
+      <span class="tag tag-azul">&lt;div&gt; · &lt;span&gt; · &lt;header&gt; · &lt;footer&gt;</span>
+      <span class="tag tag-azul">&lt;nav&gt; · &lt;main&gt; · &lt;section&gt; · &lt;article&gt; · &lt;aside&gt;</span>
+      <span class="tag tag-verde">Autoconciencia · Habilidades relacionales</span>
+      <span class="tag tag-morado">Conciencia social · Toma de decisiones</span>
+      <span class="tag tag-ambar">Roles · Identidad · Escuela · Familia</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══════════════════════════════════
+     APERTURA
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div>
+      <div class="sublbl">Para empezar · Tres situaciones reales</div>
+      <h3>Los roles que jugamos — y los que nos ponen</h3>
+    </div>
+  </div>
+
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor. Algo de esto probablemente te pasa a ti también.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · El rol que te tocó</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Isabela es la mayor de tres hermanos. En su casa, sin que nadie se lo dijera explícitamente, se convirtió en la que cuida a los menores cuando la mamá trabaja, la que ayuda a hacer las tareas, la que mantiene el orden. <strong>Nadie le preguntó si quería ese rol.</strong> Simplemente fue tomando forma, como agua que llena el espacio disponible. A veces le pesa. A veces lo hace con orgullo. Casi nunca lo dice en voz alta.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay algún rol en tu familia que sientes que te fue asignado sin que tú lo eligieras?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏫</span><span class="eti">En el colegio · La caja que te pusieron</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Desde quinto de primaria, los profesores tienen una idea fija de Tomás: el que molesta, el que distrae, el que no se queda quieto. Tomás lo sabe. Y a veces cumple la expectativa sin querer, <strong>como si la caja que le pusieron lo fuera llenando</strong>. Pero Tomás también es el que recuerda los cumpleaños de todos, el que ayuda cuando nadie mira, el que dibuja cosas increíbles en los márgenes del cuaderno. Eso no está en ninguna caja del colegio.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay una etiqueta o categoría que el colegio te puso y que no te representa del todo?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">👥</span><span class="eti">Con compañeros · Los roles en el grupo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        En el grupo de amigos, Sara siempre es "la chistosa". Pone el humor, relaja el ambiente, hace reír cuando todo se pone tenso. Pero cuando Sara está triste — cosa que pasa más de lo que la gente nota — <strong>nadie sabe cómo tratarla</strong>. El rol que la hace popular también la aisla. Porque el que siempre hace reír a los demás, rara vez tiene a alguien que le pregunte cómo está.
+      </p>
+      <div class="escena-pregunta">💭 ¿El rol que juegas con tus amigos te deja ser quien realmente eres, o hay partes tuyas que ese rol no deja ver?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      Isabela tiene un rol que nadie le asignó formalmente pero que estructura toda su vida en casa. Tomás está metido en una caja que no lo representa completo. Sara tiene un papel que la define hacia afuera pero la esconde hacia adentro. En HTML, hoy aprenderás a usar <strong>contenedores y elementos semánticos</strong> — las cajas que organizan el contenido de una página. Y la pregunta que va a guiar todo el trabajo es: <em>¿quién decide qué va en cada caja, y qué pasa cuando el contenido no cabe?</em>
+    </p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">📦</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Usar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;div&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;span&gt;</code> como contenedores genéricos para agrupar y organizar contenido.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🏛️</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Aplicar los elementos semánticos HTML5 para dar significado a cada parte de la página: <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">header</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">nav</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">main</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">section</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">article</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">aside</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">footer</code>.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🧩</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Construir una página completa con estructura semántica coherente que integre los aprendizajes de las guías anteriores.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🪞</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre los roles y "contenedores" que la vida te ha puesto — en la familia, el colegio y con los pares — y cuáles realmente te representan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 1: DIV Y SPAN
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>&lt;div&gt; y &lt;span&gt;: las cajas neutras</h2>
+    <p>Antes de los contenedores con nombre, están los que simplemente agrupan — sin decir qué son</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    <strong>&lt;div&gt;</strong> es un contenedor de bloque — ocupa toda la línea, como una caja que puede guardar párrafos, imágenes, listas, otros divs. <strong>&lt;span&gt;</strong> es un contenedor en línea — solo ocupa el espacio de su contenido, como una etiqueta pegada dentro de una oración. Solos, no tienen ningún significado especial ni estilo visual. Son neutros — su utilidad viene cuando les añadimos estilos CSS o cuando agrupamos cosas que van juntas.
+  </p>
+
+  <div class="escena escena-interna" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">Pensemos en Tomás — el de las cajas del colegio</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Un &lt;div&gt; es como la categoría "el que molesta" que le pusieron a Tomás: agrupa cosas, las contiene, pero en sí mismo no dice nada sobre lo que hay adentro. Lo que importa es qué se pone dentro y cómo se define. <strong>Una caja vacía no tiene significado — lo tiene su contenido.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">contenedores.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="hc">&lt;!-- div: contenedor de bloque. Agrupa elementos completos --&gt;</span>
+<span class="ln"> 2</span><span class="ht">&lt;div&gt;</span>
+<span class="ln"> 3</span>  <span class="ht">&lt;h2&gt;</span><span class="htx">Lo que el colegio ve de Tomás</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 4</span>  <span class="ht">&lt;p&gt;</span><span class="htx">Inquieto. Distraído. Desafiante.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln"> 5</span><span class="ht">&lt;/div&gt;</span>
+
+<span class="ln"> 6</span><span class="ht">&lt;div&gt;</span>
+<span class="ln"> 7</span>  <span class="ht">&lt;h2&gt;</span><span class="htx">Lo que el colegio NO ve de Tomás</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 8</span>  <span class="ht">&lt;p&gt;</span><span class="htx">Recuerda cumpleaños. Ayuda en silencio. Dibuja increíble.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln"> 9</span><span class="ht">&lt;/div&gt;</span>
+
+<span class="ln">10</span><span class="hc">&lt;!-- span: contenedor en línea. Marca una parte dentro de un texto --&gt;</span>
+<span class="ln">11</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">12</span>  <span class="htx">El colegio lo llama </span><span class="ht">&lt;span&gt;</span><span class="htx">problema</span><span class="ht">&lt;/span&gt;</span><span class="htx">.</span>
+<span class="ln">13</span>  <span class="htx">Sus amigos lo llaman </span><span class="ht">&lt;span&gt;</span><span class="htx">el que siempre está</span><span class="ht">&lt;/span&gt;</span><span class="htx">.</span>
+<span class="ln">14</span><span class="ht">&lt;/p&gt;</span></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0">
+    <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px 18px">
+      <div style="font-size:10px;font-weight:900;color:#1a4f8a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">&lt;div&gt; — Contenedor de bloque</div>
+      <ul style="font-size:13px;color:#334155;margin-left:16px;line-height:1.9">
+        <li>Ocupa toda la línea disponible</li>
+        <li>Se apilan uno encima del otro</li>
+        <li>Puede contener cualquier elemento</li>
+        <li>Sin estilo visual propio</li>
+        <li>Para agrupar secciones completas</li>
+      </ul>
+    </div>
+    <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px 18px">
+      <div style="font-size:10px;font-weight:900;color:#7c3aed;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">&lt;span&gt; — Contenedor en línea</div>
+      <ul style="font-size:13px;color:#334155;margin-left:16px;line-height:1.9">
+        <li>Ocupa solo el espacio de su contenido</li>
+        <li>Va dentro de texto o párrafos</li>
+        <li>No rompe el flujo del texto</li>
+        <li>Sin estilo visual propio</li>
+        <li>Para marcar palabras específicas</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Regla práctica:</strong> Si necesitas agrupar varios elementos que forman un bloque (como una tarjeta, una sección de contenido), usa <code>&lt;div&gt;</code>. Si necesitas marcar o estilizar una palabra o frase dentro de un párrafo, usa <code>&lt;span&gt;</code>. Pero si el elemento tiene un nombre semántico disponible — úsalo. Es lo que veremos en el siguiente módulo.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 2: ELEMENTOS SEMÁNTICOS
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>Elementos semánticos: cajas con nombre y propósito</h2>
+    <p>Como los roles en la vida — pero elegidos con conciencia, no impuestos</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    HTML5 introdujo elementos semánticos: etiquetas que no solo agrupan contenido sino que <strong>dicen qué tipo de contenido es</strong>. No es lo mismo un <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;div&gt;</code> sin nombre que un <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;header&gt;</code> que le dice a todos — navegadores, lectores de pantalla, desarrolladores — "aquí está el encabezado de esta página". Igual que en la vida: no es lo mismo que alguien te diga "eres una persona" a que te digan "eres quien escucha, quien crea, quien sostiene".
+  </p>
+
+  <!-- Demo visual de página semántica -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">Así se ve una página con estructura semántica completa:</div>
+
+  <div class="demo-pagina">
+    <div class="dp-header">
+      <div>
+        <div style="font-size:15px;font-weight:900">Quién soy más allá del colegio</div>
+        <div style="font-size:11px;opacity:.7;margin-top:2px">Una página sobre mí — completa, no solo el pedazo que se ve</div>
+      </div>
+      <div class="dp-tag">&lt;header&gt;</div>
+    </div>
+    <div class="dp-nav">
+      <span>Inicio</span>
+      <span>Sobre mí</span>
+      <span>Lo que hago</span>
+      <span>Contacto</span>
+      <div style="margin-left:auto;font-size:9px;opacity:.6;font-family:'Source Code Pro'">&lt;nav&gt;</div>
+    </div>
+    <div class="dp-body">
+      <div class="dp-main">
+        <div class="dp-tag-label">&lt;main&gt;</div>
+        <div class="dp-section">
+          <div class="dp-tag-label">&lt;section&gt; — Mi historia</div>
+          <div style="font-size:13px;font-weight:800;color:#1e293b;margin-bottom:4px">De dónde vengo</div>
+          <div class="dp-article">
+            <div class="dp-tag-label">&lt;article&gt;</div>
+            <p style="font-size:12px;color:#475569;line-height:1.6">Nací en Barranquilla. Crecí en el barrio El Rosario. Me gusta el mar y odio el tráfico de los lunes.</p>
+          </div>
+        </div>
+        <div class="dp-section">
+          <div class="dp-tag-label">&lt;section&gt; — Lo que hago</div>
+          <div style="font-size:13px;font-weight:800;color:#1e293b;margin-bottom:4px">Mis actividades</div>
+          <div class="dp-article">
+            <div class="dp-tag-label">&lt;article&gt;</div>
+            <p style="font-size:12px;color:#475569;line-height:1.6">Dibujo en mis ratos libres. Aprendo HTML. Cuido a mis hermanos cuando mi mamá trabaja.</p>
+          </div>
+        </div>
+      </div>
+      <div class="dp-aside">
+        <div class="dp-tag-label">&lt;aside&gt;</div>
+        <div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">Algo que pocos saben</div>
+        <p style="font-size:11.5px;color:#475569;line-height:1.5;margin-bottom:10px">Sé cocinar arroz con pollo mejor que muchos adultos.</p>
+        <div style="font-size:12px;font-weight:800;color:#334155;margin-bottom:8px">Una frase que cargo</div>
+        <p style="font-size:11.5px;color:#475569;font-style:italic;line-height:1.5">"Compárate con quien eras ayer."</p>
+      </div>
+    </div>
+    <div class="dp-footer">
+      <span>Hecho por mí · Grado 10° ENSDB · 2025</span>
+      <span class="dp-tag">&lt;footer&gt;</span>
+    </div>
+  </div>
+
+  <!-- Tabla de elementos semánticos -->
+  <table class="sem-tabla">
+    <tr><th>Elemento</th><th>¿Qué contiene?</th><th class="rol">En la vida real</th></tr>
+    <tr>
+      <td><code>&lt;header&gt;</code></td>
+      <td>Encabezado de la página o sección. Título, logo, introducción.</td>
+      <td class="rol">Cómo te presentas al mundo. Lo primero que ven.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;nav&gt;</code></td>
+      <td>Menú de navegación. Los enlaces principales para moverse.</td>
+      <td class="rol">Los caminos que ofreces a los demás para conocerte.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;main&gt;</code></td>
+      <td>Contenido principal de la página. Solo uno por página.</td>
+      <td class="rol">Lo esencial de quién eres. Lo que está en el centro.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;section&gt;</code></td>
+      <td>Sección temática dentro del contenido principal.</td>
+      <td class="rol">Un área de tu vida: familia, colegio, intereses.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;article&gt;</code></td>
+      <td>Contenido independiente y autocontenido. Podría vivir solo.</td>
+      <td class="rol">Una historia tuya que tiene sentido por sí sola.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;aside&gt;</code></td>
+      <td>Contenido secundario, complementario al principal.</td>
+      <td class="rol">Lo que enriquece tu historia pero no es lo central.</td>
+    </tr>
+    <tr>
+      <td><code>&lt;footer&gt;</code></td>
+      <td>Pie de página. Información de cierre, créditos, contacto.</td>
+      <td class="rol">Cómo cierras, cómo te despides, qué dejas al final.</td>
+    </tr>
+  </table>
+
+  <!-- Comparación: sin semántica vs con semántica -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">¿Por qué no usar solo &lt;div&gt; para todo?</h4>
+  <div class="cmp2">
+    <div class="cmp-lado">
+      <div class="cmp-tit" style="background:#fee2e2;color:#991b1b">❌ Solo &lt;div&gt; — sin significado</div>
+      <div class="cmp-body" style="background:#fef2f2;border:1.5px solid #fecaca;border-top:0;font-size:12px;color:#7f1d1d;line-height:2">
+&lt;div&gt;Título de mi página&lt;/div&gt;
+&lt;div&gt;
+  &lt;div&gt;Inicio&lt;/div&gt;
+  &lt;div&gt;Sobre mí&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;div&gt;Mi historia&lt;/div&gt;
+  &lt;div&gt;Nací en Barranquilla...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;Hecho por mí&lt;/div&gt;
+      </div>
+      <div style="background:#fee2e2;padding:10px 16px;font-size:12px;color:#991b1b">Funciona — pero nadie (ni el navegador, ni Google, ni un lector de pantalla) sabe qué es cada cosa.</div>
+    </div>
+    <div class="cmp-lado">
+      <div class="cmp-tit" style="background:#dcfce7;color:#166534">✅ Con semántica — con significado</div>
+      <div class="cmp-body" style="background:#f0fdf4;border:1.5px solid #86efac;border-top:0;font-size:12px;color:#14532d;line-height:2">
+&lt;header&gt;Título de mi página&lt;/header&gt;
+&lt;nav&gt;
+  &lt;a&gt;Inicio&lt;/a&gt;
+  &lt;a&gt;Sobre mí&lt;/a&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+  &lt;section&gt;Mi historia&lt;/section&gt;
+  &lt;article&gt;Nací en Barranquilla...&lt;/article&gt;
+&lt;/main&gt;
+&lt;footer&gt;Hecho por mí&lt;/footer&gt;
+      </div>
+      <div style="background:#dcfce7;padding:10px 16px;font-size:12px;color:#166534">Todos entienden qué es cada parte — el navegador, Google, y cualquier persona que lea el código.</div>
+    </div>
+  </div>
+
+  <!-- Código completo de página semántica -->
+  <div style="display:flex;align-items:center;gap:8px;margin:18px 0 10px">
+    <div class="slbl" style="background:#16a34a"><span class="dot" style="background:#fff"></span>Código completo con estructura semántica</div>
+  </div>
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">pagina_completa.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;!DOCTYPE </span><span class="htx">html</span><span class="ht">&gt;</span>
+<span class="ln"> 2</span><span class="ht">&lt;html </span><span class="ha">lang</span><span class="htx">=</span><span class="hv2">"es"</span><span class="ht">&gt;</span>
+<span class="ln"> 3</span><span class="ht">&lt;head&gt;</span>
+<span class="ln"> 4</span>  <span class="ht">&lt;meta </span><span class="ha">charset</span><span class="htx">=</span><span class="hv2">"UTF-8"</span><span class="ht">&gt;</span>
+<span class="ln"> 5</span>  <span class="ht">&lt;title&gt;</span><span class="htx">Quién soy más allá del colegio</span><span class="ht">&lt;/title&gt;</span>
+<span class="ln"> 6</span><span class="ht">&lt;/head&gt;</span>
+<span class="ln"> 7</span><span class="ht">&lt;body&gt;</span>
+
+<span class="ln"> 8</span>  <span class="hc">&lt;!-- Lo primero que ven: mi presentación --&gt;</span>
+<span class="ln"> 9</span>  <span class="ht">&lt;header&gt;</span>
+<span class="ln">10</span>    <span class="ht">&lt;h1&gt;</span><span class="htx">Quién soy más allá del colegio</span><span class="ht">&lt;/h1&gt;</span>
+<span class="ln">11</span>    <span class="ht">&lt;p&gt;</span><span class="htx">Una página sobre mí — completa, no solo el pedazo que se ve</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;/header&gt;</span>
+
+<span class="ln">13</span>  <span class="hc">&lt;!-- Los caminos para conocerme --&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;nav&gt;</span>
+<span class="ln">15</span>    <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"#historia"</span><span class="ht">&gt;</span><span class="htx">De dónde vengo</span><span class="ht">&lt;/a&gt;</span>
+<span class="ln">16</span>    <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"#hago"</span><span class="ht">&gt;</span><span class="htx">Lo que hago</span><span class="ht">&lt;/a&gt;</span>
+<span class="ln">17</span>    <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"#siento"</span><span class="ht">&gt;</span><span class="htx">Lo que siento</span><span class="ht">&lt;/a&gt;</span>
+<span class="ln">18</span>  <span class="ht">&lt;/nav&gt;</span>
+
+<span class="ln">19</span>  <span class="hc">&lt;!-- Lo esencial — el contenido principal --&gt;</span>
+<span class="ln">20</span>  <span class="ht">&lt;main&gt;</span>
+
+<span class="ln">21</span>    <span class="ht">&lt;section </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"historia"</span><span class="ht">&gt;</span>
+<span class="ln">22</span>      <span class="ht">&lt;h2&gt;</span><span class="htx">De dónde vengo</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln">23</span>      <span class="ht">&lt;article&gt;</span>
+<span class="ln">24</span>        <span class="ht">&lt;h3&gt;</span><span class="htx">Mi barrio, mi familia</span><span class="ht">&lt;/h3&gt;</span>
+<span class="ln">25</span>        <span class="ht">&lt;p&gt;</span><span class="htx">Nací en Barranquilla. Crecí en el barrio El Rosario...</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">26</span>      <span class="ht">&lt;/article&gt;</span>
+<span class="ln">27</span>    <span class="ht">&lt;/section&gt;</span>
+
+<span class="ln">28</span>    <span class="ht">&lt;section </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"hago"</span><span class="ht">&gt;</span>
+<span class="ln">29</span>      <span class="ht">&lt;h2&gt;</span><span class="htx">Lo que hago</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln">30</span>      <span class="ht">&lt;article&gt;</span>
+<span class="ln">31</span>        <span class="ht">&lt;h3&gt;</span><span class="htx">Dentro del colegio</span><span class="ht">&lt;/h3&gt;</span>
+<span class="ln">32</span>        <span class="ht">&lt;p&gt;</span><span class="htx">Estoy aprendiendo HTML. Me gusta tecnología.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">33</span>      <span class="ht">&lt;/article&gt;</span>
+<span class="ln">34</span>      <span class="ht">&lt;article&gt;</span>
+<span class="ln">35</span>        <span class="ht">&lt;h3&gt;</span><span class="htx">Fuera del colegio</span><span class="ht">&lt;/h3&gt;</span>
+<span class="ln">36</span>        <span class="ht">&lt;p&gt;</span><span class="htx">Dibujo. Cuido a mis hermanos. Sé cocinar arroz con pollo.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">37</span>      <span class="ht">&lt;/article&gt;</span>
+<span class="ln">38</span>    <span class="ht">&lt;/section&gt;</span>
+
+<span class="ln">39</span>    <span class="hc">&lt;!-- El aside: lo complementario, lo que enriquece --&gt;</span>
+<span class="ln">40</span>    <span class="ht">&lt;aside&gt;</span>
+<span class="ln">41</span>      <span class="ht">&lt;h3&gt;</span><span class="htx">Algo que pocos saben de mí</span><span class="ht">&lt;/h3&gt;</span>
+<span class="ln">42</span>      <span class="ht">&lt;p&gt;</span><span class="htx">Sé cocinar arroz con pollo mejor que muchos adultos.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">43</span>    <span class="ht">&lt;/aside&gt;</span>
+
+<span class="ln">44</span>  <span class="ht">&lt;/main&gt;</span>
+
+<span class="ln">45</span>  <span class="hc">&lt;!-- Cómo cierro, qué dejo al final --&gt;</span>
+<span class="ln">46</span>  <span class="ht">&lt;footer&gt;</span>
+<span class="ln">47</span>    <span class="ht">&lt;p&gt;</span><span class="htx">Hecho por mí · Grado 10° ENSDB · Barranquilla 2025</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">48</span>  <span class="ht">&lt;/footer&gt;</span>
+
+<span class="ln">49</span><span class="ht">&lt;/body&gt;</span>
+<span class="ln">50</span><span class="ht">&lt;/html&gt;</span></div>
+  </div>
+
+  <div class="warn"><strong>Importante:</strong> <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code> y <code>&lt;main&gt;</code> son para la estructura general de la página. <code>&lt;section&gt;</code> y <code>&lt;article&gt;</code> van dentro del contenido. <code>&lt;aside&gt;</code> es para contenido relacionado pero no central. <code>&lt;main&gt;</code> debe aparecer solo una vez por página — igual que el <code>&lt;h1&gt;</code>.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 1 · INDIVIDUAL · AUTOCONCIENCIA
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>Mi página completa: quién soy más allá del rol que me pusieron</h3>
+      <div class="asub">Individual · 30 minutos · Autoconciencia — construir una identidad propia con estructura semántica</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 30 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👤 Individual</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Editor de código</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🪞</span><span class="eti">Antes de escribir — responde esto primero</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Piensa en los roles que tienes: en tu familia (el mayor, el menor, el que ayuda, el que estudia), en el colegio (el aplicado, el callado, el que pregunta, el que no), con tus amigos (el gracioso, el serio, el que organiza, el que sigue). <strong>¿Cuál de esos roles elegiste tú — y cuál simplemente te fue tomando?</strong> Tu página de hoy va a mostrar lo que hay más allá de todos esos roles.
+        </p>
+        <div class="escena-pregunta">💭 ¿Si pudieras escribir tu propio &lt;header&gt; — tu propia presentación al mundo — qué diría?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>quien_soy.html</code> con estructura semántica completa</h4>
+          <p>Debe incluir: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> con al menos dos <code>&lt;section&gt;</code> y un <code>&lt;article&gt;</code> por sección, un <code>&lt;aside&gt;</code> y un <code>&lt;footer&gt;</code>. Cada elemento semántico debe tener un comentario HTML que explique qué pusiste ahí y por qué.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">2</div>
+        <div class="pc">
+          <h4>El &lt;header&gt;: cómo te presentas tú, no como te presentan</h4>
+          <p>En el <code>&lt;h1&gt;</code> no pongas tu nombre solo — escribe una frase que diga algo real de ti. No "Hola soy Juan". Algo como "El que dibuja en los márgenes y nadie nota" o "Quien más sabe de música en este salón aunque nadie lo sabe". Eso es tu header.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">3</div>
+        <div class="pc">
+          <h4>Las &lt;section&gt;: las áreas de tu vida</h4>
+          <p>Mínimo dos secciones, cada una con un <code>&lt;h2&gt;</code> y al menos un <code>&lt;article&gt;</code> adentro. Elige las secciones que sientas que representan partes reales tuyas — no las que "deberían" ir. Algunas ideas:</p>
+          <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13px;color:#7c2d12;line-height:2">
+            "Lo que hago en casa que nadie ve pero que importa"<br>
+            "Lo que el colegio no captura de mí"<br>
+            "Lo que me gusta y que no cuadra con lo que esperan de mí"<br>
+            "Mis relaciones: la que está bien, la que está rota, la que quiero construir"<br>
+            "Mis miedos que no he dicho en voz alta"
+          </div>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">4</div>
+        <div class="pc">
+          <h4>El &lt;aside&gt;: lo que enriquece pero no es lo central</h4>
+          <p>Algo tuyo que complementa la historia principal sin ser el centro. Puede ser: una cita que te sostiene, una habilidad oculta, algo que aprendiste de tu familia que nadie más en el colegio sabe, un recuerdo que te define.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">5</div>
+        <div class="pc">
+          <h4>El &lt;footer&gt;: cómo cierras</h4>
+          <p>No solo tu nombre y el año. Escribe algo que quieras que el lector se lleve. Una frase, una intención, una pregunta abierta. Lo que dejas al final también dice quién eres.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu página debe tener</div>
+      <ul>
+        <li>Estructura semántica completa: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code></li>
+        <li>Al menos un <code>&lt;div&gt;</code> y un <code>&lt;span&gt;</code> usados con intención dentro del contenido</li>
+        <li>Comentarios HTML en cada elemento semántico explicando qué pusiste y por qué</li>
+        <li>Un <code>&lt;header&gt;</code> con una frase que te represente — no solo tu nombre</li>
+        <li>Contenido de las guías anteriores integrado: listas, citas, párrafos, al menos una imagen y un enlace</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Construir tu propia estructura es un acto de identidad</h4>
+      <p>Una página con estructura semántica no solo organiza contenido — declara qué es cada cosa y qué importancia tiene. Al construir tu propia página hoy, tomaste decisiones que los demás generalmente toman por ti: qué va en el header (cómo te presentas), qué va en el main (lo central de tu historia), qué va en el aside (lo que complementa). Esas decisiones son tuyas. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué fue lo más difícil de escribir en tu &lt;header&gt;? ¿Por qué cuesta tanto presentarse a uno mismo con honestidad?</li>
+        <li><span>→</span> ¿Hubo algo que querías poner en el &lt;main&gt; pero lo pasaste al &lt;aside&gt; — algo que minimizaste? ¿Por qué?</li>
+        <li><span>→</span> ¿Qué rol de tu vida va en el &lt;main&gt; de tu identidad real — y cuál va en el &lt;aside&gt; aunque los demás crean que es lo central?</li>
+        <li><span>→</span> ¿Qué escribiste en tu &lt;footer&gt;? ¿Eso es lo que realmente quieres dejar al final, o fue lo primero que se te ocurrió?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 2 · PAREJAS · HABILIDADES RELACIONALES
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>El &lt;nav&gt; del otro: ¿qué caminos le ofrezco a quien me conoce?</h3>
+      <div class="asub">Parejas · 20 minutos · Habilidades relacionales — las rutas de acceso a nuestra vida</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 + conversación</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🗺️</span><span class="eti">Los caminos que le damos a los demás para conocernos</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          El <code style="font-family:'Source Code Pro';font-size:12px">&lt;nav&gt;</code> en una página web le ofrece al visitante rutas para moverse. En una relación, también ofrecemos rutas: algunas personas nos dan acceso fácil a todo, otras solo dejan entrar a ciertos lugares. <strong>¿Qué rutas le ofreces tú a las personas que intentan conocerte?</strong> ¿Hay partes de ti a las que nadie tiene acceso?
+        </p>
+        <div class="escena-pregunta">💭 Si tu vida fuera una página web, ¿cuál sería el menú de navegación que le mostrarías a alguien en quien confías?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">1</div>
+        <div class="pc">
+          <h4>Intercambien sus páginas de la Actividad 1 (5 min)</h4>
+          <p>Lean la página del otro en el editor de código — no solo en el navegador. Lean los comentarios HTML. ¿Qué eligió poner en el header? ¿Qué está en el main y qué en el aside?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">2</div>
+        <div class="pc">
+          <h4>Cada uno escribe el &lt;nav&gt; que le haría al otro (8 min)</h4>
+          <p>Basado en lo que leíste y en lo que conoces de esa persona, escribe un <code>&lt;nav&gt;</code> HTML con al menos 4 enlaces ancla que representen las rutas de acceso a esa persona. No lo que ella puso — lo que tú ves. Por ejemplo:</p>
+          <div style="background:#f5f3ff;border:1.5px solid #ddd6fe;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13px;color:#4c1d95;font-family:'Source Code Pro',monospace;line-height:2">
+&lt;nav&gt;<br>
+&nbsp;&nbsp;&lt;a href="#humor"&gt;Su sentido del humor&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;a href="#familia"&gt;Lo que carga de la familia&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;a href="#oculto"&gt;Lo que pocos saben&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;a href="#sueno"&gt;A dónde quiere llegar&lt;/a&gt;<br>
+&lt;/nav&gt;
+          </div>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">3</div>
+        <div class="pc">
+          <h4>Comparen los &lt;nav&gt;: el propio vs el que te hizo el otro (7 min)</h4>
+          <p>¿Coinciden? ¿El nav que te hizo tu compañero abre rutas que tú no habías incluido? ¿Hay alguna ruta que abrió que prefieres cerrar? Conversen sobre eso — con respeto.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Un <code>&lt;nav&gt;</code> HTML escrito por ti para tu compañero/a — con al menos 4 enlaces ancla descriptivos</li>
+        <li>Un <code>&lt;nav&gt;</code> recibido del otro — que será el que vas a comparar con el tuyo</li>
+        <li>Un <code>&lt;p&gt;</code> escrito al final del archivo con tu reflexión: ¿Qué abrió el otro que tú no habías visto?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Las relaciones se construyen abriendo rutas — con conciencia</h4>
+      <p>Las habilidades relacionales incluyen "comunicarse claramente" y "desarrollar relaciones positivas". El <code>&lt;nav&gt;</code> que escribiste para el otro es un acto de atención: viste algo en esa persona y lo nombraste. El que recibiste es un espejo — alguien te vio y te lo mostró. Eso es lo que hacen las relaciones sanas: crear rutas de acceso mutuo, con respeto por las partes que el otro decide mantener cerradas. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué ruta abrió tu compañero/a que te sorprendió — positivamente o no?</li>
+        <li><span>→</span> ¿Hay alguna ruta en el nav que te hicieron que prefieres que permanezca cerrada? ¿Por qué?</li>
+        <li><span>→</span> ¿Con qué personas en tu vida sientes que tienes un nav completo — que pueden acceder a muchas partes de ti? ¿Qué hace diferente esa relación?</li>
+        <li><span>→</span> ¿Hay alguien en tu familia o en el colegio con quien sientas que el nav está casi vacío — que no sabes cómo acceder a ellos o ellos a ti?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 3 · GRUPAL · CONCIENCIA SOCIAL
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>La página de nuestro salón: una estructura que nos incluye a todos</h3>
+      <div class="asub">Grupos de 4 · 20 minutos · Conciencia social — construir algo colectivo con semántica real</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 20 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Grupos de 4</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 Un archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🧩</span><span class="eti">Un salón también tiene estructura — pero ¿quién la define?</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          En todo grupo hay roles implícitos: el que lidera, el que sigue, el que media, el que protesta, el que desaparece. A veces esos roles los elegimos, a veces nos los ponen. Esta actividad propone algo diferente: <strong>construir juntos una página que represente al grupo con estructura semántica real</strong> — donde cada sección tenga contenido consensuado, donde el aside no sea el menos importante sino el que enriquece, y donde el footer sea algo que todos firmen.
+        </p>
+        <div class="escena-pregunta">💭 Si el salón fuera una página web semántica, ¿qué iría en el &lt;main&gt; — lo que más define al grupo — y qué iría en el &lt;aside&gt;?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">1</div>
+        <div class="pc">
+          <h4>Decidan juntos la estructura (5 min)</h4>
+          <p>¿Cuáles serán las dos <code>&lt;section&gt;</code> del grupo? Deben ser decididas por consenso — no por el que habla más fuerte. Cada sección tiene que representar algo real del grupo, no lo que se supone que debería decir un salón.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">2</div>
+        <div class="pc">
+          <h4>Asignen roles rotativos (no los habituales)</h4>
+          <p>El <strong>Coder</strong> escribe el HTML. El <strong>Editor semántico</strong> verifica que cada elemento tenga el nombre correcto. El <strong>Redactor</strong> dicta el contenido. El <strong>Revisor SEL</strong> verifica que el contenido represente al grupo completo — no solo a los que más hablan.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">3</div>
+        <div class="pc">
+          <h4>Construyan el archivo <code>pagina_del_grupo.html</code> (12 min)</h4>
+          <p>Con estructura completa: <code>&lt;header&gt;</code> con el nombre del grupo, <code>&lt;nav&gt;</code> con las secciones, <code>&lt;main&gt;</code> con dos <code>&lt;section&gt;</code> y <code>&lt;article&gt;</code> adentro, un <code>&lt;aside&gt;</code> con algo que el grupo considera su "valor oculto" — algo que tienen como grupo y que el colegio no suele reconocer — y un <code>&lt;footer&gt;</code> con una frase firmada por los cuatro.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">4</div>
+        <div class="pc">
+          <h4>El Revisor SEL hace la pregunta final</h4>
+          <p>Antes de cerrar el archivo: ¿Hay alguien del grupo cuya voz no quedó en esta página? Si la respuesta es sí, hay que corregirlo antes de entregar.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>pagina_del_grupo.html</code> con estructura semántica completa</li>
+        <li>Contenido consensuado — no impuesto por uno solo del grupo</li>
+        <li>Un <code>&lt;aside&gt;</code> con el "valor oculto" del grupo</li>
+        <li>Un <code>&lt;footer&gt;</code> con una frase que los cuatro aprueben</li>
+        <li>Comentarios HTML que expliquen por qué cada elemento contiene lo que contiene</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Un grupo bien estructurado es uno donde todos tienen un lugar — no solo los que más hablan</h4>
+      <p>La conciencia social incluye "reconocer las fortalezas de los demás" y "comprender las influencias de los sistemas sobre el comportamiento". El <code>&lt;aside&gt;</code> de su página — el valor oculto del grupo — es un reconocimiento de que lo más importante de un grupo no siempre es lo más visible. Igual que en una persona: lo que va al aside no es lo secundario, es lo que enriquece. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Fue fácil o difícil llegar a consenso sobre qué iba en cada sección? ¿Qué pasó en el proceso?</li>
+        <li><span>→</span> ¿Alguien del grupo tuvo una idea que no quedó en la página? ¿Por qué no quedó?</li>
+        <li><span>→</span> ¿Qué pusieron en el &lt;aside&gt; como "valor oculto"? ¿Todo el grupo estuvo de acuerdo con eso?</li>
+        <li><span>→</span> ¿La página resultante representa a todos los integrantes o hay alguien que no se ve reflejado/a?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BITÁCORA DE CIERRE
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 05</h3></div>
+  </div>
+
+  <p class="tp">Escribe en tu cuaderno o en un archivo <code>bitacora_guia05.html</code> — usando estructura semántica, por supuesto.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál es el rol que más te pesa de los que tienes — en la familia, el colegio o con tus amigos? ¿Lo elegiste o te fue puesto?</li>
+        <li><span>→</span> Si pudieras reescribir tu &lt;header&gt; — la forma en que te presentas al mundo — ¿qué cambiarías?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Con qué persona en tu vida tienes el nav más completo — el que te da acceso a más partes de ti? ¿Qué hizo esa persona para ganarse ese acceso?</li>
+        <li><span>→</span> ¿Hay alguien a quien quisieras darle más acceso — abrir más rutas — pero todavía no sabes cómo?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué aprendiste del proceso de construir algo colectivo hoy? ¿Qué fue diferente a cuando construyes algo solo?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno escolar o familiar que sienta que no tiene un lugar — que su "sección" no es reconocida por los demás? ¿Qué podrías hacer tú?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-decision" style="margin-top:0">
+      <div class="sel-badge">⚖️ Toma de Decisiones</div>
+      <ul class="qs">
+        <li><span>→</span> Esta guía te dio la posibilidad de decidir tu propia estructura. En la vida real, ¿cuánto control tienes sobre cómo te organizas y te presentas? ¿Qué podrías cambiar?</li>
+        <li><span>→</span> ¿Hay una decisión sobre un rol en tu vida — en la familia, el colegio o los amigos — que quieras tomar de manera diferente después de hoy?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en HTML hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="340" fill="#f8fafc"/>
+
+      <!-- Estructura semántica visual como página -->
+      <!-- Header -->
+      <rect x="20" y="20" width="660" height="44" rx="8" fill="#1a4f8a"/>
+      <text x="350" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">&lt;header&gt; — Encabezado: cómo te presentas</text>
+      <text x="350" y="54" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Nunito" font-size="10">h1 · logo · introducción</text>
+
+      <!-- Nav -->
+      <rect x="20" y="72" width="660" height="30" rx="6" fill="#1e3a8a"/>
+      <text x="350" y="91" text-anchor="middle" fill="#93c5fd" font-family="Nunito" font-weight="800" font-size="11">&lt;nav&gt; — Menú de navegación · los caminos que ofreces</text>
+
+      <!-- Main + Aside -->
+      <rect x="20" y="110" width="470" height="172" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="255" y="128" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="900" font-size="12">&lt;main&gt; — Contenido principal · lo esencial de ti</text>
+
+      <!-- Section 1 -->
+      <rect x="30" y="136" width="215" height="136" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="137" y="153" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">&lt;section&gt; · Área 1</text>
+      <rect x="40" y="160" width="195" height="50" rx="5" fill="white" stroke="#dbeafe" stroke-width="1"/>
+      <text x="137" y="179" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">&lt;article&gt; — Historia autocontenida</text>
+      <text x="137" y="194" text-anchor="middle" fill="#3b82f6" font-family="Nunito" font-size="9">puede vivir sola</text>
+      <rect x="40" y="216" width="195" height="46" rx="5" fill="white" stroke="#dbeafe" stroke-width="1"/>
+      <text x="137" y="235" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">&lt;article&gt; — Otra historia</text>
+      <text x="137" y="249" text-anchor="middle" fill="#3b82f6" font-family="Nunito" font-size="9">dentro de la misma sección</text>
+
+      <!-- Section 2 -->
+      <rect x="255" y="136" width="225" height="136" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="367" y="153" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">&lt;section&gt; · Área 2</text>
+      <rect x="265" y="160" width="205" height="100" rx="5" fill="white" stroke="#dbeafe" stroke-width="1"/>
+      <text x="367" y="185" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">&lt;article&gt;</text>
+      <text x="367" y="200" text-anchor="middle" fill="#3b82f6" font-family="Nunito" font-size="9">Contenido de esta sección</text>
+
+      <!-- Aside -->
+      <rect x="500" y="110" width="180" height="172" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="590" y="130" text-anchor="middle" fill="#14532d" font-family="Nunito" font-weight="900" font-size="11">&lt;aside&gt;</text>
+      <text x="590" y="146" text-anchor="middle" fill="#166534" font-family="Nunito" font-size="9">Complementario</text>
+      <text x="590" y="160" text-anchor="middle" fill="#166534" font-family="Nunito" font-size="9">no secundario</text>
+      <line x1="515" y1="174" x2="670" y2="174" stroke="#86efac" stroke-width="1"/>
+      <text x="590" y="192" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">Lo que enriquece</text>
+      <text x="590" y="206" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">la historia principal</text>
+      <text x="590" y="220" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">sin ser el centro</text>
+      <line x1="515" y1="234" x2="670" y2="234" stroke="#86efac" stroke-width="1"/>
+      <text x="590" y="252" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">Habilidades ocultas</text>
+      <text x="590" y="266" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">frases · recursos</text>
+
+      <!-- div / span  -->
+      <rect x="20" y="292" width="200" height="34" rx="6" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.5"/>
+      <text x="120" y="313" text-anchor="middle" fill="#4c1d95" font-family="Nunito" font-weight="800" font-size="10">&lt;div&gt; bloque · &lt;span&gt; línea</text>
+
+      <!-- Footer -->
+      <rect x="20" y="292" width="660" height="34" rx="8" fill="#1e293b"/>
+      <text x="350" y="313" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-weight="800" font-size="11">&lt;footer&gt; — Pie de página · cómo cierras · qué dejas</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 05</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Estructura semántica</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa &lt;div&gt; para todo o los elementos semánticos están mal ubicados.</td>
+      <td>Usa correctamente header, nav, main, section, article, aside y footer.</td>
+      <td>La estructura semántica es coherente y cada elemento contiene exactamente lo que corresponde — ninguno está vacío ni mal utilizado.</td>
+    </tr>
+    <tr>
+      <td><strong>&lt;div&gt; y &lt;span&gt;</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No los usa o los usa indiscriminadamente.</td>
+      <td>Los usa al menos una vez cada uno con sentido.</td>
+      <td>El uso de &lt;div&gt; y &lt;span&gt; está justificado — se ve que eligió estos en lugar del semántico con intención.</td>
+    </tr>
+    <tr>
+      <td><strong>Contenido del &lt;header&gt;</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>Solo pone su nombre o una frase genérica.</td>
+      <td>El header tiene una presentación personal que dice algo real.</td>
+      <td>La frase del header es honesta, original y dice algo que los demás no esperarían — refleja autoconocimiento real.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas mínimas o que evitan el tema.</td>
+      <td>Conecta los elementos semánticos con situaciones de su vida de manera concreta.</td>
+      <td>La reflexión muestra que la actividad removió algo real — sobre sus roles, sus relaciones o su forma de verse a sí mismo.</td>
+    </tr>
+    <tr>
+      <td><strong>Trabajo colectivo</strong><br><span style="font-size:11px;color:#64748b">SEL · Relacional</span></td>
+      <td>No aportó al consenso o el producto no refleja al grupo.</td>
+      <td>Participó activamente y el archivo colectivo tiene aportes de todos.</td>
+      <td>El &lt;aside&gt; colectivo revela algo genuino del grupo y el &lt;footer&gt; es una frase que todos firmaron con convicción.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 05 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Habilidades Relacionales · Conciencia Social · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 06 → Tablas HTML: filas, columnas y datos que cuentan historias</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
