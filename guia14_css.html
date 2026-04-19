@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 14 · Flexbox · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ FLEX DEMOS EN VIVO ══ */
+.flex-demo{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px;margin:10px 0;overflow:hidden}
+.flex-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-bottom:10px}
+.flex-container{display:flex;gap:8px;padding:10px;background:#fff;border:1.5px dashed #cbd5e1;border-radius:8px;min-height:64px}
+.flex-item{border-radius:8px;padding:10px 14px;font-size:12px;font-weight:800;color:#fff;white-space:nowrap;text-align:center;min-width:60px;display:flex;align-items:center;justify-content:center}
+.fi-a{background:#1a4f8a}
+.fi-b{background:#2563eb}
+.fi-c{background:#7c3aed}
+.fi-d{background:#ea580c}
+.fi-e{background:#16a34a}
+
+/* ══ AXIS DIAGRAM ══ */
+.axis-wrap{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin:14px 0}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 14</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 14 · Grado Décimo · ENSDB 2025</div>
+    <h2>Flexbox: distribuir y alinear con intención</h2>
+    <p class="gsub">Flexbox es el sistema de CSS que permite distribuir elementos en un contenedor de forma flexible y controlada, en filas o columnas. Aprenderás <code style="background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">display: flex</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">justify-content</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">align-items</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">flex-direction</code> y <code style="background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">flex-wrap</code>. Y a través de eso, a pensar en cómo distribuimos la atención, el reconocimiento y el espacio en un grupo.</p>
+    <div class="tags">
+      <span class="tag tag-azul">display: flex · flex-direction · flex-wrap</span>
+      <span class="tag tag-azul">justify-content · align-items · gap</span>
+      <span class="tag tag-verde">flex-grow · flex-shrink · flex-basis · order</span>
+      <span class="tag tag-morado">align-self · flex: 1</span>
+      <span class="tag tag-ambar">Distribución · Reconocimiento · Grupo · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Cómo distribuimos el espacio, la atención y el reconocimiento</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor.</p>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🍕</span><span class="eti">Con compañeros · Repartir no es repartir igual</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el trabajo de grupo de Biología, son cuatro. La docente dice: "distribúyanse las partes". En cinco minutos, Paula y Ernesto ya tienen las dos partes más visibles — la introducción y las conclusiones. A Sofía le toca la metodología. A Jair le toca las referencias. El producto final parece de dos personas. <strong>Distribuir no es lo mismo que distribuir equitativamente.</strong> En Flexbox, <code style="font-family:'Source Code Pro';font-size:12px">justify-content</code> decide cómo se reparte el espacio disponible entre los elementos. Y no todos los valores reparten igual.</p>
+      <div class="escena-pregunta">💭 ¿En los trabajos grupales de tu colegio, cómo se distribuye realmente el trabajo? ¿Hay alguien que siempre hace más — o menos?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📏</span><span class="eti">En casa · Alinearse no es volverse igual</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Los tres hermanos de la familia Pedraza son completamente distintos: Natán estudia ingeniería, Camila quiere ser bailarina, el pequeño Diego apenas está descubriendo qué le gusta. La mamá los trata diferente — no por preferencia, sino porque alinearse a cada uno requiere cosas distintas. <strong>Alinearlos a todos por el mismo eje no significa que deban ser iguales.</strong> En Flexbox, <code style="font-family:'Source Code Pro';font-size:12px">align-items</code> controla cómo se alinean los elementos en el eje cruzado — y hay varias formas de hacerlo.</p>
+      <div class="escena-pregunta">💭 ¿Tu familia te trata de acuerdo a quién eres o te "alinea" a un estándar que no siempre te representa?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🔄</span><span class="eti">En el colegio · Cuando no cabe todo en una fila</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el evento de la ENSDB, todos los grupos querían estar en la primera fila del auditorio. No cabían. Un docente propuso: "si no caben en una fila, se forma una segunda". Algunos grupos aceptaron, otros se molestaron porque "segunda fila" les parecía menos importante. <strong>flex-wrap hace exactamente eso: cuando los elementos no caben en una línea, se permite que pasen a la siguiente.</strong> El problema no es la segunda fila — es que creemos que vale menos.</p>
+      <div class="escena-pregunta">💭 ¿Hay situaciones en tu vida donde "pasar a la segunda fila" sería la solución práctica, pero el ego no lo permite?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">El trabajo de Biología con distribución desigual. Los hermanos Pedraza que necesitan alinearse diferente. Los grupos del evento que no caben en una fila. <strong>Flexbox es el sistema CSS que resuelve estos problemas de distribución y alineación — con control total sobre quién va dónde, con cuánto espacio, y en qué dirección.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📐</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Activar Flexbox con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">display: flex</code> y controlar la dirección del flujo con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex-direction</code> y el salto de línea con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex-wrap</code>.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">⚖️</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Distribuir el espacio con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">justify-content</code> y alinear con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">align-items</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">align-self</code>.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📦</span><p style="font-size:13.5px;font-weight:700;color:#166534">Controlar el crecimiento y contracción de los items con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex-grow</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex-shrink</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex-basis</code> y el shorthand <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">flex: 1</code>.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🫂</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre cómo distribuimos el espacio, el reconocimiento y la atención en los grupos — y qué valores de justify-content usamos en la vida real.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1: display flex, direction, wrap -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>display: flex — el contenedor y sus hijos</h2><p>flex-direction · flex-wrap · gap — las bases que controlan el flujo</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Cuando aplicas <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">display: flex</code> a un elemento, ese elemento se convierte en el <strong>contenedor flex</strong> y sus hijos directos se convierten en <strong>items flex</strong>. El contenedor controla cómo se distribuyen y alinean esos hijos usando el eje principal y el eje cruzado.</p>
+
+  <!-- Diagrama ejes -->
+  <div class="axis-wrap">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Los dos ejes del contenedor flex:</div>
+    <svg viewBox="0 0 680 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block">
+      <rect width="680" height="160" fill="#f8fafc"/>
+      <!-- Contenedor -->
+      <rect x="20" y="30" width="640" height="100" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="2"/>
+      <!-- Items -->
+      <rect x="36" y="48" width="100" height="64" rx="6" fill="#1a4f8a"/>
+      <text x="86" y="84" text-anchor="middle" fill="white" font-family="Nunito" font-weight="800" font-size="12">item 1</text>
+      <rect x="152" y="48" width="100" height="64" rx="6" fill="#2563eb"/>
+      <text x="202" y="84" text-anchor="middle" fill="white" font-family="Nunito" font-weight="800" font-size="12">item 2</text>
+      <rect x="268" y="48" width="100" height="64" rx="6" fill="#7c3aed"/>
+      <text x="318" y="84" text-anchor="middle" fill="white" font-family="Nunito" font-weight="800" font-size="12">item 3</text>
+      <!-- Eje principal -->
+      <line x1="20" y1="148" x2="660" y2="148" stroke="#1a4f8a" stroke-width="2.5" marker-end="url(#arrow-h)"/>
+      <text x="340" y="158" text-anchor="middle" fill="#1a4f8a" font-family="Nunito" font-weight="800" font-size="10">→ Eje principal (main axis) — justify-content actúa aquí</text>
+      <!-- Eje cruzado -->
+      <line x1="660" y1="30" x2="660" y2="130" stroke="#7c3aed" stroke-width="2.5"/>
+      <text x="670" y="84" fill="#7c3aed" font-family="Nunito" font-weight="800" font-size="10" transform="rotate(90,670,84)">↓ Eje cruzado — align-items actúa aquí</text>
+      <!-- flex-direction label -->
+      <text x="86" y="26" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">flex-direction: row (por defecto)</text>
+    </svg>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">flex-base.css</span></div>
+    <div class="ebody"><span class="cs">.contenedor</span> {
+  <span class="cp">display</span>: <span class="cv">flex</span>;               <span class="hc">/* activa flexbox */</span>
+
+  <span class="hc">/* flex-direction: la dirección del eje principal */</span>
+  <span class="cp">flex-direction</span>: <span class="cv">row</span>;         <span class="hc">/* → izq a der (por defecto) */</span>
+  <span class="hc">/* flex-direction: row-reverse;  ← der a izq */</span>
+  <span class="hc">/* flex-direction: column;       ↓ de arriba hacia abajo */</span>
+  <span class="hc">/* flex-direction: column-reverse; ↑ de abajo hacia arriba */</span>
+
+  <span class="hc">/* flex-wrap: qué pasa cuando no caben en una línea */</span>
+  <span class="cp">flex-wrap</span>: <span class="cv">nowrap</span>;          <span class="hc">/* todos en una línea, se comprimen (por defecto) */</span>
+  <span class="hc">/* flex-wrap: wrap;              pasan a la línea siguiente */</span>
+  <span class="hc">/* flex-wrap: wrap-reverse;      segunda línea arriba */</span>
+
+  <span class="hc">/* gap: espacio entre items */</span>
+  <span class="cp">gap</span>: <span class="cv">16px</span>;                 <span class="hc">/* igual en filas y columnas */</span>
+  <span class="hc">/* gap: 12px 24px;  row-gap column-gap */</span>
+}</div>
+  </div>
+
+  <!-- Demos visuales de flex-direction -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0">
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">flex-direction: row (por defecto)</p>
+      <div style="display:flex;gap:8px;padding:12px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px">
+        <div class="flex-item fi-a" style="flex:1">A</div>
+        <div class="flex-item fi-b" style="flex:1">B</div>
+        <div class="flex-item fi-c" style="flex:1">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">flex-direction: column</p>
+      <div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px">
+        <div class="flex-item fi-a">A</div>
+        <div class="flex-item fi-b">B</div>
+        <div class="flex-item fi-c">C</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo de flex-wrap -->
+  <div style="margin:14px 0">
+    <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">flex-wrap: wrap — cuando no caben, van a la siguiente línea</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px">
+      <div class="flex-item fi-a" style="width:120px">Grupo 1</div>
+      <div class="flex-item fi-b" style="width:120px">Grupo 2</div>
+      <div class="flex-item fi-c" style="width:120px">Grupo 3</div>
+      <div class="flex-item fi-d" style="width:120px">Grupo 4</div>
+      <div class="flex-item fi-e" style="width:120px">Grupo 5</div>
+    </div>
+    <p style="font-size:12px;color:#64748b;margin-top:6px;font-style:italic">Igual que los grupos del evento de la ENSDB — los que no caben en la primera fila pasan a la segunda, sin dejar de existir.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 2: justify-content y align-items -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>justify-content y align-items: distribuir y alinear</h2><p>Los dos ejes, los dos controles — cómo se reparte el espacio y dónde se ubica cada quien</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>justify-content</strong> distribuye el espacio en el eje principal (por defecto: horizontal). <strong>align-items</strong> alinea los items en el eje cruzado (por defecto: vertical). Juntas, estas dos propiedades permiten centrar perfectamente un elemento, distribuir espacio equitativamente, o alinear todo al inicio o al final.</p>
+
+  <!-- justify-content demos -->
+  <h4 style="font-size:14px;font-weight:800;color:#1a4f8a;margin:14px 0 10px">justify-content — distribución en el eje principal:</h4>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">flex-start (por defecto)</p>
+      <div style="display:flex;justify-content:flex-start;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:50px">
+        <div class="flex-item fi-a" style="width:70px">A</div>
+        <div class="flex-item fi-b" style="width:70px">B</div>
+        <div class="flex-item fi-c" style="width:70px">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">center</p>
+      <div style="display:flex;justify-content:center;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:50px">
+        <div class="flex-item fi-a" style="width:70px">A</div>
+        <div class="flex-item fi-b" style="width:70px">B</div>
+        <div class="flex-item fi-c" style="width:70px">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">space-between — máximo espacio entre items (los extremos tocan los bordes)</p>
+      <div style="display:flex;justify-content:space-between;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:50px">
+        <div class="flex-item fi-a" style="width:70px">A</div>
+        <div class="flex-item fi-b" style="width:70px">B</div>
+        <div class="flex-item fi-c" style="width:70px">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">space-around — espacio igual alrededor de cada item</p>
+      <div style="display:flex;justify-content:space-around;gap:0;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:50px">
+        <div class="flex-item fi-a" style="width:70px">A</div>
+        <div class="flex-item fi-b" style="width:70px">B</div>
+        <div class="flex-item fi-c" style="width:70px">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">space-evenly — espacio exactamente igual entre todos (incluso los bordes)</p>
+      <div style="display:flex;justify-content:space-evenly;gap:0;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:50px">
+        <div class="flex-item fi-a" style="width:70px">A</div>
+        <div class="flex-item fi-b" style="width:70px">B</div>
+        <div class="flex-item fi-c" style="width:70px">C</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- align-items demos -->
+  <h4 style="font-size:14px;font-weight:800;color:#1a4f8a;margin:14px 0 10px">align-items — alineación en el eje cruzado:</h4>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px">
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">flex-start</p>
+      <div style="display:flex;align-items:flex-start;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:90px">
+        <div class="flex-item fi-a" style="height:30px;flex:1">A</div>
+        <div class="flex-item fi-b" style="height:55px;flex:1">B</div>
+        <div class="flex-item fi-c" style="height:40px;flex:1">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">center</p>
+      <div style="display:flex;align-items:center;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:90px">
+        <div class="flex-item fi-a" style="height:30px;flex:1">A</div>
+        <div class="flex-item fi-b" style="height:55px;flex:1">B</div>
+        <div class="flex-item fi-c" style="height:40px;flex:1">C</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;font-family:'Source Code Pro',monospace;margin-bottom:6px">stretch (por defecto)</p>
+      <div style="display:flex;align-items:stretch;gap:8px;padding:10px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;height:90px">
+        <div class="flex-item fi-a" style="flex:1">A</div>
+        <div class="flex-item fi-b" style="flex:1">B</div>
+        <div class="flex-item fi-c" style="flex:1">C</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">justify-align.css</span></div>
+    <div class="ebody"><span class="hc">/* El truco más usado en CSS: centrar un elemento en su contenedor */</span>
+<span class="cs">.centrado-perfecto</span> {
+  <span class="cp">display</span>: <span class="cv">flex</span>;
+  <span class="cp">justify-content</span>: <span class="cv">center</span>;  <span class="hc">/* centro horizontal */</span>
+  <span class="cp">align-items</span>: <span class="cv">center</span>;     <span class="hc">/* centro vertical */</span>
+  <span class="cp">min-height</span>: <span class="cv">100vh</span>;        <span class="hc">/* ocupa toda la pantalla */</span>
+}
+
+<span class="hc">/* Nav con logo a la izquierda y links a la derecha */</span>
+<span class="cs">.nav</span> {
+  <span class="cp">display</span>: <span class="cv">flex</span>;
+  <span class="cp">justify-content</span>: <span class="cv">space-between</span>;
+  <span class="cp">align-items</span>: <span class="cv">center</span>;
+  <span class="cp">padding</span>: <span class="cv">16px 32px</span>;
+}
+
+<span class="hc">/* Tarjetas en fila que se rompen si no caben */</span>
+<span class="cs">.galeria</span> {
+  <span class="cp">display</span>: <span class="cv">flex</span>;
+  <span class="cp">flex-wrap</span>: <span class="cv">wrap</span>;
+  <span class="cp">gap</span>: <span class="cv">20px</span>;
+  <span class="cp">justify-content</span>: <span class="cv">flex-start</span>;
+}
+
+<span class="hc">/* align-self: un item individual se alinea diferente a los demás */</span>
+<span class="cs">.item-especial</span> {
+  <span class="cp">align-self</span>: <span class="cv">flex-end</span>;  <span class="hc">/* solo este item se va al fondo */</span>
+}</div>
+  </div>
+
+  <div style="background:#fdf4ff;border:1.5px solid #f0abfc;border-radius:10px;padding:14px 18px;margin-top:8px">
+    <p style="font-size:14px;color:#581c87"><strong>La metáfora del trabajo grupal:</strong> <code style="font-family:'Source Code Pro';font-size:12px">justify-content: space-between</code> pone a Paula y Ernesto en los extremos visibles. <code style="font-family:'Source Code Pro';font-size:12px">space-evenly</code> hubiera distribuido el protagonismo de manera más justa. El valor de justify-content que eliges para tu grupo refleja cómo entiende la distribución del reconocimiento.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 3: flex-grow, shrink, basis -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>flex-grow, flex-shrink, flex-basis y order</h2><p>Cuánto crece, cuánto se encoge y en qué orden — propiedades de los items flex</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Estas propiedades se aplican a los <strong>items flex</strong> (los hijos del contenedor), no al contenedor. Controlan cómo cada item individual crece para ocupar espacio disponible, se encoge si falta espacio, cuál es su tamaño base, y en qué orden aparece.</p>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">flex-items.css</span></div>
+    <div class="ebody"><span class="hc">/* flex-grow: cuánto crece un item para ocupar espacio disponible */</span>
+<span class="hc">/* 0 = no crece. 1 = crece igual que todos. 2 = crece el doble */</span>
+<span class="cs">.item-principal</span> { <span class="cp">flex-grow</span>: <span class="cv">2</span>; }  <span class="hc">/* ocupa el doble que los demás */</span>
+<span class="cs">.item-normal</span>    { <span class="cp">flex-grow</span>: <span class="cv">1</span>; }  <span class="hc">/* crece igual que sus hermanos */</span>
+<span class="cs">.item-fijo</span>      { <span class="cp">flex-grow</span>: <span class="cv">0</span>; }  <span class="hc">/* no crece — mantiene su tamaño */</span>
+
+<span class="hc">/* flex-shrink: cuánto se encoge si falta espacio */</span>
+<span class="hc">/* 1 = se encoge (por defecto). 0 = no se encoge aunque no quepa */</span>
+<span class="cs">.item-rigido</span>    { <span class="cp">flex-shrink</span>: <span class="cv">0</span>; }
+
+<span class="hc">/* flex-basis: tamaño base antes de aplicar grow/shrink */</span>
+<span class="cs">.sidebar</span>        { <span class="cp">flex-basis</span>: <span class="cv">260px</span>; }   <span class="hc">/* empieza con 260px */</span>
+<span class="cs">.main-content</span>   { <span class="cp">flex-basis</span>: <span class="cv">0</span>;      }   <span class="hc">/* empieza desde 0, crece con flex-grow */</span>
+
+<span class="hc">/* SHORTHAND flex: grow shrink basis */</span>
+<span class="cs">.flex-uno</span>   { <span class="cp">flex</span>: <span class="cv">1</span>; }           <span class="hc">/* flex: 1 1 0 — crece igual, se encoge, desde 0 */</span>
+<span class="cs">.flex-auto</span>  { <span class="cp">flex</span>: <span class="cv">auto</span>; }       <span class="hc">/* flex: 1 1 auto — el más común */</span>
+<span class="cs">.flex-none</span>  { <span class="cp">flex</span>: <span class="cv">none</span>; }       <span class="hc">/* flex: 0 0 auto — no crece ni se encoge */</span>
+
+<span class="hc">/* order: cambia el orden visual sin cambiar el HTML */</span>
+<span class="cs">.primero</span>  { <span class="cp">order</span>: <span class="cv">-1</span>; }         <span class="hc">/* aparece antes que todos */</span>
+<span class="cs">.ultimo</span>   { <span class="cp">order</span>: <span class="cv">99</span>; }         <span class="hc">/* aparece al final */</span></div>
+  </div>
+
+  <!-- Demo flex-grow visual -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Demo flex-grow — el mismo contenedor, distintos crecimientos:</div>
+  <div style="display:flex;gap:8px;padding:12px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;margin-bottom:6px">
+    <div class="flex-item fi-a" style="flex-grow:2;min-width:0">flex-grow: 2 (crece el doble)</div>
+    <div class="flex-item fi-b" style="flex-grow:1;min-width:0">flex-grow: 1</div>
+    <div class="flex-item fi-c" style="flex-grow:1;min-width:0">flex-grow: 1</div>
+  </div>
+
+  <!-- Layout sidebar + main -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Layout sidebar + contenido principal con flex:</div>
+  <div style="display:flex;gap:12px;padding:12px;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:8px;min-height:80px">
+    <div class="flex-item fi-e" style="flex:0 0 160px;font-size:11px">sidebar<br>flex: 0 0 160px<br>(no crece ni se encoge)</div>
+    <div class="flex-item fi-a" style="flex:1;font-size:11px">main content<br>flex: 1<br>(ocupa todo el espacio restante)</div>
+  </div>
+
+  <div class="tip"><strong>flex: 1 es la propiedad más útil:</strong> Poner <code>flex: 1</code> en los items de un contenedor flex hace que todos ocupen el mismo espacio disponible, sin importar cuánto contenido tengan. Es la forma más rápida de crear una distribución equitativa.</div>
+</div>
+
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#1a4f8a,#2563eb)">
+    <div class="act-num">A1</div>
+    <div><h3>El nav y el header de mi proyecto con Flexbox</h3><div class="asub">Individual · 25 minutos · Autoconciencia — elegir cómo distribuyo lo que muestro de mí</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 25 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👤 Individual</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🎯</span><span class="eti">La pregunta de diseño</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Antes de escribir Flexbox, piensa: ¿cómo distribuyes la información en tu header? ¿Tu nombre va a la izquierda y la nav a la derecha? ¿Todo centrado? ¿El logo pequeño arriba y la descripción grande debajo? <strong>Cada valor de justify-content y align-items que elijas dice algo sobre cómo quieres presentarte.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cómo quieres que se distribuya la información más importante de tu página — y qué tan centrado quieres que se vea?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#1a4f8a">1</div><div class="pc"><h4>Convierte el &lt;nav&gt; de tu proyecto en un contenedor flex</h4><p>Con <code>display: flex</code>, <code>justify-content: space-between</code> para logo a la izquierda y links a la derecha, y <code>align-items: center</code> para alineación vertical. El gap entre los links del nav también con Flexbox.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">2</div><div class="pc"><h4>Convierte el &lt;header&gt; de tu index.html en flex column</h4><p>Con <code>flex-direction: column</code>, <code>align-items: center</code> (todo centrado) y <code>gap</code> entre el h1 y el párrafo descriptivo. Si hay imagen o avatar, que sea un flex item más.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">3</div><div class="pc"><h4>Crea una galería de tarjetas con flex-wrap</h4><p>En tu <code>mi_historia.html</code>, convierte la sección de habilidades o intereses en un contenedor flex con <code>flex-wrap: wrap</code> y <code>gap: 16px</code>. Cada tarjeta con <code>flex: 0 0 calc(33% - 12px)</code> en pantallas grandes.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#1a4f8a">4</div><div class="pc"><h4>Aplica flex-grow para crear un layout de dos columnas</h4><p>En alguna sección de tu proyecto: un elemento con <code>flex: 1</code> (contenido principal) y otro con <code>flex: 0 0 260px</code> (aside o barra lateral).</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS debe incluir</div>
+      <ul>
+        <li>Nav con display: flex + justify-content: space-between + align-items: center</li>
+        <li>Header con flex-direction: column + align-items: center + gap</li>
+        <li>Al menos una galería con flex-wrap: wrap</li>
+        <li>Al menos un layout con flex-grow o flex: 1</li>
+        <li>Uso de justify-content con al menos dos valores diferentes</li>
+        <li>Comentarios CSS explicando por qué elegiste cada valor de justify-content y align-items</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Cómo distribuyes el espacio en tu página refleja cómo organizas lo que quieres mostrar de ti</h4>
+      <p>Elegir <code>justify-content: center</code> o <code>space-between</code> es una decisión estética, pero también una decisión de énfasis: ¿qué quieres que esté en el centro? ¿Qué quieres que ocupe los extremos visibles? ¿Cuánto espacio le das a cada parte de tu historia? En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué valor de justify-content elegiste para tu header? ¿Qué dice eso de cómo quieres presentarte?</li>
+        <li><span>→</span> ¿Usaste flex-grow para dar más espacio a algo específico? ¿Por qué esa sección merece más espacio que las demás?</li>
+        <li><span>→</span> ¿Hay partes de tu historia personal que "crecen" naturalmente cuando hablas de ellas, como un item con flex-grow: 2?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A2</div>
+    <div><h3>¿Qué justify-content usamos en la vida?</h3><div class="asub">Parejas · 20 minutos · Conciencia social — analizar cómo distribuimos atención y reconocimiento</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 20 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Parejas</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 + conversación</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos al trabajo de Biología — ¿qué justify-content era ese?</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Paula y Ernesto tomaron las partes visibles. Sofía y Jair tomaron las invisibles. <strong>Ese grupo usó justify-content: space-between</strong> — los reconocidos en los extremos, los demás en el medio sin protagonismo. ¿Cómo hubiera sido ese trabajo con space-evenly? ¿Qué cambiaría en el resultado — y en las relaciones?</p>
+        <div class="escena-pregunta">💭 ¿Qué valor de justify-content describes mejor cómo se distribuye el reconocimiento en tu salón de clase?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#16a34a">1</div><div class="pc"><h4>Construyan juntos una página HTML: "Nuestro grupo de trabajo" (8 min)</h4><p>Con 4 tarjetas flex — una por cada "integrante hipotético" de un grupo. Cada tarjeta tiene: nombre, parte del trabajo asignada, y un número de flex-grow que refleja cuánto protagonismo tiene esa persona en el trabajo real.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">2</div><div class="pc"><h4>Implementen dos versiones del mismo grupo (7 min)</h4><p><strong>Versión A:</strong> flex-grow desigual — alguien tiene 3, alguien tiene 1, alguien tiene 0. <strong>Versión B:</strong> todos con flex: 1 — mismo espacio para todos. Comparen cómo se ve cada versión.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">3</div><div class="pc"><h4>Escriban un análisis en el HTML (5 min)</h4><p>Un <code>&lt;p&gt;</code> por versión explicando: ¿qué tipo de grupo representa cada versión? ¿Cuál se parece más a los grupos reales de tu experiencia? ¿Cuál sería más justo?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Página con dos versiones del mismo grupo en flex</li>
+        <li>flex-grow diferenciado en versión A, flex: 1 en versión B</li>
+        <li>Análisis en HTML conectando cada versión con dinámicas grupales reales</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>justify-content: space-evenly es el ideal igualitario — pero los grupos reales raramente lo aplican</h4>
+      <p>La conciencia social incluye "reconocer las fortalezas de los demás". En la mayoría de grupos escolares, el reconocimiento no se distribuye con space-evenly — hay quienes siempre tienen flex-grow: 3 y quienes tienen 0. El código puede mostrar ese patrón con más claridad que cualquier discurso. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué flex-grow te asignarías en los grupos de trabajo de tu salón? ¿Es el que quisieras?</li>
+        <li><span>→</span> ¿Hay alguien en tu salón que siempre tiene flex-grow: 0 en los grupos — que nunca ocupa espacio de protagonismo? ¿Qué podrías hacer?</li>
+        <li><span>→</span> Si tu familia fuera un contenedor flex, ¿qué justify-content la describe mejor? ¿Es el que te gustaría?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A3</div>
+    <div><h3>El layout del salón: una página completa con Flexbox</h3><div class="asub">Grupos de 4 · 20 minutos · Habilidades relacionales — construir una estructura que nos muestre a todos</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🏫</span><span class="eti">El evento de la ENSDB — wrap o no wrap</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Los grupos del evento no cabían en una fila. La solución era flex-wrap. El desafío no era técnico — era de ego. <strong>Esta actividad propone que el grupo construya una página con una galería de tarjetas de todos sus integrantes, usando Flexbox para que todos quepan y todos tengan el mismo espacio — independientemente del tamaño de la pantalla.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cómo asegura el grupo que todos tienen espacio visible — sin que nadie quede en una "segunda fila" ignorada?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#ea580c">1</div><div class="pc"><h4>Construyan <code>equipo.html</code> — una tarjeta por integrante (8 min)</h4><p>Cada tarjeta incluye: nombre, una frase que los representa, y un emoji o color que los identifica. El CSS debe usar flex-wrap: wrap para que las tarjetas pasen a la siguiente fila si la pantalla es pequeña, y justify-content: center para que el grupo siempre se vea centrado.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">2</div><div class="pc"><h4>Apliquen estas propiedades al contenedor de tarjetas</h4>
+        <div class="editor" style="margin:8px 0"><div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">equipo.css</span></div>
+        <div class="ebody"><span class="cs">.galeria-equipo</span> {
+  <span class="cp">display</span>: <span class="cv">flex</span>;
+  <span class="cp">flex-wrap</span>: <span class="cv">wrap</span>;
+  <span class="cp">gap</span>: <span class="cv">20px</span>;
+  <span class="cp">justify-content</span>: <span class="cv">center</span>;
+}
+
+<span class="cs">.tarjeta-integrante</span> {
+  <span class="cp">flex</span>: <span class="cv">0 0 calc(50% - 10px)</span>; <span class="hc">/* 2 por fila */</span>
+  <span class="hc">/* o flex: 1 para que se adapten */</span>
+}</div></div>
+      </div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">3</div><div class="pc"><h4>Discutan: ¿todos los integrantes tienen el mismo flex-grow?</h4><p>La discusión del grupo: ¿deberían tener flex: 1 todas las tarjetas (mismo tamaño) o flex-grow distinto (tamaños diferentes)? Implementen la decisión consensuada y documenten por qué en un comentario CSS.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Página <code>equipo.html</code> con galería flex de tarjetas personales</li>
+        <li>flex-wrap: wrap para que funcione en cualquier pantalla</li>
+        <li>justify-content consensuado y documentado</li>
+        <li>Un comentario CSS colectivo: ¿por qué eligieron ese valor de flex para las tarjetas?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Un grupo bien construido con Flexbox es aquel donde todos tienen espacio — no uno donde uno domina</h4>
+      <p>Las habilidades relacionales incluyen "practicar el trabajo en equipo". La decisión sobre el flex-grow de cada tarjeta es una decisión sobre equidad en el grupo: ¿todos merecen el mismo espacio visual o hay jerarquías? ¿Qué mensaje envía la página sobre cómo se relacionan como equipo? En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿El grupo eligió flex: 1 (todos iguales) o flex distinto? ¿Fue fácil o difícil llegar a ese acuerdo?</li>
+        <li><span>→</span> ¿La galería con flex-wrap da la misma visibilidad a todos? ¿O alguien termina en una segunda fila que se ve menos?</li>
+        <li><span>→</span> ¿Hay algo que cambiarías de la distribución de tareas en tu grupo de clase después de trabajar con Flexbox hoy?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos</div><h3>Bitácora final · Guía 14</h3></div>
+  </div>
+  <p class="tp">En <code>bitacora_guia14.html</code> — con el layout de la bitácora construido con Flexbox: nav fijo con flex, secciones en columna con flex-direction, y las preguntas de cierre en tarjetas flex-wrap.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué valor de justify-content elegiste para tu header? ¿Ese valor refleja cómo quieres ser visto?</li>
+        <li><span>→</span> ¿Hay algo de tu historia personal que debería tener flex-grow: 2 — que merece más espacio del que le das habitualmente?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué justify-content describe mejor la distribución de reconocimiento en tu salón? ¿Es justa?</li>
+        <li><span>→</span> ¿Hay alguien en tu grupo que siempre tiene flex-grow: 0 — que no ocupa espacio de protagonismo nunca? ¿Qué podrías hacer tú?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿flex-wrap describe la forma en que tu grupo maneja cuando "hay demasiados"? ¿Pasan a la siguiente fila o se comprimen?</li>
+        <li><span>→</span> Si pudieras rediseñar la distribución de reconocimiento en un grupo de tu vida usando Flexbox, ¿qué cambiarías?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="310" fill="#f8fafc"/>
+      <!-- Contenedor flex general -->
+      <rect x="18" y="18" width="664" height="180" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="664" height="32" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="38" width="664" height="12" fill="#1a4f8a"/>
+      <text x="350" y="36" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">.contenedor { display: flex } — propiedades del CONTENEDOR</text>
+      <!-- justify-content -->
+      <rect x="30" y="54" width="200" height="130" rx="8" fill="white" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="130" y="70" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">justify-content</text>
+      <text x="130" y="84" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">eje principal →</text>
+      <text x="44" y="100" fill="#334155" font-family="Source Code Pro" font-size="9">flex-start (por defecto)</text>
+      <text x="44" y="115" fill="#334155" font-family="Source Code Pro" font-size="9">center</text>
+      <text x="44" y="130" fill="#334155" font-family="Source Code Pro" font-size="9">flex-end</text>
+      <text x="44" y="145" fill="#334155" font-family="Source Code Pro" font-size="9">space-between</text>
+      <text x="44" y="160" fill="#334155" font-family="Source Code Pro" font-size="9">space-around</text>
+      <text x="44" y="175" fill="#1a4f8a" font-family="Source Code Pro" font-size="9" font-weight="700">space-evenly ✅ más justo</text>
+      <!-- align-items -->
+      <rect x="246" y="54" width="200" height="130" rx="8" fill="white" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="346" y="70" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">align-items</text>
+      <text x="346" y="84" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">eje cruzado ↓</text>
+      <text x="260" y="100" fill="#334155" font-family="Source Code Pro" font-size="9">stretch (por defecto)</text>
+      <text x="260" y="115" fill="#334155" font-family="Source Code Pro" font-size="9">flex-start</text>
+      <text x="260" y="130" fill="#334155" font-family="Source Code Pro" font-size="9">center</text>
+      <text x="260" y="145" fill="#334155" font-family="Source Code Pro" font-size="9">flex-end</text>
+      <text x="260" y="160" fill="#64748b" font-family="Source Code Pro" font-size="9">baseline</text>
+      <!-- flex-direction / wrap -->
+      <rect x="462" y="54" width="208" height="130" rx="8" fill="white" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="566" y="70" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">direction + wrap</text>
+      <text x="476" y="88" fill="#334155" font-family="Source Code Pro" font-size="9">flex-direction: row ←→</text>
+      <text x="476" y="104" fill="#334155" font-family="Source Code Pro" font-size="9">flex-direction: column ↕</text>
+      <text x="476" y="120" fill="#334155" font-family="Source Code Pro" font-size="9">flex-wrap: nowrap</text>
+      <text x="476" y="136" fill="#334155" font-family="Source Code Pro" font-size="9">flex-wrap: wrap ✅</text>
+      <text x="476" y="152" fill="#334155" font-family="Source Code Pro" font-size="9">gap: 16px</text>
+      <!-- Items row -->
+      <rect x="18" y="210" width="664" height="82" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="18" y="210" width="664" height="30" rx="10" fill="#ea580c"/>
+      <rect x="18" y="228" width="664" height="12" fill="#ea580c"/>
+      <text x="350" y="226" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">.item { } — propiedades de los ITEMS FLEX</text>
+      <text x="50" y="254" fill="#92400e" font-family="Source Code Pro" font-size="10">flex-grow: 0/1/2</text>
+      <text x="50" y="270" fill="#92400e" font-family="Source Code Pro" font-size="10">flex-shrink: 0/1</text>
+      <text x="230" y="254" fill="#92400e" font-family="Source Code Pro" font-size="10">flex-basis: 200px</text>
+      <text x="230" y="270" fill="#92400e" font-family="Source Code Pro" font-size="10">flex: 1 (shorthand ✅)</text>
+      <text x="430" y="254" fill="#92400e" font-family="Source Code Pro" font-size="10">order: -1/0/99</text>
+      <text x="430" y="270" fill="#92400e" font-family="Source Code Pro" font-size="10">align-self: center</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 14</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Contenedor flex funcional</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>display: flex aplicado sin justify-content ni align-items.</td>
+      <td>Usa display: flex con justify-content y align-items apropiados en al menos dos contenedores distintos.</td>
+      <td>Cada contenedor flex tiene el combination correcta de direction, wrap, justify-content y align-items según su propósito de diseño.</td>
+    </tr>
+    <tr>
+      <td><strong>flex-wrap y layouts responsivos</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa flex-wrap — los items se comprimen o desbordan.</td>
+      <td>Usa flex-wrap: wrap en la galería de tarjetas con gap adecuado.</td>
+      <td>El layout funciona bien en pantallas anchas y estrechas gracias a flex-wrap y flex-basis calculado.</td>
+    </tr>
+    <tr>
+      <td><strong>flex-grow y distribución</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa flex-grow ni flex: 1.</td>
+      <td>Usa flex: 1 en el contenido principal y flex: 0 0 Xpx en el aside.</td>
+      <td>El uso de flex-grow refleja una decisión consciente sobre qué merece más espacio — con comentario que lo justifica.</td>
+    </tr>
+    <tr>
+      <td><strong>Distribución justa en el grupo</strong><br><span style="font-size:11px;color:#64748b">SEL · Conciencia Social</span></td>
+      <td>La galería del equipo usa flex-grow desigual sin reflexión.</td>
+      <td>El grupo discutió y documentó su elección de flex-grow en comentario CSS.</td>
+      <td>La reflexión sobre justify-content como metáfora de distribución de reconocimiento es genuina y específica — no genérica.</td>
+    </tr>
+    <tr>
+      <td><strong>Conexión Flexbox - vida grupal</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>La reflexión no conecta Flexbox con dinámicas grupales reales.</td>
+      <td>Identifica qué valor de justify-content describe mejor un grupo real de su vida.</td>
+      <td>La reflexión es precisa: nombra personas, situaciones específicas y propone algo concreto para cambiar hacia un "space-evenly" más real.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 14 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Habilidades Relacionales</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 15 → CSS Grid: construir estructuras que sostienen</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
