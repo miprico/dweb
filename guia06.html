@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 06 · Tablas HTML · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ TABLA DEMO EN NAVEGADOR ══ */
+.brow{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.brow-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.bdots{display:flex;gap:5px}
+.bdots span{width:10px;height:10px;border-radius:50%}
+.bdr2{background:#ef4444}.bdy2{background:#f59e0b}.bdg2{background:#22c55e}
+.burl{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:3px 14px;font-size:11px;color:#64748b;flex:1}
+.bcon{padding:20px 26px;background:#fff}
+.bcon h2{font-size:17px;font-weight:800;color:#1f2937;margin-bottom:12px}
+.html-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.html-table th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800}
+.html-table td{padding:9px 14px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.html-table tr:hover td{background:#f8fafc}
+.html-table tbody tr:nth-child(even) td{background:#f8fafc}
+.html-table tfoot td{background:#f1f5f9;font-weight:700;color:#1a4f8a;border-top:2px solid #e2e8f0}
+.html-table .celda-verde{background:#dcfce7;color:#166534;font-weight:700}
+.html-table .celda-roja{background:#fee2e2;color:#991b1b;font-weight:700}
+.html-table .celda-ambar{background:#fef3c7;color:#92400e;font-weight:700}
+
+/* ══ ANATOMÍA TABLA ══ */
+.tbl-anatomia{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px;margin:14px 0;overflow-x:auto}
+.anat-tabla{border-collapse:collapse;width:100%;font-size:13px}
+.anat-thead td{background:#1e40af;color:white;padding:8px 12px;text-align:center;font-weight:800;font-family:'Source Code Pro',monospace;font-size:11px}
+.anat-tbody td{background:white;padding:8px 12px;border:2px solid #bfdbfe;text-align:center;font-size:12px;color:#334155}
+.anat-tfoot td{background:#dbeafe;padding:8px 12px;text-align:center;font-weight:700;font-size:12px;color:#1e40af;border:2px solid #93c5fd}
+.anat-etiq{font-family:'Source Code Pro',monospace;font-size:10px;color:#7c3aed;background:#f1f5f9;padding:1px 5px;border-radius:3px;display:block;margin-bottom:2px}
+.anat-th td{background:#1a4f8a;color:white;padding:8px 12px;border:2px solid #93c5fd;text-align:center;font-size:12px;font-weight:800}
+
+/* ══ TABLA REFERENCIA ══ */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ SEL BLOQUES ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166534}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+
+/* ══ COLSPAN VISUAL ══ */
+.colspan-demo{border-collapse:collapse;width:100%;font-size:13px;margin:10px 0}
+.colspan-demo th,.colspan-demo td{border:2px solid #e2e8f0;padding:8px 12px;text-align:center}
+.colspan-demo .span2{background:#dbeafe;color:#1e40af;font-weight:800}
+.colspan-demo .span3{background:#ede9fe;color:#4c1d95;font-weight:800}
+.colspan-demo .row2{background:#dcfce7;color:#14532d;font-weight:800}
+.colspan-demo td{color:#334155}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 06</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 06 · Grado Décimo · ENSDB 2025</div>
+    <h2>Tablas HTML: organizar datos que cuentan historias</h2>
+    <p class="gsub">Aprenderás a crear tablas con filas, columnas, encabezados, celdas combinadas y secciones. Y a través de eso, a ver que los datos no son neutros — siempre cuentan algo sobre personas, sobre situaciones reales, sobre lo que importa medir y lo que se deja por fuera.</p>
+    <div class="tags">
+      <span class="tag tag-azul">&lt;table&gt; · &lt;tr&gt; · &lt;td&gt; · &lt;th&gt;</span>
+      <span class="tag tag-azul">&lt;thead&gt; · &lt;tbody&gt; · &lt;tfoot&gt; · colspan · rowspan</span>
+      <span class="tag tag-verde">Autoconciencia · Toma de decisiones</span>
+      <span class="tag tag-morado">Conciencia social · Habilidades relacionales</span>
+      <span class="tag tag-ambar">Datos · Emociones · Escuela · Familia</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══ APERTURA ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Cuando los datos no cuentan toda la historia</h3></div>
+  </div>
+
+  <p class="tp">Lee estas tres situaciones. Tienen algo en común que vas a descubrir al final.</p>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📊</span><span class="eti">En el colegio · Lo que mide el boletín</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        El boletín de notas de Renata tiene números en todas las casillas. 3.8, 4.2, 3.5, 4.0. Lo que el boletín no tiene: que ese 3.5 en Matemáticas lo sacó la semana que su abuela murió. Que el 4.2 en Español fue después de tres horas de práctica en casa sin que nadie se lo pidiera. Que el 3.8 en Ciencias refleja que entendió el tema, pero ese día tenía fiebre y no pudo escribir bien. <strong>El boletín organiza los datos en una tabla. Pero los datos solos no explican nada.</strong>
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay alguna nota tuya que, si pudieras, añadirías una columna de "contexto" para explicar qué estaba pasando ese día?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · La tabla de responsabilidades</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        La mamá de Emilio pegó en la nevera una tabla con las responsabilidades del hogar: lavar los platos, barrer, sacar la basura, limpiar el baño. Cada uno tiene su fila, cada día tiene su columna. <strong>Emilio cumple su columna, siempre.</strong> Pero la columna de "estar presente cuando alguien necesita hablar" no está en ninguna tabla. Tampoco "preguntar cómo te fue". Algunas de las cosas más importantes de una familia no caben en una cuadrícula.
+      </p>
+      <div class="escena-pregunta">💭 ¿Qué responsabilidad de tu casa o tu familia no aparece en ninguna "tabla" pero igual tiene que ser cumplida por alguien?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">👥</span><span class="eti">Con compañeros · Lo que se compara</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        En el grupo de WhatsApp del salón alguien subió una tabla comparando las notas de todos en el primer período. Una broma, dijeron. Pero Diego quedó en la última fila, con los promedios más bajos. <strong>Lo que la tabla no mostró:</strong> que Diego trabaja los fines de semana para ayudar en su casa y estudia con lo que le queda de energía. Que esas "notas bajas" representan un esfuerzo que ninguna tabla puede medir.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay algo de tu esfuerzo o tu situación que no aparece en ningún número o dato, pero que merece ser reconocido?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      El boletín de Renata, la tabla de responsabilidades de Emilio y la comparación de notas de Diego tienen algo en común: <strong>son tablas que organizan datos, pero los datos solos no cuentan la historia completa</strong>. Las tablas HTML son herramientas poderosas para presentar información — pero hoy también vamos a aprender algo que no está en ningún manual de código: <em>los datos siempre hablan de personas, y las personas tienen contexto que ninguna celda puede contener del todo.</em>
+    </p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">📋</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Crear tablas HTML usando <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;table&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;tr&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;td&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;th&gt;</code>.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔀</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Organizar tablas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;thead&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;tbody&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;tfoot&gt;</code> y combinar celdas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">colspan</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">rowspan</code>.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔍</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Usar tablas HTML para organizar información sobre situaciones reales — emociones, responsabilidades, decisiones — entendiendo que los datos siempre tienen contexto humano.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">⚖️</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar críticamente sobre qué se mide y qué se deja por fuera en los sistemas de evaluación y comparación de la escuela y la familia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 1: TABLA BÁSICA ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>La tabla básica: &lt;table&gt;, &lt;tr&gt;, &lt;td&gt; y &lt;th&gt;</h2>
+    <p>Filas, columnas y celdas — como el boletín de notas, pero tú decides qué columnas poner</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    Una tabla HTML se construye de afuera hacia adentro: primero el contenedor <strong>&lt;table&gt;</strong>, luego las filas <strong>&lt;tr&gt;</strong> (table row), y dentro de cada fila las celdas <strong>&lt;td&gt;</strong> (table data) o los encabezados de celda <strong>&lt;th&gt;</strong> (table header). Cada fila debe tener el mismo número de celdas para que la tabla quede alineada.
+  </p>
+
+  <!-- Anatomía visual -->
+  <div class="tbl-anatomia">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Anatomía de una tabla HTML — vínculo entre código y visual:</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+      <!-- Código lado izquierdo -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#475569;margin-bottom:8px">En el código:</div>
+        <div style="background:#0f172a;border-radius:10px;padding:14px 16px;font-family:'Source Code Pro',monospace;font-size:12px;line-height:2;color:#e2e8f0">
+<span style="color:#f472b6">&lt;table&gt;</span>
+  <span style="color:#f472b6">&lt;tr&gt;</span>
+    <span style="color:#86efac">&lt;th&gt;</span><span style="color:#fbbf24">Emoción</span><span style="color:#86efac">&lt;/th&gt;</span>
+    <span style="color:#86efac">&lt;th&gt;</span><span style="color:#fbbf24">Situación</span><span style="color:#86efac">&lt;/th&gt;</span>
+    <span style="color:#86efac">&lt;th&gt;</span><span style="color:#fbbf24">Intensidad</span><span style="color:#86efac">&lt;/th&gt;</span>
+  <span style="color:#f472b6">&lt;/tr&gt;</span>
+  <span style="color:#f472b6">&lt;tr&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Angustia</span><span style="color:#f472b6">&lt;/td&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Antes de una evaluación</span><span style="color:#f472b6">&lt;/td&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Alta</span><span style="color:#f472b6">&lt;/td&gt;</span>
+  <span style="color:#f472b6">&lt;/tr&gt;</span>
+  <span style="color:#f472b6">&lt;tr&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Orgullo</span><span style="color:#f472b6">&lt;/td&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Cuando ayudo a alguien</span><span style="color:#f472b6">&lt;/td&gt;</span>
+    <span style="color:#f472b6">&lt;td&gt;</span><span style="color:#e2e8f0">Media</span><span style="color:#f472b6">&lt;/td&gt;</span>
+  <span style="color:#f472b6">&lt;/tr&gt;</span>
+<span style="color:#f472b6">&lt;/table&gt;</span>
+        </div>
+      </div>
+      <!-- Resultado lado derecho -->
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#475569;margin-bottom:8px">En el navegador:</div>
+        <table class="html-table">
+          <tr><th>Emoción</th><th>Situación</th><th>Intensidad</th></tr>
+          <tr><td>Angustia</td><td>Antes de una evaluación</td><td class="celda-roja">Alta</td></tr>
+          <tr><td>Orgullo</td><td>Cuando ayudo a alguien</td><td class="celda-ambar">Media</td></tr>
+          <tr><td>Tranquilidad</td><td>Escuchando música solo/a</td><td class="celda-verde">Baja</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <tr><th>Etiqueta</th><th>¿Qué es?</th><th>Obligatoria</th><th>En la vida</th></tr>
+    <tr><td><code>&lt;table&gt;</code></td><td>El contenedor de toda la tabla</td><td><strong style="color:#dc2626">Sí</strong></td><td>El marco que organiza la información</td></tr>
+    <tr><td><code>&lt;tr&gt;</code></td><td>Una fila completa de la tabla</td><td><strong style="color:#dc2626">Sí</strong></td><td>Una entrada, un registro, una situación</td></tr>
+    <tr><td><code>&lt;td&gt;</code></td><td>Una celda de datos dentro de una fila</td><td><strong style="color:#dc2626">Sí</strong></td><td>Un dato concreto sobre esa situación</td></tr>
+    <tr><td><code>&lt;th&gt;</code></td><td>Celda de encabezado — texto en negrita y centrado</td><td>No, pero recomendado</td><td>Las categorías que usas para organizar</td></tr>
+  </table>
+
+  <div class="tip"><strong>Regla de oro:</strong> Todas las filas de una tabla deben tener el mismo número de celdas. Si una fila tiene 3 <code>&lt;td&gt;</code>, todas deben tener 3. Si no, la tabla se ve rota. Igual que en la vida: cuando alguien no tiene la información que otros sí tienen, la "fila" no queda completa.</div>
+</div>
+
+<!-- ══ MÓDULO 2: THEAD, TBODY, TFOOT ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>&lt;thead&gt;, &lt;tbody&gt; y &lt;tfoot&gt;: darle estructura a los datos</h2>
+    <p>No es solo apilar filas — es saber qué va al principio, en el medio y al final</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    Al igual que una página tiene <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;header&gt;</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;main&gt;</code> y <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;footer&gt;</code>, una tabla tiene sus propias secciones semánticas: <strong>&lt;thead&gt;</strong> para los encabezados de columna, <strong>&lt;tbody&gt;</strong> para los datos del cuerpo, y <strong>&lt;tfoot&gt;</strong> para los totales o notas al final. Esto no solo da estructura — también ayuda al navegador a renderizar tablas grandes y a los lectores de pantalla a entenderlas.
+  </p>
+
+  <!-- Vínculo con Renata -->
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos al boletín de Renata — pero con columna de contexto</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        El boletín real no tiene columna de contexto. Pero si Renata pudiera rediseñarlo con HTML, con <code style="font-family:'Source Code Pro';font-size:12px">&lt;thead&gt;</code>, <code style="font-family:'Source Code Pro';font-size:12px">&lt;tbody&gt;</code> y <code style="font-family:'Source Code Pro';font-size:12px">&lt;tfoot&gt;</code>, añadiría algo que los números solos no dicen. <strong>La estructura de la tabla también es una decisión sobre qué importa mostrar.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">boletin_con_contexto.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;table&gt;</span>
+
+<span class="ln"> 2</span>  <span class="hc">&lt;!-- thead: los encabezados de cada columna --&gt;</span>
+<span class="ln"> 3</span>  <span class="ht">&lt;thead&gt;</span>
+<span class="ln"> 4</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln"> 5</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Materia</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 6</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Nota</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 7</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Lo que no muestra la nota</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 8</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln"> 9</span>  <span class="ht">&lt;/thead&gt;</span>
+
+<span class="ln">10</span>  <span class="hc">&lt;!-- tbody: las filas de datos --&gt;</span>
+<span class="ln">11</span>  <span class="ht">&lt;tbody&gt;</span>
+<span class="ln">12</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">13</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Matemáticas</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">14</span>      <span class="ht">&lt;td&gt;</span><span class="htx">3.5</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">15</span>      <span class="ht">&lt;td&gt;</span><span class="htx">La semana que murió mi abuela</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">16</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">17</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">18</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Español</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">19</span>      <span class="ht">&lt;td&gt;</span><span class="htx">4.2</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">20</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Tres horas de práctica sin que nadie me lo pidiera</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">21</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">22</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">23</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Ciencias</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">24</span>      <span class="ht">&lt;td&gt;</span><span class="htx">3.8</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">25</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Tenía fiebre ese día, entendí el tema pero no pude escribir</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">26</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">27</span>  <span class="ht">&lt;/tbody&gt;</span>
+
+<span class="ln">28</span>  <span class="hc">&lt;!-- tfoot: totales, notas o reflexión final --&gt;</span>
+<span class="ln">29</span>  <span class="ht">&lt;tfoot&gt;</span>
+<span class="ln">30</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">31</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Promedio</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">32</span>      <span class="ht">&lt;td&gt;</span><span class="htx">3.83</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">33</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Un número que no cuenta lo que costó llegar aquí</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">34</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">35</span>  <span class="ht">&lt;/tfoot&gt;</span>
+
+<span class="ln">36</span><span class="ht">&lt;/table&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">boletin_con_contexto.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Mi boletín — con lo que los números no dicen</h2>
+      <table class="html-table">
+        <thead><tr><th>Materia</th><th>Nota</th><th>Lo que no muestra la nota</th></tr></thead>
+        <tbody>
+          <tr><td>Matemáticas</td><td class="celda-ambar">3.5</td><td>La semana que murió mi abuela</td></tr>
+          <tr><td>Español</td><td class="celda-verde">4.2</td><td>Tres horas de práctica sin que nadie me lo pidiera</td></tr>
+          <tr><td>Ciencias</td><td class="celda-ambar">3.8</td><td>Tenía fiebre ese día, entendí el tema pero no pude escribir</td></tr>
+        </tbody>
+        <tfoot><tr><td>Promedio</td><td>3.83</td><td>Un número que no cuenta lo que costó llegar aquí</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:12px">
+    <p style="font-size:14px;color:#14532d"><strong>¿Lo notas?</strong> Agregar la tercera columna no cambia las notas — pero cambia completamente lo que la tabla comunica. Eso es el poder del diseño de una tabla: tú decides qué columnas existen, qué datos incluyes y cuál es el contexto.</p>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 3: COLSPAN Y ROWSPAN ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt">
+    <h2>colspan y rowspan: cuando una celda ocupa más espacio</h2>
+    <p>Porque no todo tiene la misma dimensión — en las tablas ni en la vida</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    <strong>colspan</strong> permite que una celda se extienda horizontalmente, ocupando varias columnas. <strong>rowspan</strong> permite que se extienda verticalmente, ocupando varias filas. Son útiles cuando una categoría agrupa varias subcategorías, o cuando un dato aplica a múltiples situaciones. Como en la vida: a veces una sola emoción abarca muchas situaciones distintas, y no cabe en una sola celda.
+  </p>
+
+  <!-- Demo visual colspan/rowspan -->
+  <div style="overflow-x:auto;margin:14px 0">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Ejemplo con colspan y rowspan — semana emocional:</div>
+    <table class="colspan-demo" style="min-width:500px">
+      <tr>
+        <th style="background:#1a4f8a;color:white">Día</th>
+        <th colspan="2" class="span2">Mañana (colegio)</th>
+        <th colspan="2" class="span2">Tarde (casa)</th>
+      </tr>
+      <tr>
+        <th style="background:#334155;color:white"></th>
+        <th style="background:#dbeafe;color:#1e40af;font-size:11px">Emoción</th>
+        <th style="background:#dbeafe;color:#1e40af;font-size:11px">Intensidad</th>
+        <th style="background:#dbeafe;color:#1e40af;font-size:11px">Emoción</th>
+        <th style="background:#dbeafe;color:#1e40af;font-size:11px">Intensidad</th>
+      </tr>
+      <tr>
+        <td style="font-weight:700;background:#f8fafc">Lunes</td>
+        <td>Angustia</td><td class="celda-roja">Alta</td>
+        <td>Alivio</td><td class="celda-verde">Media</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;background:#f8fafc">Martes</td>
+        <td rowspan="2" class="row2">Motivación (dos días seguidos)</td>
+        <td class="celda-verde">Media</td>
+        <td>Cansancio</td><td class="celda-ambar">Media</td>
+      </tr>
+      <tr>
+        <td style="font-weight:700;background:#f8fafc">Miércoles</td>
+        <td class="celda-verde">Alta</td>
+        <td>Orgullo</td><td class="celda-verde">Alta</td>
+      </tr>
+    </table>
+    <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap">
+      <div style="background:#dbeafe;border-radius:8px;padding:8px 14px;font-size:12px;color:#1e40af"><strong>colspan="2"</strong> — "Mañana (colegio)" abarca 2 columnas</div>
+      <div style="background:#dcfce7;border-radius:8px;padding:8px 14px;font-size:12px;color:#166534"><strong>rowspan="2"</strong> — "Motivación" abarca 2 filas (martes y miércoles)</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">semana_emocional.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;table&gt;</span>
+<span class="ln"> 2</span>  <span class="ht">&lt;thead&gt;</span>
+<span class="ln"> 3</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln"> 4</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Día</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 5</span>      <span class="hc">&lt;!-- colspan="2": esta celda ocupa 2 columnas --&gt;</span>
+<span class="ln"> 6</span>      <span class="ht">&lt;th </span><span class="ha">colspan</span><span class="htx">=</span><span class="hv2">"2"</span><span class="ht">&gt;</span><span class="htx">Mañana (colegio)</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 7</span>      <span class="ht">&lt;th </span><span class="ha">colspan</span><span class="htx">=</span><span class="hv2">"2"</span><span class="ht">&gt;</span><span class="htx">Tarde (casa)</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln"> 8</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln"> 9</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">10</span>      <span class="ht">&lt;th&gt;&lt;/th&gt;</span>
+<span class="ln">11</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Emoción</span><span class="ht">&lt;/th&gt;&lt;th&gt;</span><span class="htx">Intensidad</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln">12</span>      <span class="ht">&lt;th&gt;</span><span class="htx">Emoción</span><span class="ht">&lt;/th&gt;&lt;th&gt;</span><span class="htx">Intensidad</span><span class="ht">&lt;/th&gt;</span>
+<span class="ln">13</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;/thead&gt;</span>
+<span class="ln">15</span>  <span class="ht">&lt;tbody&gt;</span>
+<span class="ln">16</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">17</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Martes</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">18</span>      <span class="hc">&lt;!-- rowspan="2": esta celda ocupa 2 filas --&gt;</span>
+<span class="ln">19</span>      <span class="ht">&lt;td </span><span class="ha">rowspan</span><span class="htx">=</span><span class="hv2">"2"</span><span class="ht">&gt;</span><span class="htx">Motivación (dos días seguidos)</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">20</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Media</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">21</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Cansancio</span><span class="ht">&lt;/td&gt;&lt;td&gt;</span><span class="htx">Media</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">22</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">23</span>    <span class="ht">&lt;tr&gt;</span>
+<span class="ln">24</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Miércoles</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">25</span>      <span class="hc">&lt;!-- NO se repite la celda de Motivación — rowspan la cubre --&gt;</span>
+<span class="ln">26</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Alta</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">27</span>      <span class="ht">&lt;td&gt;</span><span class="htx">Orgullo</span><span class="ht">&lt;/td&gt;&lt;td&gt;</span><span class="htx">Alta</span><span class="ht">&lt;/td&gt;</span>
+<span class="ln">28</span>    <span class="ht">&lt;/tr&gt;</span>
+<span class="ln">29</span>  <span class="ht">&lt;/tbody&gt;</span>
+<span class="ln">30</span><span class="ht">&lt;/table&gt;</span></div>
+  </div>
+
+  <div class="warn"><strong>Regla del rowspan/colspan:</strong> Cuando usas <code>rowspan="2"</code> en una celda de la fila A, en la fila B debes quitar esa celda — porque ya está cubierta. Si dejas la celda extra, la tabla se desordena. Cuenta siempre cuántas celdas tiene cada fila visualmente, no en el código.</div>
+</div>
+
+<!-- ══ ACTIVIDAD 1 · INDIVIDUAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>Mi semana emocional en tabla: los datos que el colegio no mide</h3>
+      <div class="asub">Individual · 25 minutos · Autoconciencia — registrar lo que sientes con estructura</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 25 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👤 Individual</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Editor de código</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📅</span><span class="eti">Antes de escribir — observa tu semana</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Piensa en los últimos cinco días escolares. ¿Qué emociones pasaron por ti en el colegio y en casa? No las que "debías" sentir — las que realmente sentiste. Desde la angustia antes de una clase difícil hasta la satisfacción de terminar algo que costó trabajo. <strong>Esa semana emocional real es la que vas a organizar en una tabla HTML.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Cuál fue la emoción más intensa que sentiste esta semana? ¿En qué momento y lugar?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>mi_semana_emocional.html</code></h4>
+          <p>Con estructura completa. El <code>&lt;h1&gt;</code>: "Mi semana emocional — lo que el colegio no mide". Debajo, la tabla.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">2</div>
+        <div class="pc">
+          <h4>Diseña una tabla con 5 columnas</h4>
+          <p>Las columnas serán: <strong>Día</strong>, <strong>Emoción principal</strong>, <strong>Situación que la causó</strong>, <strong>Intensidad (Alta/Media/Baja)</strong>, <strong>Lo que hice con esa emoción</strong>. Cinco filas — una por cada día de la semana. Usa <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code> y <code>&lt;tfoot&gt;</code>.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">3</div>
+        <div class="pc">
+          <h4>Usa colspan en el &lt;tfoot&gt;</h4>
+          <p>En el pie de la tabla, haz una fila con una sola celda que abarque las 5 columnas usando <code>colspan="5"</code>. En esa celda escribe: una reflexión sobre tu semana emocional completa en una oración.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">4</div>
+        <div class="pc">
+          <h4>Usa rowspan si una emoción duró más de un día</h4>
+          <p>Si la misma emoción se mantuvo dos días seguidos (por ejemplo, angustia lunes y martes por el mismo motivo), usa <code>rowspan="2"</code> en esa celda de emoción. Esto es optativo pero vale puntos extra.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">5</div>
+        <div class="pc">
+          <h4>Agrega comentarios HTML honestos</h4>
+          <p>Antes de cada fila, un comentario que explique algo de ese día que no cabe en ninguna celda — el contexto que la tabla no puede mostrar.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu tabla debe tener</div>
+      <ul>
+        <li>Uso correcto de <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code> y <code>&lt;td&gt;</code></li>
+        <li>5 columnas y 5 filas de datos reales (no inventados, no genéricos)</li>
+        <li>Un <code>colspan="5"</code> en el tfoot con una reflexión real</li>
+        <li>Comentarios HTML antes de cada fila con el contexto que la tabla no muestra</li>
+        <li>Optativo pero recomendado: al menos un <code>rowspan</code> si aplica</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Poner nombre y estructura a lo que sientes es ya un acto de cuidado propio</h4>
+      <p>Muchas personas van por la vida sin registrar qué sienten, cuándo lo sienten y qué hacen con eso. Al construir tu tabla emocional, hiciste algo que pocas personas hacen: te observaste a ti mismo/a con atención y le diste estructura a esa observación. La última columna — "lo que hice con esa emoción" — es especialmente importante: revela tus estrategias reales de manejo emocional. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué emoción apareció más veces en tu semana? ¿Te sorprendió o lo esperabas?</li>
+        <li><span>→</span> Mira la columna "lo que hice con esa emoción". ¿Cuáles de esas estrategias te ayudaron de verdad y cuáles solo postergaron lo que sentías?</li>
+        <li><span>→</span> ¿Hubo alguna emoción que no quisiste poner en la tabla? ¿Por qué? ¿Qué dice eso?</li>
+        <li><span>→</span> Si pudieras añadir una columna al boletín real de tu colegio, ¿cuál sería y qué pondría en ella?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 2 · PAREJAS ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>La tabla de responsabilidades del hogar: lo que aparece y lo que falta</h3>
+      <div class="asub">Parejas · 20 minutos · Toma de decisiones responsables — revisar lo que se mide y lo que se deja por fuera</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 20 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👥 Parejas</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 Un archivo</span>
+      <span class="mp" style="background:#fae8ff;border-color:#f0abfc;color:#6b21a8">⚖️ SEL: Toma de decisiones</span>
+    </div>
+
+    <div class="escena escena-familia" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Emilio — la tabla de responsabilidades</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          La tabla de la mamá de Emilio tiene las responsabilidades visibles — las tareas del hogar. Pero hay responsabilidades invisibles que nadie pone en ninguna tabla: escuchar a un hermano que está mal, recordar que es el cumpleaños de alguien, mantener la calma cuando los demás están tensos. <strong>¿Qué pasaría si rediseñaran esa tabla juntos?</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Cuál es la responsabilidad más invisible que tienes en tu casa?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">1</div>
+        <div class="pc">
+          <h4>Cada uno escribe en papel sus responsabilidades del hogar (5 min)</h4>
+          <p>Tanto las visibles (lavar, barrer, cocinar) como las invisibles (emocionales, relacionales, de cuidado). No comparen todavía.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">2</div>
+        <div class="pc">
+          <h4>Construyan juntos el archivo <code>tabla_responsabilidades.html</code></h4>
+          <p>Una tabla con columnas: <strong>Responsabilidad</strong>, <strong>Tipo (Visible/Invisible)</strong>, <strong>¿Quién la reconoce?</strong>, <strong>¿Cómo te pesa o te da satisfacción?</strong>. Mínimo 3 filas por persona. Usen <code>colspan</code> para separar las secciones de cada integrante con una fila de encabezado que diga su nombre.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#2563eb">3</div>
+        <div class="pc">
+          <h4>Agreguen un &lt;tfoot&gt; conjunto</h4>
+          <p>Con una fila que, usando <code>colspan</code> total, responda: ¿Qué responsabilidad de las dos listas merece más reconocimiento y por qué?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Archivo con tabla correctamente estructurada usando thead, tbody, tfoot</li>
+        <li>Uso de <code>colspan</code> para separar las secciones de cada persona</li>
+        <li>Responsabilidades invisibles presentes — no solo tareas del hogar</li>
+        <li>Un tfoot con reflexión conjunta sobre el reconocimiento</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-decision">
+      <div class="sel-badge">⚖️ SEL · Toma de Decisiones Responsables</div>
+      <h4>Las responsabilidades invisibles también cuestan — y también merecen ser vistas</h4>
+      <p>Decidir qué se mide y qué se deja por fuera es siempre una decisión de poder. En tu casa, en el colegio, en la sociedad — los sistemas de evaluación y registro reflejan lo que se valora. Cuando la columna "responsabilidades invisibles" no existe, esas responsabilidades igual se cumplen — solo que sin reconocimiento. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuántas responsabilidades invisibles salieron entre los dos? ¿Te sorprendió la lista del otro?</li>
+        <li><span>→</span> ¿Hay alguien en tu familia cuyas responsabilidades invisibles son especialmente grandes y poco reconocidas? ¿Quién?</li>
+        <li><span>→</span> ¿Qué podrías hacer tú — una acción concreta — para reconocer ese trabajo invisible?</li>
+        <li><span>→</span> ¿Cómo crees que cambiaría la dinámica en tu casa si todas las responsabilidades — visibles e invisibles — estuvieran en la misma tabla?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 3 · GRUPAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>La tabla que Diego mereció: datos con contexto</h3>
+      <div class="asub">Grupos de 4 · 20 minutos · Conciencia social — rediseñar cómo medimos a las personas</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">⚖️</span><span class="eti">Volvamos a Diego — el que trabaja y estudia</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          La tabla de notas de Diego lo puso en el último lugar. Sin contexto, parece un estudiante que no se esfuerza. Con contexto, es alguien que trabaja los fines de semana, que llega cansado los lunes, que estudia con lo que le queda de energía. <strong>El problema no era Diego — era la tabla.</strong> Esta actividad propone rediseñar la evaluación.
+        </p>
+        <div class="escena-pregunta">💭 Si pudieras rediseñar el sistema de evaluación del colegio, ¿qué columnas añadirías o quitarías?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">1</div>
+        <div class="pc">
+          <h4>Discutan: ¿qué mide el sistema de evaluación actual? (5 min)</h4>
+          <p>Sin computadores. En papel. ¿Qué se mide en el boletín? ¿Qué NO se mide que debería? ¿Hay algún compañero/a del grupo o del salón a quien el sistema evalúe de manera injusta o incompleta?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">2</div>
+        <div class="pc">
+          <h4>Construyan el archivo <code>evaluacion_justa.html</code></h4>
+          <p>Una tabla que represente su propuesta de evaluación más completa. Mínimo 5 columnas — incluyendo las que el boletín actual no tiene. Por ejemplo: <strong>Materia</strong>, <strong>Nota actual</strong>, <strong>Esfuerzo demostrado</strong>, <strong>Contexto personal relevante</strong>, <strong>Habilidades que no mide esta nota</strong>. Usen <code>colspan</code> para agrupar categorías y <code>rowspan</code> si algún dato aplica a varias materias.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">3</div>
+        <div class="pc">
+          <h4>El &lt;tfoot&gt;: la propuesta del grupo</h4>
+          <p>Una sola fila con <code>colspan</code> total que responda: ¿Qué cambiaría en el colegio si se evaluara con esta tabla en lugar de solo con números?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">4</div>
+        <div class="pc">
+          <h4>Comparten con otro grupo</h4>
+          <p>Intercambien archivos. ¿Coinciden en qué agregar? ¿Hay columnas que un grupo incluyó y el otro no? ¿Qué dice eso sobre cómo ven la evaluación?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>evaluacion_justa.html</code> con tabla estructurada completa</li>
+        <li>Mínimo 5 columnas, al menos 2 que no existen en el boletín actual</li>
+        <li>Uso correcto de colspan y rowspan en al menos un lugar</li>
+        <li>Un tfoot con la propuesta de cambio del grupo</li>
+        <li>Comentarios HTML que justifiquen por qué incluyeron cada columna</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Los sistemas de evaluación no son neutrales — siempre reflejan lo que se valora</h4>
+      <p>La conciencia social incluye "comprender las influencias de las organizaciones y sistemas sobre el comportamiento". El sistema de notas del colegio es uno de esos sistemas — organiza, clasifica y tiene consecuencias reales sobre cómo los estudiantes se ven a sí mismos. Cuando ustedes propusieron nuevas columnas, estaban ejerciendo pensamiento crítico sobre ese sistema. Eso también es aprendizaje. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué columna de tu tabla propuesta sería la más difícil de implementar en el colegio real? ¿Por qué?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno escolar que crees que es evaluado injustamente por el sistema actual? ¿Qué contexto falta en su "tabla"?</li>
+        <li><span>→</span> ¿La propuesta de tu grupo cambiaría quién "queda en el último lugar" de la tabla que alguien subió al grupo de WhatsApp? ¿Sería más justa?</li>
+        <li><span>→</span> ¿Qué puedes hacer tú — dentro del colegio, sin cambiar el sistema — para reconocer el esfuerzo de los demás más allá de sus notas?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BITÁCORA DE CIERRE ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 06</h3></div>
+  </div>
+
+  <p class="tp">En tu cuaderno o en <code>bitacora_guia06.html</code> — esta vez usando al menos una tabla HTML con las competencias CASEL que trabajaste hoy.</p>
+
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin:14px 0">
+    <p style="font-size:12px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Estructura sugerida para tu bitácora:</p>
+    <div class="editor" style="margin:0">
+      <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">bitacora_guia06.html</span></div>
+      <div class="ebody"><span class="ht">&lt;h1&gt;</span><span class="htx">Bitácora Guía 06 · [Tu nombre]</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Lo que aprendí hoy sobre tablas</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;table&gt;</span>
+  <span class="ht">&lt;thead&gt;&lt;tr&gt;</span>
+    <span class="ht">&lt;th&gt;</span><span class="htx">Etiqueta</span><span class="ht">&lt;/th&gt;&lt;th&gt;</span><span class="htx">Qué hace</span><span class="ht">&lt;/th&gt;&lt;th&gt;</span><span class="htx">Lo que me pareció más útil</span><span class="ht">&lt;/th&gt;</span>
+  <span class="ht">&lt;/tr&gt;&lt;/thead&gt;</span>
+  <span class="ht">&lt;tbody&gt;</span>
+    <span class="hc">&lt;!-- Una fila por etiqueta que aprendiste --&gt;</span>
+  <span class="ht">&lt;/tbody&gt;</span>
+<span class="ht">&lt;/table&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Lo que me quedó por dentro</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="htx">[Una reflexión sobre lo que removió esta guía]</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Una decisión que quiero tomar</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="htx">[Una acción concreta para reconocer algo invisible en tu casa o colegio]</span><span class="ht">&lt;/p&gt;</span></div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué emoción de tu tabla semanal te cuesta más gestionar? ¿Qué estrategia usas que de verdad funciona?</li>
+        <li><span>→</span> ¿Hay datos sobre ti mismo/a — cosas que haces, que sientes, que logras — que merecen ser registrados pero que nunca aparecen en ninguna tabla?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Hay alguien en tu entorno — familia, colegio, amigos — cuyo esfuerzo o situación no aparece en ningún "boletín"? ¿Qué columna le falta a su historia?</li>
+        <li><span>→</span> ¿Cómo cambiaría la manera en que te relacionas con los demás si siempre recordaras que sus datos tienen contexto que tú no ves?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-decision" style="margin-top:0">
+      <div class="sel-badge">⚖️ Toma de Decisiones</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué decisión concreta vas a tomar esta semana para reconocer un trabajo invisible en tu casa o en tu grupo?</li>
+        <li><span>→</span> Si pudieras cambiar una sola cosa del sistema de evaluación de tu colegio, ¿qué sería? ¿Cómo lo propondrías?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en HTML hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="320" fill="#f8fafc"/>
+
+      <!-- Estructura de tabla como diagrama -->
+      <!-- &lt;table&gt; wrapper -->
+      <rect x="18" y="18" width="664" height="284" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="350" y="36" text-anchor="middle" fill="#64748b" font-family="Nunito" font-weight="900" font-size="11">&lt;table&gt; — contenedor de toda la tabla</text>
+
+      <!-- thead -->
+      <rect x="30" y="44" width="640" height="52" rx="8" fill="#1a4f8a"/>
+      <text x="350" y="62" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">&lt;thead&gt; — encabezados de columna</text>
+      <text x="120" y="86" text-anchor="middle" fill="rgba(255,255,255,.8)" font-family="Source Code Pro" font-size="10">&lt;tr&gt;&lt;th&gt;Col 1&lt;/th&gt;&lt;th&gt;Col 2&lt;/th&gt;&lt;th&gt;Col 3&lt;/th&gt;&lt;/tr&gt;</text>
+      <rect x="340" y="74" width="100" height="16" rx="4" fill="rgba(255,255,255,.2)"/>
+      <text x="390" y="85" text-anchor="middle" fill="white" font-family="Nunito" font-size="9" font-weight="700">th = negrita + centrado</text>
+
+      <!-- tbody -->
+      <rect x="30" y="104" width="640" height="130" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="350" y="122" text-anchor="middle" fill="#1e40af" font-family="Nunito" font-weight="900" font-size="12">&lt;tbody&gt; — datos del cuerpo</text>
+
+      <!-- fila 1 con colspan highlight -->
+      <rect x="40" y="130" width="200" height="28" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="140" y="148" text-anchor="middle" fill="#334155" font-family="Nunito" font-size="10">dato normal &lt;td&gt;</text>
+      <rect x="248" y="130" width="200" height="28" rx="4" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="348" y="143" text-anchor="middle" fill="#92400e" font-family="Nunito" font-size="9" font-weight="700">colspan="2"</text>
+      <text x="348" y="154" text-anchor="middle" fill="#78350f" font-family="Nunito" font-size="9">ocupa 2 columnas →</text>
+
+      <!-- fila 2 con rowspan -->
+      <rect x="40" y="166" width="100" height="56" rx="4" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="90" y="184" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9" font-weight="700">rowspan="2"</text>
+      <text x="90" y="198" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">ocupa</text>
+      <text x="90" y="210" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9">2 filas ↓</text>
+      <rect x="148" y="166" width="130" height="26" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="213" y="183" text-anchor="middle" fill="#334155" font-family="Nunito" font-size="10">&lt;td&gt; normal</text>
+      <rect x="286" y="166" width="130" height="26" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="351" y="183" text-anchor="middle" fill="#334155" font-family="Nunito" font-size="10">&lt;td&gt; normal</text>
+
+      <rect x="148" y="196" width="130" height="26" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="213" y="213" text-anchor="middle" fill="#334155" font-family="Nunito" font-size="10">&lt;td&gt; siguiente fila</text>
+      <rect x="286" y="196" width="130" height="26" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="351" y="213" text-anchor="middle" fill="#334155" font-family="Nunito" font-size="10">&lt;td&gt; siguiente fila</text>
+
+      <!-- tfoot -->
+      <rect x="30" y="242" width="640" height="48" rx="8" fill="#334155"/>
+      <text x="350" y="262" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">&lt;tfoot&gt; — totales, resumen o reflexión final</text>
+      <text x="350" y="280" text-anchor="middle" fill="rgba(255,255,255,.7)" font-family="Source Code Pro" font-size="10">&lt;tr&gt;&lt;td colspan="3"&gt;Reflexión o total&lt;/td&gt;&lt;/tr&gt;</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 06</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Estructura de tabla</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>La tabla tiene errores: filas con diferente número de celdas, etiquetas mal anidadas o sin thead/tbody.</td>
+      <td>Usa correctamente table, tr, td, th, thead, tbody y tfoot.</td>
+      <td>Estructura perfecta con semántica coherente. El tfoot contiene una conclusión real, no solo un total.</td>
+    </tr>
+    <tr>
+      <td><strong>colspan y rowspan</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa estas herramientas o las usa incorrectamente distorsionando la tabla.</td>
+      <td>Usa al menos un colspan correctamente en un lugar justificado.</td>
+      <td>Usa tanto colspan como rowspan con intención clara — se nota que organizó los datos pensando en cuáles van juntos.</td>
+    </tr>
+    <tr>
+      <td><strong>Contenido emocional real</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>Las emociones o situaciones son inventadas o genéricas ("feliz", "triste").</td>
+      <td>Nombra emociones reales y específicas vinculadas a situaciones concretas de su semana.</td>
+      <td>La tabla emocional revela autoobservación genuina — emociones con nombre preciso, situaciones específicas y estrategias reales de manejo.</td>
+    </tr>
+    <tr>
+      <td><strong>Pensamiento crítico sobre evaluación</strong><br><span style="font-size:11px;color:#64748b">SEL · Conciencia Social</span></td>
+      <td>La tabla de evaluación justa solo repite el boletín actual con otras palabras.</td>
+      <td>Propone columnas nuevas que el boletín actual no tiene.</td>
+      <td>La propuesta del grupo muestra comprensión real de qué se deja por fuera en el sistema actual y por qué importa incluirlo.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas vacías o que evitan el compromiso personal.</td>
+      <td>Conecta la actividad con situaciones reales de su vida.</td>
+      <td>La reflexión incluye una decisión concreta — algo que va a hacer diferente en su casa, su grupo o su relación con el sistema de evaluación.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 06 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Toma de Decisiones Responsables · Conciencia Social</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 07 → Formularios HTML: preguntar, escuchar y recibir</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
