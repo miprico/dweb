@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 13 · Posicionamiento, Display, Overflow · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* DEMOS POSICIONAMIENTO */
+.pos-demo{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin:14px 0;position:relative;min-height:160px;overflow:hidden}
+.pos-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;position:absolute;top:8px;left:12px;color:#94a3b8}
+.pos-box{border-radius:8px;padding:10px 14px;font-size:12px;font-weight:700;text-align:center;border:2px solid}
+.pos-static{background:#dbeafe;border-color:#93c5fd;color:#1e40af;position:static}
+.pos-relative{background:#dcfce7;border-color:#86efac;color:#14532d;position:relative;top:20px;left:20px}
+.pos-absolute{background:#fde68a;border-color:#fbbf24;color:#78350f;position:absolute;top:60px;right:20px;z-index:2}
+.pos-fixed-demo{background:#fee2e2;border-color:#fecaca;color:#991b1b}
+.pos-sticky-demo{background:#ede9fe;border-color:#c4b5fd;color:#4c1d95}
+/* DISPLAY DEMO */
+.display-demo{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px;margin:12px 0}
+.d-block-item{background:#dbeafe;border:1.5px solid #93c5fd;border-radius:6px;padding:8px 12px;font-size:12px;font-weight:700;color:#1e40af;margin-bottom:6px;display:block}
+.d-inline-item{background:#dcfce7;border:1.5px solid #86efac;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:700;color:#14532d;display:inline;margin-right:4px}
+.d-inlineblock-item{background:#fef9c3;border:1.5px solid #fbbf24;border-radius:6px;padding:8px 16px;font-size:12px;font-weight:700;color:#78350f;display:inline-block;margin-right:6px;width:100px;text-align:center}
+/* OVERFLOW DEMO */
+.overflow-box{width:260px;border:2px solid #c4b5fd;border-radius:10px;padding:12px;font-size:12.5px;color:#4c1d95;background:#f5f3ff;margin:8px 0}
+/* ACTIVIDAD */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 13</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 13 · Grado Décimo · ENSDB 2025</div>
+    <h2>Posicionamiento, Display, Overflow y Visibilidad</h2>
+    <p class="gsub">Aprenderás cómo CSS controla dónde están las cosas, cómo se comportan en el flujo de la página y qué pasa cuando el contenido no cabe. Y a través de eso, a reflexionar sobre los lugares que ocupamos — o no nos dejan ocupar — en la familia, el colegio y el grupo, y qué pasa cuando lo que sentimos no cabe en el espacio que nos dan.</p>
+    <div class="tags">
+      <span class="tag tag-azul">position: static · relative · absolute · fixed · sticky</span>
+      <span class="tag tag-azul">top · right · bottom · left · z-index</span>
+      <span class="tag tag-verde">display: block · inline · inline-block · none</span>
+      <span class="tag tag-morado">overflow: visible · hidden · scroll · auto · visibility</span>
+      <span class="tag tag-ambar">Lugar · Presencia · Flujo · Límites · Escuela · Familia</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>El lugar que ocupamos — y el que no nos dejan ocupar</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor.</p>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🪑</span><span class="eti">En el colegio · El puesto que nadie te dio</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Rodrigo siempre se sienta en la última fila. No porque él lo haya elegido — fue tomando ese lugar porque era el que quedaba disponible cuando llegaba, el que nadie reclamaba, el que no le importaba a nadie. Con el tiempo aprendió a quedarse ahí, invisible. <strong>Un día llegó temprano y se sentó adelante. El docente lo miró diferente. Los compañeros también.</strong> El mismo Rodrigo, otro position.</p>
+      <div class="escena-pregunta">💭 ¿Hay algún "lugar" en tu colegio, tu familia o tu grupo que sientes que nunca te dieron o que siempre ocupas sin haberlo elegido?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🌊</span><span class="eti">En casa · Lo que desborda</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Hay semanas en que lo que Marisol siente no cabe. El colegio, la presión de casa, una pelea con su mejor amiga, el cansancio acumulado. Todo es demasiado para el espacio que tiene disponible. <strong>A veces lo que siente desborda — y sale en formas que no planificó:</strong> una explosión de llanto en el baño del colegio, una respuesta brusca a alguien que no tiene la culpa. En CSS eso se llama overflow — lo que pasa cuando el contenido no cabe en su caja.</p>
+      <div class="escena-pregunta">💭 ¿Qué haces tú cuando lo que sientes "desborda" el espacio que tienes para procesarlo?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">👻</span><span class="eti">Con compañeros · El que se hace invisible</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En los trabajos en grupo, Alejandro siempre termina siendo <em>display: none</em>. Está en la lista del grupo, su nombre aparece en la presentación, pero sus ideas nunca llegan a la conversación. No porque no las tenga — sino porque el grupo ya tiene su ritmo, su dinámica, su flujo, y él no sabe cómo insertarse. <strong>Es diferente a no estar: está pero no se ve.</strong> Eso es distinto a visibility: hidden — está ocupando espacio, pero nadie lo percibe.</p>
+      <div class="escena-pregunta">💭 ¿Hay momentos en tu vida en que estás presente pero sientes que eres invisible para los que te rodean?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">Rodrigo descubrió que cambiar de posición cambiaba cómo lo veían. Marisol sabe lo que pasa cuando el contenido desborda su contenedor. Alejandro conoce la diferencia entre no estar y estar-sin-ser-visto. En CSS, <strong>posicionamiento, display, overflow y visibility son las propiedades que controlan exactamente esas situaciones</strong> — dónde está cada elemento, cómo ocupa espacio y qué pasa con lo que no cabe.</p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📍</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Controlar la posición de los elementos con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">position</code>: static, relative, absolute, fixed y sticky, usando top/right/bottom/left y z-index.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📦</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Entender <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">display</code>: block, inline, inline-block y none — cómo cada modo cambia el comportamiento de un elemento en el flujo de la página.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🌊</span><p style="font-size:13.5px;font-weight:700;color:#166534">Manejar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">overflow</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">visibility</code> para controlar qué pasa cuando el contenido supera los límites de su caja.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🧭</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre los lugares que ocupamos — o no — en la familia y el colegio, y qué pasa cuando lo que sentimos no tiene espacio para caber.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1: POSICIONAMIENTO -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>position: dónde está cada elemento en la página</h2><p>static · relative · absolute · fixed · sticky — cinco maneras de ocupar un lugar</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Por defecto, todos los elementos HTML siguen el flujo normal del documento — se apilan uno debajo del otro. La propiedad <strong>position</strong> rompe ese flujo y permite ubicar un elemento exactamente donde lo necesitas, usando las propiedades <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">top</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">right</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">bottom</code> y <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">left</code>.</p>
+
+  <table class="tbl">
+    <tr><th>Valor</th><th>¿Qué hace?</th><th>top/left activan</th><th>En la vida de Rodrigo</th></tr>
+    <tr><td><code>static</code></td><td>Posición normal del flujo. Por defecto. top/left no aplican.</td><td>No</td><td>Siempre en la fila que le toca, sin haberlo elegido.</td></tr>
+    <tr><td><code>relative</code></td><td>Se mueve relativo a su posición original. Sigue ocupando su espacio.</td><td>Sí</td><td>Se mueve un poco del sitio habitual pero su "huella" sigue ahí.</td></tr>
+    <tr><td><code>absolute</code></td><td>Se posiciona relativo al ancestro posicionado más cercano. Sale del flujo — los demás no lo ven.</td><td>Sí</td><td>Se separa completamente del grupo — ocupa un lugar propio invisible para el flujo normal.</td></tr>
+    <tr><td><code>fixed</code></td><td>Se fija en la pantalla — no se mueve al hacer scroll. Sale del flujo.</td><td>Sí</td><td>Siempre presente, siempre visible, sin importar cuánto se mueva lo que le rodea.</td></tr>
+    <tr><td><code>sticky</code></td><td>Se comporta como relative hasta un punto, luego se fija como fixed.</td><td>Sí (threshold)</td><td>Va con el flujo hasta que llega a un límite — ahí se queda firme.</td></tr>
+  </table>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">posicionamiento.css</span></div>
+    <div class="ebody"><span class="hc">/* RELATIVE: se desplaza de su posición original */</span>
+<span class="cs">.mi-lugar</span> {
+  <span class="cp">position</span>: <span class="cv">relative</span>;
+  <span class="cp">top</span>: <span class="cv">10px</span>;     <span class="hc">/* se baja 10px de donde estaría normalmente */</span>
+  <span class="cp">left</span>: <span class="cv">20px</span>;    <span class="hc">/* se mueve 20px a la derecha */</span>
+}
+
+<span class="hc">/* ABSOLUTE: relativo al padre posicionado */</span>
+<span class="cs">.contenedor</span> {
+  <span class="cp">position</span>: <span class="cv">relative</span>;  <span class="hc">/* el padre necesita position para que absolute funcione */</span>
+}
+<span class="cs">.badge</span> {
+  <span class="cp">position</span>: <span class="cv">absolute</span>;
+  <span class="cp">top</span>: <span class="cv">-8px</span>;
+  <span class="cp">right</span>: <span class="cv">-8px</span>;        <span class="hc">/* esquina superior derecha del padre */</span>
+}
+
+<span class="hc">/* FIXED: siempre visible, no se mueve al hacer scroll */</span>
+<span class="cs">.nav-fijo</span> {
+  <span class="cp">position</span>: <span class="cv">fixed</span>;
+  <span class="cp">top</span>: <span class="cv">0</span>;
+  <span class="cp">left</span>: <span class="cv">0</span>;
+  <span class="cp">width</span>: <span class="cv">100%</span>;
+  <span class="cp">z-index</span>: <span class="cv">100</span>;        <span class="hc">/* siempre encima de todo */</span>
+}
+
+<span class="hc">/* STICKY: se pega al hacer scroll hasta un umbral */</span>
+<span class="cs">.encabezado-seccion</span> {
+  <span class="cp">position</span>: <span class="cv">sticky</span>;
+  <span class="cp">top</span>: <span class="cv">60px</span>;          <span class="hc">/* se pega cuando llega a 60px del tope */</span>
+  <span class="cp">background</span>: <span class="cv">#fff</span>;
+  <span class="cp">z-index</span>: <span class="cv">10</span>;
+}</div>
+  </div>
+
+  <!-- Demo visual de posicionamiento -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">Demo visual — cómo se ven los diferentes tipos de position:</div>
+  <div class="pos-demo" style="height:200px">
+    <span class="pos-label">Contenedor con position: relative</span>
+    <div style="display:flex;gap:12px;align-items:flex-start;margin-top:28px;flex-wrap:wrap">
+      <div class="pos-box pos-static" style="width:140px">position: static<br><small>Flujo normal</small></div>
+      <div class="pos-box pos-relative" style="width:140px">position: relative<br><small>top:20 left:20</small></div>
+      <div class="pos-box pos-absolute" style="width:140px">position: absolute<br><small>top:60 right:20</small></div>
+    </div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:18px 0 10px">z-index: quién está encima de quién</h4>
+  <p class="tp"><strong>z-index</strong> controla el orden de apilamiento de los elementos posicionados. Un z-index mayor significa que el elemento aparece encima de los demás. Solo funciona con elementos que tienen un <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">position</code> distinto de static.</p>
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">z-index.css</span></div>
+    <div class="ebody"><span class="cs">.modal</span>      { <span class="cp">position</span>: <span class="cv">fixed</span>;    <span class="cp">z-index</span>: <span class="cv">1000</span>; }  <span class="hc">/* encima de todo */</span>
+<span class="cs">.nav-fijo</span>   { <span class="cp">position</span>: <span class="cv">fixed</span>;    <span class="cp">z-index</span>: <span class="cv">100</span>;  }  <span class="hc">/* siempre visible */</span>
+<span class="cs">.tarjeta</span>    { <span class="cp">position</span>: <span class="cv">relative</span>; <span class="cp">z-index</span>: <span class="cv">10</span>;   }  <span class="hc">/* sobre el fondo */</span>
+<span class="cs">.fondo</span>      { <span class="cp">position</span>: <span class="cv">absolute</span>; <span class="cp">z-index</span>: <span class="cv">1</span>;    }  <span class="hc">/* debajo de todo */</span></div>
+  </div>
+  <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px;margin-top:8px">
+    <p style="font-size:14px;color:#7c2d12"><strong>La metáfora del z-index:</strong> En la vida también existe el z-index — quién tiene más "capas" sobre quién. El director está encima del docente en la jerarquía. El docente encima del estudiante. Pero en una conversación genuina, esas capas pueden invertirse: el que sabe más sobre su propia experiencia siempre tiene z-index superior en su propio territorio.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 2: DISPLAY -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>display: cómo ocupa espacio un elemento</h2><p>block · inline · inline-block · none — cuatro formas de estar o no estar en el flujo</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">La propiedad <strong>display</strong> determina cómo un elemento participa en el flujo de la página. ¿Ocupa toda la línea? ¿Solo su contenido? ¿O desaparece completamente? Esta propiedad es fundamental para el diseño de cualquier interfaz.</p>
+
+  <!-- Demo visual de los 4 tipos de display -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Así se comportan los diferentes valores de display:</div>
+
+  <div class="display-demo">
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px;font-weight:700">display: block — ocupa toda la línea disponible:</p>
+    <div class="d-block-item">Soy block · ocupo toda la línea</div>
+    <div class="d-block-item">Soy block · empiezo en línea nueva</div>
+  </div>
+
+  <div class="display-demo">
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px;font-weight:700">display: inline — solo ocupa lo que necesita, sin romper el flujo:</p>
+    <p style="font-size:13px;color:#334155">Texto normal
+      <span class="d-inline-item">soy inline</span>
+      sigue el texto
+      <span class="d-inline-item">otro inline</span>
+      sin interrumpir.
+    </p>
+  </div>
+
+  <div class="display-demo">
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px;font-weight:700">display: inline-block — en línea pero con ancho y alto propios:</p>
+    <div class="d-inlineblock-item">inline-block</div>
+    <div class="d-inlineblock-item">con width</div>
+    <div class="d-inlineblock-item">en línea</div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">display.css</span></div>
+    <div class="ebody"><span class="hc">/* block: ocupa todo el ancho, empieza en nueva línea */</span>
+<span class="hc">/* Elementos block por defecto: div, p, h1-h6, ul, li, section */</span>
+<span class="cs">div</span> { <span class="cp">display</span>: <span class="cv">block</span>; }
+
+<span class="hc">/* inline: solo ocupa lo que necesita, fluye con el texto */</span>
+<span class="hc">/* Elementos inline por defecto: span, a, strong, em, img */</span>
+<span class="cs">span</span> { <span class="cp">display</span>: <span class="cv">inline</span>; }
+
+<span class="hc">/* inline-block: en línea pero acepta width y height */</span>
+<span class="hc">/* Útil para botones o items de menú horizontales */</span>
+<span class="cs">.btn</span> {
+  <span class="cp">display</span>: <span class="cv">inline-block</span>;
+  <span class="cp">width</span>: <span class="cv">140px</span>;
+  <span class="cp">padding</span>: <span class="cv">10px 20px</span>;
+  <span class="cp">text-align</span>: <span class="cv">center</span>;
+}
+
+<span class="hc">/* none: desaparece COMPLETAMENTE — no ocupa espacio */</span>
+<span class="hc">/* Como si el elemento no existiera en el HTML */</span>
+<span class="cs">.oculto</span> { <span class="cp">display</span>: <span class="cv">none</span>; }
+
+<span class="hc">/* Ejemplo de uso real: menú móvil que se abre con JS */</span>
+<span class="cs">.menu-movil</span> { <span class="cp">display</span>: <span class="cv">none</span>; }
+<span class="cs">.menu-movil.abierto</span> { <span class="cp">display</span>: <span class="cv">block</span>; }</div>
+  </div>
+
+  <div style="background:#fdf4ff;border:1.5px solid #f0abfc;border-radius:10px;padding:14px 18px;margin-top:8px">
+    <p style="font-size:14px;color:#581c87"><strong>display: none vs visibility: hidden:</strong> Ambas "ocultan" un elemento, pero de manera diferente. <code style="background:#ede9fe;padding:1px 5px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12px">display: none</code> elimina el elemento completamente del flujo — como Alejandro cuando no participa: no ocupa espacio, nadie sabe que podría estar ahí. <code style="background:#ede9fe;padding:1px 5px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12px">visibility: hidden</code> lo hace invisible pero <em>sigue ocupando espacio</em> — como cuando estás presente en cuerpo pero mentalmente en otro lado.</p>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Propiedad</th><th>¿Se ve?</th><th>¿Ocupa espacio?</th><th>En la vida</th></tr>
+    <tr><td><code>display: none</code></td><td>No</td><td>No</td><td>No estás — para el grupo, no existes en ese momento</td></tr>
+    <tr><td><code>visibility: hidden</code></td><td>No</td><td>Sí</td><td>Estás físicamente pero no te perciben — tu "huella" está, pero nadie te ve</td></tr>
+    <tr><td><code>opacity: 0</code></td><td>No (transparente)</td><td>Sí, y recibe eventos</td><td>Eres completamente transparente — estás, ocupas, pero te atraviesan con la mirada</td></tr>
+  </table>
+</div>
+
+<!-- MÓDULO 3: OVERFLOW Y VISIBILIDAD -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>overflow: qué pasa cuando el contenido no cabe</h2><p>visible · hidden · scroll · auto — cuatro formas de manejar lo que desborda</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Cuando el contenido de un elemento es más grande que su contenedor, se "desborda" (overflow). La propiedad <strong>overflow</strong> controla qué sucede con ese contenido que sobra. Como Marisol cuando lo que siente no cabe en el espacio que tiene disponible — hay distintas formas de gestionarlo.</p>
+
+  <!-- Demo visual de overflow -->
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0">
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">overflow: visible (por defecto)</p>
+      <div class="overflow-box" style="height:70px;overflow:visible">El contenido desborda sin restricciones. Todo se ve aunque salga de la caja. Como cuando las emociones salen sin filtro aunque el contexto no sea el adecuado.</div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">overflow: hidden</p>
+      <div class="overflow-box" style="height:70px;overflow:hidden">El contenido que no cabe se corta. No hay scroll. Lo que desborda desaparece. Como guardarse todo por dentro — lo que no cabe, no se ve.</div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">overflow: scroll</p>
+      <div class="overflow-box" style="height:70px;overflow:scroll">Aparece barra de desplazamiento siempre, aunque no haga falta. El usuario puede hacer scroll para ver el contenido que no cabe. Siempre existe la barra aunque el contenido sea corto.</div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px">overflow: auto (recomendado)</p>
+      <div class="overflow-box" style="height:70px;overflow:auto">Solo aparece barra de scroll cuando hace falta. Si el contenido cabe, no hay barra. Es la opción más inteligente y la más común en diseño real. El scroll aparece solo cuando el contenido lo necesita.</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">overflow.css</span></div>
+    <div class="ebody"><span class="hc">/* overflow controla el contenido que desborda la caja */</span>
+<span class="cs">.caja-texto</span> {
+  <span class="cp">width</span>: <span class="cv">300px</span>;
+  <span class="cp">height</span>: <span class="cv">120px</span>;
+  <span class="cp">overflow</span>: <span class="cv">auto</span>;     <span class="hc">/* scroll solo si hace falta — lo más común */</span>
+}
+
+<span class="hc">/* overflow-x y overflow-y para controlar cada eje */</span>
+<span class="cs">.galeria</span> {
+  <span class="cp">overflow-x</span>: <span class="cv">auto</span>;   <span class="hc">/* scroll horizontal para ver más imágenes */</span>
+  <span class="cp">overflow-y</span>: <span class="cv">hidden</span>; <span class="hc">/* sin scroll vertical */</span>
+  <span class="cp">white-space</span>: <span class="cv">nowrap</span>; <span class="hc">/* los items no se van a la línea siguiente */</span>
+}
+
+<span class="hc">/* text-overflow: qué pasa con el texto en una sola línea */</span>
+<span class="cs">.texto-corto</span> {
+  <span class="cp">overflow</span>: <span class="cv">hidden</span>;
+  <span class="cp">white-space</span>: <span class="cv">nowrap</span>;
+  <span class="cp">text-overflow</span>: <span class="cv">ellipsis</span>;  <span class="hc">/* añade "..." al final del texto cortado */</span>
+}
+
+<span class="hc">/* visibility: elemento invisible pero ocupa espacio */</span>
+<span class="cs">.presente-pero-invisible</span> {
+  <span class="cp">visibility</span>: <span class="cv">hidden</span>;   <span class="hc">/* la caja sigue ahí, el contenido no se ve */</span>
+}</div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:8px">
+    <p style="font-size:14px;color:#14532d"><strong>La metáfora de Marisol:</strong> overflow: visible sería dejar que todo salga sin control. overflow: hidden sería guardárselo todo. overflow: auto sería lo más sano: lo que no cabe tiene un canal de salida disponible — la barra de scroll aparece cuando hace falta. Las emociones que desbordan también necesitan un canal: no suprimirlas (hidden) ni explotarlas sin contexto (visible), sino encontrar el espacio adecuado para procesarlas (auto).</p>
+  </div>
+</div>
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
+    <div class="act-num">A1</div>
+    <div><h3>Mi página con posicionamiento: el lugar que yo elijo</h3><div class="asub">Individual · 25 minutos · Autoconciencia — usar position para diseñar con intención</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 25 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👤 Individual</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 HTML + CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📍</span><span class="eti">Volvamos a Rodrigo — elegir tu propio lugar</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Rodrigo siempre se sentaba al fondo porque ese era el lugar disponible. Cuando eligió sentarse adelante, todo cambió. Hoy vas a tomar decisiones similares en CSS: <strong>¿dónde está cada elemento de tu página? ¿Está ahí porque el flujo lo puso ahí, o porque tú lo elegiste conscientemente?</strong></p>
+        <div class="escena-pregunta">💭 ¿En qué lugares de tu vida estás "por defecto" — y cuáles elegiste activamente?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#2563eb">1</div><div class="pc"><h4>Crea o retoma tu <code>index.html</code> del proyecto final</h4><p>Agrega un elemento <code>&lt;nav&gt;</code> con al menos tres enlaces. Este nav debe convertirse en un <strong>nav fijo</strong> que permanezca visible al hacer scroll.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">2</div><div class="pc"><h4>Aplica <code>position: fixed</code> al nav</h4><p>Con <code>top: 0</code>, <code>left: 0</code>, <code>width: 100%</code> y un <code>z-index</code> alto. Agrega <code>padding-top</code> al body para que el contenido no quede debajo del nav.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">3</div><div class="pc"><h4>Crea una sección "destacada" con <code>position: relative</code></h4><p>Dentro de esa sección, coloca un elemento con <code>position: absolute</code> en una esquina — puede ser una etiqueta, un badge, un número, una palabra que represente algo de ti que quieres que siempre esté "encima" del contenido.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">4</div><div class="pc"><h4>Aplica <code>display: none</code> e <code>inline-block</code> con intención</h4><p>Hay un elemento en tu página que en móvil no debe aparecer: usa <code>display: none</code>. Hay elementos del nav que deben estar en línea: usa <code>display: inline-block</code>. Escribe en comentarios CSS por qué cada decisión de display.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">5</div><div class="pc"><h4>Agrega un área con overflow manejado</h4><p>Una sección de tu página donde el texto puede crecer (por ejemplo, una cita larga o una reflexión). Dale <code>max-height</code> y <code>overflow: auto</code> para que el usuario pueda hacer scroll dentro de ella sin que rompa el diseño general.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS debe incluir</div>
+      <ul>
+        <li>Un elemento con <code>position: fixed</code> y z-index (nav o barra de progreso)</li>
+        <li>Un contenedor <code>position: relative</code> con un hijo <code>position: absolute</code></li>
+        <li>Al menos un <code>display: none</code> justificado en comentario CSS</li>
+        <li>Al menos un <code>display: inline-block</code> con width definido</li>
+        <li>Al menos un <code>overflow: auto</code> o <code>hidden</code> en un contenedor de texto</li>
+        <li>Comentarios CSS que expliquen las decisiones de posicionamiento</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>El lugar que eliges en la página dice algo del lugar que te das a ti mismo</h4>
+      <p>La autoconciencia incluye "examinar los propios prejuicios" — en este caso, sobre el lugar que "mereces" ocupar. ¿Pusiste el nav fijo porque quisiste que tu estructura siempre estuviera visible? ¿O lo dejaste estático porque así "era más fácil"? Cada decisión de posicionamiento refleja algo. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué elemento pusiste con position: absolute? ¿Qué representa para ti ese elemento que siempre está "encima"?</li>
+        <li><span>→</span> ¿Qué elemento ocultaste con display: none? ¿Por qué ese y no otro?</li>
+        <li><span>→</span> ¿Hay lugares en tu vida real — en la familia, el colegio, el grupo — donde estás "por defecto" y que podrías cambiar si eligieras activamente?</li>
+        <li><span>→</span> ¿Cómo se relaciona overflow: auto con la forma en que manejas tus emociones cuando son demasiadas?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div><h3>Visible, invisible, presente: jugar con display y visibility</h3><div class="asub">Parejas · 20 minutos · Habilidades relacionales — ver la diferencia entre no estar y estar sin ser visto</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Archivo compartido</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Alejandro — estar sin ser visto</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Alejandro está en el grupo, su nombre aparece, pero sus ideas nunca llegan. <code style="font-family:'Source Code Pro';font-size:12px">display: none</code> no es lo mismo que <code style="font-family:'Source Code Pro';font-size:12px">visibility: hidden</code>. Uno no existe para el flujo; el otro existe pero nadie lo percibe. <strong>Esta actividad les pide que conviertan esa diferencia en código y luego conversen sobre ella.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cuándo has sido "display: none" para alguien — completamente ignorado — y cuándo has sido "visibility: hidden" — presente pero no percibido?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Creen un archivo HTML con 5 "tarjetas de integrante" (5 min)</h4><p>Cada tarjeta tiene nombre, una habilidad del grupo que esa persona aporta y una frase que la representa. Todas idénticas en estructura.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Apliquen los tres tipos de "invisibilidad" al CSS (8 min)</h4><p>Tarjeta 1: visible normalmente. Tarjeta 2: <code>display: none</code> (desaparece, no ocupa espacio). Tarjeta 3: <code>visibility: hidden</code> (invisible pero ocupa su hueco). Tarjeta 4: <code>opacity: 0</code> (transparente, ocupa espacio y recibe clics). Tarjeta 5: <code>position: absolute</code> fuera del flujo pero visible en otro lugar.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Observen el resultado en el navegador y conversen (7 min)</h4><p>¿Qué pasa con el espacio de cada tarjeta oculta? ¿Cuál representa mejor la situación de Alejandro? ¿Y la de alguien que está pero no se escucha?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Archivo HTML con 5 tarjetas, una por tipo de visibilidad</li>
+        <li>Comentarios CSS que comparen cada tipo con una situación de vida real</li>
+        <li>Un párrafo reflexivo al final: ¿qué diferencia hay entre cada tipo de "invisibilidad"?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Hay diferencia entre ignorar a alguien y no verlo — y ambas duelen de formas distintas</h4>
+      <p>Las habilidades relacionales incluyen "escuchar activamente" y "comunicarse claramente". Display: none es ignorar activamente — el grupo decidió no contar con esa persona. Visibility: hidden es no ver a alguien que está presente — la persona existe pero nadie la percibe. Son situaciones diferentes que requieren respuestas diferentes. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué tipo de "invisibilidad" representa mejor la situación de Alejandro? ¿Por qué?</li>
+        <li><span>→</span> ¿Hay alguien en tu grupo o salón que podría ser "visibility: hidden" — presente pero no percibido? ¿Qué podrías hacer?</li>
+        <li><span>→</span> ¿Cuándo has sentido tú que eras "display: none" para alguien? ¿Y cuándo "visibility: hidden"?</li>
+        <li><span>→</span> ¿Qué necesitaría cambiar para que el "display: none" de Alejandro cambiara a "display: block"?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#0d9488,#0f766e)">
+    <div class="act-num">A3</div>
+    <div><h3>El overflow del salón: gestionar lo que desborda</h3><div class="asub">Grupos de 4 · 20 minutos · Autocontrol — diseñar un sistema para lo que no cabe</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#99f6e4">
+    <div class="meta">
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">⏱ 20 min</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">👥 Grupos de 4</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">🧘 SEL: Autocontrol</span>
+    </div>
+
+    <div class="escena escena-familia" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🌊</span><span class="eti">Volvamos a Marisol — el contenido que desborda</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Marisol tiene demasiado y no cabe en el espacio disponible. En CSS, overflow tiene cuatro respuestas posibles. En la vida también. <strong>Esta actividad propone que el grupo construya una página de "espacio de desahogo" — donde el overflow sea el tema central, tanto técnicamente como emocionalmente.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cuál es la estrategia de tu grupo para manejar lo que desborda — en proyectos, en emociones, en conflictos?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#0d9488">1</div><div class="pc"><h4>Diseñen el archivo <code>espacio_desborde.html</code></h4><p>Una página con cuatro secciones — una por cada valor de overflow. Cada sección tiene: el nombre del valor CSS, un ejemplo de código visual, y una metáfora de vida real que el grupo construye juntos.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#0d9488">2</div><div class="pc"><h4>Cada integrante escribe la metáfora de su sección (6 min)</h4><p>overflow: visible → ¿cuándo en la vida emocional dejamos que todo salga sin filtro?<br>overflow: hidden → ¿cuándo nos guardamos todo y qué pasa?<br>overflow: scroll → ¿cuándo habilitamos un canal permanente aunque no siempre haga falta?<br>overflow: auto → ¿cuándo el canal de salida aparece solo cuando es necesario?</p></div></li>
+      <li class="paso"><div class="pn" style="background:#0d9488">3</div><div class="pc"><h4>Apliquen posicionamiento para jerarquizar la página (6 min)</h4><p>El título de la página debe estar <code>position: sticky</code>. Cada sección debe tener un "badge" con el valor CSS usando <code>position: absolute</code>. El nav debe estar <code>position: fixed</code>.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Página con las cuatro secciones de overflow bien implementadas</li>
+        <li>Metáforas de vida real construidas por el grupo para cada valor</li>
+        <li>Posicionamiento aplicado: sticky en título, absolute en badges, fixed en nav</li>
+        <li>Una reflexión grupal al final: ¿cuál overflow describe mejor la estrategia del grupo para manejar las emociones que "no caben"?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autoctl">
+      <div class="sel-badge">🧘 SEL · Autocontrol</div>
+      <h4>overflow: auto es la estrategia más sana — el canal aparece cuando se necesita</h4>
+      <p>El autocontrol incluye "manejar las emociones de manera efectiva". Overflow: hidden (guardar todo) y overflow: visible (dejarlo salir todo sin filtro) son los extremos que raramente funcionan bien. Overflow: auto es lo que los psicólogos llaman regulación emocional: el canal de salida existe y se activa cuando el contenido lo necesita, no antes. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál de los cuatro overflow describe mejor tu propia estrategia para manejar lo que te desborda?</li>
+        <li><span>→</span> ¿Hay momentos en que tu overflow debería ser "auto" pero termina siendo "visible" o "hidden"? ¿Por qué pasa eso?</li>
+        <li><span>→</span> ¿Qué "canal de salida" — persona, actividad, espacio — funciona como tu overflow: auto?</li>
+        <li><span>→</span> ¿Cuál fue la metáfora de overflow que le costó más al grupo construir? ¿Por qué?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos</div><h3>Bitácora final · Guía 13</h3></div>
+  </div>
+  <p class="tp">En <code>bitacora_guia13.html</code> — con posicionamiento aplicado: un nav fijo, un aside con position: absolute, y un área de reflexión con overflow: auto.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿En qué "lugar por defecto" estás en algún contexto de tu vida? ¿Qué pasaría si cambiaras tu position?</li>
+        <li><span>→</span> ¿Qué elemento de tu página pusiste con z-index alto — siempre visible? ¿Eso dice algo de lo que para ti merece estar siempre presente?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Hay alguien en tu vida que es "visibility: hidden" — presente pero no percibido? ¿Qué acción concreta podrías tomar esta semana?</li>
+        <li><span>→</span> ¿La diferencia entre display: none y visibility: hidden cambió algo en cómo ves las formas de "ignorar" a alguien?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-autoctl" style="margin-top:0">
+      <div class="sel-badge">🧘 Autocontrol</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál es tu overflow por defecto cuando algo te desborda emocionalmente? ¿Es el que quisieras tener?</li>
+        <li><span>→</span> ¿Qué "canal de salida" (actividad, persona, espacio) actúas como tu overflow: auto más efectivo?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="320" fill="#f8fafc"/>
+      <!-- POSITION -->
+      <rect x="18" y="18" width="320" height="140" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="320" height="34" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="40" width="320" height="12" fill="#1a4f8a"/>
+      <text x="178" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">position</text>
+      <text x="32" y="70" fill="#1e40af" font-family="Source Code Pro" font-size="10">static → flujo normal (por defecto)</text>
+      <text x="32" y="87" fill="#1e40af" font-family="Source Code Pro" font-size="10">relative → se mueve de su origen</text>
+      <text x="32" y="104" fill="#1e40af" font-family="Source Code Pro" font-size="10">absolute → relativo al padre posic.</text>
+      <text x="32" y="121" fill="#1e40af" font-family="Source Code Pro" font-size="10">fixed → fijo en la pantalla</text>
+      <text x="32" y="138" fill="#1e40af" font-family="Source Code Pro" font-size="10">sticky → relativo + fixed al umbral</text>
+      <text x="178" y="153" text-anchor="middle" fill="#2563eb" font-family="Nunito" font-size="9">top · right · bottom · left · z-index</text>
+      <!-- DISPLAY -->
+      <rect x="356" y="18" width="326" height="140" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="356" y="18" width="326" height="34" rx="10" fill="#ea580c"/>
+      <rect x="356" y="40" width="326" height="12" fill="#ea580c"/>
+      <text x="519" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">display</text>
+      <text x="370" y="70" fill="#92400e" font-family="Source Code Pro" font-size="10">block → línea completa</text>
+      <text x="370" y="87" fill="#92400e" font-family="Source Code Pro" font-size="10">inline → fluye con el texto</text>
+      <text x="370" y="104" fill="#92400e" font-family="Source Code Pro" font-size="10">inline-block → línea + dimensiones</text>
+      <text x="370" y="121" fill="#92400e" font-family="Source Code Pro" font-size="10">none → desaparece + no ocupa</text>
+      <!-- OVERFLOW Y VISIBILITY -->
+      <rect x="18" y="170" width="664" height="130" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="18" y="170" width="664" height="34" rx="10" fill="#16a34a"/>
+      <rect x="18" y="192" width="664" height="12" fill="#16a34a"/>
+      <text x="350" y="190" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">overflow · visibility</text>
+      <!-- 4 bloques de overflow -->
+      <rect x="30" y="208" width="148" height="80" rx="6" fill="white" stroke="#d1fae5" stroke-width="1"/>
+      <text x="104" y="226" text-anchor="middle" fill="#065f46" font-family="Source Code Pro" font-size="10" font-weight="700">visible</text>
+      <text x="104" y="242" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">Todo desborda</text>
+      <text x="104" y="256" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">sin restricción</text>
+      <rect x="188" y="208" width="148" height="80" rx="6" fill="white" stroke="#d1fae5" stroke-width="1"/>
+      <text x="262" y="226" text-anchor="middle" fill="#065f46" font-family="Source Code Pro" font-size="10" font-weight="700">hidden</text>
+      <text x="262" y="242" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">Lo que no cabe</text>
+      <text x="262" y="256" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">se corta (no hay scroll)</text>
+      <rect x="346" y="208" width="148" height="80" rx="6" fill="white" stroke="#d1fae5" stroke-width="1"/>
+      <text x="420" y="226" text-anchor="middle" fill="#065f46" font-family="Source Code Pro" font-size="10" font-weight="700">scroll</text>
+      <text x="420" y="242" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">Barra siempre visible</text>
+      <text x="420" y="256" text-anchor="middle" fill="#047857" font-family="Nunito" font-size="9">aunque no haga falta</text>
+      <rect x="504" y="208" width="148" height="80" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="578" y="226" text-anchor="middle" fill="#065f46" font-family="Source Code Pro" font-size="10" font-weight="700">auto ✅</text>
+      <text x="578" y="242" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9" font-weight="700">Scroll solo cuando</text>
+      <text x="578" y="256" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="9" font-weight="700">hace falta — lo ideal</text>
+      <!-- visibility vs display:none -->
+      <line x1="350" y1="290" x2="350" y2="298" stroke="#94a3b8" stroke-width="1"/>
+      <text x="180" y="308" text-anchor="middle" fill="#475569" font-family="Nunito" font-size="9">visibility: hidden → invisible pero ocupa espacio</text>
+      <text x="520" y="308" text-anchor="middle" fill="#475569" font-family="Nunito" font-size="9">display: none → desaparece del flujo completamente</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 13</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Posicionamiento</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Solo usa position: static o aplica mal absolute (sin padre posicionado).</td>
+      <td>Usa fixed para el nav, relative + absolute para badges, y sticky en al menos un elemento.</td>
+      <td>El posicionamiento es coherente y funcional. El z-index está pensado para la jerarquía visual deseada.</td>
+    </tr>
+    <tr>
+      <td><strong>Display y visibilidad</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Confunde display: none con visibility: hidden o no los usa.</td>
+      <td>Usa display: none, inline-block y visibility: hidden correctamente en contextos apropiados.</td>
+      <td>Cada uso de display y visibility está justificado en comentario CSS y se nota la diferencia técnica entre los valores.</td>
+    </tr>
+    <tr>
+      <td><strong>Overflow manejado</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa overflow o lo aplica sin sentido.</td>
+      <td>Usa overflow: auto o hidden en al menos un contenedor con altura definida.</td>
+      <td>El overflow está elegido con criterio — auto donde el contenido puede variar, hidden donde el diseño lo requiere.</td>
+    </tr>
+    <tr>
+      <td><strong>Metáforas de vida</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>No conecta las propiedades CSS con situaciones personales.</td>
+      <td>Conecta position, display u overflow con al menos una situación real de su vida.</td>
+      <td>Las metáforas son precisas y personales — overflow: auto no es "a veces guardas cosas" sino algo específico de su experiencia.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión sobre presencia e invisibilidad</strong><br><span style="font-size:11px;color:#64748b">SEL · Relacional</span></td>
+      <td>No aborda la diferencia entre no estar y estar sin ser visto.</td>
+      <td>Distingue entre display: none y visibility: hidden en términos relacionales.</td>
+      <td>La reflexión muestra comprensión genuina de cómo se siente estar presente pero no percibido — y propone una acción concreta.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 13 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Autocontrol · Habilidades Relacionales</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 14 → Flexbox: distribuir y alinear con intención</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
