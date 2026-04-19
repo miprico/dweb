@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 07 · Formularios HTML · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+
+/* ══ ESCENAS ══ */
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+
+/* ══ MÓDULO SEP ══ */
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+
+/* ══ EDITOR ══ */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ PREVIEW FORM EN NAVEGADOR ══ */
+.brow{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.brow-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.bdots{display:flex;gap:5px}
+.bdots span{width:10px;height:10px;border-radius:50%}
+.bdr2{background:#ef4444}.bdy2{background:#f59e0b}.bdg2{background:#22c55e}
+.burl{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:3px 14px;font-size:11px;color:#64748b;flex:1}
+.bcon{padding:22px 28px;background:#fff}
+.bcon h2{font-size:17px;font-weight:800;color:#1f2937;margin-bottom:14px}
+.bcon label{display:block;font-size:13px;font-weight:700;color:#374151;margin-bottom:4px;margin-top:12px}
+.bcon label:first-of-type{margin-top:0}
+.bcon input[type="text"],.bcon input[type="email"],.bcon input[type="number"],.bcon input[type="range"]{width:100%;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13.5px;font-family:'Nunito',sans-serif;outline:none;color:#1e293b}
+.bcon input[type="text"]:focus,.bcon input[type="email"]:focus{border-color:#2563eb}
+.bcon select{width:100%;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13.5px;font-family:'Nunito',sans-serif;background:#fff;color:#1e293b}
+.bcon textarea{width:100%;padding:10px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13.5px;font-family:'Nunito',sans-serif;resize:vertical;min-height:80px;color:#1e293b}
+.bcon .radio-group,.bcon .check-group{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.bcon .radio-group label,.bcon .check-group label{display:flex;align-items:center;gap:8px;font-weight:400;margin-top:0;cursor:pointer}
+.bcon input[type="radio"],.bcon input[type="checkbox"]{width:16px;height:16px;accent-color:#2563eb;flex-shrink:0}
+.bcon button{background:#1a4f8a;color:white;border:none;padding:10px 24px;border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:14px}
+.bcon button:hover{background:#1e40af}
+.bcon .form-section{background:#f8fafc;border-radius:10px;padding:16px 18px;margin-bottom:14px;border:1px solid #f1f5f9}
+.bcon .req{color:#dc2626;margin-left:2px}
+
+/* ══ TABLA REFERENCIA ══ */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ GRILLA DE TIPOS INPUT ══ */
+.input-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.input-card{border-radius:12px;padding:14px 16px;border:1.5px solid}
+.input-card .ic-tag{font-family:'Source Code Pro',monospace;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:6px}
+.input-card .ic-tit{font-size:13px;font-weight:800;margin-bottom:4px}
+.input-card .ic-desc{font-size:12px;line-height:1.5}
+.input-card .ic-ej{font-size:11.5px;font-style:italic;margin-top:6px;padding-top:6px;border-top:1px dashed}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ SEL BLOQUES ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166534}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .input-grid{grid-template-columns:1fr 1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 07</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 07 · Grado Décimo · ENSDB 2025</div>
+    <h2>Formularios HTML: preguntar, escuchar y recibir</h2>
+    <p class="gsub">Aprenderás a construir formularios con campos de texto, botones, selectores y áreas de respuesta. Y a través de eso, a entender que preguntar bien es un arte — porque las preguntas que hacemos revelan lo que valoramos, y la manera en que recibimos las respuestas dice más de nosotros que de quien responde.</p>
+    <div class="tags">
+      <span class="tag tag-azul">&lt;form&gt; · &lt;input&gt; · &lt;label&gt; · &lt;button&gt;</span>
+      <span class="tag tag-azul">&lt;select&gt; · &lt;textarea&gt; · type · name · placeholder · required</span>
+      <span class="tag tag-verde">Conciencia social · Habilidades relacionales</span>
+      <span class="tag tag-morado">Autoconciencia · Toma de decisiones</span>
+      <span class="tag tag-ambar">Escuchar · Preguntar · Familia · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══ APERTURA ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Las preguntas que hacemos — y las que no hacemos</h3></div>
+  </div>
+
+  <p class="tp">Lee estas tres situaciones antes de tocar el teclado. Tienen que ver con algo muy cotidiano: preguntar y ser preguntado.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · Las preguntas de siempre</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Todos los días cuando Natalia llega del colegio, su mamá le hace las mismas tres preguntas: <em>"¿Cómo te fue?"</em> — <em>"¿Tienes tarea?"</em> — <em>"¿Comiste algo?"</em>. Natalia responde: <em>"Bien, sí, sí"</em>. Y la conversación termina. No es que su mamá no le importe — es que <strong>esas tres preguntas no abren nada</strong>. Son como un formulario con campos obligatorios que se llenan rápido para salir del paso. Natalia quisiera que alguien le preguntara algo diferente, algo que de verdad quisiera saber.
+      </p>
+      <div class="escena-pregunta">💭 ¿Cuál sería la pregunta que te gustaría que alguien en tu familia te hiciera y que nunca te han hecho?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏫</span><span class="eti">En el colegio · El formulario que nadie respondió</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Al principio del año, la orientadora mandó una encuesta sobre bienestar estudiantil. Treinta preguntas de selección múltiple. Todos la respondieron en cinco minutos. Nadie supo qué pasó con las respuestas. Marco marcó "frecuentemente" en "¿Te sientes solo/a en el colegio?" y "a veces" en "¿Tienes alguien con quien hablar cuando algo te preocupa?". <strong>Nadie lo llamó después.</strong> El formulario se envió. Las respuestas se guardaron en algún servidor. Marco siguió sintiéndose igual.
+      </p>
+      <div class="escena-pregunta">💭 ¿Tiene sentido un formulario si nadie actúa con las respuestas?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">👥</span><span class="eti">Con compañeros · La pregunta que cambia todo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Sofía llevaba semanas callada, más de lo normal. Un día, en el descanso, su amiga Valentina le preguntó: <em>"¿Estás bien de verdad, no el 'bien' de siempre?"</em> Sofía se quedó en silencio dos segundos y luego dijo que no, que no estaba bien. Y esa conversación cambió algo. <strong>No fue el qué se preguntó — fue el cómo.</strong> Una pregunta abierta, con pausa, sin prisa, sin formulario de selección múltiple.
+      </p>
+      <div class="escena-pregunta">💭 ¿Cuándo fue la última vez que alguien te preguntó algo y sentiste que realmente quería saber la respuesta?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      La mamá de Natalia tiene un formulario mental de tres preguntas cerradas. La orientadora del colegio hizo un formulario que nadie leyó de verdad. Valentina hizo una sola pregunta abierta que abrió una conversación real. Los formularios HTML tienen campos de texto, selectores, botones — pero <strong>lo que los hace útiles o inútiles no es la tecnología, es la intención detrás de la pregunta y lo que se hace con la respuesta.</strong> Hoy aprenderás a construir formularios, y también a preguntarte: ¿qué tipo de preguntas quiero hacer?
+    </p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">📝</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Crear formularios HTML con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;form&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;input&gt;</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;label&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;button&gt;</code>.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔘</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Usar diferentes tipos de campos: texto, email, número, radio, checkbox, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;select&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;textarea&gt;</code>.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🎯</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Diseñar formularios con propósito real: encuestas de bienestar, preguntas de conocimiento mutuo, espacios de escucha genuina.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">👂</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre la diferencia entre preguntar por obligación y preguntar con intención real de escuchar — en código y en la vida.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 1: ESTRUCTURA BASE DEL FORMULARIO ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>&lt;form&gt;, &lt;label&gt;, &lt;input&gt; y &lt;button&gt;: los elementos esenciales</h2>
+    <p>Todo formulario tiene un contenedor, etiquetas que explican qué se pide, campos donde se escribe y un botón que envía</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    Un formulario HTML se construye dentro de la etiqueta <strong>&lt;form&gt;</strong>, que actúa como el contenedor de todo. Dentro van los <strong>&lt;label&gt;</strong> (etiquetas que describen cada campo), los <strong>&lt;input&gt;</strong> (campos donde el usuario escribe o selecciona) y el <strong>&lt;button&gt;</strong> que envía el formulario. La relación entre <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;label&gt;</code> e <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;input&gt;</code> se establece con el atributo <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">for</code> en el label y el <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">id</code> en el input.
+  </p>
+
+  <!-- Conexión con Natalia -->
+  <div class="escena escena-familia" style="margin-bottom:18px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Natalia — las preguntas que sí quisiera recibir</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Si la mamá de Natalia usara HTML para hacer sus preguntas diarias, ¿cómo se vería un formulario que realmente invitara a responder? No tres campos rápidos de texto — sino preguntas que abran algo. <strong>El formulario que diseñes hoy puede ser ese espacio.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">preguntas_para_natalia.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="hc">&lt;!-- form: contenedor del formulario completo --&gt;</span>
+<span class="ln"> 2</span><span class="ht">&lt;form&gt;</span>
+
+<span class="ln"> 3</span>  <span class="hc">&lt;!-- label + input vinculados por for="id" --&gt;</span>
+<span class="ln"> 4</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"nombre"</span><span class="ht">&gt;</span><span class="htx">¿Cómo te llamas?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln"> 5</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"text"</span><span class="ha"> id</span><span class="htx">=</span><span class="hv2">"nombre"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"nombre"</span>
+<span class="ln"> 6</span>         <span class="ha">placeholder</span><span class="htx">=</span><span class="hv2">"Tu nombre"</span><span class="ha"> required</span><span class="ht">&gt;</span>
+
+<span class="ln"> 7</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"real"</span><span class="ht">&gt;</span><span class="htx">¿Cómo estás de verdad hoy — no el "bien" de siempre?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln"> 8</span>  <span class="ht">&lt;textarea </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"real"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"real"</span>
+<span class="ln"> 9</span>            <span class="ha">placeholder</span><span class="htx">=</span><span class="hv2">"Escribe lo que quieras. No hay respuesta incorrecta."</span>
+<span class="ln">10</span>            <span class="ha">rows</span><span class="htx">=</span><span class="hv2">"4"</span><span class="ht">&gt;&lt;/textarea&gt;</span>
+
+<span class="ln">11</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"mejor"</span><span class="ht">&gt;</span><span class="htx">¿Qué fue lo mejor que te pasó hoy?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"text"</span><span class="ha"> id</span><span class="htx">=</span><span class="hv2">"mejor"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"mejor"</span>
+<span class="ln">13</span>         <span class="ha">placeholder</span><span class="htx">=</span><span class="hv2">"Aunque sea algo pequeño"</span><span class="ht">&gt;</span>
+
+<span class="ln">14</span>  <span class="hc">&lt;!-- button: envía el formulario --&gt;</span>
+<span class="ln">15</span>  <span class="ht">&lt;button </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"submit"</span><span class="ht">&gt;</span><span class="htx">Enviar mis respuestas</span><span class="ht">&lt;/button&gt;</span>
+
+<span class="ln">16</span><span class="ht">&lt;/form&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">preguntas_para_natalia.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Preguntas que sí importan</h2>
+      <label for="p1">¿Cómo te llamas? <span class="req">*</span></label>
+      <input type="text" id="p1" placeholder="Tu nombre">
+      <label for="p2">¿Cómo estás de verdad hoy — no el "bien" de siempre?</label>
+      <textarea id="p2" placeholder="Escribe lo que quieras. No hay respuesta incorrecta." rows="3"></textarea>
+      <label for="p3">¿Qué fue lo mejor que te pasó hoy?</label>
+      <input type="text" id="p3" placeholder="Aunque sea algo pequeño">
+      <button type="submit">Enviar mis respuestas</button>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <tr><th>Elemento</th><th>¿Qué hace?</th><th>Atributo clave</th><th>En la vida</th></tr>
+    <tr><td><code>&lt;form&gt;</code></td><td>Contenedor de todo el formulario</td><td>—</td><td>El espacio donde ocurre la conversación</td></tr>
+    <tr><td><code>&lt;label&gt;</code></td><td>Texto que describe el campo. Al hacer clic, activa el input vinculado.</td><td><code>for="id"</code></td><td>La pregunta en sí — cómo está formulada importa</td></tr>
+    <tr><td><code>&lt;input&gt;</code></td><td>Campo de entrada. Su comportamiento depende del <code>type</code>.</td><td><code>type, name, id, placeholder, required</code></td><td>El espacio donde la persona responde</td></tr>
+    <tr><td><code>&lt;textarea&gt;</code></td><td>Área de texto ampliable — para respuestas largas.</td><td><code>rows</code></td><td>Cuando la respuesta no cabe en una línea</td></tr>
+    <tr><td><code>&lt;button&gt;</code></td><td>Botón que envía el formulario.</td><td><code>type="submit"</code></td><td>El momento de entregar lo que dijiste</td></tr>
+  </table>
+
+  <div class="tip"><strong>El atributo <code>for</code> e <code>id</code> deben coincidir:</strong> <code>&lt;label for="nombre"&gt;</code> y <code>&lt;input id="nombre"&gt;</code> van juntos. Si no coinciden, el label no activa el campo al hacer clic. Esto también importa para la accesibilidad: los lectores de pantalla los necesitan vinculados.</div>
+</div>
+
+<!-- ══ MÓDULO 2: TIPOS DE INPUT ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>Tipos de input: preguntas abiertas y cerradas</h2>
+    <p>No todas las preguntas tienen el mismo formato — igual que en una conversación real</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    El atributo <strong>type</strong> define qué tipo de dato acepta el campo. Una pregunta de "¿cómo te llamas?" necesita <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">type="text"</code>. Una de "¿cuántos años tienes?" necesita <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">type="number"</code>. Una de "elige una opción entre varias" necesita <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">type="radio"</code>. Igual que en la vida: no se pregunta todo de la misma manera.
+  </p>
+
+  <div class="input-grid">
+    <div class="input-card" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="ic-tag" style="background:#1e40af;color:white">type="text"</div>
+      <div class="ic-tit" style="color:#1e40af">Texto libre</div>
+      <div class="ic-desc" style="color:#1e3a8a">Una línea de texto. Para nombres, respuestas cortas.</div>
+      <div class="ic-ej" style="color:#3b82f6;border-color:#bfdbfe">¿Cómo te llamas?</div>
+    </div>
+    <div class="input-card" style="background:#f0fdf4;border-color:#86efac">
+      <div class="ic-tag" style="background:#15803d;color:white">type="email"</div>
+      <div class="ic-tit" style="color:#166534">Correo electrónico</div>
+      <div class="ic-desc" style="color:#14532d">Valida automáticamente que tenga formato de email.</div>
+      <div class="ic-ej" style="color:#16a34a;border-color:#86efac">¿Tu correo del colegio?</div>
+    </div>
+    <div class="input-card" style="background:#fef9c3;border-color:#fbbf24">
+      <div class="ic-tag" style="background:#a16207;color:white">type="number"</div>
+      <div class="ic-tit" style="color:#92400e">Número</div>
+      <div class="ic-desc" style="color:#78350f">Solo acepta números. Tiene flechas para subir/bajar.</div>
+      <div class="ic-ej" style="color:#b45309;border-color:#fde68a">¿Cuántas horas dormiste?</div>
+    </div>
+    <div class="input-card" style="background:#fdf4ff;border-color:#f0abfc">
+      <div class="ic-tag" style="background:#a21caf;color:white">type="radio"</div>
+      <div class="ic-tit" style="color:#6b21a8">Opción única</div>
+      <div class="ic-desc" style="color:#581c87">El usuario elige solo una opción de varias. Mismo <code style="font-family:'Source Code Pro';font-size:10px">name</code>.</div>
+      <div class="ic-ej" style="color:#7e22ce;border-color:#e9d5ff">¿Cómo llegaste hoy?</div>
+    </div>
+    <div class="input-card" style="background:#fff7ed;border-color:#fed7aa">
+      <div class="ic-tag" style="background:#c2410c;color:white">type="checkbox"</div>
+      <div class="ic-tit" style="color:#9a3412">Múltiple selección</div>
+      <div class="ic-desc" style="color:#7c2d12">El usuario puede marcar varias opciones a la vez.</div>
+      <div class="ic-ej" style="color:#b45309;border-color:#fed7aa">¿Qué sientes ahora mismo?</div>
+    </div>
+    <div class="input-card" style="background:#f5f3ff;border-color:#c4b5fd">
+      <div class="ic-tag" style="background:#6d28d9;color:white">type="range"</div>
+      <div class="ic-tit" style="color:#4c1d95">Deslizador</div>
+      <div class="ic-desc" style="color:#3b0764">El usuario desliza entre un mínimo y un máximo.</div>
+      <div class="ic-ej" style="color:#5b21b6;border-color:#ddd6fe">Del 1 al 10, ¿cómo te sientes?</div>
+    </div>
+  </div>
+
+  <!-- Código completo con todos los tipos -->
+  <div style="display:flex;align-items:center;gap:8px;margin:18px 0 10px">
+    <div class="slbl" style="background:#16a34a"><span class="dot" style="background:#fff"></span>Formulario de bienestar con múltiples tipos de input</div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">bienestar_estudiante.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;form&gt;</span>
+
+<span class="ln"> 2</span>  <span class="hc">&lt;!-- Texto libre --&gt;</span>
+<span class="ln"> 3</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"nombre"</span><span class="ht">&gt;</span><span class="htx">Tu nombre</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln"> 4</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"text"</span><span class="ha"> id</span><span class="htx">=</span><span class="hv2">"nombre"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"nombre"</span><span class="ha"> required</span><span class="ht">&gt;</span>
+
+<span class="ln"> 5</span>  <span class="hc">&lt;!-- Deslizador emocional --&gt;</span>
+<span class="ln"> 6</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"energia"</span><span class="ht">&gt;</span><span class="htx">Del 1 al 10, ¿cómo está tu energía hoy?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln"> 7</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"range"</span><span class="ha"> id</span><span class="htx">=</span><span class="hv2">"energia"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"energia"</span>
+<span class="ln"> 8</span>         <span class="ha">min</span><span class="htx">=</span><span class="hv2">"1"</span><span class="ha"> max</span><span class="htx">=</span><span class="hv2">"10"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"5"</span><span class="ht">&gt;</span>
+
+<span class="ln"> 9</span>  <span class="hc">&lt;!-- Radio: una sola opción --&gt;</span>
+<span class="ln">10</span>  <span class="ht">&lt;label&gt;</span><span class="htx">¿Cómo llegaste hoy al colegio?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln">11</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"radio"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"llegada"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"tranquilo"</span><span class="ht">&gt; </span><span class="htx">Tranquilo/a</span>
+<span class="ln">12</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"radio"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"llegada"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"estresado"</span><span class="ht">&gt; </span><span class="htx">Estresado/a</span>
+<span class="ln">13</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"radio"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"llegada"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"cansado"</span><span class="ht">&gt; </span><span class="htx">Cansado/a</span>
+
+<span class="ln">14</span>  <span class="hc">&lt;!-- Checkbox: varias opciones posibles --&gt;</span>
+<span class="ln">15</span>  <span class="ht">&lt;label&gt;</span><span class="htx">¿Qué emociones sientes ahora? (puedes marcar varias)</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln">16</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"checkbox"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"emocion"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"angustia"</span><span class="ht">&gt; </span><span class="htx">Angustia</span>
+<span class="ln">17</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"checkbox"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"emocion"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"motivacion"</span><span class="ht">&gt; </span><span class="htx">Motivación</span>
+<span class="ln">18</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"checkbox"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"emocion"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"soledad"</span><span class="ht">&gt; </span><span class="htx">Soledad</span>
+<span class="ln">19</span>  <span class="ht">&lt;input </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"checkbox"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"emocion"</span><span class="ha"> value</span><span class="htx">=</span><span class="hv2">"calma"</span><span class="ht">&gt; </span><span class="htx">Calma</span>
+
+<span class="ln">20</span>  <span class="hc">&lt;!-- Select: menú desplegable --&gt;</span>
+<span class="ln">21</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"apoyo"</span><span class="ht">&gt;</span><span class="htx">Cuando algo te preocupa, ¿a quién acudes?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln">22</span>  <span class="ht">&lt;select </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"apoyo"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"apoyo"</span><span class="ht">&gt;</span>
+<span class="ln">23</span>    <span class="ht">&lt;option </span><span class="ha">value</span><span class="htx">=</span><span class="hv2">""</span><span class="ht">&gt;</span><span class="htx">Selecciona una opción</span><span class="ht">&lt;/option&gt;</span>
+<span class="ln">24</span>    <span class="ht">&lt;option </span><span class="ha">value</span><span class="htx">=</span><span class="hv2">"familia"</span><span class="ht">&gt;</span><span class="htx">Alguien de mi familia</span><span class="ht">&lt;/option&gt;</span>
+<span class="ln">25</span>    <span class="ht">&lt;option </span><span class="ha">value</span><span class="htx">=</span><span class="hv2">"amigo"</span><span class="ht">&gt;</span><span class="htx">Un amigo o amiga</span><span class="ht">&lt;/option&gt;</span>
+<span class="ln">26</span>    <span class="ht">&lt;option </span><span class="ha">value</span><span class="htx">=</span><span class="hv2">"nadie"</span><span class="ht">&gt;</span><span class="htx">Generalmente me lo guardo</span><span class="ht">&lt;/option&gt;</span>
+<span class="ln">27</span>  <span class="ht">&lt;/select&gt;</span>
+
+<span class="ln">28</span>  <span class="hc">&lt;!-- Textarea: respuesta larga --&gt;</span>
+<span class="ln">29</span>  <span class="ht">&lt;label </span><span class="ha">for</span><span class="htx">=</span><span class="hv2">"libre"</span><span class="ht">&gt;</span><span class="htx">¿Hay algo que quieras decir y que nadie te ha preguntado?</span><span class="ht">&lt;/label&gt;</span>
+<span class="ln">30</span>  <span class="ht">&lt;textarea </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"libre"</span><span class="ha"> name</span><span class="htx">=</span><span class="hv2">"libre"</span><span class="ha"> rows</span><span class="htx">=</span><span class="hv2">"5"</span>
+<span class="ln">31</span>            <span class="ha">placeholder</span><span class="htx">=</span><span class="hv2">"Este es tu espacio. No hay respuesta incorrecta."</span><span class="ht">&gt;&lt;/textarea&gt;</span>
+
+<span class="ln">32</span>  <span class="ht">&lt;button </span><span class="ha">type</span><span class="htx">=</span><span class="hv2">"submit"</span><span class="ht">&gt;</span><span class="htx">Compartir mis respuestas</span><span class="ht">&lt;/button&gt;</span>
+<span class="ln">33</span><span class="ht">&lt;/form&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador completo -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">bienestar_estudiante.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Formulario de bienestar — grado 10°</h2>
+      <div class="form-section">
+        <label>Tu nombre <span class="req">*</span></label>
+        <input type="text" placeholder="Escribe tu nombre">
+        <label>Del 1 al 10, ¿cómo está tu energía hoy?</label>
+        <input type="range" min="1" max="10" value="5" style="width:100%;margin-top:6px">
+      </div>
+      <div class="form-section">
+        <label>¿Cómo llegaste hoy al colegio?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="llegada"> Tranquilo/a</label>
+          <label><input type="radio" name="llegada"> Estresado/a</label>
+          <label><input type="radio" name="llegada"> Cansado/a</label>
+        </div>
+        <label style="margin-top:14px">¿Qué emociones sientes ahora? (puedes marcar varias)</label>
+        <div class="check-group">
+          <label><input type="checkbox"> Angustia</label>
+          <label><input type="checkbox"> Motivación</label>
+          <label><input type="checkbox"> Soledad</label>
+          <label><input type="checkbox"> Calma</label>
+        </div>
+      </div>
+      <div class="form-section">
+        <label>Cuando algo te preocupa, ¿a quién acudes?</label>
+        <select>
+          <option>Selecciona una opción</option>
+          <option>Alguien de mi familia</option>
+          <option>Un amigo o amiga</option>
+          <option>Generalmente me lo guardo</option>
+        </select>
+        <label style="margin-top:14px">¿Hay algo que quieras decir y que nadie te ha preguntado?</label>
+        <textarea placeholder="Este es tu espacio. No hay respuesta incorrecta." rows="3"></textarea>
+      </div>
+      <button type="submit">Compartir mis respuestas</button>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Atributo</th><th>¿Qué hace?</th><th>Ejemplo</th></tr>
+    <tr><td><code>name</code></td><td>Identifica el campo al enviar el formulario. Obligatorio si quieres que los datos se envíen.</td><td><code>name="nombre"</code></td></tr>
+    <tr><td><code>placeholder</code></td><td>Texto de ayuda dentro del campo. Desaparece al escribir.</td><td><code>placeholder="Tu nombre"</code></td></tr>
+    <tr><td><code>required</code></td><td>El campo es obligatorio. El formulario no se envía si está vacío.</td><td><code>required</code></td></tr>
+    <tr><td><code>value</code></td><td>En radio y checkbox: el dato que se envía si se selecciona esa opción.</td><td><code>value="familia"</code></td></tr>
+    <tr><td><code>min / max</code></td><td>En type="range" o type="number": los límites del rango.</td><td><code>min="1" max="10"</code></td></tr>
+  </table>
+
+  <div class="warn"><strong>Radio vs Checkbox:</strong> <code>type="radio"</code> con el mismo <code>name</code> permite elegir solo una opción — como cuando alguien te pregunta cómo llegaste. <code>type="checkbox"</code> permite marcar varias — como cuando alguien te pregunta qué emociones sientes. Elegir el tipo correcto es elegir qué tipo de respuesta aceptas.</div>
+</div>
+
+<!-- ══ ACTIVIDAD 1 · INDIVIDUAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>El formulario que le haría a mi familia</h3>
+      <div class="asub">Individual · 25 minutos · Habilidades relacionales — diseñar preguntas que abran conversación</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 25 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👤 Individual</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 Editor de código</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💬 SEL: Habilidades Relacionales</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🏠</span><span class="eti">Una conversación que nunca tuviste — pero podrías tener</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Piensa en alguien de tu familia con quien sientes que la comunicación es difícil, superficial o está rota. No tiene que ser un conflicto grande — puede ser simplemente alguien con quien solo hablan de lo práctico, de las tareas, del dinero, de lo que hay que hacer. <strong>Si pudieras hacerle un formulario a esa persona — preguntas reales que genuinamente quisieras que respondiera — ¿qué le preguntarías?</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Hay algo que quisieras saber de alguien en tu familia y que nunca has podido preguntar directamente?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>formulario_familia.html</code></h4>
+          <p>Con estructura semántica completa. El <code>&lt;header&gt;</code> debe decir a quién va dirigido el formulario y por qué. Un <code>&lt;h1&gt;</code> con algo como: "Preguntas para [nombre/relación] — las que nunca te he hecho en voz alta".</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">2</div>
+        <div class="pc">
+          <h4>Diseña mínimo 6 preguntas — usando al menos 4 tipos de input diferentes</h4>
+          <p>Las preguntas deben ser reales — cosas que genuinamente quisieras saber. No las que "se deberían" preguntar. Usa:</p>
+          <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13.5px;color:#14532d;line-height:2">
+            <strong>text o textarea</strong> → Para preguntas abiertas: "¿Qué fue lo más difícil de tu vida?" <br>
+            <strong>radio</strong> → Para elegir una opción: "¿Cómo te sientes en casa generalmente?" <br>
+            <strong>checkbox</strong> → Para marcar varias: "¿De qué temas te gustaría hablar más conmigo?" <br>
+            <strong>select</strong> → Para listas: "¿Cuándo fue la última vez que te sentiste orgulloso/a de mí?" <br>
+            <strong>range</strong> → Para escalar: "Del 1 al 10, ¿qué tan bien nos comunicamos?"
+          </div>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">3</div>
+        <div class="pc">
+          <h4>Usa <code>placeholder</code> con intención</h4>
+          <p>El placeholder no es solo "escribe aquí". Es la segunda parte de la pregunta, el tono con que la haces. Ejemplo: si la pregunta es "¿Cómo te sientes cuando llego a casa?", el placeholder podría ser: <em>"No tienes que decir lo que crees que quiero escuchar."</em></p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">4</div>
+        <div class="pc">
+          <h4>Agrega comentarios HTML que expliquen por qué cada pregunta</h4>
+          <p>Antes de cada campo, un comentario que diga: ¿por qué quieres saber eso? ¿Qué pasaría si tuvieras esa respuesta?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">5</div>
+        <div class="pc">
+          <h4>El botón de envío — con intención</h4>
+          <p>No pongas "Enviar". Escribe algo que refleje el propósito real del formulario. Por ejemplo: "Gracias por responder" o "Quiero entenderte mejor" o simplemente la acción real.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu formulario debe tener</div>
+      <ul>
+        <li>Estructura semántica completa integrando el formulario dentro de <code>&lt;main&gt;</code></li>
+        <li>Mínimo 6 preguntas reales con 4 tipos de input diferentes</li>
+        <li>Todos los <code>&lt;label&gt;</code> vinculados a su <code>&lt;input&gt;</code> con <code>for</code> e <code>id</code></li>
+        <li>Uso de <code>placeholder</code> con intención en al menos 3 campos</li>
+        <li>Al menos un campo con <code>required</code></li>
+        <li>Comentarios HTML que expliquen el propósito de cada pregunta</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-relac">
+      <div class="sel-badge">💬 SEL · Habilidades Relacionales</div>
+      <h4>Diseñar una buena pregunta es un acto de cuidado</h4>
+      <p>Las habilidades relacionales incluyen "comunicarse claramente" y "escuchar activamente". Diseñar un formulario con preguntas genuinas es practicar eso: antes de preguntar, pensar qué quieres saber realmente y por qué. El placeholder que escribiste es la señal de que también pensaste en cómo recibirías la respuesta. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál fue la pregunta más difícil de formular? ¿Por qué te costó escribirla?</li>
+        <li><span>→</span> Si esa persona respondiera el formulario honestamente, ¿hay alguna respuesta que te daría miedo recibir? ¿Cuál?</li>
+        <li><span>→</span> ¿Crees que podrías usar alguna de estas preguntas en una conversación real? ¿Qué te lo impediría?</li>
+        <li><span>→</span> ¿Hay preguntas que esa persona debería hacerte a ti — que tú también esperarías que te formularan?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 2 · PAREJAS ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>Nos preguntamos de verdad: un formulario entre pares</h3>
+      <div class="asub">Parejas · 20 minutos · Autoconciencia — responderse con honestidad y recibir con respeto</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Dos archivos</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Sofía y Valentina — la pregunta que cambió todo</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Valentina le preguntó a Sofía: <em>"¿Estás bien de verdad, no el 'bien' de siempre?"</em> Esta actividad hace algo parecido — pero con la estructura de un formulario HTML. Cada integrante de la pareja diseña un formulario para el otro con preguntas reales. <strong>Luego lo responden. Y lo que importa no es el código — es lo que pasa cuando alguien te pregunta algo que de verdad quiere saber.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Qué pregunta cambiaría algo si la hicieras en serio a alguien de tu entorno?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">1</div>
+        <div class="pc">
+          <h4>Cada uno diseña un formulario para el otro (10 min)</h4>
+          <p>Archivo <code>para_[nombre_del_otro].html</code>. Mínimo 5 preguntas. Al menos 3 tipos distintos de input. Las preguntas deben ser sobre la persona real — no genéricas. Pueden incluir cosas que ya sabes de guías anteriores sobre esa persona.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">2</div>
+        <div class="pc">
+          <h4>Intercambien los archivos y respondan (7 min)</h4>
+          <p>Cada uno abre en el navegador el formulario que le hicieron. Lo responden con honestidad — no como creen que el otro quiere que respondan. Las respuestas son para ellos mismos, no necesariamente para compartir.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">3</div>
+        <div class="pc">
+          <h4>Conversen sobre la experiencia (3 min)</h4>
+          <p>¿Hubo alguna pregunta que no esperabas? ¿Alguna que te costó responder? ¿Alguna que te hizo sentir bien que te preguntaran? No tienen que compartir las respuestas — solo la experiencia de ser preguntado así.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Reglas de esta actividad</div>
+      <ul>
+        <li>Las respuestas son privadas — nadie está obligado a mostrarlas.</li>
+        <li>Las preguntas deben ser respetuosas — no invasivas ni burlescas.</li>
+        <li>Si una pregunta incomoda demasiado, se puede saltar sin explicar.</li>
+        <li>El objetivo es practicar preguntar bien, no acceder a información privada.</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Responder con honestidad a una buena pregunta revela cosas que no sabías de ti</h4>
+      <p>A veces no sabemos lo que pensamos o sentimos hasta que alguien nos pregunta de la manera correcta. Responder el formulario que diseñó el otro fue una práctica de autoconciencia: mirarte a ti mismo desde las preguntas de alguien que te conoce. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Hubo alguna respuesta que te sorprendió a ti mismo/a — algo que no sabías que pensabas hasta que lo escribiste?</li>
+        <li><span>→</span> ¿Qué te dijo la pregunta más difícil de responder sobre lo que estás viviendo ahora?</li>
+        <li><span>→</span> ¿Cómo se sintió ser preguntado con cuidado, sin prisa, sin juicio? ¿Es eso frecuente en tu vida?</li>
+        <li><span>→</span> ¿Qué parte de las respuestas que diste querrías que alguien más supiera — en tu familia, en el colegio?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 3 · GRUPAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#0d9488,#0f766e)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>El formulario que el colegio debería tener: una propuesta real</h3>
+      <div class="asub">Grupos de 4 · 20 minutos · Conciencia social — rediseñar cómo el colegio escucha a sus estudiantes</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#99f6e4">
+    <div class="meta">
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">⏱ 20 min</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">👥 Grupos de 4</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Marco — la encuesta que nadie leyó</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Marco marcó que se sentía solo y que no tenía a nadie con quien hablar. Nadie lo llamó después. El formulario existió, las respuestas se guardaron, pero <strong>nada cambió</strong>. Esta actividad propone lo contrario: diseñar un formulario de bienestar estudiantil que el colegio sí debería usar — con preguntas reales, con campos que abran espacio, con un propósito claro de qué se hará con las respuestas.
+        </p>
+        <div class="escena-pregunta">💭 ¿Si el colegio te preguntara cómo estás de verdad, ¿qué querrías que te preguntara?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#0d9488">1</div>
+        <div class="pc">
+          <h4>Discutan: ¿qué le faltó al formulario que recibió Marco? (5 min)</h4>
+          <p>¿Tenía preguntas abiertas o solo cerradas? ¿Había un textarea donde pudiera escribir algo que no estuviera entre las opciones? ¿El texto comunicaba que alguien iba a leer las respuestas? ¿Había alguna pregunta de seguimiento?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#0d9488">2</div>
+        <div class="pc">
+          <h4>Construyan el archivo <code>bienestar_ensdb.html</code></h4>
+          <p>Un formulario de bienestar estudiantil con al menos 8 preguntas, usando todos los tipos de input vistos. Debe incluir: al menos una pregunta con <code>&lt;textarea&gt;</code> abierta sin límite de extensión, un <code>range</code> para medir algo emocional, y preguntas de seguimiento como "Si respondiste que no tienes a nadie con quien hablar, ¿te gustaría que alguien de la institución se comunicara contigo?".</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#0d9488">3</div>
+        <div class="pc">
+          <h4>Agreguen un &lt;footer&gt; con el compromiso institucional</h4>
+          <p>En el footer del formulario, escriban qué haría el colegio con las respuestas. No lo que dicen los reglamentos — lo que ustedes quisieran que pasara. Por ejemplo: "Si marcaste que te sientes solo/a, un orientador se comunicará contigo antes de tres días."</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#0d9488">4</div>
+        <div class="pc">
+          <h4>Un integrante lo responde como si fuera Marco</h4>
+          <p>Abre el formulario en el navegador y respóndelo honestamente desde la perspectiva de alguien que está pasando por algo difícil. ¿El formulario abre espacio para esa verdad? ¿O todavía tiene la misma frialdad del original?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>bienestar_ensdb.html</code> con estructura semántica completa</li>
+        <li>Mínimo 8 preguntas usando todos los tipos de input vistos</li>
+        <li>Al menos un <code>&lt;textarea&gt;</code> abierto sin restricciones</li>
+        <li>Un <code>&lt;footer&gt;</code> con el compromiso institucional del grupo</li>
+        <li>Comentarios HTML que justifiquen la inclusión de cada pregunta</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Un formulario puede ser un sistema de escucha — o solo un trámite</h4>
+      <p>La conciencia social incluye "reconocer las demandas y oportunidades en distintos entornos" y "comprender las influencias institucionales sobre el comportamiento". Marco llenó un formulario y nadie respondió — eso también es un mensaje institucional: tus respuestas no importan. El formulario que diseñaron hoy propone lo contrario: que las respuestas sí importen, que haya alguien del otro lado que escuche. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cambió la experiencia de "ser Marco" cuando respondiste el formulario de tu grupo vs el que recibió él en la historia?</li>
+        <li><span>→</span> ¿Hay alguien en tu colegio — un compañero, tú mismo — que necesitaría que este formulario existiera de verdad?</li>
+        <li><span>→</span> ¿Qué haría falta en la ENSDB para que las respuestas de un formulario de bienestar sí tuvieran consecuencias reales?</li>
+        <li><span>→</span> ¿Qué podrías hacer tú — sin esperar que el colegio cambie — para ser ese sistema de escucha para alguien?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BITÁCORA ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 07</h3></div>
+  </div>
+
+  <p class="tp">En tu cuaderno o en <code>bitacora_guia07.html</code>. Esta vez, la bitácora puede ser un pequeño formulario que tú mismo llenas — elige el tipo de input que mejor se adapte a cada pregunta.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál fue la pregunta más poderosa que diseñaste o que recibiste hoy? ¿Por qué esa?</li>
+        <li><span>→</span> ¿Hay alguien en tu vida — familia, colegio, amigos — que necesita que le hagas una buena pregunta esta semana? ¿Cuál sería esa pregunta?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué aprendiste de ti mismo/a cuando respondiste el formulario que te hizo tu compañero/a?</li>
+        <li><span>→</span> ¿Hay una respuesta que escribiste hoy — en cualquier actividad — que te gustaría que alguien más leyera? ¿Quién y por qué?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> La diferencia entre el formulario de Marco y el que diseñaron fue la intención. ¿En qué otras cosas de tu vida hay una diferencia entre hacer algo por obligación y hacerlo con genuina intención de escuchar?</li>
+        <li><span>→</span> ¿Qué pasaría en tu casa, tu curso o tu grupo de amigos si todos se preguntaran cosas reales con más frecuencia?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en HTML hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="300" fill="#f8fafc"/>
+
+      <!-- form wrapper -->
+      <rect x="18" y="18" width="664" height="264" rx="10" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="2"/>
+      <text x="350" y="36" text-anchor="middle" fill="#64748b" font-family="Nunito" font-weight="900" font-size="11">&lt;form&gt; — contenedor del formulario</text>
+
+      <!-- label + input texto -->
+      <rect x="30" y="46" width="300" height="50" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <text x="46" y="62" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="10">&lt;label for="campo"&gt;La pregunta&lt;/label&gt;</text>
+      <rect x="46" y="68" width="260" height="18" rx="4" fill="white" stroke="#bfdbfe" stroke-width="1"/>
+      <text x="176" y="80" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="9">&lt;input type="text"&gt;</text>
+
+      <!-- textarea -->
+      <rect x="340" y="46" width="330" height="50" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <text x="356" y="62" fill="#14532d" font-family="Nunito" font-weight="800" font-size="10">&lt;label&gt;Respuesta larga&lt;/label&gt;</text>
+      <rect x="356" y="68" width="300" height="18" rx="4" fill="white" stroke="#86efac" stroke-width="1"/>
+      <text x="506" y="80" text-anchor="middle" fill="#94a3b8" font-family="Nunito" font-size="9">&lt;textarea rows="4"&gt;&lt;/textarea&gt;</text>
+
+      <!-- radio -->
+      <rect x="30" y="106" width="195" height="52" rx="8" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.5"/>
+      <text x="46" y="122" fill="#4c1d95" font-family="Nunito" font-weight="800" font-size="10">type="radio"</text>
+      <text x="46" y="136" fill="#4c1d95" font-family="Nunito" font-size="9">○ opción 1 · ○ opción 2</text>
+      <text x="46" y="149" fill="#6d28d9" font-family="Nunito" font-size="9">Mismo name = una sola</text>
+
+      <!-- checkbox -->
+      <rect x="235" y="106" width="195" height="52" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <text x="251" y="122" fill="#92400e" font-family="Nunito" font-weight="800" font-size="10">type="checkbox"</text>
+      <text x="251" y="136" fill="#92400e" font-family="Nunito" font-size="9">☑ op1 · ☑ op2 · ☐ op3</text>
+      <text x="251" y="149" fill="#b45309" font-family="Nunito" font-size="9">Varias opciones posibles</text>
+
+      <!-- select -->
+      <rect x="440" y="106" width="230" height="52" rx="8" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="456" y="122" fill="#92400e" font-family="Nunito" font-weight="800" font-size="10">&lt;select&gt; + &lt;option&gt;</text>
+      <rect x="456" y="128" width="196" height="18" rx="4" fill="white" stroke="#fbbf24" stroke-width="1"/>
+      <text x="554" y="140" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">▼ Menú desplegable</text>
+
+      <!-- range -->
+      <rect x="30" y="168" width="300" height="40" rx="8" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.5"/>
+      <text x="46" y="183" fill="#6b21a8" font-family="Nunito" font-weight="800" font-size="10">type="range" min="1" max="10"</text>
+      <rect x="46" y="190" width="260" height="10" rx="5" fill="#e9d5ff"/>
+      <circle cx="176" cy="195" r="7" fill="#a21caf"/>
+
+      <!-- atributos -->
+      <rect x="340" y="168" width="330" height="52" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/>
+      <text x="356" y="184" fill="#0d9488" font-family="Nunito" font-weight="800" font-size="10">Atributos clave</text>
+      <text x="356" y="199" fill="#0f766e" font-family="Nunito" font-size="9">name · id · placeholder · required · value</text>
+      <text x="356" y="212" fill="#0f766e" font-family="Nunito" font-size="9">for (en label) vincula con id (en input)</text>
+
+      <!-- button -->
+      <rect x="30" y="220" width="640" height="38" rx="8" fill="#1a4f8a"/>
+      <text x="350" y="244" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">&lt;button type="submit"&gt; — envía el formulario &lt;/button&gt;</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 07</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Estructura del formulario</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa inputs sin labels o los labels no están vinculados con for/id.</td>
+      <td>Usa correctamente form, label, input y button con vinculación for/id.</td>
+      <td>Estructura perfecta con todos los tipos de input. El formulario se vería funcional en un entorno real.</td>
+    </tr>
+    <tr>
+      <td><strong>Variedad de tipos de input</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa solo un tipo de input (todo text o todo checkbox).</td>
+      <td>Usa al menos 4 tipos distintos apropiados al contenido.</td>
+      <td>Cada tipo de input fue elegido con intención — se nota que pensó cuál se adapta mejor a cada pregunta.</td>
+    </tr>
+    <tr>
+      <td><strong>Calidad de las preguntas</strong><br><span style="font-size:11px;color:#64748b">SEL · Relacional</span></td>
+      <td>Las preguntas son genéricas o superficiales — podrían ser de cualquier formulario.</td>
+      <td>Las preguntas son reales y específicas — se nota que las pensó para una persona concreta.</td>
+      <td>Las preguntas abren espacio de verdad: son honestas, no juzgan, y se nota que quien las diseñó genuinamente quiere saber la respuesta.</td>
+    </tr>
+    <tr>
+      <td><strong>Uso del placeholder</strong><br><span style="font-size:11px;color:#64748b">Técnico + SEL</span></td>
+      <td>Los placeholders son genéricos ("Escribe aquí") o no existen.</td>
+      <td>Los placeholders son descriptivos y orientadores.</td>
+      <td>Los placeholders tienen intención emocional — acompañan la pregunta y comunican cómo se recibirá la respuesta.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas mínimas sin conexión personal.</td>
+      <td>Conecta la actividad con situaciones reales — alguien concreto en su vida.</td>
+      <td>La reflexión muestra que algo se movió: en cómo pregunta, en cómo escucha, o en cómo ve la forma en que el colegio o la familia se relacionan con los estudiantes.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 07 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Habilidades Relacionales · Autoconciencia · Conciencia Social</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 08 → Video, audio y multimedia: la voz que también comunica</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
