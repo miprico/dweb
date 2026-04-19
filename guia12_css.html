@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 12 · Colores, Fuentes, Texto y Box Model · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+/* EDITOR */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+/* TABLA */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* PALETA COLORES */
+.paleta{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:12px 0}
+.swatch{border-radius:10px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:6px;font-size:10px;font-weight:700;font-family:'Source Code Pro',monospace}
+/* DEMO TIPOGRAFIAS */
+.fuentes-demo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.fuente-card{border-radius:12px;padding:16px 18px;border:1.5px solid #e2e8f0;background:#f8fafc}
+.fuente-card .fc-name{font-size:11px;font-weight:700;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.fuente-card .fc-muestra{font-size:22px;font-weight:700;color:#1e293b;line-height:1.3}
+.fuente-card .fc-desc{font-size:12px;color:#64748b;margin-top:6px}
+/* BOX MODEL VISUAL */
+.boxmodel-wrap{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;margin:14px 0;display:flex;justify-content:center}
+/* DEMO VIVO */
+.demo-vivo{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.demo-bar{background:#f1f5f9;padding:7px 14px;border-bottom:1px solid #e2e8f0;font-size:11px;font-weight:700;color:#64748b;display:flex;align-items:center;gap:8px}
+.demo-content{padding:20px 24px;background:#fff}
+/* TARJETA DEMO */
+.tarjeta-demo{border-radius:12px;padding:20px 24px;border:1.5px solid;max-width:380px}
+/* ACTIVIDAD */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+/* SEL */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+/* RUBRICA */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+/* FOOTER */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .fuentes-demo{grid-template-columns:1fr}
+  .paleta{grid-template-columns:repeat(3,1fr)}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 12</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 12 · Grado Décimo · ENSDB 2025</div>
+    <h2>Colores, Fuentes, Texto y Box Model</h2>
+    <p class="gsub">Aprenderás a controlar el color del texto y el fondo, la tipografía, la alineación del texto y el Box Model completo: márgenes, rellenos, bordes, sombras y dimensiones. Y a través de eso, a reflexionar sobre cómo el espacio que le damos a las cosas — y a las personas — cambia completamente su impacto.</p>
+    <div class="tags">
+      <span class="tag tag-azul">color · background-color · font-family · font-size · font-weight</span>
+      <span class="tag tag-azul">line-height · text-align · text-decoration · text-transform</span>
+      <span class="tag tag-verde">margin · padding · border · border-radius · box-shadow</span>
+      <span class="tag tag-morado">width · height · max-width · min-height · text-shadow</span>
+      <span class="tag tag-ambar">Espacio · Límites · Apariencia · Familia · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>El espacio que le damos a las cosas — y a las personas</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🖼️</span><span class="eti">En casa · El espacio que hace la diferencia</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">La mamá de Valeria pegó las fotos de la familia directamente en la pared sin marcos, apretadas una contra otra. Se ven, pero nadie las mira. Un día reorganizaron todo: pusieron marcos, dejaron espacio entre cada foto, cambiaron el fondo a un color más cálido. Las mismas fotos. <strong>El espacio y el color cambiaron todo — las fotos ahora se pueden ver de verdad.</strong> En CSS, eso se llama Box Model: el espacio que rodea cada elemento lo define tanto como el elemento mismo.</p>
+      <div class="escena-pregunta">💭 ¿Hay cosas en tu vida que no se "ven" bien porque no tienen el espacio que merecen?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🎨</span><span class="eti">En el colegio · Los colores que comunican</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En las evaluaciones de Sebastián, el docente siempre usa rojo para los errores y verde para los aciertos. Sebastián empieza a asociar el rojo con fracaso, aunque a veces el rojo solo marca una pregunta que faltó completar. <strong>Los colores no son neutros — comunican emociones antes de que el cerebro procese el texto.</strong> Cuando elegís un color en CSS, también estás eligiendo qué sensación producís en quien lo ve.</p>
+      <div class="escena-pregunta">💭 ¿Hay un color que asocias con algo que viviste — positivo o negativo?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">✍️</span><span class="eti">Con compañeros · La letra que no se puede leer</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el grupo de trabajo, los documentos que prepara Lucía siempre son imposibles de leer: fuente muy pequeña, sin espacio entre líneas, texto pegado a los bordes. No es que Lucía no sepa escribir — es que nadie puede acceder a lo que escribe. <strong>La tipografía y el espaciado no son detalles decorativos: son accesibilidad.</strong> Un texto que no se puede leer es como una voz que no se escucha.</p>
+      <div class="escena-pregunta">💭 ¿Hay alguien en tu entorno que tiene cosas importantes que decir pero no sabe cómo hacerse escuchar (o leer)?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">Las fotos de Valeria necesitaban espacio. Sebastián aprendió que el rojo comunica algo antes del texto. Los documentos de Lucía necesitaban tipografía legible. En CSS, las propiedades de color, fuente, texto y Box Model son <strong>las herramientas que deciden si lo que creaste se puede ver, leer y sentir como merece.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎨</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Aplicar propiedades de color (<code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">color</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">background-color</code>) usando hexadecimal, RGB y nombres.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🔤</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Controlar tipografía con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">font-family</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">font-size</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">font-weight</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">line-height</code> y propiedades de alineación de texto.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📦</span><p style="font-size:13.5px;font-weight:700;color:#166534">Dominar el Box Model: <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">margin</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">padding</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">border</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">border-radius</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">width</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">height</code> y sombras.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🫁</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre cómo el espacio, el color y la tipografía afectan la lectura, la emoción y el significado — en CSS y en la vida cotidiana.</p></div>
+  </div>
+</div>
+<!-- MÓDULO 1: COLORES -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>Color y fondo: la emoción antes del texto</h2><p>color · background-color — los dos primeros mensajes que recibe quien te lee</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">color</code> controla el color del texto. <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">background-color</code> controla el color de fondo del elemento. Los colores en CSS se pueden escribir de tres formas principales: <strong>nombre</strong> (red, blue, gold), <strong>hexadecimal</strong> (#1a4f8a) o <strong>RGB / RGBA</strong> (rgb(26, 79, 138) — la A de RGBA es opacidad).</p>
+
+  <!-- Paleta de colores con sus formatos -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Mismo color, tres formatos:</div>
+  <div class="paleta">
+    <div class="swatch" style="background:#1a4f8a;color:white">#1a4f8a</div>
+    <div class="swatch" style="background:rgb(26,79,138);color:white">rgb(26,79,138)</div>
+    <div class="swatch" style="background:rgba(26,79,138,.7);color:white">rgba(.7)</div>
+    <div class="swatch" style="background:rgba(26,79,138,.4);color:#1a4f8a">rgba(.4)</div>
+    <div class="swatch" style="background:rgba(26,79,138,.15);color:#1a4f8a">rgba(.15)</div>
+    <div class="swatch" style="background:#f0f4f8;color:#1a4f8a;border:1px solid #e2e8f0">fondo</div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">colores.css</span></div>
+    <div class="ebody"><span class="hc">/* color: el texto. background-color: el fondo */</span>
+<span class="cs">body</span> {
+  <span class="cp">color</span>: <span class="cv">#1e293b</span>;          <span class="hc">/* texto oscuro */</span>
+  <span class="cp">background-color</span>: <span class="cv">#f0f4f8</span>;  <span class="hc">/* fondo gris suave */</span>
+}
+
+<span class="cs">h1</span> {
+  <span class="cp">color</span>: <span class="cv">#1a4f8a</span>;          <span class="hc">/* azul institucional */</span>
+}
+
+<span class="cs">.alerta</span> {
+  <span class="cp">color</span>: <span class="cv">#991b1b</span>;
+  <span class="cp">background-color</span>: <span class="cv">#fee2e2</span>;  <span class="hc">/* rojo suave de fondo */</span>
+}
+
+<span class="cs">.logro</span> {
+  <span class="cp">color</span>: <span class="cv">#14532d</span>;
+  <span class="cp">background-color</span>: <span class="cv">#dcfce7</span>;  <span class="hc">/* verde suave de fondo */</span>
+}
+
+<span class="hc">/* RGBA: mismo color con opacidad reducida */</span>
+<span class="cs">.sombra-suave</span> {
+  <span class="cp">background-color</span>: <span class="cv">rgba(26, 79, 138, 0.1)</span>;
+}</div>
+  </div>
+
+  <!-- Demo visual de colores que comunican -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">Los colores comunican antes del texto — el caso de Sebastián:</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px">
+    <div style="background:#fee2e2;border:1.5px solid #fecaca;border-radius:10px;padding:14px 18px">
+      <p style="font-size:13px;font-weight:800;color:#991b1b;margin-bottom:6px">❌ Pregunta 3 — Respuesta incompleta</p>
+      <p style="font-size:13px;color:#7f1d1d">El color rojo ya comunica "error" antes de leer la razón. Incluso si la razón es menor.</p>
+    </div>
+    <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px">
+      <p style="font-size:13px;font-weight:800;color:#92400e;margin-bottom:6px">📝 Pregunta 3 — Ampliar la respuesta</p>
+      <p style="font-size:13px;color:#78350f">El mismo mensaje con un color neutro genera menos ansiedad y más disposición a revisar.</p>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Contraste es accesibilidad:</strong> El texto y el fondo deben tener suficiente contraste para ser legible. Texto oscuro sobre fondo claro, o texto claro sobre fondo oscuro. Evita texto gris claro sobre fondo blanco — alguien con dificultades visuales no podrá leerlo.</div>
+</div>
+
+<!-- MÓDULO 2: FUENTES Y TEXTO -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>Fuentes y texto: la voz escrita</h2><p>font-family · font-size · font-weight · line-height · text-align · text-decoration · text-transform</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">La tipografía es la personalidad del texto. Una fuente redondeada y amigable transmite calidez. Una fuente técnica y monoespaciada transmite precisión. El tamaño, el peso y el espaciado entre líneas determinan si el texto invita a ser leído o lo ahuyenta.</p>
+
+  <!-- Demo de fuentes con metáforas -->
+  <div class="fuentes-demo">
+    <div class="fuente-card">
+      <div class="fc-name">font-family: 'Nunito', sans-serif</div>
+      <div class="fc-muestra" style="font-family:'Nunito',sans-serif">Lo que siento hoy</div>
+      <div class="fc-desc">Redondeada, cálida. Ideal para contenido emocional o accesible.</div>
+    </div>
+    <div class="fuente-card">
+      <div class="fc-name">font-family: 'Source Code Pro', monospace</div>
+      <div class="fc-muestra" style="font-family:'Source Code Pro',monospace">Lo que siento hoy</div>
+      <div class="fc-desc">Técnica, precisa. Ideal para código o contenido estructurado.</div>
+    </div>
+    <div class="fuente-card">
+      <div class="fc-name">font-family: Georgia, serif</div>
+      <div class="fc-muestra" style="font-family:Georgia,serif">Lo que siento hoy</div>
+      <div class="fc-desc">Clásica, literaria. Ideal para textos largos o citas.</div>
+    </div>
+    <div class="fuente-card">
+      <div class="fc-name">font-family: Arial, sans-serif</div>
+      <div class="fc-muestra" style="font-family:Arial,sans-serif">Lo que siento hoy</div>
+      <div class="fc-desc">Neutra, universal. La más común y la más segura.</div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">tipografia.css</span></div>
+    <div class="ebody"><span class="cs">body</span> {
+  <span class="cp">font-family</span>: <span class="cv">'Nunito'</span>, sans-serif; <span class="hc">/* fuente principal + fallback */</span>
+  <span class="cp">font-size</span>: <span class="cv">15px</span>;              <span class="hc">/* tamaño base */</span>
+  <span class="cp">line-height</span>: <span class="cv">1.7</span>;             <span class="hc">/* espacio entre líneas: 1.5–1.8 es ideal */</span>
+}
+
+<span class="cs">h1</span> {
+  <span class="cp">font-size</span>: <span class="cv">32px</span>;
+  <span class="cp">font-weight</span>: <span class="cv">900</span>;              <span class="hc">/* 100(fino)→400(normal)→700(negrita)→900(extra) */</span>
+  <span class="cp">line-height</span>: <span class="cv">1.2</span>;             <span class="hc">/* encabezados con menos espacio entre líneas */</span>
+}
+
+<span class="cs">p</span> {
+  <span class="cp">text-align</span>: <span class="cv">left</span>;              <span class="hc">/* left | center | right | justify */</span>
+}
+
+<span class="cs">.cita</span> {
+  <span class="cp">font-style</span>: <span class="cv">italic</span>;
+  <span class="cp">text-align</span>: <span class="cv">center</span>;
+}
+
+<span class="cs">a</span> {
+  <span class="cp">text-decoration</span>: <span class="cv">none</span>;           <span class="hc">/* quita el subrayado por defecto */</span>
+}
+
+<span class="cs">a:hover</span> {
+  <span class="cp">text-decoration</span>: <span class="cv">underline</span>;
+}
+
+<span class="cs">.mayusculas</span> {
+  <span class="cp">text-transform</span>: <span class="cv">uppercase</span>;     <span class="hc">/* uppercase | lowercase | capitalize */</span>
+  <span class="cp">letter-spacing</span>: <span class="cv">2px</span>;           <span class="hc">/* espacio entre letras */</span>
+}
+
+<span class="hc">/* text-shadow: offset-x offset-y blur color */</span>
+<span class="cs">.con-sombra</span> {
+  <span class="cp">text-shadow</span>: <span class="cv">2px 2px 6px rgba(0,0,0,0.2)</span>;
+}</div>
+  </div>
+
+  <!-- Demo legibilidad -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0">
+    <div class="demo-vivo">
+      <div class="demo-bar">❌ Texto difícil de leer (el de Lucía)</div>
+      <div class="demo-content">
+        <p style="font-size:11px;line-height:1.2;color:#94a3b8;font-family:Arial">Lo que siento cuando llego al colegio es una mezcla de cosas que no sé cómo explicar. A veces estoy bien. A veces no. Pero siempre pongo buena cara porque es lo que se espera.</p>
+      </div>
+    </div>
+    <div class="demo-vivo">
+      <div class="demo-bar">✅ El mismo texto, tipografía correcta</div>
+      <div class="demo-content">
+        <p style="font-size:14.5px;line-height:1.8;color:#334155;font-family:'Nunito',sans-serif">Lo que siento cuando llego al colegio es una mezcla de cosas que no sé cómo explicar. A veces estoy bien. A veces no. Pero siempre pongo buena cara porque es lo que se espera.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Regla del line-height:</strong> Para texto de lectura, usa entre 1.5 y 1.8. Para encabezados, entre 1.1 y 1.3. Un <code>line-height: 1</code> es sofocante — las líneas se pegan. Un <code>line-height: 2.5</code> se siente desconectado.</div>
+</div>
+
+<!-- MÓDULO 3: BOX MODEL -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>El Box Model: el espacio que define todo</h2><p>margin · padding · border · width · height — cómo respira cada elemento en la página</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Todo elemento HTML es una caja con cuatro capas concéntricas. De adentro hacia afuera: el <strong>contenido</strong> (el texto o imagen), el <strong>padding</strong> (espacio entre el contenido y el borde), el <strong>border</strong> (la línea que delimita) y el <strong>margin</strong> (el espacio entre este elemento y los demás).</p>
+
+  <!-- Box Model SVG visual -->
+  <div class="boxmodel-wrap">
+    <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px">
+      <!-- Margin (capa exterior) -->
+      <rect x="10" y="10" width="540" height="320" rx="12" fill="#fef9c3" stroke="#fbbf24" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="30" y="35" fill="#d97706" font-family="Source Code Pro" font-size="12" font-weight="700">margin</text>
+      <text x="30" y="50" fill="#92400e" font-family="Nunito" font-size="10">Espacio exterior — separa del vecino</text>
+      <!-- Border -->
+      <rect x="60" y="60" width="440" height="220" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+      <text x="80" y="82" fill="#1e40af" font-family="Source Code Pro" font-size="12" font-weight="700">border</text>
+      <text x="80" y="97" fill="#1e40af" font-family="Nunito" font-size="10">El límite visible del elemento</text>
+      <!-- Padding -->
+      <rect x="110" y="110" width="340" height="130" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="130" y="130" fill="#14532d" font-family="Source Code Pro" font-size="12" font-weight="700">padding</text>
+      <text x="130" y="145" fill="#14532d" font-family="Nunito" font-size="10">Relleno interior — respiro entre borde y contenido</text>
+      <!-- Contenido -->
+      <rect x="160" y="155" width="240" height="60" rx="6" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+      <text x="280" y="181" text-anchor="middle" fill="#1e293b" font-family="Nunito" font-weight="800" font-size="13">contenido</text>
+      <text x="280" y="198" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="10">texto · imagen · lo que se ve</text>
+      <!-- Flechas acotación -->
+      <line x1="280" y1="10" x2="280" y2="60" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="290" y="40" fill="#d97706" font-family="Nunito" font-size="9">margin-top</text>
+      <line x1="10" y1="170" x2="60" y2="170" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="12" y="164" fill="#d97706" font-family="Nunito" font-size="9">margin-left</text>
+      <line x1="60" y1="185" x2="110" y2="185" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="62" y="179" fill="#16a34a" font-family="Nunito" font-size="9">padding-left</text>
+    </svg>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">boxmodel.css</span></div>
+    <div class="ebody"><span class="cs">.tarjeta</span> {
+  <span class="hc">/* DIMENSIONES */</span>
+  <span class="cp">width</span>: <span class="cv">360px</span>;            <span class="hc">/* ancho fijo */</span>
+  <span class="cp">max-width</span>: <span class="cv">100%</span>;          <span class="hc">/* nunca más ancho que su contenedor */</span>
+  <span class="cp">min-height</span>: <span class="cv">120px</span>;        <span class="hc">/* altura mínima aunque el contenido sea poco */</span>
+
+  <span class="hc">/* PADDING: espacio interior */</span>
+  <span class="cp">padding</span>: <span class="cv">24px 28px</span>;       <span class="hc">/* 24px arriba/abajo, 28px izq/der */</span>
+  <span class="hc">/* equivale a: padding-top, right, bottom, left */</span>
+
+  <span class="hc">/* BORDER: el borde visible */</span>
+  <span class="cp">border</span>: <span class="cv">1.5px solid #e2e8f0</span>;  <span class="hc">/* grosor tipo color */</span>
+  <span class="cp">border-radius</span>: <span class="cv">14px</span>;      <span class="hc">/* esquinas redondeadas */</span>
+
+  <span class="hc">/* MARGIN: espacio exterior */</span>
+  <span class="cp">margin</span>: <span class="cv">0 auto</span>;           <span class="hc">/* 0 arr/abajo, auto izq/der = centrado */</span>
+  <span class="cp">margin-bottom</span>: <span class="cv">20px</span>;      <span class="hc">/* solo abajo */</span>
+
+  <span class="hc">/* SOMBRA: profundidad */</span>
+  <span class="cp">box-shadow</span>: <span class="cv">0 4px 14px rgba(0,0,0,.08)</span>;
+  <span class="hc">/* offset-x offset-y blur spread color */</span>
+
+  <span class="cp">background-color</span>: <span class="cv">#fff</span>;
+}</div>
+  </div>
+
+  <!-- Demo visual de una tarjeta sin/con Box Model -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0;align-items:start">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Sin Box Model pensado</div>
+      <div style="border:1px solid #e2e8f0;padding:4px;background:#fff;border-radius:6px;font-size:13.5px;color:#334155;line-height:1.4">Lo que nadie ve de mí: soy estudiante de décimo. Me gusta crear cosas y también llorar con películas. Eso no lo sabe nadie.</div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Con Box Model bien aplicado</div>
+      <div style="border:1.5px solid #bfdbfe;padding:20px 24px;background:#fff;border-radius:14px;font-size:14px;color:#334155;line-height:1.75;box-shadow:0 4px 14px rgba(0,0,0,.08)">Lo que nadie ve de mí: soy estudiante de décimo. Me gusta crear cosas y también llorar con películas. Eso no lo sabe nadie.</div>
+    </div>
+  </div>
+
+  <!-- Shorthand vs longhand -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:18px 0 12px">Shorthand — escribir menos sin perder control</h4>
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">shorthand.css</span></div>
+    <div class="ebody"><span class="hc">/* PADDING shorthand — los 4 valores posibles */</span>
+<span class="cs">.ejemplo</span> { <span class="cp">padding</span>: <span class="cv">10px</span>; }                    <span class="hc">/* los 4 lados iguales */</span>
+<span class="cs">.ejemplo</span> { <span class="cp">padding</span>: <span class="cv">10px 20px</span>; }             <span class="hc">/* vertical horizontal */</span>
+<span class="cs">.ejemplo</span> { <span class="cp">padding</span>: <span class="cv">10px 20px 15px</span>; }        <span class="hc">/* top horizontal bottom */</span>
+<span class="cs">.ejemplo</span> { <span class="cp">padding</span>: <span class="cv">10px 20px 15px 5px</span>; }   <span class="hc">/* top right bottom left (reloj) */</span>
+
+<span class="hc">/* BORDER shorthand */</span>
+<span class="cs">.btn</span> { <span class="cp">border</span>: <span class="cv">2px solid #1a4f8a</span>; }       <span class="hc">/* grosor tipo color */</span>
+<span class="cs">.btn</span> { <span class="cp">border-top</span>: <span class="cv">3px solid #fbbf24</span>; }  <span class="hc">/* solo borde superior */</span>
+
+<span class="hc">/* BOX-SHADOW puede tener múltiples sombras */</span>
+<span class="cs">.card-premium</span> {
+  <span class="cp">box-shadow</span>: <span class="cv">0 2px 8px rgba(0,0,0,.06),
+               0 0 0 1px rgba(0,0,0,.04)</span>;
+}</div>
+  </div>
+
+  <div class="warn"><strong>box-sizing: border-box:</strong> Por defecto en CSS, el padding y el borde se <em>suman</em> al ancho. Si declaras <code>width: 300px</code> y luego <code>padding: 20px</code>, el elemento queda con 340px. Con <code>box-sizing: border-box</code> el padding queda <em>dentro</em> del ancho declarado. Agrega <code>* { box-sizing: border-box; }</code> al inicio de tu CSS siempre.</div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Propiedad</th><th>Qué hace</th><th>Valores comunes</th><th>En la vida</th></tr>
+    <tr><td><code>margin</code></td><td>Espacio exterior — entre este elemento y los demás</td><td><code>0 auto</code> · <code>16px</code> · <code>0 0 20px 0</code></td><td>El espacio personal que mantienes con los demás</td></tr>
+    <tr><td><code>padding</code></td><td>Espacio interior — entre el contenido y el borde</td><td><code>20px</code> · <code>12px 24px</code></td><td>El espacio interior que te das a ti mismo para respirar</td></tr>
+    <tr><td><code>border</code></td><td>La línea que delimita el elemento</td><td><code>1px solid #e2e8f0</code></td><td>El límite que estableces</td></tr>
+    <tr><td><code>border-radius</code></td><td>Esquinas redondeadas</td><td><code>8px</code> · <code>50%</code> (círculo)</td><td>Qué tan "suave" o "rígido" te presentas</td></tr>
+    <tr><td><code>box-shadow</code></td><td>Sombra alrededor del elemento</td><td><code>0 4px 14px rgba(0,0,0,.08)</code></td><td>La profundidad que das a las cosas importantes</td></tr>
+    <tr><td><code>width / max-width</code></td><td>Ancho fijo / ancho máximo flexible</td><td><code>360px</code> · <code>100%</code> · <code>800px</code></td><td>El espacio que ocupas o te permites ocupar</td></tr>
+  </table>
+</div>
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A1</div>
+    <div><h3>La tarjeta que me representa: colores, fuente y espacio con intención</h3><div class="asub">Individual · 25 minutos · Autoconciencia — que cada propiedad diga algo de ti</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 25 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👤 Individual</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 HTML + CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🎨</span><span class="eti">Antes de escribir — las preguntas de diseño</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Antes de escribir una línea, responde en papel: ¿Qué color comunica cómo te sientes esta semana? ¿Cuánto espacio (padding) le das a lo que escribes — mucho aire o todo apretado? ¿El borde de tu tarjeta es sólido y firme, o suave y redondeado? <strong>Cada propiedad que elijas va a decir algo de ti — más de lo que crees.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cuánto espacio te das a ti mismo — interior y exterior — para respirar?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#ea580c">1</div><div class="pc"><h4>Construye en HTML una tarjeta personal</h4><p>Con: <code>&lt;article class="mi-tarjeta"&gt;</code> que contenga un <code>&lt;h2&gt;</code> con algo que te define (no solo tu nombre), un <code>&lt;p class="descripcion"&gt;</code> con cómo te sientes esta semana, una <code>&lt;blockquote&gt;</code> con una frase que te sostiene, y un <code>&lt;a href="#"&gt;</code>.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">2</div><div class="pc"><h4>Estiliza la tarjeta con CSS usando las propiedades de hoy</h4><p>Mínimo obligatorio: <code>color</code>, <code>background-color</code>, <code>font-family</code>, <code>font-size</code>, <code>font-weight</code>, <code>line-height</code>, <code>text-align</code>, <code>padding</code>, <code>margin</code>, <code>border</code>, <code>border-radius</code>, <code>box-shadow</code>, <code>width</code> o <code>max-width</code>.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">3</div><div class="pc"><h4>Aplica text-shadow al h2 con intención</h4><p>La sombra del texto del encabezado debe ser coherente con el tono de la tarjeta — suave si la tarjeta es tranquila, más pronunciada si es intensa.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">4</div><div class="pc"><h4>Agrega comentarios CSS que expliquen las decisiones</h4><p>Antes de cada grupo de propiedades, un comentario que diga por qué elegiste ese color, ese padding, esa fuente. Las decisiones de diseño son decisiones personales y merecen justificación.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS debe aplicar</div>
+      <ul>
+        <li>color y background-color con contraste suficiente para ser legible</li>
+        <li>font-family (Google Fonts), font-size, font-weight, line-height</li>
+        <li>text-align en al menos dos elementos distintos</li>
+        <li>padding en la tarjeta, margin para centrarla o separarla</li>
+        <li>border con border-radius redondeado</li>
+        <li>box-shadow con valores que den profundidad sin exagerar</li>
+        <li>text-shadow en el h2</li>
+        <li>Comentarios CSS que justifiquen cada decisión de diseño</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Las propiedades de diseño son decisiones de identidad</h4>
+      <p>Elegir el padding de una tarjeta no es un detalle técnico neutro. Es decidir cuánto espacio le das al contenido para respirar. Elegir el color es decidir qué emoción quieres provocar antes de que lean una sola palabra. La autoconciencia incluye "identificar las emociones propias" — y también las señales visuales que las comunican. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué color elegiste para tu tarjeta y qué dice de cómo te sientes esta semana?</li>
+        <li><span>→</span> ¿Le diste mucho o poco padding? ¿Eso refleja cómo te das espacio a ti mismo en la vida real?</li>
+        <li><span>→</span> ¿El borde de tu tarjeta es sólido o suave? ¿Eso dice algo de cómo estableces límites?</li>
+        <li><span>→</span> ¿La tipografía elegida coincide con la "voz" que quieres que tenga tu contenido?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">
+    <div class="act-num">A2</div>
+    <div><h3>El espacio que cambia el mensaje: margin y padding como comunicación</h3><div class="asub">Parejas · 20 minutos · Conciencia social — cómo el espacio afecta lo que se recibe</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#bfdbfe">
+    <div class="meta">
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">⏱ 20 min</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">👥 Parejas</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">💻 Mismo HTML, márgenes diferentes</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-familia" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🖼️</span><span class="eti">Volvamos a Valeria — las fotos sin y con espacio</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Las fotos de la familia de Valeria eran las mismas — pero sin espacio entre ellas nadie las miraba. Con espacio, con marco, con aire, las mismas fotos se convirtieron en algo que la gente se detenía a ver. <strong>Esta actividad explora eso: tomar el mismo contenido HTML y cambiar solo el espacio — para demostrar que el margin y el padding no son detalles, son parte del mensaje.</strong></p>
+        <div class="escena-pregunta">💭 ¿Cuándo alguien o algo en tu vida necesita más espacio para ser visto de verdad?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#2563eb">1</div><div class="pc"><h4>Usen el mismo HTML base — sin cambiar nada</h4><p>Tres tarjetas con el mismo contenido: nombre, descripción de una emoción, una cita. Pueden ser los mismos o diferentes contenidos — lo importante es que el HTML sea idéntico en los dos archivos.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">2</div><div class="pc"><h4>Cada uno crea su CSS con una filosofía de espacio opuesta (8 min)</h4><p><strong>Persona A:</strong> mínimo espacio. Padding de 6px, margin de 4px, border sin radius, sin box-shadow. Todo apretado. <strong>Persona B:</strong> máximo espacio generoso. Padding de 32px, margin de 24px, border-radius de 20px, box-shadow suave. Todo con aire.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#2563eb">3</div><div class="pc"><h4>Comparen las dos versiones y conversen (7 min)</h4><p>¿Cuál da más ganas de leer? ¿Cuál se siente más cuidada? ¿El contenido cambia según el espacio? ¿Cuál refleja mejor el respeto por lo que dice?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Dos archivos CSS opuestos para el mismo HTML</li>
+        <li>Un <code>&lt;p&gt;</code> reflexivo al final de cada archivo: qué comunica el espacio de tu versión</li>
+        <li>Una conclusión conjunta en un comentario CSS: ¿qué aprendieron sobre el espacio?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>El espacio que le damos a las personas cambia lo que pueden mostrarnos</h4>
+      <p>La conciencia social incluye "demostrar empatía y compasión". El espacio en CSS no es un lujo visual — es respeto por el contenido. En las relaciones, el espacio que le das a alguien para hablar, para equivocarse, para ser diferente, cambia lo que esa persona puede mostrarte. Un mensaje leído con espacio se entiende diferente que un mensaje leído apretado y sin aire. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál de las dos versiones daba más ganas de leer el contenido? ¿Por qué?</li>
+        <li><span>→</span> ¿Hay personas en tu vida a las que le das poco "espacio" para hablar o para ser? ¿Qué pasaría si les dieras más?</li>
+        <li><span>→</span> ¿Hay contextos en tu vida donde sientes que el espacio es demasiado pequeño — donde no puedes ser tú mismo/a completamente?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A3</div>
+    <div><h3>La guía de estilos del salón: color, tipografía y espaciado acordados</h3><div class="asub">Grupos de 4 · 20 minutos · Toma de decisiones — crear un sistema de diseño colectivo</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Archivo de variables</span>
+      <span class="mp" style="background:#fae8ff;border-color:#f0abfc;color:#6b21a8">⚖️ SEL: Toma de Decisiones</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📐</span><span class="eti">Un sistema de diseño que funcione para todos</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Los equipos de diseño profesionales tienen una "guía de estilos" — una lista de colores, fuentes y espaciados que todos usan para que el producto sea consistente. Hoy el grupo va a construir la suya. <strong>El reto: ponerse de acuerdo en un sistema de diseño que todos sientan que los representa — no solo el gusto de quien habla más fuerte.</strong></p>
+        <div class="escena-pregunta">💭 ¿Qué colores y tipografía representarían al grupo completo — sin dejar a nadie por fuera?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Cada integrante propone en papel (3 min)</h4><p>Color principal, color secundario, color de fondo, fuente para encabezados, fuente para cuerpo de texto, padding base para tarjetas. Sin comparar todavía.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Construyan el archivo <code>guia_estilos_salon.css</code> con variables CSS (10 min)</h4><p>Usando el formato:</p>
+        <div class="editor" style="margin:8px 0"><div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">guia_estilos_salon.css</span></div>
+        <div class="ebody"><span class="cs">:root</span> {
+  <span class="cp">--color-principal</span>:    <span class="cv">#[elegido por consenso]</span>;
+  <span class="cp">--color-secundario</span>:   <span class="cv">#[elegido por consenso]</span>;
+  <span class="cp">--color-fondo</span>:        <span class="cv">#[elegido por consenso]</span>;
+  <span class="cp">--color-texto</span>:        <span class="cv">#[elegido por consenso]</span>;
+  <span class="cp">--fuente-titulo</span>:      <span class="cv">'[fuente elegida]'</span>, sans-serif;
+  <span class="cp">--fuente-cuerpo</span>:      <span class="cv">'[fuente elegida]'</span>, sans-serif;
+  <span class="cp">--padding-base</span>:       <span class="cv">[valor elegido]</span>;
+  <span class="cp">--radio-borde</span>:        <span class="cv">[valor elegido]</span>;
+  <span class="cp">--sombra-base</span>:        <span class="cv">0 4px 14px rgba(0,0,0,.08)</span>;
+}</div></div>
+      </div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Documenten cada decisión (5 min)</h4><p>Antes de cada variable, un comentario CSS que diga por qué eligieron ese valor y si fue fácil o difícil ponerse de acuerdo en él.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>guia_estilos_salon.css</code> con mínimo 8 variables CSS</li>
+        <li>Comentarios CSS que expliquen el proceso de decisión de cada variable</li>
+        <li>Una regla CSS adicional al final que use todas las variables para demostrar que funcionan juntas</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-decision">
+      <div class="sel-badge">⚖️ SEL · Toma de Decisiones Responsables</div>
+      <h4>Un sistema de diseño es un conjunto de decisiones responsables y sostenibles</h4>
+      <p>La toma de decisiones responsables incluye "demostrar curiosidad y mentalidad abierta" y "evaluar consecuencias de las decisiones". Una guía de estilos no es caprichosa — es una herramienta que permite que el trabajo de varios sea coherente, que nadie pierda tiempo eligiendo colores de nuevo y que el producto final tenga calidad. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cuál fue la variable más difícil de acordar? ¿Por qué generó más debate?</li>
+        <li><span>→</span> ¿Hay alguna variable que quedó con un valor que no era tu primera opción? ¿Puedes vivir con esa decisión colectiva?</li>
+        <li><span>→</span> ¿Cómo se parece este proceso a otras decisiones colectivas en tu vida (en la familia, en el colegio)?</li>
+        <li><span>→</span> Si aplicaran esta guía de estilos al proyecto del salón de la Guía 09, ¿quedaría más o menos coherente que antes?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos</div><h3>Bitácora final · Guía 12</h3></div>
+  </div>
+  <p class="tp">En <code>bitacora_guia12.html</code> con la tarjeta de la Actividad 1 integrada — que sea el diseño central de la bitácora.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Los colores de tu tarjeta dicen algo de cómo estás esta semana? ¿Qué dicen?</li>
+        <li><span>→</span> ¿El espacio (padding/margin) que elegiste refleja cómo te das espacio a ti mismo/a para respirar en la vida?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿La comparación de las dos versiones de espacio cambió cómo entiendes el espacio que le das a otros?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno cuyos "textos" — lo que dice, lo que siente — no se "ven" porque no tienen el espacio que merecen?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-decision" style="margin-top:0">
+      <div class="sel-badge">⚖️ Toma de Decisiones</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Hubo una decisión de diseño hoy que fue más difícil de tomar que las demás? ¿Por qué?</li>
+        <li><span>→</span> Las variables CSS de la guía de estilos son acuerdos — compromisos de diseño. ¿Hay acuerdos en tu vida cotidiana que deberían ser más explícitos y consensuados?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="300" fill="#f8fafc"/>
+      <!-- Colores -->
+      <rect x="18" y="18" width="200" height="120" rx="10" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.5"/>
+      <rect x="18" y="18" width="200" height="34" rx="10" fill="#a21caf"/>
+      <rect x="18" y="40" width="200" height="12" fill="#a21caf"/>
+      <text x="118" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Colores</text>
+      <text x="32" y="68" fill="#6b21a8" font-family="Source Code Pro" font-size="10">color: #1a4f8a;</text>
+      <text x="32" y="84" fill="#6b21a8" font-family="Source Code Pro" font-size="10">background-color:</text>
+      <text x="32" y="100" fill="#6b21a8" font-family="Source Code Pro" font-size="10">  rgb(26,79,138);</text>
+      <text x="32" y="116" fill="#6b21a8" font-family="Source Code Pro" font-size="10">  rgba(26,79,138,.5);</text>
+      <text x="32" y="132" fill="#6b21a8" font-family="Source Code Pro" font-size="10">  #hex | nombre</text>
+      <!-- Fuentes -->
+      <rect x="234" y="18" width="214" height="120" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="234" y="18" width="214" height="34" rx="10" fill="#ea580c"/>
+      <rect x="234" y="40" width="214" height="12" fill="#ea580c"/>
+      <text x="341" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Fuentes y texto</text>
+      <text x="248" y="68" fill="#92400e" font-family="Source Code Pro" font-size="10">font-family, font-size</text>
+      <text x="248" y="84" fill="#92400e" font-family="Source Code Pro" font-size="10">font-weight, font-style</text>
+      <text x="248" y="100" fill="#92400e" font-family="Source Code Pro" font-size="10">line-height, text-align</text>
+      <text x="248" y="116" fill="#92400e" font-family="Source Code Pro" font-size="10">text-decoration</text>
+      <text x="248" y="132" fill="#92400e" font-family="Source Code Pro" font-size="10">text-transform, text-shadow</text>
+      <!-- Box model preview -->
+      <rect x="464" y="18" width="218" height="120" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="464" y="18" width="218" height="34" rx="10" fill="#16a34a"/>
+      <rect x="464" y="40" width="218" height="12" fill="#16a34a"/>
+      <text x="573" y="38" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Box Model</text>
+      <text x="478" y="68" fill="#14532d" font-family="Source Code Pro" font-size="10">margin (exterior)</text>
+      <text x="478" y="84" fill="#14532d" font-family="Source Code Pro" font-size="10">border, border-radius</text>
+      <text x="478" y="100" fill="#14532d" font-family="Source Code Pro" font-size="10">padding (interior)</text>
+      <text x="478" y="116" fill="#14532d" font-family="Source Code Pro" font-size="10">width, height, max-width</text>
+      <text x="478" y="132" fill="#14532d" font-family="Source Code Pro" font-size="10">box-shadow</text>
+      <!-- Box model diagram -->
+      <rect x="18" y="152" width="664" height="130" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="152" width="664" height="32" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="172" width="664" height="12" fill="#1a4f8a"/>
+      <text x="350" y="170" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="11">margin → border → padding → contenido ← padding ← border ← margin</text>
+      <!-- capas -->
+      <rect x="30" y="190" width="640" height="82" rx="6" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="46" y="204" fill="#d97706" font-family="Nunito" font-size="9" font-weight="700">margin</text>
+      <rect x="72" y="196" width="576" height="66" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="88" y="210" fill="#1e40af" font-family="Nunito" font-size="9" font-weight="700">border</text>
+      <rect x="114" y="202" width="492" height="50" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+      <text x="130" y="216" fill="#14532d" font-family="Nunito" font-size="9" font-weight="700">padding</text>
+      <rect x="156" y="208" width="408" height="34" rx="4" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="360" y="229" text-anchor="middle" fill="#334155" font-family="Nunito" font-weight="800" font-size="11">contenido</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 12</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Color y contraste</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Los colores no tienen contraste suficiente o son aleatorios.</td>
+      <td>Colores con contraste legible usando hex o rgba.</td>
+      <td>La paleta es coherente, tiene contraste accesible y comunica algo intencional antes de que se lea el texto.</td>
+    </tr>
+    <tr>
+      <td><strong>Tipografía y texto</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Fuente por defecto, sin line-height ajustado, tamaño inadecuado.</td>
+      <td>font-family, font-size, line-height y text-align aplicados correctamente.</td>
+      <td>La tipografía es legible, bien espaciada y coherente con el tono del contenido.</td>
+    </tr>
+    <tr>
+      <td><strong>Box Model completo</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Faltan margin o padding, o el borde no está definido.</td>
+      <td>margin, padding, border, border-radius y box-shadow aplicados.</td>
+      <td>El Box Model está dominado: los espacios dan respiro al contenido y la tarjeta se siente bien construida.</td>
+    </tr>
+    <tr>
+      <td><strong>Diseño con intención</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>Las propiedades están puestas sin pensar — los comentarios dicen "puse esto aquí".</td>
+      <td>Los comentarios CSS explican el por qué de las decisiones más importantes.</td>
+      <td>Se nota que cada decisión (color, espacio, fuente) tiene una razón vinculada a la identidad o el tono del contenido.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión sobre espacio y personas</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>La reflexión no conecta el Box Model con situaciones de vida real.</td>
+      <td>Conecta el concepto de espacio CSS con algo personal.</td>
+      <td>La reflexión muestra que el concepto de "espacio" — para el contenido y para las personas — es ahora una herramienta de pensamiento real.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 12 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 13 → Posicionamiento, display, overflow y visibilidad</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
