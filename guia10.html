@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 10 · Proyecto Integrador · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.tag-rojo{background:#fee2e2;color:#991b1b}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+/* TIMELINE DE GUÍAS */
+.timeline{display:flex;flex-direction:column;gap:0;margin:14px 0}
+.tl-item{display:flex;gap:16px;align-items:flex-start;position:relative}
+.tl-item::before{content:'';position:absolute;left:19px;top:40px;width:2px;height:calc(100% - 8px);background:#e2e8f0}
+.tl-item:last-child::before{display:none}
+.tl-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0;color:#fff;z-index:1}
+.tl-content{padding:6px 0 20px;flex:1}
+.tl-content h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:2px}
+.tl-content p{font-size:13px;color:#64748b;line-height:1.5}
+.tl-content .tl-sel{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:4px}
+/* MAPA DE COMPETENCIAS */
+.casel-mapa{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+.cm-item{border-radius:12px;padding:14px 12px;text-align:center}
+.cm-item .cm-ico{font-size:24px;margin-bottom:6px}
+.cm-item .cm-nom{font-size:11px;font-weight:800;line-height:1.3}
+.cm-item .cm-guias{font-size:10px;margin-top:5px;opacity:.8}
+/* ESTRUCTURA DEL PROYECTO */
+.proyecto-estructura{background:#0f172a;border-radius:12px;padding:22px;margin:14px 0;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2}
+.ft-folder{color:#fbbf24}.ft-html{color:#f472b6}.ft-css{color:#86efac}.ft-img{color:#a78bfa}.ft-audio{color:#f97316}.ft-nota{color:#475569}
+/* SECCIONES OBLIGATORIAS */
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.sec-item{border-radius:12px;padding:16px 18px;border:1.5px solid;position:relative}
+.sec-item .si-num{position:absolute;top:-10px;left:14px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff}
+.sec-item h4{font-size:14px;font-weight:800;margin-bottom:4px;margin-top:4px}
+.sec-item p{font-size:13px;line-height:1.5}
+.sec-item .si-etiq{font-family:'Source Code Pro',monospace;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;display:inline-block;margin-bottom:6px}
+/* EDITOR */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+/* PASOS */
+.pasos{list-style:none;display:flex;flex-direction:column;gap:16px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+/* CHECKLIST */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.checklist li{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#334155}
+.checklist li .ch-box{width:18px;height:18px;border:2px solid #cbd5e1;border-radius:4px;flex-shrink:0;margin-top:2px;background:#fff}
+.checklist li.req .ch-box{border-color:#2563eb;background:#dbeafe}
+.checklist li.req{border-color:#bfdbfe;background:#eff6ff;color:#1e3a8a}
+.checklist li.sel .ch-box{border-color:#16a34a;background:#dcfce7}
+.checklist li.sel{border-color:#86efac;background:#f0fdf4;color:#14532d}
+/* TIPS */
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* RÚBRICA */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+/* SEL BLOQUES */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-cierre{background:linear-gradient(135deg,#1a4f8a,#2563eb);border:none}
+.sel-cierre::after{color:rgba(255,255,255,.07)}
+.sel-cierre .sel-badge{background:rgba(255,255,255,.2)}
+.sel-cierre h4{color:#fff}
+.sel-cierre p{color:rgba(255,255,255,.9)}
+.sel-cierre .qs li{background:rgba(255,255,255,.12);color:#e2e8f0}
+.sel-cierre .qs li span{color:#fbbf24}
+/* FOOTER */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+/* CIERRE DEL PROYECTO */
+.cierre-proyecto{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:14px;padding:36px 32px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.cierre-proyecto::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(59,130,246,.1)}
+.cierre-proyecto::after{content:'';position:absolute;bottom:-80px;left:-40px;width:240px;height:240px;border-radius:50%;background:rgba(139,92,246,.08)}
+.cierre-proyecto h2{font-size:28px;font-weight:900;margin-bottom:14px;position:relative;z-index:1}
+.cierre-proyecto p{font-size:15px;color:rgba(255,255,255,.8);line-height:1.8;max-width:700px;margin:0 auto;position:relative;z-index:1}
+.cierre-frase{background:rgba(255,255,255,.08);border-left:4px solid #fbbf24;border-radius:0 10px 10px 0;padding:16px 20px;margin:20px auto;max-width:700px;font-size:16px;font-style:italic;color:#e2e8f0;position:relative;z-index:1;text-align:left}
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .casel-mapa{grid-template-columns:repeat(3,1fr)}
+  .sec-grid{grid-template-columns:1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">3 sesiones · 270 min</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">🏁 Guía Final · Proyecto Integrador 10</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 10 · Grado Décimo · ENSDB 2025</div>
+    <h2>Proyecto Integrador: mi página web personal completa</h2>
+    <p class="gsub">Llegaste al final del camino técnico. Ahora vas a construir desde cero tu página web personal completa — usando todo lo que aprendiste en las nueve guías anteriores. Una página que no solo muestre código: que muestre quién eres, lo que sientes, lo que has vivido este semestre y cómo todo eso cambió algo en ti.</p>
+    <div class="tags">
+      <span class="tag tag-azul">HTML semántico completo</span>
+      <span class="tag tag-azul">CSS externo · Google Fonts</span>
+      <span class="tag tag-verde">Las 5 competencias CASEL</span>
+      <span class="tag tag-morado">Estructura · Multimedia · Formulario · Tabla</span>
+      <span class="tag tag-ambar">Identidad · Voz · Historia · Reflexión</span>
+      <span class="tag tag-rojo">Proyecto Final · 3 sesiones</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- LO QUE RECORRISTE -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🗺️</div>
+    <div><div class="sublbl">El camino recorrido</div><h3>Nueve guías, nueve aprendizajes que siguen contigo</h3></div>
+  </div>
+  <p class="tp">Antes de construir el proyecto final, mira hacia atrás. No para repasar código — sino para ver lo que cambió en ti durante este recorrido.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-num" style="background:#1a4f8a">01</div>
+      <div class="tl-content"><h4>¿Qué es HTML? Estructura básica y comentarios</h4><p>Aprendiste que HTML es estructura. Y que nombrar lo que sientes es el primer paso para gestionarlo.</p><span class="tl-sel" style="background:#dbeafe;color:#1e40af">🔍 Autoconciencia del conocimiento previo</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#2563eb">02</div>
+      <div class="tl-content"><h4>Encabezados, párrafos y formato de texto</h4><p>Organizaste ideas con jerarquía. Andrés, Valentina y Samuel te mostraron que lo que no se nombra no se puede gestionar.</p><span class="tl-sel" style="background:#dcfce7;color:#166534">🔍 Autoconciencia · Conciencia Social</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#7c3aed">03</div>
+      <div class="tl-content"><h4>Listas, saltos de línea y citas</h4><p>Ordenaste razones para tomar decisiones. Le prestaste la voz a alguien. Reconociste las palabras que te sostienen.</p><span class="tl-sel" style="background:#fae8ff;color:#6b21a8">⚖️ Toma de Decisiones · Conciencia Social</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#ea580c">04</div>
+      <div class="tl-content"><h4>Enlaces e imágenes</h4><p>Exploraste las conexiones que construyes y decides mostrar. Camila, Julián y Santiago te mostraron lo que se ve y lo que se guarda.</p><span class="tl-sel" style="background:#ffedd5;color:#9a3412">💬 Habilidades Relacionales · Autocontrol</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#0d9488">05</div>
+      <div class="tl-content"><h4>Divisiones y semántica</h4><p>Organizaste tu identidad en secciones. Isabela, Tomás y Sara te mostraron que los roles que nos ponen no nos definen del todo.</p><span class="tl-sel" style="background:#f0fdfa;color:#134e4a">🔍 Autoconciencia · Habilidades Relacionales</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#dc2626">06</div>
+      <div class="tl-content"><h4>Tablas HTML</h4><p>Registraste emociones con estructura. Renata, Emilio y Diego te mostraron que los datos sin contexto no cuentan la historia completa.</p><span class="tl-sel" style="background:#fee2e2;color:#991b1b">🔍 Autoconciencia · ⚖️ Toma de Decisiones</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#16a34a">07</div>
+      <div class="tl-content"><h4>Formularios HTML</h4><p>Diseñaste preguntas genuinas. Natalia, Marco y Sofía te mostraron la diferencia entre preguntar por obligación y preguntar con intención.</p><span class="tl-sel" style="background:#dcfce7;color:#166534">💬 Habilidades Relacionales · 🌍 Conciencia Social</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#a21caf">08</div>
+      <div class="tl-content"><h4>Video, audio y multimedia</h4><p>Pensaste en lo que muestras y lo que guardas. Camilo, el grupo de Amira y David te mostraron que la voz también comunica cuando no hay palabras.</p><span class="tl-sel" style="background:#fdf4ff;color:#6b21a8">🔍 Autoconciencia · 🧘 Autocontrol</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-num" style="background:#334155">09</div>
+      <div class="tl-content"><h4>El &lt;head&gt; completo · CSS externo</h4><p>Configuraste la identidad invisible de tu página. La abuela de Luciana te mostró que lo que sostiene sin ser visto también merece reconocimiento.</p><span class="tl-sel" style="background:#f8fafc;color:#334155">🔍 Autoconciencia · 🌍 Conciencia Social</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPETENCIAS CASEL DEL PROYECTO -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dcfce7">🌿</div>
+    <div><div class="sublbl">Marco CASEL · Proyecto completo</div><h3>Las cinco competencias que atravesaron todo el proyecto</h3></div>
+  </div>
+
+  <div class="casel-mapa">
+    <div class="cm-item" style="background:#fff7ed;border:1.5px solid #fed7aa">
+      <div class="cm-ico">🔍</div>
+      <div class="cm-nom" style="color:#7c2d12">Autoconciencia</div>
+      <div class="cm-guias" style="color:#b45309">Guías 1, 2, 5, 6, 8, 9</div>
+    </div>
+    <div class="cm-item" style="background:#eff6ff;border:1.5px solid #bfdbfe">
+      <div class="cm-ico">🧘</div>
+      <div class="cm-nom" style="color:#1e3a8a">Autocontrol</div>
+      <div class="cm-guias" style="color:#2563eb">Guías 2, 4, 8</div>
+    </div>
+    <div class="cm-item" style="background:#f0fdf4;border:1.5px solid #86efac">
+      <div class="cm-ico">🌍</div>
+      <div class="cm-nom" style="color:#14532d">Conciencia Social</div>
+      <div class="cm-guias" style="color:#16a34a">Guías 3, 4, 6, 7, 9</div>
+    </div>
+    <div class="cm-item" style="background:#f5f3ff;border:1.5px solid #c4b5fd">
+      <div class="cm-ico">💬</div>
+      <div class="cm-nom" style="color:#3b0764">Habilidades Relacionales</div>
+      <div class="cm-guias" style="color:#7c3aed">Guías 4, 5, 7, 9</div>
+    </div>
+    <div class="cm-item" style="background:#fdf4ff;border:1.5px solid #f0abfc">
+      <div class="cm-ico">⚖️</div>
+      <div class="cm-nom" style="color:#581c87">Toma de Decisiones</div>
+      <div class="cm-guias" style="color:#a21caf">Guías 3, 6</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">Tu proyecto final debe demostrar las cinco competencias — no con definiciones, sino con contenido real que muestre que algo cambió en ti. <strong>No es un proyecto de tecnología con reflexión socioemocional pegada encima. Es un proyecto de vida que usa HTML como lenguaje.</strong></p>
+  </div>
+</div>
+
+<!-- DESCRIPCIÓN DEL PROYECTO -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📋</div>
+    <div><div class="sublbl">¿Qué vas a construir?</div><h3>Tu página web personal completa</h3></div>
+  </div>
+
+  <p class="tp">El proyecto final es una página web personal de múltiples archivos que integra todos los elementos técnicos aprendidos y está construida desde una perspectiva genuinamente tuya — no una página de presentación genérica, sino un espacio digital que muestra quién eres, cómo piensas y qué viviste durante este proyecto.</p>
+
+  <div style="background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin:14px 0">
+    <div style="font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">📌 La pregunta central del proyecto</div>
+    <p style="font-size:16px;font-weight:800;color:#78350f;line-height:1.6">¿Quién eres tú — más allá del colegio, más allá de lo que los demás esperan, más allá de las notas y los roles que te fueron asignados?</p>
+    <p style="font-size:13.5px;color:#92400e;margin-top:8px">Esa respuesta es la que debe vivir en tu página. En código, en imágenes, en audio, en formularios, en tablas — pero sobre todo en honestidad.</p>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Estructura de archivos del proyecto final</h4>
+  <div class="proyecto-estructura"><span class="ft-folder">📁 mi_proyecto_final/</span>
+│
+├── <span class="ft-html">📄 index.html</span>          <span class="ft-nota">← Página principal: quién soy</span>
+├── <span class="ft-html">📄 mi_historia.html</span>    <span class="ft-nota">← Segunda página: mi historia y contexto</span>
+├── <span class="ft-html">📄 lo_que_siento.html</span>  <span class="ft-nota">← Tercera página: emociones y reflexiones</span>
+├── <span class="ft-html">📄 contactame.html</span>     <span class="ft-nota">← Cuarta página: formulario de contacto real</span>
+├── <span class="ft-css">📄 estilos.css</span>         <span class="ft-nota">← CSS compartido por todas las páginas</span>
+│
+├── <span class="ft-folder">📁 imagenes/</span>
+│   ├── <span class="ft-img">🖼️ favicon.ico</span>
+│   └── <span class="ft-img">🖼️ [imagen de portada]</span>
+│
+└── <span class="ft-folder">📁 media/</span>
+    └── <span class="ft-audio">🔊 [audio o video si tienes uno]</span></div>
+</div>
+
+<!-- SECCIONES OBLIGATORIAS DE CADA PÁGINA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#f5f3ff">🧩</div>
+    <div><div class="sublbl">Requisitos técnicos y socioemocionales</div><h3>Lo que debe tener tu proyecto — por página</h3></div>
+  </div>
+
+  <p class="tp">Cada página del proyecto tiene requisitos técnicos mínimos y un propósito socioemocional específico. El contenido no puede ser genérico — debe ser tuyo, real y reflexivo.</p>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:16px 0 12px">Página 1: index.html — "Quién soy"</h4>
+  <div class="sec-grid">
+    <div class="sec-item" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="si-num" style="background:#1a4f8a">T</div>
+      <div class="si-etiq" style="background:#1e40af;color:#fff">Técnico</div>
+      <h4 style="color:#1e40af">Estructura semántica completa</h4>
+      <p style="color:#1e3a8a">&lt;head&gt; completo con todas las metaetiquetas, favicon y CSS externo. &lt;header&gt; con h1 y nav, &lt;main&gt; con dos &lt;section&gt; mínimo, &lt;aside&gt; y &lt;footer&gt;. El &lt;nav&gt; debe tener enlaces a todas las páginas del proyecto.</p>
+    </div>
+    <div class="sec-item" style="background:#f0fdf4;border-color:#86efac">
+      <div class="si-num" style="background:#16a34a">S</div>
+      <div class="si-etiq" style="background:#16a34a;color:#fff">SEL</div>
+      <h4 style="color:#14532d">La presentación que tú elegiste</h4>
+      <p style="color:#166534">El &lt;h1&gt; no puede ser solo tu nombre. Debe decir algo de quién eres. El &lt;aside&gt; contiene "lo que pocos saben de mí". El &lt;footer&gt; tiene una frase que quieres dejar al final.</p>
+    </div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Página 2: mi_historia.html — "Mi historia y contexto"</h4>
+  <div class="sec-grid">
+    <div class="sec-item" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="si-num" style="background:#1a4f8a">T</div>
+      <div class="si-etiq" style="background:#1e40af;color:#fff">Técnico</div>
+      <h4 style="color:#1e40af">Listas, citas, imágenes y tabla</h4>
+      <p style="color:#1e3a8a">Una &lt;ul&gt; con cosas que te definen, una &lt;ol&gt; con hitos de tu vida en orden, al menos una &lt;blockquote&gt; con una frase que te marcó, al menos una &lt;img&gt; con alt descriptivo, y una &lt;table&gt; con thead/tbody/tfoot.</p>
+    </div>
+    <div class="sec-item" style="background:#f0fdf4;border-color:#86efac">
+      <div class="si-num" style="background:#16a34a">S</div>
+      <div class="si-etiq" style="background:#16a34a;color:#fff">SEL</div>
+      <h4 style="color:#14532d">Tu historia con contexto</h4>
+      <p style="color:#166534">La tabla debe tener una columna de "contexto" — algo que los números o datos solos no cuentan. La blockquote es una frase real de alguien que te formó. Las listas son honestas, no las que "suenan bien".</p>
+    </div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Página 3: lo_que_siento.html — "Emociones y reflexiones"</h4>
+  <div class="sec-grid">
+    <div class="sec-item" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="si-num" style="background:#1a4f8a">T</div>
+      <div class="si-etiq" style="background:#1e40af;color:#fff">Técnico</div>
+      <h4 style="color:#1e40af">Multimedia y formato de texto</h4>
+      <p style="color:#1e3a8a">Al menos un &lt;audio&gt; o &lt;video&gt; con controls y dos &lt;source&gt;. Uso de &lt;strong&gt; y &lt;em&gt; con intención. Uso de &lt;br&gt; y &lt;hr&gt; para separar momentos. Párrafos reales con &lt;p&gt;.</p>
+    </div>
+    <div class="sec-item" style="background:#f0fdf4;border-color:#86efac">
+      <div class="si-num" style="background:#16a34a">S</div>
+      <div class="si-etiq" style="background:#16a34a;color:#fff">SEL</div>
+      <h4 style="color:#14532d">La voz que no siempre se escucha</h4>
+      <p style="color:#166534">El audio o video describe algo de lo que sientes que normalmente no muestras. El &lt;strong&gt; y el &lt;em&gt; están donde realmente duele o importa, no decorativamente. Hay un &lt;aside&gt; con "el audio que nunca envié": un párrafo que describe lo que grabarías si pudieras.</p>
+    </div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">Página 4: contactame.html — "Preguntas que importan"</h4>
+  <div class="sec-grid">
+    <div class="sec-item" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="si-num" style="background:#1a4f8a">T</div>
+      <div class="si-etiq" style="background:#1e40af;color:#fff">Técnico</div>
+      <h4 style="color:#1e40af">Formulario completo</h4>
+      <p style="color:#1e3a8a">Un &lt;form&gt; con mínimo 6 campos usando al menos 4 tipos de input distintos: text, textarea, radio, checkbox, select y/o range. Todos los labels vinculados con for/id. Al menos un campo required. Placeholder con intención.</p>
+    </div>
+    <div class="sec-item" style="background:#f0fdf4;border-color:#86efac">
+      <div class="si-num" style="background:#16a34a">S</div>
+      <div class="si-etiq" style="background:#16a34a;color:#fff">SEL</div>
+      <h4 style="color:#14532d">Preguntas que de verdad quieres que te hagan</h4>
+      <p style="color:#166634">Las preguntas del formulario no son genéricas ("¿nombre?", "¿email?"). Son las preguntas que genuinamente quisieras que alguien te hiciera — sobre tu vida, tus intereses, tus emociones. El placeholder de cada campo tiene intención.</p>
+    </div>
+  </div>
+
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:20px 0 12px">estilos.css — El CSS compartido</h4>
+  <div class="sec-grid">
+    <div class="sec-item" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="si-num" style="background:#1a4f8a">T</div>
+      <div class="si-etiq" style="background:#1e40af;color:#fff">Técnico</div>
+      <h4 style="color:#1e40af">Mínimo 10 reglas CSS</h4>
+      <p style="color:#1e3a8a">body (fondo, fuente, color, max-width), h1/h2, p, a, nav (links), header, footer, al menos una clase personalizada (.mi-clase), una tabla con bordes, un formulario estilizado.</p>
+    </div>
+    <div class="sec-item" style="background:#f0fdf4;border-color:#86efac">
+      <div class="si-num" style="background:#16a34a">S</div>
+      <div class="si-etiq" style="background:#16a34a;color:#fff">SEL</div>
+      <h4 style="color:#14532d">Un estilo que te represente</h4>
+      <p style="color:#166534">Los colores, la tipografía y el espaciado no son los primeros que encontraste — son los que elegiste porque dicen algo de ti. Hay una coherencia visual que refleja una intención. Que alguien pueda decir: "esto se parece a esa persona".</p>
+    </div>
+  </div>
+</div>
+
+<!-- ESTRUCTURA MÍNIMA DEL HEAD -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">💻</div>
+    <div><div class="sublbl">Código de referencia</div><h3>El &lt;head&gt; que deben tener todas las páginas</h3></div>
+  </div>
+
+  <p class="tp">Cada uno de los cuatro archivos HTML debe tener este &lt;head&gt; completo — adaptado con el title específico de cada página. El CSS vinculado es el mismo para todas.</p>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">estructura base · todas las páginas</span></div>
+    <div class="ebody"><span class="ht">&lt;!DOCTYPE </span><span class="htx">html</span><span class="ht">&gt;</span>
+<span class="ht">&lt;html </span><span class="ha">lang</span><span class="htx">=</span><span class="hv2">"es"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;head&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">charset</span><span class="htx">=</span><span class="hv2">"UTF-8"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"viewport"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"width=device-width, initial-scale=1.0"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;title&gt;</span><span class="htx">[Título específico de esta página] · [Tu nombre]</span><span class="ht">&lt;/title&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"description"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"[Descripción de esta página - máx 160 caracteres]"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">name</span><span class="htx">=</span><span class="hv2">"author"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"[Tu nombre completo]"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:title"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"[Título para redes]"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:description"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"[Descripción para redes]"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;meta </span><span class="ha">property</span><span class="htx">=</span><span class="hv2">"og:image"</span><span class="ha"> content</span><span class="htx">=</span><span class="hv2">"imagenes/portada.jpg"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"icon"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"imagenes/favicon.ico"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"preconnect"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"https://fonts.googleapis.com"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;link </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"https://fonts.googleapis.com/css2?family=[TuFuente]:wght@400;700&display=swap"</span>
+        <span class="ha">rel</span><span class="htx">=</span><span class="hv2">"stylesheet"</span><span class="ht">&gt;</span>
+  <span class="ht">&lt;link </span><span class="ha">rel</span><span class="htx">=</span><span class="hv2">"stylesheet"</span><span class="ha"> href</span><span class="htx">=</span><span class="hv2">"estilos.css"</span><span class="ht">&gt;</span>
+<span class="ht">&lt;/head&gt;</span>
+<span class="ht">&lt;body&gt;</span>
+
+  <span class="hc">&lt;!-- nav: el mismo en todas las páginas --&gt;</span>
+  <span class="ht">&lt;header&gt;</span>
+    <span class="ht">&lt;h1&gt;</span><span class="htx">[Tu presentación — no solo tu nombre]</span><span class="ht">&lt;/h1&gt;</span>
+    <span class="ht">&lt;nav&gt;</span>
+      <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"index.html"</span><span class="ht">&gt;</span><span class="htx">Inicio</span><span class="ht">&lt;/a&gt;</span>
+      <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"mi_historia.html"</span><span class="ht">&gt;</span><span class="htx">Mi historia</span><span class="ht">&lt;/a&gt;</span>
+      <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"lo_que_siento.html"</span><span class="ht">&gt;</span><span class="htx">Lo que siento</span><span class="ht">&lt;/a&gt;</span>
+      <span class="ht">&lt;a </span><span class="ha">href</span><span class="htx">=</span><span class="hv2">"contactame.html"</span><span class="ht">&gt;</span><span class="htx">Contáctame</span><span class="ht">&lt;/a&gt;</span>
+    <span class="ht">&lt;/nav&gt;</span>
+  <span class="ht">&lt;/header&gt;</span>
+
+  <span class="ht">&lt;main&gt;</span>
+    <span class="hc">&lt;!-- El contenido específico de esta página va aquí --&gt;</span>
+  <span class="ht">&lt;/main&gt;</span>
+
+  <span class="ht">&lt;footer&gt;</span>
+    <span class="ht">&lt;p&gt;</span><span class="htx">[Tu nombre] · Grado 10° · ENSDB · Barranquilla 2025</span><span class="ht">&lt;/p&gt;</span>
+  <span class="ht">&lt;/footer&gt;</span>
+
+<span class="ht">&lt;/body&gt;</span>
+<span class="ht">&lt;/html&gt;</span></div>
+  </div>
+
+  <div class="tip"><strong>El nav es el mismo en las cuatro páginas.</strong> Eso es la navegación consistente — el usuario puede ir de una página a otra sin perderse. Los hrefs apuntan a los archivos por nombre, sin rutas complejas, porque todos están en la misma carpeta.</div>
+</div>
+
+<!-- PLAN DE TRABAJO POR SESIONES -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dcfce7">📅</div>
+    <div><div class="sublbl">Plan de trabajo</div><h3>Tres sesiones de 90 minutos para construir tu proyecto</h3></div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+
+    <!-- Sesión 1 -->
+    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;overflow:hidden">
+      <div style="background:#1a4f8a;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0">1</div>
+        <div><div style="font-size:15px;font-weight:900">Sesión 1 · Planificación y estructura base</div><div style="font-size:12px;opacity:.8">90 minutos · Definir identidad, diseñar el CSS, crear los 4 archivos HTML con estructura</div></div>
+      </div>
+      <div style="padding:18px 20px">
+        <ul class="pasos" style="margin-bottom:0">
+          <li class="paso"><div class="pn" style="background:#1a4f8a;width:30px;height:30px;font-size:13px">1</div><div class="pc"><h4>Antes de abrir el editor — responde en papel</h4><p>¿Cuál es el &lt;title&gt; de tu página? ¿Cuál es la description? ¿Qué paleta de colores y tipografía te representa? ¿Qué quieres que alguien sienta cuando entra a tu sitio?</p></div></li>
+          <li class="paso"><div class="pn" style="background:#1a4f8a;width:30px;height:30px;font-size:13px">2</div><div class="pc"><h4>Crea la carpeta del proyecto y el <code>estilos.css</code></h4><p>Comienza con el CSS antes que el HTML. Define los colores, la fuente de Google Fonts, el body, los encabezados y los párrafos. Es la base visual de todo.</p></div></li>
+          <li class="paso"><div class="pn" style="background:#1a4f8a;width:30px;height:30px;font-size:13px">3</div><div class="pc"><h4>Crea los 4 archivos HTML con su estructura base</h4><p>&lt;head&gt; completo, header con nav, main vacío y footer. Verifica que el CSS se aplique en los cuatro. Al final de la sesión deben poder navegar entre páginas.</p></div></li>
+          <li class="paso"><div class="pn" style="background:#1a4f8a;width:30px;height:30px;font-size:13px">4</div><div class="pc"><h4>Rellena el contenido de index.html</h4><p>La sección "quién soy" con estructura semántica completa, el &lt;h1&gt; con tu presentación real, las sections y el aside.</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sesión 2 -->
+    <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;overflow:hidden">
+      <div style="background:#16a34a;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0">2</div>
+        <div><div style="font-size:15px;font-weight:900">Sesión 2 · Contenido y multimedia</div><div style="font-size:12px;opacity:.8">90 minutos · Construir mi_historia.html, lo_que_siento.html y profundizar el CSS</div></div>
+      </div>
+      <div style="padding:18px 20px">
+        <ul class="pasos" style="margin-bottom:0">
+          <li class="paso"><div class="pn" style="background:#16a34a;width:30px;height:30px;font-size:13px">1</div><div class="pc"><h4>Construye <code>mi_historia.html</code></h4><p>Las listas, la blockquote, la imagen con alt descriptivo y la tabla con contexto. Recuerda: la tabla necesita una columna de "lo que los números no cuentan".</p></div></li>
+          <li class="paso"><div class="pn" style="background:#16a34a;width:30px;height:30px;font-size:13px">2</div><div class="pc"><h4>Construye <code>lo_que_siento.html</code></h4><p>El audio o video (puede ser simulado con el nombre descriptivo del archivo), los párrafos con énfasis real, el &lt;aside&gt; con "el audio que nunca envié".</p></div></li>
+          <li class="paso"><div class="pn" style="background:#16a34a;width:30px;height:30px;font-size:13px">3</div><div class="pc"><h4>Profundiza el CSS</h4><p>Estiliza la tabla, los links del nav, los blockquote y el formulario. Añade al menos una clase personalizada (.destacado, .emocion, .importante, etc.) y úsala en algún elemento.</p></div></li>
+          <li class="paso"><div class="pn" style="background:#16a34a;width:30px;height:30px;font-size:13px">4</div><div class="pc"><h4>Revisión cruzada en parejas</h4><p>Un compañero navega tu sitio y te da feedback: ¿se navega fácil? ¿el CSS es consistente entre páginas? ¿el contenido se siente genuino?</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sesión 3 -->
+    <div style="background:#fdf4ff;border:1.5px solid #f0abfc;border-radius:12px;overflow:hidden">
+      <div style="background:#7c3aed;color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0">3</div>
+        <div><div style="font-size:15px;font-weight:900">Sesión 3 · Formulario, bitácora final y presentación</div><div style="font-size:12px;opacity:.8">90 minutos · Completar contactame.html, bitácora del proyecto, revisión final y presentación</div></div>
+      </div>
+      <div style="padding:18px 20px">
+        <ul class="pasos" style="margin-bottom:0">
+          <li class="paso"><div class="pn" style="background:#7c3aed;width:30px;height:30px;font-size:13px">1</div><div class="pc"><h4>Construye <code>contactame.html</code></h4><p>El formulario con las preguntas que realmente quisieras que te hicieran. Mínimo 6 campos, 4 tipos de input, labels vinculados, placeholders con intención.</p></div></li>
+          <li class="paso"><div class="pn" style="background:#7c3aed;width:30px;height:30px;font-size:13px">2</div><div class="pc"><h4>Revisión técnica completa</h4><p>Abre todos los archivos en el navegador. Verifica: ¿navegan entre sí? ¿El CSS se aplica en todos? ¿Las imágenes cargan? ¿Los comments HTML están? ¿El title de cada página es diferente?</p></div></li>
+          <li class="paso"><div class="pn" style="background:#7c3aed;width:30px;height:30px;font-size:13px">3</div><div class="pc"><h4>Escribe la bitácora final del proyecto</h4><p>En un archivo <code>bitacora_proyecto.html</code> — usando todo lo que aprendiste. Ver las preguntas de cierre más abajo.</p></div></li>
+          <li class="paso"><div class="pn" style="background:#7c3aed;width:30px;height:30px;font-size:13px">4</div><div class="pc"><h4>Presentación al grupo (5 minutos por persona)</h4><p>Abres tu sitio en el navegador y muestras: el index, el nav funcionando, la página que más te costó y algo de lo que estés más orgulloso/a. No es solo técnico — cuéntale al grupo qué cambió en ti durante el proyecto.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKLIST FINAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">✅</div>
+    <div><div class="sublbl">Lista de verificación</div><h3>Antes de entregar — revisa cada punto</h3></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div>
+      <p style="font-size:12px;font-weight:800;color:#1a4f8a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Requisitos técnicos obligatorios</p>
+      <ul class="checklist">
+        <li class="req"><div class="ch-box"></div>4 archivos HTML con head completo (charset, viewport, title, description, author, og:, favicon, fonts, CSS)</li>
+        <li class="req"><div class="ch-box"></div>1 archivo estilos.css con mínimo 10 reglas aplicadas a las 4 páginas</li>
+        <li class="req"><div class="ch-box"></div>Nav funcional en todas las páginas con enlaces que navegan entre ellas</li>
+        <li class="req"><div class="ch-box"></div>Estructura semántica: header, nav, main, section, article, aside, footer</li>
+        <li class="req"><div class="ch-box"></div>Encabezados con jerarquía correcta (un solo h1 por página)</li>
+        <li class="req"><div class="ch-box"></div>Al menos una lista &lt;ul&gt; y una &lt;ol&gt; con &lt;li&gt;</li>
+        <li class="req"><div class="ch-box"></div>Al menos una &lt;blockquote&gt; con texto real de alguien</li>
+        <li class="req"><div class="ch-box"></div>Al menos una &lt;img&gt; con src, alt descriptivo y width</li>
+        <li class="req"><div class="ch-box"></div>Al menos un enlace externo y uno interno</li>
+        <li class="req"><div class="ch-box"></div>Una tabla con thead, tbody, tfoot y columna de contexto</li>
+        <li class="req"><div class="ch-box"></div>Un &lt;audio&gt; o &lt;video&gt; con controls y dos &lt;source&gt;</li>
+        <li class="req"><div class="ch-box"></div>Un formulario con 6+ campos, 4+ tipos, labels con for/id</li>
+        <li class="req"><div class="ch-box"></div>Comentarios HTML en todas las secciones principales</li>
+        <li class="req"><div class="ch-box"></div>Archivo bitacora_proyecto.html con reflexión final completa</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:800;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Requisitos socioemocionales</p>
+      <ul class="checklist">
+        <li class="sel"><div class="ch-box"></div>El h1 del index no es solo tu nombre — dice algo de quién eres</li>
+        <li class="sel"><div class="ch-box"></div>La description de cada página tiene máx. 160 caracteres con honestidad real</li>
+        <li class="sel"><div class="ch-box"></div>La tabla tiene una columna "lo que los datos no cuentan"</li>
+        <li class="sel"><div class="ch-box"></div>La blockquote es una frase real de alguien que te marcó</li>
+        <li class="sel"><div class="ch-box"></div>El aside del index tiene "lo que pocos saben de mí"</li>
+        <li class="sel"><div class="ch-box"></div>La página lo_que_siento tiene "el audio que nunca envié"</li>
+        <li class="sel"><div class="ch-box"></div>El formulario tiene preguntas que genuinamente quisieras que te hicieran</li>
+        <li class="sel"><div class="ch-box"></div>Los placeholders del formulario tienen intención — no son genéricos</li>
+        <li class="sel"><div class="ch-box"></div>El &lt;strong&gt; y &lt;em&gt; están donde realmente importa, no decorativamente</li>
+        <li class="sel"><div class="ch-box"></div>El nombre de los archivos de audio/video dice algo real</li>
+        <li class="sel"><div class="ch-box"></div>El CSS refleja una paleta y tipografía que elegiste conscientemente</li>
+        <li class="sel"><div class="ch-box"></div>El footer de cada página tiene algo más que tu nombre y el año</li>
+        <li class="sel"><div class="ch-box"></div>La bitácora responde las 5 competencias CASEL con honestidad</li>
+        <li class="sel"><div class="ch-box"></div>La presentación incluye qué cambió en ti — no solo qué construiste</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn" style="margin-top:16px"><strong>Lo que descalifica el proyecto:</strong> Contenido copiado de internet sin atribución, respuestas genéricas que podrían ser de cualquier estudiante, un &lt;head&gt; incompleto en alguna de las páginas, CSS interno en lugar de externo, o un proyecto sin conexión real entre el HTML y la vida del estudiante.</div>
+</div>
+
+<!-- BITÁCORA FINAL DEL PROYECTO -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dcfce7">📓</div>
+    <div><div class="sublbl">Documento final de reflexión</div><h3>Bitácora del Proyecto Completo</h3></div>
+  </div>
+
+  <p class="tp">El archivo <code>bitacora_proyecto.html</code> es la memoria del camino recorrido. No es un resumen técnico — es una reflexión honesta sobre lo que viviste, aprendiste y cambiaste durante las 10 guías de este proyecto. Debe estar construido con HTML semántico completo.</p>
+
+  <div class="sel-bloque sel-cierre">
+    <div class="sel-badge">🌿 Las 5 competencias CASEL · Reflexión final</div>
+    <h4>Las preguntas que guían la bitácora del proyecto</h4>
+    <p>Responde en párrafos reales. No en listas de puntos. No en una sola línea. Estas preguntas merecen tiempo.</p>
+    <ul class="qs">
+      <li><span>🔍</span> <strong>Autoconciencia:</strong> ¿Qué aprendiste de ti mismo/a durante este proyecto que no sabías antes? ¿Hay algo que nombraste en alguna guía — en una description, en un aside, en el audio que nunca enviaste — que cambió cómo te ves a ti mismo?</li>
+      <li><span>🧘</span> <strong>Autocontrol:</strong> ¿Hubo momentos en que el código no funcionaba y sentiste frustración? ¿Cómo reaccionaste? ¿Hay momentos en que editaste algo que habías escrito porque te daba miedo que alguien lo leyera? ¿Qué hiciste con ese miedo?</li>
+      <li><span>🌍</span> <strong>Conciencia Social:</strong> ¿Qué aprendiste de las personas de tu entorno — familia, compañeros, colegio — que antes no veías? ¿Hay alguien a quien reconociste o entendiste mejor durante alguna de las actividades?</li>
+      <li><span>💬</span> <strong>Habilidades Relacionales:</strong> ¿Cómo cambió tu manera de relacionarte durante el proyecto? ¿Hay conversaciones que abriste, preguntas que te atreviste a hacer, vínculos que fortaleciste o reparaste gracias a algo de lo que construiste?</li>
+      <li><span>⚖️</span> <strong>Toma de Decisiones:</strong> ¿Cuál fue la decisión más difícil que tomaste durante el proyecto — técnica o personal? ¿Qué decidiste mostrar en tu página y qué decidiste guardar? ¿Por qué?</li>
+      <li><span>🏗️</span> <strong>Sobre el proyecto como un todo:</strong> Si tuvieras que describir este proyecto con una sola frase que alguien que nunca lo hizo pudiera entender — ¿cuál sería esa frase?</li>
+    </ul>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Proyecto Final</div><h3>¿Cómo se evaluará el proyecto integrador?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:20%">Criterio</th>
+      <th style="width:8%">Peso</th>
+      <th style="width:24%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:24%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:24%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Estructura HTML y semántica</strong><br><span style="font-size:11px;color:#64748b">Todas las páginas</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">20%</td>
+      <td>Faltan páginas o la estructura semántica es incorrecta en varias.</td>
+      <td>Las 4 páginas existen con estructura semántica correcta y nav funcional.</td>
+      <td>Estructura impecable en las 4 páginas. El nav comunica la relación entre ellas. Comentarios HTML en todas las secciones.</td>
+    </tr>
+    <tr>
+      <td><strong>&lt;head&gt; y CSS externo</strong><br><span style="font-size:11px;color:#64748b">Metaetiquetas + estilos</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">15%</td>
+      <td>El head está incompleto o el CSS es interno en alguna página.</td>
+      <td>Head completo en las 4 páginas. CSS externo con mínimo 10 reglas aplicadas.</td>
+      <td>El CSS transforma visualmente el proyecto de manera coherente. La paleta y tipografía reflejan una identidad elegida conscientemente.</td>
+    </tr>
+    <tr>
+      <td><strong>Elementos HTML específicos</strong><br><span style="font-size:11px;color:#64748b">Tabla, multimedia, formulario</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">20%</td>
+      <td>Faltan elementos obligatorios o están mal implementados.</td>
+      <td>Tabla con thead/tbody/tfoot, multimedia con dos source, formulario con 4+ tipos de input correctamente vinculados.</td>
+      <td>Cada elemento está implementado correctamente Y tiene contenido genuino — la tabla tiene contexto real, el audio dice algo real, el formulario tiene preguntas que importan.</td>
+    </tr>
+    <tr>
+      <td><strong>Identidad y honestidad del contenido</strong><br><span style="font-size:11px;color:#64748b">SEL transversal</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">25%</td>
+      <td>El contenido es genérico, copiado o podría ser de cualquier persona.</td>
+      <td>El contenido es personal y específico. Se nota que lo creó esa persona.</td>
+      <td>El sitio es inconfundiblemente de esa persona. El h1, la description, la tabla con contexto, el aside, el audio y el formulario revelan autoconocimiento genuino y trabajo emocional real.</td>
+    </tr>
+    <tr>
+      <td><strong>Bitácora final</strong><br><span style="font-size:11px;color:#64748b">Reflexión CASEL completa</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">10%</td>
+      <td>Respuestas mínimas o de una sola línea que evitan el compromiso personal.</td>
+      <td>Las 5 competencias están respondidas con ideas propias y conectadas al proyecto.</td>
+      <td>La bitácora muestra transformación real — no solo "aprendí HTML", sino qué cambió en cómo se ve a sí mismo, a los demás y a sus relaciones.</td>
+    </tr>
+    <tr>
+      <td><strong>Presentación oral</strong><br><span style="font-size:11px;color:#64748b">Comunicación del proceso</span></td>
+      <td style="text-align:center;font-weight:800;color:#1a4f8a">10%</td>
+      <td>Solo muestra el código o el visual sin hablar del proceso personal.</td>
+      <td>Presenta el sitio navegable y menciona algo que fue difícil o significativo.</td>
+      <td>La presentación muestra el sitio Y comunica con claridad qué cambió en esa persona durante el proyecto — va más allá del "aprendí a hacer páginas web".</td>
+    </tr>
+  </table>
+</div>
+
+<!-- CIERRE DEL PROYECTO -->
+<div class="cierre-proyecto">
+  <h2>Este proyecto no termina cuando lo entregas</h2>
+  <p>Lo que construiste este semestre no es solo un conjunto de archivos HTML y CSS. Es un registro de quién eres en este momento — cómo piensas, qué sientes, qué cargas, qué quieres comunicar. Años después, cuando vuelvas a abrir estos archivos, van a decirte algo sobre la persona que eras a los 15 o 16 años, en Barranquilla, en la ENSDB, aprendiendo a hacer páginas web y aprendiendo, más difícilmente, a conocerse.</p>
+  <div class="cierre-frase">El HTML que aprendiste es una herramienta. Lo que construiste con esa herramienta — eso es tuyo.</div>
+  <p style="margin-top:16px">Las cinco personas que viven en este código — la que nombró sus emociones en una tabla, la que diseñó preguntas que realmente quería que le hicieran, la que puso en el aside lo que pocos saben, la que escribió el audio que nunca envió, la que eligió un title honesto — todas son tú. Guárdalas.</p>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 10 · Proyecto Integrador Final · Grado Décimo · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Autocontrol · Conciencia Social · Habilidades Relacionales · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px;font-size:13px;font-weight:800;opacity:1">Fin del Proyecto · HTML y Socioemocionalidad</p>
+    <p style="margin-top:3px">Grado Décimo · ENSDB · 2025</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
