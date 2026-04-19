@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 08 · Video, Audio y Multimedia · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+
+/* ══ ESCENAS ══ */
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+
+/* ══ MÓDULO SEP ══ */
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+
+/* ══ EDITOR ══ */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ PREVIEW NAVEGADOR ══ */
+.brow{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.brow-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.bdots{display:flex;gap:5px}
+.bdots span{width:10px;height:10px;border-radius:50%}
+.bdr2{background:#ef4444}.bdy2{background:#f59e0b}.bdg2{background:#22c55e}
+.burl{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:3px 14px;font-size:11px;color:#64748b;flex:1}
+.bcon{padding:20px 26px;background:#fff}
+.bcon h2{font-size:17px;font-weight:800;color:#1f2937;margin-bottom:10px}
+.bcon p{font-size:14px;color:#374151;margin-bottom:8px;line-height:1.7}
+/* Simulación de reproductores */
+.media-player{background:#1e293b;border-radius:10px;padding:14px 18px;margin:10px 0;display:flex;align-items:center;gap:14px}
+.play-btn{width:40px;height:40px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;cursor:pointer}
+.media-info{flex:1}
+.media-title{font-size:13px;color:#e2e8f0;font-weight:700}
+.media-bar{height:4px;background:#334155;border-radius:4px;margin-top:6px;position:relative}
+.media-progress{width:35%;height:100%;background:#3b82f6;border-radius:4px}
+.media-time{font-size:11px;color:#64748b;margin-top:4px}
+.video-player{background:#000;border-radius:10px;padding:0;margin:10px 0;overflow:hidden;position:relative}
+.video-thumb{width:100%;height:160px;background:linear-gradient(135deg,#1e293b,#334155);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.video-play{width:56px;height:56px;background:rgba(59,130,246,.8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.video-bar{background:#1e293b;padding:10px 14px;display:flex;align-items:center;gap:10px}
+.video-controls{display:flex;gap:8px;font-size:12px;color:#94a3b8}
+
+/* ══ TABLA REFERENCIA ══ */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ FORMATO DE ARCHIVOS GRID ══ */
+.formatos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+.formato-card{border-radius:12px;padding:14px 16px;border:1.5px solid;text-align:center}
+.fc-ext{font-family:'Source Code Pro',monospace;font-size:16px;font-weight:700;padding:4px 12px;border-radius:8px;display:inline-block;margin-bottom:8px}
+.fc-tit{font-size:13px;font-weight:800;margin-bottom:4px}
+.fc-desc{font-size:12px;line-height:1.5}
+.fc-soporte{font-size:10px;margin-top:6px;font-weight:700;padding:2px 8px;border-radius:10px;display:inline-block}
+
+/* ══ ANATOMÍA ══ */
+.anatomia{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:22px;margin:14px 0;overflow-x:auto}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ SEL BLOQUES ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166534}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .formatos-grid{grid-template-columns:1fr 1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 08</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 08 · Grado Décimo · ENSDB 2025</div>
+    <h2>Video, Audio y Multimedia: la voz que también comunica</h2>
+    <p class="gsub">Aprenderás a insertar video y audio en páginas HTML usando <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;video&gt;</code>, <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;audio&gt;</code> y <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">&lt;source&gt;</code>. Y a través de eso, a reflexionar sobre algo que pocos piensan: lo que comunicamos con el tono de nuestra voz, con lo que elegimos mostrar en pantalla y con lo que decidimos callar.</p>
+    <div class="tags">
+      <span class="tag tag-azul">&lt;video&gt; · &lt;audio&gt; · &lt;source&gt;</span>
+      <span class="tag tag-azul">controls · autoplay · loop · muted · poster</span>
+      <span class="tag tag-verde">Autoconciencia · Autocontrol</span>
+      <span class="tag tag-morado">Conciencia social · Habilidades relacionales</span>
+      <span class="tag tag-ambar">Voz · Imagen · Silencio · Familia · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══ APERTURA ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Lo que dicen las voces — y lo que callan</h3></div>
+  </div>
+
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor. Tienen que ver con algo más profundo que el código.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📱</span><span class="eti">En casa · El audio que no se envía</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Camilo graba el mensaje de voz tres veces. En la primera, le tiembla la voz. En la segunda, suena demasiado frío. En la tercera, casi dice lo que quiere decir — pero al final le da Play, escucha sus propias palabras y borra todo. Le manda un texto: <em>"Todo bien."</em> Su papá responde: <em>"Ok."</em> <strong>El audio que nunca se envía carga más verdad que el mensaje que sí llega.</strong>
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay algo que nunca has podido decirle a alguien porque en voz resulta diferente a como suena en tu cabeza?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🎥</span><span class="eti">En el colegio · Lo que el video no muestra</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Para el proyecto de Sociales, el grupo grabó un video de presentación. Ensayaron cinco veces. Lo que quedó grabado fue la versión controlada, la que no muestra los nervios de Amira ni las dudas de Felipe ni el miedo de todos a que saliera mal. El video muestra confianza. <strong>La realidad detrás de la cámara era completamente diferente.</strong> El poster del video — la imagen fija que se ve antes de darle play — es la cara más segura del grupo. No la más verdadera.
+      </p>
+      <div class="escena-pregunta">💭 ¿Qué parte de ti no aparece nunca en los videos o fotos que compartes — pero que es tan real como lo que sí aparece?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🎧</span><span class="eti">Con compañeros · La canción que lo dice todo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Cuando David está mal, pone música. No para distraerse — para sentirse acompañado. Tiene una playlist llamada "Para cuando nadie entiende" con canciones que dicen exactamente lo que él no puede poner en palabras. Una vez le recomendó una canción a su amiga más cercana sin explicarle por qué. <strong>Ella la escuchó y le escribió: "Sé lo que estás sintiendo."</strong> Nunca habían tenido esa conversación. La música lo tuvo.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay una canción, un audio o un video que comunica algo de ti que nunca has dicho directamente?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      Camilo tiene un audio que nunca envió. El grupo de Amira tiene un video que muestra confianza pero esconde nervios. David tiene una playlist que dice lo que sus palabras no pueden. En HTML, hoy aprenderás a insertar video y audio en páginas web — y a través de eso, a pensar en <strong>qué tipo de voz quieres que tenga tu página: una que controla todo, o una que se atreve a mostrar algo real.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🎬</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Insertar videos en páginas HTML usando <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;video&gt;</code> con sus atributos principales: <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">controls</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">poster</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">autoplay</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">muted</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">loop</code>.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🎧</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Insertar audio con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;audio&gt;</code> y usar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;source&gt;</code> para ofrecer múltiples formatos de compatibilidad.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🎭</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Diseñar una página multimedia con intención — eligiendo qué mostrar, qué dejar en silencio y cómo el audio y el video comunican cosas que el texto solo no puede.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">🔇</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre la diferencia entre una voz que controla su imagen y una que se permite ser vista con sus nervios, sus dudas y su verdad — en video y en la vida.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MÓDULO 1: VIDEO ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>La etiqueta &lt;video&gt;: lo que muestras y cómo lo muestras</h2>
+    <p>El poster es la imagen que ven antes de darle play — igual que la imagen que proyectas antes de que te conozcan</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    La etiqueta <strong>&lt;video&gt;</strong> inserta un reproductor de video directamente en la página. El video puede estar guardado en la misma carpeta del proyecto o puede venir de internet. Dentro de <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;video&gt;</code> se usan etiquetas <strong>&lt;source&gt;</strong> para indicar los archivos de video disponibles — porque diferentes navegadores soportan diferentes formatos.
+  </p>
+
+  <!-- Conexión con el grupo de Amira -->
+  <div class="escena escena-escuela" style="margin-bottom:18px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos al grupo de Amira — el poster del video</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        El atributo <code style="font-family:'Source Code Pro';font-size:12px">poster</code> en HTML define la imagen que aparece antes de que el video empiece a reproducirse. El grupo de Amira eligió su mejor foto de grupo — la que todos se veían más seguros. Ese poster es una decisión consciente de imagen. <strong>Todos los videos tienen un poster, aunque no lo pienses: la primera impresión que decides dar.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- Anatomía de video con diagrama SVG -->
+  <div class="anatomia">
+    <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;text-align:center">Anatomía de la etiqueta &lt;video&gt;</div>
+    <svg viewBox="0 0 680 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;margin:0 auto 16px">
+      <rect width="680" height="180" fill="#f8fafc" rx="8"/>
+      <!-- Caja de código -->
+      <rect x="10" y="14" width="660" height="152" rx="8" fill="#0f172a"/>
+      <!-- Línea 1: video opening tag -->
+      <text x="28" y="42" fill="#f472b6" font-family="Source Code Pro" font-size="13">&lt;video</text>
+      <!-- atributos con flechas anotadas -->
+      <text x="106" y="42" fill="#86efac" font-family="Source Code Pro" font-size="13"> controls</text>
+      <!-- flecha controls -->
+      <line x1="155" y1="38" x2="155" y2="20" stroke="#86efac" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <rect x="108" y="4" width="94" height="16" rx="4" fill="#064e3b"/>
+      <text x="155" y="15" text-anchor="middle" fill="#86efac" font-family="Nunito" font-size="9" font-weight="700">Barra reproducción</text>
+
+      <text x="244" y="42" fill="#86efac" font-family="Source Code Pro" font-size="13"> width</text><text x="292" y="42" fill="#e2e8f0" font-family="Source Code Pro" font-size="13">="560"</text>
+
+      <text x="386" y="42" fill="#86efac" font-family="Source Code Pro" font-size="13"> poster</text><text x="438" y="42" fill="#fbbf24" font-family="Source Code Pro" font-size="13">="foto.jpg"</text>
+      <!-- flecha poster -->
+      <line x1="490" y1="38" x2="490" y2="20" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <rect x="432" y="4" width="116" height="16" rx="4" fill="#451a03"/>
+      <text x="490" y="15" text-anchor="middle" fill="#fbbf24" font-family="Nunito" font-size="9" font-weight="700">Imagen antes del play</text>
+
+      <text x="610" y="42" fill="#f472b6" font-family="Source Code Pro" font-size="13">&gt;</text>
+
+      <!-- Línea 2: source mp4 -->
+      <text x="46" y="70" fill="#f472b6" font-family="Source Code Pro" font-size="13">&lt;source</text>
+      <text x="120" y="70" fill="#86efac" font-family="Source Code Pro" font-size="13"> src</text><text x="148" y="70" fill="#fbbf24" font-family="Source Code Pro" font-size="13">="video.mp4"</text>
+      <text x="282" y="70" fill="#86efac" font-family="Source Code Pro" font-size="13"> type</text><text x="320" y="70" fill="#fbbf24" font-family="Source Code Pro" font-size="13">="video/mp4"</text><text x="446" y="70" fill="#f472b6" font-family="Source Code Pro" font-size="13">&gt;</text>
+
+      <!-- Línea 3: source webm -->
+      <text x="46" y="97" fill="#f472b6" font-family="Source Code Pro" font-size="13">&lt;source</text>
+      <text x="120" y="97" fill="#86efac" font-family="Source Code Pro" font-size="13"> src</text><text x="148" y="97" fill="#fbbf24" font-family="Source Code Pro" font-size="13">="video.webm"</text>
+      <text x="296" y="97" fill="#86efac" font-family="Source Code Pro" font-size="13"> type</text><text x="334" y="97" fill="#fbbf24" font-family="Source Code Pro" font-size="13">="video/webm"</text><text x="468" y="97" fill="#f472b6" font-family="Source Code Pro" font-size="13">&gt;</text>
+
+      <!-- Línea 4: fallback text -->
+      <text x="46" y="124" fill="#475569" font-family="Source Code Pro" font-size="12" font-style="italic">Tu navegador no soporta video HTML5.</text>
+
+      <!-- Línea 5: cierre -->
+      <text x="28" y="151" fill="#f472b6" font-family="Source Code Pro" font-size="13">&lt;/video&gt;</text>
+    </svg>
+  </div>
+
+  <!-- Código completo -->
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">presentacion_grupo.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;h2&gt;</span><span class="htx">Nuestro proyecto de Sociales</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 2</span><span class="ht">&lt;p&gt;</span><span class="htx">Lo que ven es la versión editada. Lo que hay detrás lo contamos aquí.</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln"> 3</span><span class="hc">&lt;!-- controls: muestra barra de reproducción --&gt;</span>
+<span class="ln"> 4</span><span class="hc">&lt;!-- poster: imagen mientras no se reproduce --&gt;</span>
+<span class="ln"> 5</span><span class="hc">&lt;!-- width: ancho del reproductor en píxeles --&gt;</span>
+<span class="ln"> 6</span><span class="ht">&lt;video </span><span class="ha">controls</span><span class="ha"> width</span><span class="htx">=</span><span class="hv2">"560"</span>
+<span class="ln"> 7</span>       <span class="ha">poster</span><span class="htx">=</span><span class="hv2">"foto_grupo.jpg"</span><span class="ht">&gt;</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>  <span class="hc">&lt;!-- Primer source: formato principal --&gt;</span>
+<span class="ln">10</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"presentacion.mp4"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"video/mp4"</span><span class="ht">&gt;</span>
+<span class="ln">11</span>  <span class="hc">&lt;!-- Segundo source: formato alternativo --&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"presentacion.webm"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"video/webm"</span><span class="ht">&gt;</span>
+<span class="ln">13</span>
+<span class="ln">14</span>  <span class="hc">&lt;!-- Texto fallback: solo se muestra si el navegador
+<span class="ln">15</span>       no soporta ninguno de los formatos --&gt;</span>
+<span class="ln">16</span>  <span class="htx">Tu navegador no soporta la etiqueta de video.</span>
+<span class="ln">17</span><span class="ht">&lt;/video&gt;</span>
+
+<span class="ln">18</span><span class="hc">&lt;!-- Video con autoplay y muted (sin sonido al inicio) --&gt;</span>
+<span class="ln">19</span><span class="ht">&lt;video </span><span class="ha">autoplay</span><span class="ha"> muted</span><span class="ha"> loop</span><span class="ha"> width</span><span class="htx">=</span><span class="hv2">"100%"</span><span class="ht">&gt;</span>
+<span class="ln">20</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"fondo_ambiental.mp4"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"video/mp4"</span><span class="ht">&gt;</span>
+<span class="ln">21</span><span class="ht">&lt;/video&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador simulado -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">presentacion_grupo.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Nuestro proyecto de Sociales</h2>
+      <p>Lo que ven es la versión editada. Lo que hay detrás lo contamos aquí.</p>
+      <div class="video-player">
+        <div class="video-thumb">
+          <div style="font-size:40px;opacity:.3">🎥</div>
+          <div class="video-play">▶</div>
+          <p style="color:#94a3b8;font-size:12px;margin-top:4px">presentacion.mp4 · poster: foto_grupo.jpg</p>
+        </div>
+        <div class="video-bar">
+          <div class="video-controls">
+            <span>▶</span>
+            <div style="flex:1;height:4px;background:#334155;border-radius:4px;margin:0 8px"><div style="width:0%;height:100%;background:#3b82f6;border-radius:4px"></div></div>
+            <span>0:00 / 3:24</span>
+            <span>🔊</span>
+            <span>⛶</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Atributo</th><th>¿Qué hace?</th><th>En tu vida</th></tr>
+    <tr><td><code>controls</code></td><td>Muestra la barra de reproducción (play, pausa, volumen, etc.)</td><td>Le das al otro el control de cuándo escucharte</td></tr>
+    <tr><td><code>poster</code></td><td>Imagen que se ve antes de darle play</td><td>La primera impresión que eliges proyectar</td></tr>
+    <tr><td><code>autoplay</code></td><td>El video empieza automáticamente al cargar la página</td><td>Hablar sin que el otro haya dicho que está listo para escuchar</td></tr>
+    <tr><td><code>muted</code></td><td>El video inicia sin sonido</td><td>Mostrarte pero sin exponerte completamente</td></tr>
+    <tr><td><code>loop</code></td><td>El video se repite indefinidamente</td><td>Un mensaje que sigue resonando aunque nadie lo pida</td></tr>
+    <tr><td><code>width</code></td><td>Ancho del reproductor en píxeles o porcentaje</td><td>El espacio que le das a lo que quieres mostrar</td></tr>
+  </table>
+
+  <!-- Formatos de video -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:18px 0 12px">Formatos de video más comunes en HTML</h4>
+  <div class="formatos-grid">
+    <div class="formato-card" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="fc-ext" style="background:#1e40af;color:white">.mp4</div>
+      <div class="fc-tit" style="color:#1e40af">MP4 / H.264</div>
+      <div class="fc-desc" style="color:#1e3a8a">El más compatible. Funciona en casi todos los navegadores modernos.</div>
+      <div class="fc-soporte" style="background:#dbeafe;color:#1e40af">type="video/mp4"</div>
+    </div>
+    <div class="formato-card" style="background:#f0fdf4;border-color:#86efac">
+      <div class="fc-ext" style="background:#15803d;color:white">.webm</div>
+      <div class="fc-tit" style="color:#166534">WebM</div>
+      <div class="fc-desc" style="color:#14532d">Formato abierto de Google. Buena compresión. Alternativa al mp4.</div>
+      <div class="fc-soporte" style="background:#dcfce7;color:#166534">type="video/webm"</div>
+    </div>
+    <div class="formato-card" style="background:#fdf4ff;border-color:#f0abfc">
+      <div class="fc-ext" style="background:#a21caf;color:white">.ogg</div>
+      <div class="fc-tit" style="color:#6b21a8">Ogg / Theora</div>
+      <div class="fc-desc" style="color:#581c87">Formato libre. Menos común, pero útil como tercer &lt;source&gt;.</div>
+      <div class="fc-soporte" style="background:#fae8ff;color:#6b21a8">type="video/ogg"</div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Buena práctica:</strong> Siempre ofrece al menos dos <code>&lt;source&gt;</code> — mp4 primero, webm segundo. El navegador usa el primero que puede reproducir. Si ninguno funciona, muestra el texto de fallback. Igual que en la comunicación: ofrece más de una forma de llegar al otro por si la primera no funciona.</div>
+</div>
+
+<!-- ══ MÓDULO 2: AUDIO ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>La etiqueta &lt;audio&gt;: la voz que no se ve</h2>
+    <p>El audio solo tiene sonido — sin imagen que distraiga, sin cara que controlar. Es la forma más desnuda de comunicar</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    La etiqueta <strong>&lt;audio&gt;</strong> inserta un reproductor de audio en la página. Funciona de manera muy similar al video, pero sin imagen. Solo la voz, la música, el sonido. Los mismos atributos aplican: <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">controls</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">autoplay</code>, <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">loop</code>. Y también usa <strong>&lt;source&gt;</strong> para los formatos.
+  </p>
+
+  <!-- Conexión con David -->
+  <div class="escena escena-pares" style="margin-bottom:18px">
+    <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a David — la canción que lo dice todo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        David pone música cuando está mal porque la música dice lo que él no puede. Si David hiciera una página web sobre sus estados emocionales, pondría audio en cada sección — no como decoración, sino como el elemento central de comunicación. <strong>A veces el audio comunica con más honestidad que cualquier texto o imagen.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">mi_playlist_emocional.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;h2&gt;</span><span class="htx">Para cuando nadie entiende</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 2</span><span class="ht">&lt;p&gt;</span><span class="htx">Estas canciones dicen lo que yo no sé cómo decir.</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln"> 3</span><span class="hc">&lt;!-- Audio con controles visibles --&gt;</span>
+<span class="ln"> 4</span><span class="ht">&lt;audio </span><span class="ha">controls</span><span class="ht">&gt;</span>
+<span class="ln"> 5</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"cancion_favorita.mp3"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"audio/mpeg"</span><span class="ht">&gt;</span>
+<span class="ln"> 6</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"cancion_favorita.ogg"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"audio/ogg"</span><span class="ht">&gt;</span>
+<span class="ln"> 7</span>  <span class="htx">Tu navegador no soporta audio HTML5.</span>
+<span class="ln"> 8</span><span class="ht">&lt;/audio&gt;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="hc">&lt;!-- Audio que se repite como fondo ambiental --&gt;</span>
+<span class="ln">11</span><span class="ht">&lt;audio </span><span class="ha">autoplay</span><span class="ha"> loop</span><span class="ha"> muted</span><span class="ht">&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"lluvia_fondo.mp3"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"audio/mpeg"</span><span class="ht">&gt;</span>
+<span class="ln">13</span><span class="ht">&lt;/audio&gt;</span></div>
+  </div>
+
+  <!-- Preview audio -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se ve el reproductor de audio:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">mi_playlist_emocional.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Para cuando nadie entiende</h2>
+      <p>Estas canciones dicen lo que yo no sé cómo decir.</p>
+      <div class="media-player">
+        <div class="play-btn">▶</div>
+        <div class="media-info">
+          <div class="media-title">cancion_favorita.mp3</div>
+          <div class="media-bar"><div class="media-progress"></div></div>
+          <div class="media-time">0:00 / 3:45 · 🔊 ⛶</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:#94a3b8;margin-top:4px">El reproductor de audio es más simple que el de video — solo barra de progreso, tiempo y volumen. Sin imagen. Solo el sonido.</p>
+    </div>
+  </div>
+
+  <!-- Formatos de audio -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:18px 0 12px">Formatos de audio más comunes en HTML</h4>
+  <div class="formatos-grid">
+    <div class="formato-card" style="background:#eff6ff;border-color:#93c5fd">
+      <div class="fc-ext" style="background:#1e40af;color:white">.mp3</div>
+      <div class="fc-tit" style="color:#1e40af">MP3</div>
+      <div class="fc-desc" style="color:#1e3a8a">El más universal. Compatible con todos los navegadores modernos.</div>
+      <div class="fc-soporte" style="background:#dbeafe;color:#1e40af">type="audio/mpeg"</div>
+    </div>
+    <div class="formato-card" style="background:#f0fdf4;border-color:#86efac">
+      <div class="fc-ext" style="background:#15803d;color:white">.ogg</div>
+      <div class="fc-tit" style="color:#166534">Ogg / Vorbis</div>
+      <div class="fc-desc" style="color:#14532d">Formato libre. Buen complemento del mp3 en &lt;source&gt;.</div>
+      <div class="fc-soporte" style="background:#dcfce7;color:#166534">type="audio/ogg"</div>
+    </div>
+    <div class="formato-card" style="background:#fef9c3;border-color:#fbbf24">
+      <div class="fc-ext" style="background:#a16207;color:white">.wav</div>
+      <div class="fc-tit" style="color:#92400e">WAV</div>
+      <div class="fc-desc" style="color:#78350f">Alta calidad pero archivos pesados. Bueno para efectos cortos.</div>
+      <div class="fc-soporte" style="background:#fef9c3;color:#92400e">type="audio/wav"</div>
+    </div>
+  </div>
+
+  <div class="warn"><strong>Sobre autoplay:</strong> Los navegadores modernos bloquean el autoplay con sonido por defecto — para evitar que páginas reproduzcan audio sin que el usuario lo pida. Si necesitas autoplay, combínalo con <code>muted</code>. Es una regla del navegador que también tiene sentido en la vida: no puedes entrar a la conversación sin que el otro esté listo para escuchar.</div>
+</div>
+
+<!-- ══ MÓDULO 3: &lt;source&gt; Y COMPATIBILIDAD ══ -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt">
+    <h2>La etiqueta &lt;source&gt;: ofrecer alternativas</h2>
+    <p>Cuando una forma de comunicar no funciona, ofreces otra — sin perder lo que quieres decir</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    <strong>&lt;source&gt;</strong> es una etiqueta vacía (sin cierre) que va dentro de <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;video&gt;</code> o <code style="background:#f1f5f9;color:#7c3aed;padding:2px 5px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;audio&gt;</code> para ofrecer el mismo contenido en distintos formatos. El navegador lee los <code>&lt;source&gt;</code> de arriba hacia abajo y usa el primero que puede reproducir. Si ninguno funciona, muestra el texto de fallback que pusiste al final.
+  </p>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin:14px 0">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      <strong>La metáfora de los &lt;source&gt;:</strong> Ofrecer múltiples fuentes del mismo contenido es como cuando quieres decirle algo importante a alguien — si no funciona en persona, lo llamas; si no responde, le mandas un mensaje; si tampoco, se lo dices a través de alguien que confía en ti. <em>El mensaje es el mismo. Los canales son diferentes. Lo que importa es que llegue.</em>
+    </p>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">multimedia_completo.html</span></div>
+    <div class="ebody"><span class="ln"> 1</span><span class="ht">&lt;h1&gt;</span><span class="htx">Mi página multimedia personal</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ln"> 2</span><span class="ht">&lt;section </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"video-presentacion"</span><span class="ht">&gt;</span>
+<span class="ln"> 3</span>  <span class="ht">&lt;h2&gt;</span><span class="htx">Quién soy en 60 segundos</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln"> 4</span>  <span class="ht">&lt;video </span><span class="ha">controls</span><span class="ha"> width</span><span class="htx">=</span><span class="hv2">"100%"</span>
+<span class="ln"> 5</span>         <span class="ha">poster</span><span class="htx">=</span><span class="hv2">"mi_foto.jpg"</span><span class="ht">&gt;</span>
+<span class="ln"> 6</span>    <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"presentacion.mp4"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"video/mp4"</span><span class="ht">&gt;</span>
+<span class="ln"> 7</span>    <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"presentacion.webm"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"video/webm"</span><span class="ht">&gt;</span>
+<span class="ln"> 8</span>    <span class="htx">Si no puedes ver el video, puedes conocerme en la sección de texto.</span>
+<span class="ln"> 9</span>  <span class="ht">&lt;/video&gt;</span>
+<span class="ln">10</span><span class="ht">&lt;/section&gt;</span>
+
+<span class="ln">11</span><span class="ht">&lt;section </span><span class="ha">id</span><span class="htx">=</span><span class="hv2">"audio-emocional"</span><span class="ht">&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;h2&gt;</span><span class="htx">La canción que me representa</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln">13</span>  <span class="ht">&lt;p&gt;</span><span class="htx">Esta canción dice algo que yo llevo meses intentando explicar.</span><span class="ht">&lt;/p&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;audio </span><span class="ha">controls</span><span class="ht">&gt;</span>
+<span class="ln">15</span>    <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"mi_cancion.mp3"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"audio/mpeg"</span><span class="ht">&gt;</span>
+<span class="ln">16</span>    <span class="ht">&lt;source </span><span class="ha">src</span><span class="htx">=</span><span class="hv2">"mi_cancion.ogg"</span><span class="ha"> type</span><span class="htx">=</span><span class="hv2">"audio/ogg"</span><span class="ht">&gt;</span>
+<span class="ln">17</span>    <span class="htx">Tu navegador no soporta audio HTML5.</span>
+<span class="ln">18</span>  <span class="ht">&lt;/audio&gt;</span>
+<span class="ln">19</span><span class="ht">&lt;/section&gt;</span></div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Elemento</th><th>Atributos clave</th><th>Nota importante</th></tr>
+    <tr><td><code>&lt;source&gt;</code></td><td><code>src</code> · <code>type</code></td><td>Etiqueta vacía, sin cierre. Siempre dentro de &lt;video&gt; o &lt;audio&gt;.</td></tr>
+    <tr><td><code>src</code></td><td>—</td><td>Ruta al archivo de audio o video.</td></tr>
+    <tr><td><code>type</code></td><td>—</td><td>El MIME type del formato: <code>video/mp4</code>, <code>audio/mpeg</code>, etc. Ayuda al navegador a decidir más rápido.</td></tr>
+    <tr><td>Texto de fallback</td><td>—</td><td>Va al final, antes de cerrar &lt;video&gt; o &lt;audio&gt;. Solo se muestra si ningún &lt;source&gt; funciona.</td></tr>
+  </table>
+</div>
+
+<!-- ══ ACTIVIDAD 1 · INDIVIDUAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>Mi página multimedia personal: la voz que no controlo</h3>
+      <div class="asub">Individual · 25 minutos · Autoconciencia — lo que muestras cuando te permites ser visto sin editar</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 25 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👤 Individual</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Editor de código</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🎭</span><span class="eti">Antes de escribir — piensa en tu poster</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          El grupo de Amira eligió el poster más seguro — la cara más confiada. Esta actividad propone lo contrario: construir una página multimedia donde lo que aparece antes de darle play no sea la versión más pulida de ti, sino <strong>una imagen que diga algo verdadero.</strong> El poster puede ser una foto normal, puede ser un color, puede ser una frase. Lo que no puede ser es la cara que pones para que todo el mundo crea que siempre estás bien.
+        </p>
+        <div class="escena-pregunta">💭 ¿Cuál sería el "poster" honesto de tu vida en este momento?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>mi_voz.html</code> con estructura semántica completa</h4>
+          <p>El <code>&lt;h1&gt;</code> en el header no puede ser solo tu nombre. Escribe algo que diga cómo te sientes ahora, o qué quieres comunicar con esta página. Puede ser una frase, una pregunta o una declaración.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">2</div>
+        <div class="pc">
+          <h4>Sección 1: tu video de presentación (simulado)</h4>
+          <p>No necesitas tener un video real. Crea la etiqueta <code>&lt;video&gt;</code> con <code>controls</code>, <code>poster</code> y dos <code>&lt;source&gt;</code>. Elige un nombre de archivo que diga algo de ti (ej: <code>cuando_no_me_graban.mp4</code>). El <code>poster</code> puede apuntar a una imagen de internet que te represente. Antes del video, un <code>&lt;p&gt;</code> que explique qué vería el espectador si el video existiera.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">3</div>
+        <div class="pc">
+          <h4>Sección 2: tu audio que comunica algo que el texto no puede</h4>
+          <p>Crea la etiqueta <code>&lt;audio&gt;</code> con <code>controls</code> y dos <code>&lt;source&gt;</code>. El nombre del archivo de audio debe decir algo: <code>lo_que_no_pude_decirle.mp3</code>, <code>lluvia_de_un_lunes.mp3</code>, etc. Antes del reproductor, un <code>&lt;p&gt;</code> que describa qué se escucharía si el archivo existiera — sin cortarse, con honestidad.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">4</div>
+        <div class="pc">
+          <h4>Sección 3 (aside): lo que NO pondría en un video público</h4>
+          <p>En el <code>&lt;aside&gt;</code>, una lista con al menos tres cosas que nunca grabarías en un video para compartir — pero que son igual de reales que lo que sí grabarías. No en video ni audio — solo en texto.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#7c3aed">5</div>
+        <div class="pc">
+          <h4>Atributos con intención</h4>
+          <p>Decide conscientemente: ¿tu video tiene <code>autoplay</code>? ¿Tiene <code>muted</code>? ¿Tiene <code>loop</code>? Escribe un comentario HTML antes de cada etiqueta explicando por qué elegiste esos atributos para ese contenido. Esas decisiones dicen algo.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu página debe tener</div>
+      <ul>
+        <li>Estructura semántica completa (header, main, sections, aside, footer)</li>
+        <li>Al menos una etiqueta <code>&lt;video&gt;</code> con <code>controls</code>, <code>poster</code> y dos <code>&lt;source&gt;</code></li>
+        <li>Al menos una etiqueta <code>&lt;audio&gt;</code> con <code>controls</code> y dos <code>&lt;source&gt;</code></li>
+        <li>Texto de fallback en cada elemento de media</li>
+        <li>Párrafos descriptivos antes de cada media que expliquen qué se vería/escucharía</li>
+        <li>Un <code>&lt;aside&gt;</code> con las cosas que no grabarías</li>
+        <li>Comentarios HTML que justifiquen los atributos elegidos</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Lo que elegimos mostrar en un video dice tanto como lo que no mostramos</h4>
+      <p>La autoconciencia incluye "examinar los prejuicios e inclinaciones propias" y "vincular los sentimientos, valores y pensamientos". El poster que elegiste, los atributos que usaste, el nombre que le diste al archivo de audio — todas son decisiones que reflejan cómo te ves a ti mismo y qué quieres que los demás vean. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué pusiste en el <code>poster</code> de tu video y por qué esa imagen? ¿Fue la primera opción o la descartaste varias veces?</li>
+        <li><span>→</span> ¿Usaste <code>autoplay</code>? Si sí, ¿por qué? Si no, ¿qué te hizo decidir darle al otro el control del play?</li>
+        <li><span>→</span> ¿Qué pusiste en el <code>&lt;aside&gt;</code> — las cosas que no grabarías? ¿Por qué esas y no otras?</li>
+        <li><span>→</span> ¿Qué dice el nombre que le diste a tu archivo de audio sobre lo que quieres comunicar?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 2 · PAREJAS ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>El audio que Camilo nunca envió: escribirlo en HTML</h3>
+      <div class="asub">Parejas · 20 minutos · Autocontrol — decir con estructura lo que cuesta decir en vivo</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Parejas</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 + conversación</span>
+      <span class="mp" style="background:#dbeafe;border-color:#93c5fd;color:#1e40af">🧘 SEL: Autocontrol</span>
+    </div>
+
+    <div class="escena escena-familia" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos a Camilo — el audio que borró tres veces</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Camilo grabó el mensaje tres veces y lo borró tres veces. Lo que quería decirle a su papá nunca llegó. Esta actividad propone algo diferente: usar HTML para construir la página que contiene ese mensaje — no en un audio real, sino en la estructura de una página que describe lo que se diría si se pudiera. <strong>A veces escribir lo que no se puede decir es el primer paso para eventualmente poder decirlo.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Hay algo que llevas tiempo queriendo decirle a alguien y que cada vez que empiezas lo borras o lo cambias?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">1</div>
+        <div class="pc">
+          <h4>Cada uno piensa en "el audio que nunca envió" (3 min, en silencio)</h4>
+          <p>No tiene que ser algo enorme. Puede ser algo que quisiste decirle a un familiar, a un amigo, a alguien del colegio — y que cada vez que intentaste, borraste o cambiaste. No lo compartan todavía.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">2</div>
+        <div class="pc">
+          <h4>Construyan juntos el archivo <code>el_audio_que_nunca_envie.html</code></h4>
+          <p>Una página con una sola sección principal. Dentro: una etiqueta <code>&lt;audio controls&gt;</code> con dos <code>&lt;source&gt;</code> cuyos nombres de archivo digan algo (ej: <code>para_papa_sobre_la_distancia.mp3</code>). Antes del reproductor, un <code>&lt;p&gt;</code> por cada integrante que describa qué diría ese audio si existiera — con la honestidad que no tuvo el texto real.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">3</div>
+        <div class="pc">
+          <h4>Agreguen un &lt;footer&gt; con una reflexión sobre por qué ese audio no se envió</h4>
+          <p>No la razón práctica ("no encontré el momento") sino la real: el miedo a la reacción, la vergüenza, la sensación de que no valdría la pena. Cada integrante escribe una oración honesta.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Acuerdo previo</div>
+      <ul>
+        <li>Lo que cada uno escriba en su <code>&lt;p&gt;</code> es privado si así lo decide.</li>
+        <li>Nadie está obligado a compartir de qué persona se trata.</li>
+        <li>Si algo de lo que surge necesita más apoyo, hablen con el docente.</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autoctl">
+      <div class="sel-badge">🧘 SEL · Autocontrol</div>
+      <h4>Editar lo que dices no siempre es control — a veces es miedo disfrazado de prudencia</h4>
+      <p>El autocontrol incluye "manejar las emociones de manera efectiva" — pero también requiere distinguir entre guardar algo por sabiduría y guardarlo por miedo. Camilo borró el audio tres veces. No porque el mensaje fuera malo, sino porque exponerse asusta. Escribirlo en HTML — con estructura, sin el nervio de la voz en tiempo real — es una forma de empezar a manejarlo. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Por qué crees que Camilo borró el audio tres veces? ¿Alguna vez tú has hecho lo mismo?</li>
+        <li><span>→</span> Después de escribir el <code>&lt;p&gt;</code> con lo que diría tu audio, ¿sientes que ese mensaje podría decirse algún día en vivo? ¿Qué necesitaría cambiar para eso?</li>
+        <li><span>→</span> ¿Hay una diferencia entre "no estoy listo para decirlo" y "nunca lo voy a decir"? ¿En cuál de los dos estás tú con ese mensaje?</li>
+        <li><span>→</span> ¿Qué podría pasar si lo dijeras? ¿Y qué pasa si no lo dices nunca?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ACTIVIDAD 3 · GRUPAL ══ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>La playlist del salón: canciones que nos representan como grupo</h3>
+      <div class="asub">Grupos de 4 · 20 minutos · Conciencia social — qué dice de nosotros lo que escuchamos</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 20 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Grupos de 4</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166634">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🎧</span><span class="eti">Volvamos a David — la canción como puente</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          David le mandó una canción a su amiga sin explicar por qué. Ella entendió. Eso es lo que puede hacer la música: comunicar sin palabras lo que las palabras no alcanzan. Esta actividad propone que el grupo construya una "playlist HTML" donde <strong>cada integrante aporta una canción o audio que representa algo de su vida — y los demás intentan entender qué dice sin preguntar.</strong>
+        </p>
+        <div class="escena-pregunta">💭 ¿Qué entenderías de alguien si te dejaran escuchar su playlist sin que te explicara nada?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">1</div>
+        <div class="pc">
+          <h4>Cada integrante elige una canción o audio (3 min)</h4>
+          <p>Que represente algo de cómo se siente ahora, algo que está viviendo, algo que quiere que el grupo entienda sin tener que explicarlo. Puede ser un género, un artista, una canción específica. También puede ser un sonido de ambiente (lluvia, ciudad, mar) — no tiene que ser música con letra.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">2</div>
+        <div class="pc">
+          <h4>Construyan el archivo <code>playlist_del_grupo.html</code></h4>
+          <p>Una sección por integrante. En cada sección: un <code>&lt;h2&gt;</code> con el nombre, un <code>&lt;audio controls&gt;</code> con <code>&lt;source&gt;</code> cuyo nombre de archivo describe la canción (no tiene que existir — el nombre es lo que importa). Antes del reproductor, una sola frase que explique qué representa ese audio para esa persona.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">3</div>
+        <div class="pc">
+          <h4>Los otros tres leen la sección de cada integrante (5 min)</h4>
+          <p>Sin preguntar nada. Solo leer el nombre del archivo y la frase. ¿Qué creen que está sintiendo esa persona? ¿Qué les dice ese nombre de archivo sobre lo que está viviendo?</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">4</div>
+        <div class="pc">
+          <h4>Agreguen una sección final colectiva: "Lo que aprendimos de escuchar"</h4>
+          <p>Un <code>&lt;footer&gt;</code> con un párrafo por persona: ¿Qué descubriste de un compañero/a que no esperabas? ¿Algo de su "canción" te sorprendió o te resonó?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>playlist_del_grupo.html</code> con una sección por integrante</li>
+        <li>Cada sección: <code>&lt;h2&gt;</code> nombre, <code>&lt;audio controls&gt;</code> con dos <code>&lt;source&gt;</code> bien nombrados, <code>&lt;p&gt;</code> con una frase representativa</li>
+        <li>Un <code>&lt;footer&gt;</code> con reflexión colectiva sobre lo que aprendieron de escuchar</li>
+        <li>Comentarios HTML que justifiquen la elección del nombre del archivo</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Escuchar la música del otro es una forma de empatía que no requiere palabras</h4>
+      <p>La conciencia social incluye "tomar la perspectiva de otros" y "demostrar empatía y compasión". La playlist de David le abrió una conversación con su amiga que nunca habían tenido. Tu playlist puede hacer lo mismo — decirle al grupo algo que lleva tiempo sin espacio para salir. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Hubo algún nombre de archivo o frase de un compañero/a que te resonó sin que lo esperaras? ¿Por qué?</li>
+        <li><span>→</span> ¿Qué aprendiste de alguien del grupo a través de este ejercicio que no sabías antes?</li>
+        <li><span>→</span> ¿Cómo cambiaría la dinámica de tu grupo o tu salón si se tomaran el tiempo de escuchar lo que el otro necesita expresar — aunque no lo diga con palabras?</li>
+        <li><span>→</span> ¿Hay alguien en tu familia a quien quisieras recomendarle una canción sin explicarle por qué? ¿Cuál sería y qué esperas que entendiera?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BITÁCORA ══ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos finales</div><h3>Bitácora final · Guía 08</h3></div>
+  </div>
+
+  <p class="tp">En tu cuaderno o en <code>bitacora_guia08.html</code>. Esta vez, incluye al menos un elemento multimedia (aunque sea simulado) dentro de la bitácora.</p>
+
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué imagen pusiste como poster de tu video? ¿Es la imagen más honesta que podrías haber puesto o es la más controlada?</li>
+        <li><span>→</span> ¿Qué está en tu <code>&lt;aside&gt;</code> — las cosas que no grabarías? ¿Por qué siguen ahí, sin ser mostradas?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-autoctl" style="margin-top:0">
+      <div class="sel-badge">🧘 Autocontrol</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Tienes tu propio "audio que nunca enviaste"? ¿Qué necesitaría cambiar en ti o en esa relación para que pudieras enviarlo?</li>
+        <li><span>→</span> ¿Decidiste usar <code>autoplay</code> en tu video? ¿Esa decisión técnica dice algo sobre cómo te relacionas — si esperas que el otro esté listo o si hablas antes de saber si alguien escucha?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-relac" style="margin-top:0">
+      <div class="sel-badge">💬 Habilidades Relacionales</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Hay alguien a quien quisieras mandarle una canción esta semana sin explicarle por qué? ¿Qué esperas que entienda?</li>
+        <li><span>→</span> ¿Cómo cambiaría una relación importante en tu vida si usaras más el "audio" — la voz real, con nervios y todo — en lugar del texto editado?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué te dijo la playlist de los demás sobre lo que están viviendo que ninguna conversación te había dicho?</li>
+        <li><span>→</span> Si pudieras hacer una página multimedia sobre alguien que está pasando por algo difícil en tu entorno — un video, un audio, una imagen — ¿qué sería? ¿Qué quisieras que el mundo supiera de esa persona?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en HTML hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="310" fill="#f8fafc"/>
+
+      <!-- VIDEO columna izquierda -->
+      <rect x="18" y="18" width="320" height="274" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="320" height="38" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="44" width="320" height="12" fill="#1a4f8a"/>
+      <text x="178" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">&lt;video&gt;</text>
+
+      <!-- video preview simulado -->
+      <rect x="32" y="60" width="292" height="80" rx="6" fill="#1e293b"/>
+      <circle cx="178" cy="100" r="18" fill="rgba(59,130,246,.7)"/>
+      <text x="178" y="106" text-anchor="middle" fill="white" font-family="Nunito" font-size="16">▶</text>
+      <text x="178" y="134" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">poster="imagen.jpg" · controls</text>
+
+      <line x1="32" y1="148" x2="326" y2="148" stroke="#93c5fd" stroke-width="1"/>
+
+      <text x="46" y="166" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="11">Atributos principales:</text>
+      <text x="46" y="182" fill="#3b82f6" font-family="Nunito" font-size="10">controls · poster · width</text>
+      <text x="46" y="196" fill="#3b82f6" font-family="Nunito" font-size="10">autoplay · muted · loop</text>
+
+      <line x1="32" y1="208" x2="326" y2="208" stroke="#93c5fd" stroke-width="1"/>
+
+      <text x="46" y="226" fill="#1e40af" font-family="Nunito" font-weight="800" font-size="11">Formatos:</text>
+      <text x="46" y="242" fill="#3b82f6" font-family="Nunito" font-size="10">.mp4 → type="video/mp4"</text>
+      <text x="46" y="256" fill="#3b82f6" font-family="Nunito" font-size="10">.webm → type="video/webm"</text>
+      <text x="178" y="278" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="10" font-weight="700">Usar dos &lt;source&gt; siempre</text>
+
+      <!-- AUDIO columna derecha -->
+      <rect x="362" y="18" width="320" height="274" rx="10" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="362" y="18" width="320" height="38" rx="10" fill="#16a34a"/>
+      <rect x="362" y="44" width="320" height="12" fill="#16a34a"/>
+      <text x="522" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">&lt;audio&gt;</text>
+
+      <!-- audio player simulado -->
+      <rect x="376" y="60" width="292" height="50" rx="6" fill="#1e293b"/>
+      <circle cx="402" cy="85" r="14" fill="#3b82f6"/>
+      <text x="402" y="90" text-anchor="middle" fill="white" font-family="Nunito" font-size="12">▶</text>
+      <rect x="424" y="82" width="220" height="4" rx="2" fill="#334155"/>
+      <rect x="424" y="82" width="77" height="4" rx="2" fill="#3b82f6"/>
+      <text x="652" y="88" text-anchor="middle" fill="#64748b" font-family="Nunito" font-size="9">🔊</text>
+
+      <line x1="376" y1="118" x2="670" y2="118" stroke="#86efac" stroke-width="1"/>
+
+      <text x="390" y="136" fill="#14532d" font-family="Nunito" font-weight="800" font-size="11">Sin imagen · Solo sonido</text>
+      <text x="390" y="152" fill="#166534" font-family="Nunito" font-size="10">La forma más directa de comunicar</text>
+
+      <line x1="376" y1="164" x2="670" y2="164" stroke="#86efac" stroke-width="1"/>
+
+      <text x="390" y="182" fill="#14532d" font-family="Nunito" font-weight="800" font-size="11">Formatos:</text>
+      <text x="390" y="198" fill="#166534" font-family="Nunito" font-size="10">.mp3 → type="audio/mpeg"</text>
+      <text x="390" y="212" fill="#166534" font-family="Nunito" font-size="10">.ogg → type="audio/ogg"</text>
+      <text x="390" y="226" fill="#166534" font-family="Nunito" font-size="10">.wav → type="audio/wav"</text>
+
+      <line x1="376" y1="238" x2="670" y2="238" stroke="#86efac" stroke-width="1"/>
+
+      <!-- source tag shared -->
+      <rect x="376" y="248" width="292" height="34" rx="6" fill="#1e293b"/>
+      <text x="522" y="263" text-anchor="middle" fill="#f472b6" font-family="Source Code Pro" font-size="10">&lt;source src="archivo" type="formato"&gt;</text>
+      <text x="522" y="276" text-anchor="middle" fill="#475569" font-family="Nunito" font-size="9">Etiqueta vacía · Va dentro de &lt;video&gt; o &lt;audio&gt;</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 08</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Etiquetas multimedia</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa video o audio pero sin source o sin atributos mínimos.</td>
+      <td>Usa correctamente &lt;video&gt; y &lt;audio&gt; con controls, &lt;source&gt; y texto de fallback.</td>
+      <td>Estructura perfecta con dos &lt;source&gt; por elemento, atributos elegidos con intención y fallback descriptivo.</td>
+    </tr>
+    <tr>
+      <td><strong>Atributos con intención</strong><br><span style="font-size:11px;color:#64748b">Técnico + SEL</span></td>
+      <td>Los atributos están puestos sin pensar (todo con autoplay, nada con poster).</td>
+      <td>Los atributos elegidos son apropiados al tipo de contenido.</td>
+      <td>Cada atributo está justificado en un comentario HTML que conecta la decisión técnica con la intención comunicativa.</td>
+    </tr>
+    <tr>
+      <td><strong>Nombres de archivos y poster</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>Nombres genéricos (video1.mp4, audio.mp3). Poster sin sentido.</td>
+      <td>Los nombres dicen algo sobre el contenido. El poster fue elegido con intención.</td>
+      <td>Los nombres de archivos son tan descriptivos que ya comunican algo antes de que el usuario dé play. El poster es honesto, no solo bonito.</td>
+    </tr>
+    <tr>
+      <td><strong>Contenido socioemocional</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Los párrafos descriptivos son genéricos o no existen.</td>
+      <td>Los párrafos describen con honestidad qué se vería/escucharía en los medios.</td>
+      <td>La descripción del "audio que nunca se envió" y del aside con las cosas que no grabarías revelan autoconocimiento genuino.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas mínimas sin conexión personal.</td>
+      <td>Conecta las decisiones técnicas (poster, autoplay, nombres) con situaciones de su vida real.</td>
+      <td>La reflexión muestra que algo se movió: en cómo se muestra, en lo que calla, en cómo entiende la comunicación con las personas que importan.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 08 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Autocontrol · Habilidades Relacionales · Conciencia Social</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 09 → Metaetiquetas, CSS externo y el &lt;head&gt; completo</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
