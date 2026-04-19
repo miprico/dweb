@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 15 · CSS Grid · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+/* GRID DEMOS EN VIVO */
+.grid-demo{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:14px;margin:10px 0}
+.grid-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-bottom:10px}
+.g-container{display:grid;gap:8px;padding:10px;background:#fff;border:1.5px dashed #cbd5e1;border-radius:8px}
+.g-item{border-radius:8px;padding:10px;font-size:11.5px;font-weight:800;text-align:center;color:#fff;min-height:46px;display:flex;align-items:center;justify-content:center}
+.gi-a{background:#1a4f8a}.gi-b{background:#2563eb}.gi-c{background:#7c3aed}
+.gi-d{background:#ea580c}.gi-e{background:#16a34a}.gi-f{background:#0d9488}
+.gi-header{background:#1a4f8a;grid-column:1/-1}
+.gi-sidebar{background:#16a34a}
+.gi-main{background:#2563eb}
+.gi-aside{background:#7c3aed}
+.gi-footer{background:#334155;grid-column:1/-1}
+/* ACTIVIDAD */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 15</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 15 · Grado Décimo · ENSDB 2025</div>
+    <h2>CSS Grid: construir estructuras que sostienen</h2>
+    <p class="gsub">CSS Grid es el sistema de diseño de dos dimensiones — columnas y filas al mismo tiempo. Aprenderás a crear cuadrículas flexibles, colocar elementos exactamente donde los necesitas y construir layouts de página completos. Y a través de eso, a reflexionar sobre las estructuras que sostienen: las que se pueden ver y las que trabajan en silencio.</p>
+    <div class="tags">
+      <span class="tag tag-azul">display: grid · grid-template-columns · grid-template-rows</span>
+      <span class="tag tag-azul">gap · fr · repeat() · minmax()</span>
+      <span class="tag tag-verde">grid-column · grid-row · grid-area · place-items</span>
+      <span class="tag tag-morado">grid-template-areas · auto-fit · auto-fill</span>
+      <span class="tag tag-ambar">Estructura · Cuadrícula · Roles · Familia · Escuela</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>Las estructuras que sostienen — visibles e invisibles</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones antes de abrir el editor.</p>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🏠</span><span class="eti">En casa · La cuadrícula invisible de la familia</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En la casa de los Ospina, todo funciona. Los desayunos están listos, los uniformes limpios, los recibos pagados, las citas médicas agendadas. Nadie tiene que coordinar nada porque la abuela Rosa tiene en la cabeza una cuadrícula completa: quién hace qué, cuándo, en qué espacio. <strong>Grid es exactamente eso — una cuadrícula que define qué va en cada celda, en qué columna, en qué fila.</strong> La abuela Rosa gestiona la casa con una lógica de grid que nadie ve pero todos aprovechan.</p>
+      <div class="escena-pregunta">💭 ¿Hay alguien en tu familia que "gestiona el grid" — que tiene en la cabeza la estructura que hace funcionar todo?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📰</span><span class="eti">En el colegio · El periódico mural</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">El comité del periódico mural tiene un problema: cada vez que alguien pega algo, el resultado se ve desordenado — textos encimados, fotos demasiado grandes, títulos perdidos. La presidenta del comité, Valentina, propone algo diferente: <strong>primero definan la cuadrícula</strong> — cuántas columnas, qué áreas son para títulos, cuáles para fotos, cuáles para texto. Primero la estructura, luego el contenido. Cuando aplicaron eso, el mural quedó diferente.</p>
+      <div class="escena-pregunta">💭 ¿Hay algún proyecto o espacio en tu vida que necesita "primero definir la cuadrícula" antes de poner contenido?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🧩</span><span class="eti">Con compañeros · Cada uno en su área</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el proyecto de artes, dividieron el lienzo en áreas: esquina superior izquierda para el título, banda central para la imagen principal, columna derecha para las notas, banda inferior para las firmas. Cada quien sabía exactamente qué área le correspondía. <strong>Nadie invadió el espacio de otro. El resultado fue coherente sin que nadie tuviera que controlarlo.</strong> Eso es grid-template-areas: nombrar cada zona y asignar quién va ahí.</p>
+      <div class="escena-pregunta">💭 ¿En tu vida hay áreas bien definidas — zonas donde cada quien sabe qué le toca — y áreas donde todo se mezcla?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">La abuela Rosa gestiona el hogar con una cuadrícula mental. Valentina propuso definir la estructura antes del contenido. El grupo de artes nombró cada área y respetó los límites. <strong>CSS Grid hace exactamente esto: define una cuadrícula precisa de filas y columnas, nombra las áreas y permite que cada elemento sepa exactamente dónde va.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">⬛</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Activar Grid con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">display: grid</code> y definir la cuadrícula con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">grid-template-columns</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">grid-template-rows</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">gap</code>.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">📐</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Usar la unidad <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">fr</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">repeat()</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">minmax()</code> para cuadrículas flexibles y responsivas.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🗺️</span><p style="font-size:13.5px;font-weight:700;color:#166534">Ubicar elementos con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">grid-column</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">grid-row</code> y nombrar zonas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">grid-template-areas</code>.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🏗️</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Reflexionar sobre las estructuras que nos sostienen — y sobre la diferencia entre estructuras que organizan sin asfixiar y las que controlan sin dar espacio.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1: display grid y la cuadrícula -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>display: grid — definir la cuadrícula</h2><p>grid-template-columns · grid-template-rows · gap · fr · repeat()</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Con <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">display: grid</code> el contenedor se convierte en una cuadrícula. Los hijos directos se colocan automáticamente en las celdas. <strong>grid-template-columns</strong> define cuántas columnas hay y qué tan anchas son. <strong>grid-template-rows</strong> hace lo mismo para las filas. La diferencia clave con Flexbox: Grid trabaja en dos dimensiones a la vez — filas Y columnas simultáneamente.</p>
+
+  <!-- Comparación Flexbox vs Grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0">
+    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:14px 18px">
+      <p style="font-size:12px;font-weight:800;color:#1e40af;margin-bottom:8px">Flexbox — una dimensión</p>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <div style="background:#1a4f8a;color:#fff;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700">A</div>
+        <div style="background:#2563eb;color:#fff;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700">B</div>
+        <div style="background:#7c3aed;color:#fff;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:700">C</div>
+      </div>
+      <p style="font-size:12px;color:#64748b;margin-top:8px">Controla el eje principal. Ideal para filas o columnas de elementos.</p>
+    </div>
+    <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:14px 18px">
+      <p style="font-size:12px;font-weight:800;color:#14532d;margin-bottom:8px">Grid — dos dimensiones</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <div style="background:#16a34a;color:#fff;padding:6px;border-radius:4px;font-size:11px;font-weight:700;text-align:center">A</div>
+        <div style="background:#0d9488;color:#fff;padding:6px;border-radius:4px;font-size:11px;font-weight:700;text-align:center">B</div>
+        <div style="background:#2563eb;color:#fff;padding:6px;border-radius:4px;font-size:11px;font-weight:700;text-align:center">C</div>
+        <div style="background:#7c3aed;color:#fff;padding:6px;border-radius:4px;font-size:11px;font-weight:700;text-align:center">D</div>
+      </div>
+      <p style="font-size:12px;color:#64748b;margin-top:8px">Controla filas Y columnas. Ideal para layouts de página completos.</p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">grid-base.css</span></div>
+    <div class="ebody"><span class="cs">.cuadricula</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+
+  <span class="hc">/* grid-template-columns: define las columnas */</span>
+  <span class="cp">grid-template-columns</span>: <span class="cv">200px 1fr 1fr</span>;   <span class="hc">/* fija flexible flexible */</span>
+  <span class="hc">/* grid-template-columns: repeat(3, 1fr);    3 columnas iguales */</span>
+  <span class="hc">/* grid-template-columns: repeat(3, 200px);  3 columnas de 200px */</span>
+
+  <span class="hc">/* grid-template-rows: define las filas */</span>
+  <span class="cp">grid-template-rows</span>: <span class="cv">80px auto 60px</span>;     <span class="hc">/* header contenido footer */</span>
+
+  <span class="hc">/* gap: espacio entre celdas */</span>
+  <span class="cp">gap</span>: <span class="cv">20px</span>;                             <span class="hc">/* igual entre filas y columnas */</span>
+  <span class="hc">/* gap: 16px 24px;  row-gap column-gap */</span>
+}
+
+<span class="hc">/* fr = fracción del espacio disponible */</span>
+<span class="hc">/* 1fr 2fr 1fr → la del medio ocupa el doble que las otras */</span>
+<span class="cs">.con-fr</span> {
+  <span class="cp">grid-template-columns</span>: <span class="cv">1fr 2fr 1fr</span>;
+}
+
+<span class="hc">/* repeat(n, valor): forma corta de repetir */</span>
+<span class="cs">.galeria</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+  <span class="cp">grid-template-columns</span>: <span class="cv">repeat(4, 1fr)</span>;  <span class="hc">/* 4 columnas iguales */</span>
+  <span class="cp">gap</span>: <span class="cv">16px</span>;
+}
+
+<span class="hc">/* minmax(mín, máx): columna que se adapta entre dos valores */</span>
+<span class="cs">.responsiva</span> {
+  <span class="cp">grid-template-columns</span>: <span class="cv">repeat(auto-fit, minmax(250px, 1fr))</span>;
+  <span class="hc">/* crea tantas columnas como quepan de mínimo 250px */</span>
+}</div>
+  </div>
+
+  <!-- Demos visuales de columnas con fr -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:16px 0 10px">La unidad fr — fracciones del espacio disponible:</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div>
+      <p style="font-size:11px;font-family:'Source Code Pro',monospace;color:#64748b;margin-bottom:6px">grid-template-columns: 1fr 1fr 1fr (tres iguales)</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+        <div class="g-item gi-a">1fr</div>
+        <div class="g-item gi-b">1fr</div>
+        <div class="g-item gi-c">1fr</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-family:'Source Code Pro',monospace;color:#64748b;margin-bottom:6px">grid-template-columns: 1fr 2fr 1fr (la del medio ocupa el doble)</p>
+      <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:6px">
+        <div class="g-item gi-a">1fr</div>
+        <div class="g-item gi-b">2fr</div>
+        <div class="g-item gi-c">1fr</div>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:11px;font-family:'Source Code Pro',monospace;color:#64748b;margin-bottom:6px">grid-template-columns: 260px 1fr (sidebar fija + main flexible)</p>
+      <div style="display:grid;grid-template-columns:260px 1fr;gap:6px">
+        <div class="g-item gi-e">260px (fijo)</div>
+        <div class="g-item gi-a">1fr (el resto)</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin-top:12px">
+    <p style="font-size:14px;color:#14532d"><strong>auto-fit vs auto-fill:</strong> <code style="font-family:'Source Code Pro';font-size:12px">repeat(auto-fit, minmax(250px, 1fr))</code> crea tantas columnas como quepan de mínimo 250px — y si sobra espacio, las columnas crecen. <code style="font-family:'Source Code Pro';font-size:12px">auto-fill</code> hace lo mismo pero deja columnas vacías si hay espacio sobrante. <strong>auto-fit es el más usado en galerías responsivas</strong> — funciona en cualquier pantalla sin media queries.</p>
+  </div>
+</div>
+
+<!-- MÓDULO 2: grid-column, grid-row, grid-area -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>Ubicar elementos: grid-column, grid-row y grid-area</h2><p>Decirle a cada elemento exactamente dónde va — y hacer que algunos ocupen más de una celda</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp">Por defecto, los elementos de un grid se colocan automáticamente, uno por celda, de izquierda a derecha y de arriba hacia abajo. Pero con <strong>grid-column</strong> y <strong>grid-row</strong> puedes decirle a un elemento que ocupe varias celdas — que "se extienda" a lo largo de columnas o filas. La notación usa las <em>líneas</em> de la cuadrícula, que se numeran empezando desde 1.</p>
+
+  <!-- Diagrama líneas de grid -->
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:14px;padding:20px;margin:14px 0">
+    <p style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Las líneas de la cuadrícula — empiezan desde 1:</p>
+    <svg viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:660px;display:block">
+      <rect width="660" height="200" fill="#f8fafc"/>
+      <!-- Grid 3x2 -->
+      <!-- Col lines -->
+      <line x1="30" y1="30" x2="30" y2="170" stroke="#1a4f8a" stroke-width="2"/>
+      <line x1="230" y1="30" x2="230" y2="170" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="430" y1="30" x2="430" y2="170" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="630" y1="30" x2="630" y2="170" stroke="#1a4f8a" stroke-width="2"/>
+      <!-- Row lines -->
+      <line x1="30" y1="30" x2="630" y2="30" stroke="#1a4f8a" stroke-width="2"/>
+      <line x1="30" y1="100" x2="630" y2="100" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="30" y1="170" x2="630" y2="170" stroke="#1a4f8a" stroke-width="2"/>
+      <!-- Col number labels -->
+      <text x="30" y="22" text-anchor="middle" fill="#1a4f8a" font-family="Source Code Pro" font-size="11" font-weight="700">1</text>
+      <text x="230" y="22" text-anchor="middle" fill="#64748b" font-family="Source Code Pro" font-size="11">2</text>
+      <text x="430" y="22" text-anchor="middle" fill="#64748b" font-family="Source Code Pro" font-size="11">3</text>
+      <text x="630" y="22" text-anchor="middle" fill="#1a4f8a" font-family="Source Code Pro" font-size="11" font-weight="700">4</text>
+      <!-- Row labels -->
+      <text x="16" y="66" text-anchor="middle" fill="#1a4f8a" font-family="Source Code Pro" font-size="11" font-weight="700">1</text>
+      <text x="16" y="104" text-anchor="middle" fill="#64748b" font-family="Source Code Pro" font-size="11">2</text>
+      <text x="16" y="172" text-anchor="middle" fill="#1a4f8a" font-family="Source Code Pro" font-size="11" font-weight="700">3</text>
+      <!-- Celdas con items -->
+      <rect x="34" y="34" width="192" height="62" rx="6" fill="#1a4f8a" opacity=".9"/>
+      <text x="130" y="65" text-anchor="middle" fill="white" font-family="Nunito" font-size="10" font-weight="700">col 1/2 · row 1/2</text>
+      <rect x="234" y="34" width="192" height="62" rx="6" fill="#2563eb" opacity=".9"/>
+      <text x="330" y="65" text-anchor="middle" fill="white" font-family="Nunito" font-size="10">col 2/3 · row 1/2</text>
+      <!-- Elemento que se extiende -->
+      <rect x="434" y="34" width="192" height="132" rx="6" fill="#ea580c" opacity=".9"/>
+      <text x="530" y="90" text-anchor="middle" fill="white" font-family="Nunito" font-size="10" font-weight="700">grid-column: 3/4</text>
+      <text x="530" y="106" text-anchor="middle" fill="white" font-family="Nunito" font-size="10">grid-row: 1/3</text>
+      <text x="530" y="118" text-anchor="middle" fill="white" font-family="Nunito" font-size="9" font-style="italic">(ocupa 2 filas)</text>
+      <rect x="34" y="104" width="392" height="62" rx="6" fill="#7c3aed" opacity=".9"/>
+      <text x="230" y="135" text-anchor="middle" fill="white" font-family="Nunito" font-size="10" font-weight="700">grid-column: 1/3 · row 2/3 (ocupa 2 columnas)</text>
+    </svg>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">grid-posicion.css</span></div>
+    <div class="ebody"><span class="cs">.cuadricula</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+  <span class="cp">grid-template-columns</span>: <span class="cv">repeat(3, 1fr)</span>;
+  <span class="cp">grid-template-rows</span>: <span class="cv">80px 1fr 60px</span>;
+  <span class="cp">gap</span>: <span class="cv">16px</span>;
+}
+
+<span class="hc">/* grid-column: línea-inicio / línea-fin */</span>
+<span class="cs">.header</span> {
+  <span class="cp">grid-column</span>: <span class="cv">1 / 4</span>;   <span class="hc">/* de línea 1 a línea 4 = toda la fila */</span>
+  <span class="hc">/* grid-column: 1 / -1;  -1 = última línea (más fácil) */</span>
+  <span class="hc">/* grid-column: span 3;  ocupa 3 columnas desde donde está */</span>
+}
+
+<span class="cs">.sidebar</span> {
+  <span class="cp">grid-column</span>: <span class="cv">1 / 2</span>;
+  <span class="cp">grid-row</span>: <span class="cv">2 / 3</span>;
+}
+
+<span class="cs">.main</span> {
+  <span class="cp">grid-column</span>: <span class="cv">2 / 4</span>;
+  <span class="cp">grid-row</span>: <span class="cv">2 / 3</span>;
+}
+
+<span class="cs">.footer</span> {
+  <span class="cp">grid-column</span>: <span class="cv">1 / -1</span>;  <span class="hc">/* 1 / -1 siempre cubre todo el ancho */</span>
+  <span class="cp">grid-row</span>: <span class="cv">3 / 4</span>;
+}</div>
+  </div>
+
+  <!-- Demo visual del layout -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Layout de página completo con grid-column y grid-row:</div>
+  <div style="display:grid;grid-template-columns:200px 1fr;grid-template-rows:60px 1fr 50px;gap:8px;height:240px">
+    <div class="g-item gi-header" style="grid-column:1/-1;grid-row:1/2;font-size:12px">&lt;header&gt; grid-column: 1 / -1</div>
+    <div class="g-item gi-sidebar" style="grid-column:1/2;grid-row:2/3;font-size:11px">&lt;aside&gt;<br>200px</div>
+    <div class="g-item gi-main" style="grid-column:2/3;grid-row:2/3;font-size:11px">&lt;main&gt;<br>1fr</div>
+    <div class="g-item gi-footer" style="grid-column:1/-1;grid-row:3/4;font-size:12px">&lt;footer&gt; grid-column: 1 / -1</div>
+  </div>
+</div>
+
+<!-- MÓDULO 3: grid-template-areas -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>grid-template-areas: nombrar las zonas</h2><p>La forma más legible de definir un layout — como el mural de Valentina</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>grid-template-areas</strong> permite nombrar las zonas de la cuadrícula usando palabras. Es la forma más legible de definir un layout complejo porque el código se parece visualmente a la distribución real de la página. Como el comité del periódico mural de Valentina — primero se nombran las áreas, luego cada elemento dice a qué área pertenece.</p>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">grid-areas.css</span></div>
+    <div class="ebody"><span class="cs">.pagina</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+  <span class="cp">grid-template-columns</span>: <span class="cv">240px 1fr</span>;
+  <span class="cp">grid-template-rows</span>: <span class="cv">70px 1fr 60px</span>;
+  <span class="cp">gap</span>: <span class="cv">16px</span>;
+  <span class="cp">min-height</span>: <span class="cv">100vh</span>;
+
+  <span class="hc">/* Las comillas definen cada fila. Los nombres, cada celda */</span>
+  <span class="hc">/* Un punto ( . ) = celda vacía */</span>
+  <span class="cp">grid-template-areas</span>:
+    <span class="cv">"header  header"</span>
+    <span class="cv">"sidebar main  "</span>
+    <span class="cv">"footer  footer"</span>;
+}
+
+<span class="hc">/* Cada elemento declara su área con grid-area */</span>
+<span class="cs">header</span>  { <span class="cp">grid-area</span>: <span class="cv">header</span>;  }
+<span class="cs">aside</span>   { <span class="cp">grid-area</span>: <span class="cv">sidebar</span>; }
+<span class="cs">main</span>    { <span class="cp">grid-area</span>: <span class="cv">main</span>;    }
+<span class="cs">footer</span>  { <span class="cp">grid-area</span>: <span class="cv">footer</span>;  }
+
+<span class="hc">/* place-items: center — centra todos los items */</span>
+<span class="cs">.centrado</span> {
+  <span class="cp">display</span>: <span class="cv">grid</span>;
+  <span class="cp">place-items</span>: <span class="cv">center</span>;  <span class="hc">/* align-items + justify-items en uno */</span>
+}
+
+<span class="hc">/* Ejemplo con celda vacía */</span>
+<span class="cs">.con-vacio</span> {
+  <span class="cp">grid-template-areas</span>:
+    <span class="cv">"header  header  header"</span>
+    <span class="cv">"sidebar main    .     "</span>  <span class="hc">/* punto = celda vacía */</span>
+    <span class="cv">"footer  footer  footer"</span>;
+}</span></div>
+  </div>
+
+  <!-- Demo visual areas -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Así se ve un grid con template-areas — el mural de Valentina:</div>
+  <div style="display:grid;grid-template-columns:180px 1fr;grid-template-rows:56px 1fr 48px;gap:8px;height:220px;grid-template-areas:'header header' 'sidebar main' 'footer footer'">
+    <div class="g-item gi-a" style="grid-area:header;font-size:12px">header</div>
+    <div class="g-item gi-e" style="grid-area:sidebar;font-size:11px">sidebar</div>
+    <div class="g-item gi-b" style="grid-area:main;font-size:11px">main</div>
+    <div class="g-item" style="grid-area:footer;background:#334155;font-size:12px">footer</div>
+  </div>
+
+  <div class="tip"><strong>Grid vs Flexbox — cuándo usar cada uno:</strong> Usa <strong>Flexbox</strong> para distribuir elementos en una dirección (nav, lista de botones, tarjetas en fila). Usa <strong>Grid</strong> para layouts completos de página — cuando necesitas controlar filas Y columnas al mismo tiempo. En la práctica, se usan juntos: Grid para la estructura de la página, Flexbox para los componentes dentro de esa estructura.</div>
+</div>
+
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#0d9488,#0f766e)">
+    <div class="act-num">A1</div>
+    <div><h3>El layout de mi proyecto con Grid</h3><div class="asub">Individual · 25 minutos · Autoconciencia — definir la estructura antes del contenido</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#99f6e4">
+    <div class="meta">
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">⏱ 25 min</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">👤 Individual</span>
+      <span class="mp" style="background:#f0fdfa;border-color:#99f6e4;color:#134e4a">💻 CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">🗺️</span><span class="eti">Como Valentina — primero la cuadrícula, luego el contenido</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Valentina propuso que antes de pegar cualquier cosa, definieran la estructura. Hoy harás lo mismo con tu proyecto: <strong>antes de escribir contenido, dibuja en papel el grid de tu página.</strong> ¿Cuántas columnas? ¿Qué áreas tiene? ¿Dónde va cada sección? Esa arquitectura invisible es lo que hace que todo lo demás funcione.</p>
+        <div class="escena-pregunta">💭 ¿Cuál es la "cuadrícula" de tu vida — la estructura invisible que organiza tus días y tus roles?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#0d9488">1</div><div class="pc"><h4>Dibuja en papel el grid de tu index.html</h4><p>Antes de tocar el código: dibuja la cuadrícula de tu página. ¿Cuántas columnas? ¿Cuántas filas? ¿Qué nombre tiene cada área? El dibujo en papel es el grid-template-areas antes de escribirlo en código.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#0d9488">2</div><div class="pc"><h4>Implementa el layout con grid-template-areas</h4><p>Convierte el layout de tu página principal en un grid con <code>grid-template-areas</code>. Mínimo: header, nav, main, aside y footer. Usa grid-area en cada elemento HTML para asignarlo a su área nombrada.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#0d9488">3</div><div class="pc"><h4>Crea una galería responsiva con auto-fit y minmax</h4><p>En <code>mi_historia.html</code>, la sección de intereses o habilidades como galería de tarjetas: <code>grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))</code>. Sin media queries — funciona en cualquier pantalla.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#0d9488">4</div><div class="pc"><h4>Usa grid-column: span para un elemento destacado</h4><p>En la galería, hay una tarjeta que es más importante que las demás. Dale <code>grid-column: span 2</code> para que ocupe dos columnas. ¿Qué elemento de tu historia merece ese espacio extra?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS debe incluir</div>
+      <ul>
+        <li>Layout principal con display: grid + grid-template-areas en index.html</li>
+        <li>grid-area en header, nav, main, aside y footer</li>
+        <li>Galería responsiva con repeat(auto-fit, minmax(220px, 1fr))</li>
+        <li>Al menos un elemento con grid-column: span 2 justificado en comentario CSS</li>
+        <li>Uso de la unidad fr en la definición de columnas</li>
+        <li>Comentarios CSS que expliquen las decisiones de diseño del grid</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Definir la estructura antes del contenido es un ejercicio de claridad personal</h4>
+      <p>Valentina propuso primero la cuadrícula, luego el contenido. En la vida, esa misma lógica aplica: antes de saber qué quieres lograr, necesitas saber qué estructura tienes — cuáles son tus columnas (roles, responsabilidades), cuáles son tus filas (tiempos, contextos), qué áreas tienes disponibles. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> Al dibujar la cuadrícula de tu página en papel, ¿cambió algo respecto a cómo lo habías pensado? ¿Qué descubriste?</li>
+        <li><span>→</span> ¿Qué elemento de tu historia personal pusiste con grid-column: span 2 — que ocupa más espacio? ¿Por qué ese?</li>
+        <li><span>→</span> ¿Cuál es la "cuadrícula" de tu vida cotidiana — las columnas y filas que estructuran tus días? ¿Es una cuadrícula que elegiste o una que te fue impuesta?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A2</div>
+    <div><h3>Dos grids para la misma historia: distintas estructuras, distinto énfasis</h3><div class="asub">Parejas · 20 minutos · Toma de decisiones — cómo la estructura cambia lo que se percibe primero</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 20 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👥 Parejas</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 Mismo HTML, dos grids</span>
+      <span class="mp" style="background:#fae8ff;border-color:#f0abfc;color:#6b21a8">⚖️ SEL: Toma de Decisiones</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">💡</span><span class="eti">Volvamos al periódico mural — ¿qué va en el área grande?</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">En el periódico mural, el área más grande decide qué es lo más importante. Si la imagen ocupa 2fr y el texto solo 1fr, la imagen domina. Si el texto ocupa 3fr y la imagen solo 1fr, el mensaje domina. <strong>La distribución de la cuadrícula es una decisión editorial — dice qué importa más.</strong></p>
+        <div class="escena-pregunta">💭 En tu vida, ¿qué área ocupa más espacio en tu "cuadrícula" cotidiana? ¿Es el área que quisieras que ocupara más?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Usen el mismo HTML — una página con 4 secciones de contenido personal</h4><p>Header con nombre, sección "mis logros", sección "mis dificultades", sección "mis sueños" y footer. Igual en los dos archivos.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Cada uno diseña un grid diferente que cambia el énfasis (8 min)</h4><p><strong>Persona A:</strong> "mis logros" ocupa 3fr, las demás 1fr. La estructura dice que los logros son lo más importante. <strong>Persona B:</strong> "mis sueños" ocupa 3fr, las demás 1fr. La estructura dice que el futuro es lo más importante. Implementen como grid-template-areas y fr distintas.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Comparen y conversen (5 min)</h4><p>¿La estructura cambia lo que el lector percibe como más importante? ¿Cuál versión los representa mejor? ¿Hay una versión que les incomoda y por qué?</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Dos versiones CSS con grid-template-areas y fr distintos para el mismo HTML</li>
+        <li>Comentario CSS explicando la "decisión editorial" de cada versión</li>
+        <li>Un párrafo reflexivo: ¿cuál versión los representa mejor y por qué?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-decision">
+      <div class="sel-badge">⚖️ SEL · Toma de Decisiones</div>
+      <h4>Decidir la estructura es decidir qué importa más — en la página y en la vida</h4>
+      <p>La toma de decisiones responsables incluye "anticipar y evaluar las consecuencias". La distribución del grid determina lo que el ojo ve primero, lo que ocupa más espacio, lo que parece más importante. Esas decisiones tienen consecuencias en cómo el lector percibe tu historia. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿La versión que diseñaste dice algo de cómo priorizas tu propia historia?</li>
+        <li><span>→</span> ¿Hay algo que en tu vida actual ocupa más espacio en tu "grid" del que quisieras, y algo que merece más fr del que tiene?</li>
+        <li><span>→</span> ¿Cuál de las dos versiones te incomodó más ver? ¿Por qué?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A3</div>
+    <div><h3>El mural del salón: un grid colectivo con áreas nombradas</h3><div class="asub">Grupos de 4 · 20 minutos · Conciencia social — definir juntos qué va en cada área</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Grupos de 4</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Archivo colectivo</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📰</span><span class="eti">Volvamos al comité de Valentina — primero la cuadrícula</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Valentina propuso primero nombrar las áreas del mural. <strong>Esta actividad hace lo mismo: el grupo diseña un "mural digital" con grid-template-areas donde cada integrante tiene su área nombrada</strong> — y la distribución de fr refleja cómo el grupo valora cada parte colectivamente.</p>
+        <div class="escena-pregunta">💭 Si el grupo fuera un grid, ¿qué área ocuparía más espacio? ¿Qué área nunca tiene espacio?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#ea580c">1</div><div class="pc"><h4>Diseñen el grid del mural en papel primero (5 min)</h4><p>¿Cuántas columnas? ¿Cuántas filas? ¿Qué áreas tiene el mural? ¿Cuánto fr merece cada área? Dibujo primero, código después.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">2</div><div class="pc"><h4>Construyan el archivo <code>mural_salon.html</code> (10 min)</h4><p>Con un grid que use <code>grid-template-areas</code> con nombres que representen lo que el grupo quiere mostrar. Un área por integrante más áreas colectivas (logros, sueños, algo que los une). Cada área con su color y contenido real.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#ea580c">3</div><div class="pc"><h4>Consensúen el fr de cada área (5 min)</h4><p>¿Tiene cada integrante el mismo fr? ¿Hay áreas colectivas que merecen más espacio? La decisión debe ser por consenso y documentada en un comentario CSS.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A3</div>
+      <ul>
+        <li>Archivo <code>mural_salon.html</code> con grid-template-areas que incluya a todos</li>
+        <li>Cada integrante con su área nombrada y un elemento HTML con grid-area</li>
+        <li>Áreas colectivas con fr consensuado y documentado</li>
+        <li>Un footer colectivo con reflexión: ¿el grid refleja cómo funciona el grupo realmente?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>La estructura que diseñamos juntos refleja cómo entendemos el grupo</h4>
+      <p>La conciencia social incluye "reconocer las fortalezas de los demás". El grid-template-areas que diseñaron dice qué áreas nombran y cuánto espacio le dan a cada quien. ¿Hay alguien cuya área quedó con poco fr? ¿Hay áreas colectivas que nadie quiso nominar? En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Fue fácil nombrar las áreas del mural? ¿Hubo algún área que nadie quería reclamar?</li>
+        <li><span>→</span> ¿Todos los integrantes tienen el mismo fr en el grid o hay diferencias? ¿Por qué?</li>
+        <li><span>→</span> ¿El mural resultante representa al grupo como realmente es, o como quisieran que los vieran?</li>
+        <li><span>→</span> ¿Hay algo de la "estructura invisible" de tu grupo — como la de la abuela Rosa — que el grid no logró capturar?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BITÁCORA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div><div class="sublbl">Cierre de la sesión · 10 minutos</div><h3>Bitácora final · Guía 15</h3></div>
+  </div>
+  <p class="tp">En <code>bitacora_guia15.html</code> — con el layout de la bitácora construido con grid-template-areas. Las preguntas de cierre en una cuadrícula de 2 columnas con auto-fit.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:6px">
+    <div class="sel-bloque sel-autocon" style="margin-top:0">
+      <div class="sel-badge">🔍 Autoconciencia</div>
+      <ul class="qs">
+        <li><span>→</span> Al dibujar la cuadrícula de tu página, ¿qué área dejaste más grande? ¿Esa decisión refleja algo de tus prioridades reales?</li>
+        <li><span>→</span> ¿Cuál es la "cuadrícula" de tu vida — la estructura que organiza tu tiempo, tus roles y tus responsabilidades? ¿La elegiste o te fue dada?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-social" style="margin-top:0">
+      <div class="sel-badge">🌍 Conciencia Social</div>
+      <ul class="qs">
+        <li><span>→</span> Como la abuela Rosa: ¿hay alguien en tu entorno que "gestiona el grid" invisible que hace funcionar todo? ¿Lo reconoces suficientemente?</li>
+        <li><span>→</span> ¿El mural del grupo mostró algo que no sabías de cómo se distribuye el espacio en tu equipo?</li>
+      </ul>
+    </div>
+    <div class="sel-bloque sel-decision" style="margin-top:0">
+      <div class="sel-badge">⚖️ Toma de Decisiones</div>
+      <ul class="qs">
+        <li><span>→</span> "Primero la cuadrícula, luego el contenido" — ¿hay alguna decisión en tu vida que estás tomando al revés (primero el contenido, sin pensar en la estructura)?</li>
+        <li><span>→</span> ¿Cuál de los dos grids de la Actividad 2 te representaba más honestamente? ¿Por qué fue difícil mirarlo?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SÍNTESIS VISUAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico</div><h3>Lo que aprendiste en CSS hoy</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="320" fill="#f8fafc"/>
+      <!-- Contenedor -->
+      <rect x="18" y="18" width="664" height="160" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="18" y="18" width="664" height="32" rx="10" fill="#16a34a"/>
+      <rect x="18" y="38" width="664" height="12" fill="#16a34a"/>
+      <text x="350" y="36" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">.contenedor { display: grid } — propiedades del CONTENEDOR</text>
+      <text x="30" y="66" fill="#14532d" font-family="Source Code Pro" font-size="10">grid-template-columns: 240px 1fr 1fr;</text>
+      <text x="30" y="82" fill="#14532d" font-family="Source Code Pro" font-size="10">grid-template-columns: repeat(3, 1fr);</text>
+      <text x="30" y="98" fill="#14532d" font-family="Source Code Pro" font-size="10">grid-template-columns: repeat(auto-fit, minmax(250px,1fr));</text>
+      <text x="30" y="114" fill="#14532d" font-family="Source Code Pro" font-size="10">grid-template-rows: 80px 1fr 60px;</text>
+      <text x="30" y="130" fill="#0d9488" font-family="Source Code Pro" font-size="10" font-weight="700">grid-template-areas: "header header" "sidebar main" "footer footer";</text>
+      <text x="30" y="146" fill="#14532d" font-family="Source Code Pro" font-size="10">gap: 16px;   place-items: center;</text>
+      <text x="450" y="66" fill="#14532d" font-family="Nunito" font-size="9" font-weight="700">fr = fracción del espacio</text>
+      <text x="450" y="80" fill="#14532d" font-family="Nunito" font-size="9">1fr 2fr 1fr → la del medio el doble</text>
+      <text x="450" y="96" fill="#14532d" font-family="Nunito" font-size="9">repeat(n, val) → forma corta</text>
+      <text x="450" y="112" fill="#14532d" font-family="Nunito" font-size="9">minmax(min, max) → rango flexible</text>
+      <!-- Items -->
+      <rect x="18" y="190" width="664" height="110" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="18" y="190" width="664" height="30" rx="10" fill="#ea580c"/>
+      <rect x="18" y="208" width="664" height="12" fill="#ea580c"/>
+      <text x="350" y="206" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">.item { } — propiedades de los ITEMS DEL GRID</text>
+      <text x="30" y="234" fill="#92400e" font-family="Source Code Pro" font-size="10">grid-column: 1 / 3;    (de línea 1 a línea 3)</text>
+      <text x="30" y="250" fill="#92400e" font-family="Source Code Pro" font-size="10">grid-column: 1 / -1;   (toda la fila)</text>
+      <text x="30" y="266" fill="#92400e" font-family="Source Code Pro" font-size="10">grid-column: span 2;   (ocupa 2 columnas)</text>
+      <text x="380" y="234" fill="#92400e" font-family="Source Code Pro" font-size="10">grid-row: 1 / 3;</text>
+      <text x="380" y="250" fill="#c2410c" font-family="Source Code Pro" font-size="10" font-weight="700">grid-area: nombre;     ← lo más útil</text>
+      <text x="380" y="266" fill="#92400e" font-family="Source Code Pro" font-size="10">grid-area: 1/1/3/4;    (row/col/rowend/colend)</text>
+      <!-- nota -->
+      <rect x="18" y="308" width="664" height="8" rx="4" fill="#1a4f8a" opacity=".2"/>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 15</div><h3>¿Cómo se evaluará tu trabajo?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Grid funcional con fr</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa display: grid pero solo con píxeles fijos — sin fr ni repeat().</td>
+      <td>Usa fr y repeat() correctamente. El grid se adapta al contenido disponible.</td>
+      <td>La combinación de fr y píxeles/minmax refleja una decisión consciente sobre qué elementos son flexibles y cuáles tienen tamaño fijo.</td>
+    </tr>
+    <tr>
+      <td><strong>grid-template-areas</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa grid-template-areas o los nombres no coinciden con grid-area en los items.</td>
+      <td>Usa grid-template-areas correctamente con al menos 4 áreas nombradas.</td>
+      <td>El grid-template-areas se lee como el layout visual de la página — alguien que lo lea en el CSS puede imaginar la página sin verla.</td>
+    </tr>
+    <tr>
+      <td><strong>Galería responsiva</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>La galería tiene número fijo de columnas — se rompe en pantallas pequeñas.</td>
+      <td>Usa repeat(auto-fit, minmax()) para galería responsiva sin media queries.</td>
+      <td>La galería funciona perfectamente en móvil y escritorio, y al menos un elemento tiene grid-column: span justificado.</td>
+    </tr>
+    <tr>
+      <td><strong>Estructura como decisión</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>El grid es técnicamente correcto pero sin reflexión sobre por qué esa estructura.</td>
+      <td>Los comentarios CSS explican por qué cada área tiene el tamaño que tiene.</td>
+      <td>La estructura del grid refleja claramente qué considera más importante el estudiante — la distribución de fr tiene una lógica personal explícita.</td>
+    </tr>
+    <tr>
+      <td><strong>Cuadrícula colectiva</strong><br><span style="font-size:11px;color:#64748b">SEL · Conciencia Social</span></td>
+      <td>El mural del grupo no refleja a todos los integrantes.</td>
+      <td>Todos los integrantes tienen área nombrada y el fr fue acordado.</td>
+      <td>La reflexión colectiva en el footer del mural es honesta sobre si el grid refleja la dinámica real del grupo — sin maquillar.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 15 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 16 → Responsive design: media queries y diseño mobile-first</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
