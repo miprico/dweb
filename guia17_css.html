@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 17 · Animaciones, Transiciones, Filtros y Variables CSS · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.cs{color:#86efac}.cp{color:#f472b6}.cv{color:#fbbf24}.hc{color:#475569;font-style:italic}.cm{color:#93c5fd}
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ DEMOS EN VIVO — TRANSICIONES ══ */
+.demo-transition{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:18px;margin:12px 0}
+.btn-demo{display:inline-block;padding:10px 24px;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;border:none;font-family:'Nunito',sans-serif;margin:6px}
+.btn-sin{background:#1a4f8a;color:#fff}
+.btn-con{background:#1a4f8a;color:#fff;transition:all 0.3s ease}
+.btn-con:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
+.tarjeta-trans{border-radius:12px;padding:16px 18px;background:#fff;border:1.5px solid #e2e8f0;display:inline-block;margin:6px;cursor:pointer;transition:transform 0.25s ease, box-shadow 0.25s ease}
+.tarjeta-trans:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+
+/* ══ DEMOS TRANSFORM ══ */
+.transform-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+.transform-demo{background:#dbeafe;border-radius:10px;padding:16px;text-align:center;font-size:12px;font-weight:700;color:#1e40af;cursor:pointer}
+.t-scale{transition:transform 0.25s ease}.t-scale:hover{transform:scale(1.2)}
+.t-rotate{transition:transform 0.3s ease}.t-rotate:hover{transform:rotate(15deg)}
+.t-translate{transition:transform 0.25s ease}.t-translate:hover{transform:translateX(10px)}
+.t-multi{transition:transform 0.3s ease,box-shadow 0.3s ease}.t-multi:hover{transform:scale(1.05) rotate(3deg);box-shadow:0 8px 20px rgba(0,0,0,.15)}
+
+/* ══ DEMOS FILTROS ══ */
+.filtros-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0}
+.filtro-demo{border-radius:10px;padding:20px;text-align:center;font-size:22px;transition:filter 0.3s ease}
+.f-blur:hover{filter:blur(3px)}
+.f-gray{filter:grayscale(100%);transition:filter 0.3s ease}.f-gray:hover{filter:grayscale(0)}
+.f-bright{transition:filter 0.3s ease}.f-bright:hover{filter:brightness(1.4)}
+
+/* ══ DEMO KEYFRAMES ══ */
+@keyframes pulso{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
+@keyframes deslizar{0%{transform:translateX(-20px);opacity:0}100%{transform:translateX(0);opacity:1}}
+@keyframes rotar-lento{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes latido{0%,100%{transform:scale(1)}14%{transform:scale(1.15)}28%{transform:scale(1)}}
+.anim-pulso{animation:pulso 2s ease-in-out infinite}
+.anim-deslizar{animation:deslizar 0.5s ease forwards}
+.anim-rotar{animation:rotar-lento 3s linear infinite}
+.anim-latido{animation:latido 1.5s ease infinite}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}.sel-autocon p{color:#9a3412}.sel-autocon .qs li{color:#78350f}.sel-autocon .qs li span{color:#ea580c}
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}.sel-autoctl p{color:#1e40af}.sel-autoctl .qs li{color:#1e3a8a}.sel-autoctl .qs li span{color:#2563eb}
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}.sel-social p{color:#166634}.sel-social .qs li{color:#14532d}.sel-social .qs li span{color:#16a34a}
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}.sel-relac p{color:#4c1d95}.sel-relac .qs li{color:#3b0764}.sel-relac .qs li span{color:#7c3aed}
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}.sel-decision p{color:#6b21a8}.sel-decision .qs li{color:#581c87}.sel-decision .qs li span{color:#a21caf}
+/* CIERRE DEL PROYECTO */
+.cierre{background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:14px;padding:36px 32px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.cierre::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(59,130,246,.1)}
+.cierre::after{content:'';position:absolute;bottom:-80px;left:-40px;width:240px;height:240px;border-radius:50%;background:rgba(139,92,246,.08)}
+.cierre h2{font-size:26px;font-weight:900;margin-bottom:12px;position:relative;z-index:1}
+.cierre p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.8;max-width:700px;margin:0 auto;position:relative;z-index:1}
+.cierre-frase{background:rgba(255,255,255,.08);border-left:4px solid #fbbf24;border-radius:0 10px 10px 0;padding:16px 20px;margin:20px auto;max-width:700px;font-size:16px;font-style:italic;color:#e2e8f0;position:relative;z-index:1;text-align:left}
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+@media(max-width:720px){.inst-ficha{grid-template-columns:repeat(2,1fr)}.transform-grid{grid-template-columns:1fr 1fr}.filtros-grid{grid-template-columns:1fr 1fr}.guia-titulo{margin:16px 12px 0}.guia-badge{margin:10px 12px 12px}.inst-top{padding:14px 16px 10px}.pagina{padding:0 14px}.card{padding:20px 18px}.guia-footer{flex-direction:column;text-align:center}.gf-right{text-align:center}}
+</style>
+</head>
+<body>
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" fill="#1a4f8a"/><text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text><text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text><text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text></svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">CSS y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">🏁 Guía Final · 17</div>
+</header>
+
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto CSS y Socioemocionalidad · Guía 17 · Grado Décimo · ENSDB 2025</div>
+    <h2>Animaciones, Transiciones, Filtros y Variables CSS</h2>
+    <p class="gsub">La guía final del proyecto. Aprenderás a dar movimiento y vida a tu página con <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">transition</code>, <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">transform</code>, <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">@keyframes</code>, <code style="font-size:13px;background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px">filter</code> y variables CSS. Y a través de eso, a reflexionar sobre el movimiento, el cambio y la transformación — en el código y en la vida.</p>
+    <div class="tags">
+      <span class="tag tag-azul">transition · transform: scale · rotate · translate</span>
+      <span class="tag tag-azul">@keyframes · animation-name · animation-duration</span>
+      <span class="tag tag-verde">background-image · background-size · filter: blur · grayscale</span>
+      <span class="tag tag-morado">--variables-css · :root · var()</span>
+      <span class="tag tag-ambar">Movimiento · Cambio · Transformación · Identidad · Cierre</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- APERTURA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div><div class="sublbl">Para empezar · Tres situaciones reales</div><h3>El movimiento, la transformación y la memoria del color</h3></div>
+  </div>
+  <p class="tp">Lee estas tres situaciones. Son las últimas de este proyecto.</p>
+
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🌊</span><span class="eti">Con compañeros · El cambio que se nota — y el que no</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">Cuando Julia llegó a décimo, era muy callada. Al final del año, habla en clase, lidera proyectos, se ríe fuerte. Sus compañeros dicen que "cambió". Ella dice que no cambió — que siempre fue así, solo que ahora tiene el espacio para mostrarlo. <strong>La transición fue suave, gradual. No hubo un punto de quiebre — fue un movimiento constante hacia algo que ya estaba ahí.</strong> En CSS, <code style="font-family:'Source Code Pro';font-size:12px">transition</code> hace exactamente eso: el cambio ocurre, pero de forma fluida, no abrupta.</p>
+      <div class="escena-pregunta">💭 ¿Hay algo en ti que "siempre estuvo ahí" pero que tardó en tener el espacio para mostrarse?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">📸</span><span class="eti">En el colegio · La foto en blanco y negro</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">En el periódico mural de la ENSDB, publicaron las fotos del anuario en blanco y negro. Alguien dijo que sin color se veían más "serias". Pero Nicolás pensó lo contrario: sin color, las fotos perdían algo esencial — el contexto, la energía, lo que hace que cada quien sea quien es. <strong>filter: grayscale(100%) hace exactamente eso: elimina la información del color.</strong> Y a veces, cuando le quitamos el "color" a las personas — sus particularidades, su contexto — también las perdemos.</p>
+      <div class="escena-pregunta">💭 ¿Qué sería perder "el color" para ti — qué le da vida a quien eres que no podría quitarse sin perder algo esencial?</div>
+    </div>
+  </div>
+
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top"><span class="eco">🎨</span><span class="eti">En casa · Un color que atraviesa todo</span></div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">La mamá de Renata tiene un azul favorito. Está en las paredes del cuarto, en las cobijas, en la taza que usa todas las mañanas. No es una decisión consciente cada vez — ese azul simplemente aparece porque es su color. Si ella decorara su casa con variables CSS, <code style="font-family:'Source Code Pro';font-size:12px">--color-principal: #1a6fa8</code> aparecería en cada rincón. <strong>Las variables CSS son exactamente eso: un valor que defines una vez y que se propaga por todo el código, coherente y constante.</strong></p>
+      <div class="escena-pregunta">💭 ¿Hay algún "color" en tu vida — un valor, una forma de ser, una costumbre — que aparece en todos los contextos porque simplemente eres así?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">Julia que cambia suavemente sin romperse. Las fotos que pierden algo cuando se les quita el color. El azul de la mamá de Renata que aparece en todos lados. <strong>Esta guía trata sobre lo que le da vida al código — y también sobre lo que le da vida a las personas.</strong></p>
+  </div>
+</div>
+
+<!-- PROPÓSITOS -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div><div class="sublbl">Propósitos de aprendizaje</div><h3>¿Qué vas a lograr hoy?</h3></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🌊</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Aplicar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">transition</code> para que los cambios de estilo sean fluidos, y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">transform</code> (scale, rotate, translate) para mover y redimensionar elementos.</p></div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎞️</span><p style="font-size:13.5px;font-weight:700;color:#1e40af">Crear animaciones personalizadas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">@keyframes</code> y controlarlas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">animation-name</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">animation-duration</code> e iteración.</p></div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🔮</span><p style="font-size:13.5px;font-weight:700;color:#166534">Usar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">filter</code> (blur, grayscale, brightness) y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">background-image</code> con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">background-size</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">background-position</code>.</p></div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px"><span style="font-size:20px;flex-shrink:0">🎨</span><p style="font-size:13.5px;font-weight:700;color:#9a3412">Dominar las <strong>variables CSS</strong> (<code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">--mi-variable</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">:root</code>, <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">var()</code>) para crear sistemas de diseño coherentes y fáciles de mantener.</p></div>
+  </div>
+</div>
+
+<!-- MÓDULO 1: TRANSITION Y TRANSFORM -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt"><h2>transition y transform: movimiento con control</h2><p>El cambio puede ser brusco — o puede ser suave. Esa elección también es una decisión.</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>transition</strong> hace que los cambios de una propiedad CSS ocurran gradualmente en lugar de instantáneamente. Sin transition, al hacer hover en un botón el color cambia de golpe. Con transition, cambia suavemente en el tiempo que definas. <strong>transform</strong> mueve, rota, escala o sesga un elemento sin afectar el flujo de la página.</p>
+
+  <!-- Demo interactivo de transiciones -->
+  <div class="demo-transition">
+    <p style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Prueba pasando el cursor por estos elementos:</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <button class="btn-demo btn-sin">Sin transition<br><small>Cambio abrupto</small></button>
+      <button class="btn-demo btn-con">Con transition<br><small>Cambio suave ✨</small></button>
+      <div class="tarjeta-trans" style="width:140px"><p style="font-size:13px;font-weight:700;color:#1a4f8a">Tarjeta con<br>scale + shadow</p></div>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">transition-transform.css</span></div>
+    <div class="ebody"><span class="hc">/* transition: propiedad duración timing-function delay */</span>
+<span class="cs">.btn</span> {
+  <span class="cp">background</span>: <span class="cv">#1a4f8a</span>;
+  <span class="cp">color</span>: <span class="cv">white</span>;
+  <span class="cp">padding</span>: <span class="cv">10px 24px</span>;
+  <span class="cp">border-radius</span>: <span class="cv">8px</span>;
+  <span class="cp">transition</span>: <span class="cv">all 0.3s ease</span>;
+  <span class="hc">/* propiedad: "all" = todo | duración: 0.3s | timing: ease */</span>
+}
+
+<span class="cs">.btn:hover</span> {
+  <span class="cp">background</span>: <span class="cv">#2563eb</span>;
+  <span class="cp">transform</span>: <span class="cv">translateY(-3px)</span>;   <span class="hc">/* sube 3px */</span>
+  <span class="cp">box-shadow</span>: <span class="cv">0 8px 20px rgba(37,99,235,.3)</span>;
+}
+
+<span class="hc">/* TRANSFORM: mover, rotar, escalar */</span>
+<span class="cs">.escalar</span>    { <span class="cp">transform</span>: <span class="cv">scale(1.1)</span>; }          <span class="hc">/* 10% más grande */</span>
+<span class="cs">.rotar</span>      { <span class="cp">transform</span>: <span class="cv">rotate(45deg)</span>; }       <span class="hc">/* gira 45 grados */</span>
+<span class="cs">.mover</span>      { <span class="cp">transform</span>: <span class="cv">translateX(20px)</span>; }   <span class="hc">/* mueve 20px a la derecha */</span>
+<span class="cs">.mover-xy</span>   { <span class="cp">transform</span>: <span class="cv">translate(10px, -5px)</span>; }
+
+<span class="hc">/* Combinados: primero se aplica el último declarado */</span>
+<span class="cs">.combo:hover</span> {
+  <span class="cp">transform</span>: <span class="cv">scale(1.05) rotate(2deg)</span>;
+  <span class="cp">transition</span>: <span class="cv">transform 0.25s ease</span>;
+}
+
+<span class="hc">/* timing-function: cómo se acelera/desacelera */</span>
+<span class="hc">/* ease (por defecto) | linear | ease-in | ease-out | ease-in-out */</span>
+<span class="hc">/* cubic-bezier(x1,y1,x2,y2) para curvas personalizadas */</span></div>
+  </div>
+
+  <!-- Demo de transforms -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Pasa el cursor por cada caja para ver el transform:</div>
+  <div class="transform-grid">
+    <div class="transform-demo t-scale">scale(1.2)<br>⬆ Crece</div>
+    <div class="transform-demo t-rotate" style="background:#ede9fe;color:#4c1d95">rotate(15deg)<br>↻ Gira</div>
+    <div class="transform-demo t-translate" style="background:#dcfce7;color:#14532d">translateX(10px)<br>→ Se mueve</div>
+    <div class="transform-demo t-multi" style="background:#fff7ed;color:#9a3412">scale + rotate<br>✨ Combinado</div>
+  </div>
+
+  <div class="tip"><strong>transform no rompe el flujo:</strong> Cuando usas <code>transform: translateX(20px)</code>, el elemento se mueve visualmente pero su "huella" en el flujo sigue en el lugar original — los elementos vecinos no se mueven. Es diferente a cambiar <code>margin-left</code>, que sí afecta el flujo. Usa transform para animaciones de hover para no "desorganizar" el layout.</div>
+</div>
+
+<!-- MÓDULO 2: @keyframes y animation -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt"><h2>@keyframes: definir el movimiento fotograma a fotograma</h2><p>Una animación es una secuencia de momentos — como la transformación de Julia a lo largo del año</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+  <p class="tp"><strong>@keyframes</strong> define los momentos clave de una animación: qué aspecto tiene el elemento al 0%, al 50%, al 100% del recorrido. Luego se aplica al elemento con la propiedad <strong>animation</strong>. A diferencia de transition (que reacciona a un evento como hover), las animaciones pueden ejecutarse automáticamente, repetirse y tener múltiples pasos.</p>
+
+  <!-- Demo animaciones en vivo -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 10px">Animaciones en vivo — puedes ver cada @keyframes funcionando:</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px">
+    <div style="text-align:center;padding:14px;background:#f8fafc;border-radius:12px;border:1.5px solid #e2e8f0">
+      <div class="anim-pulso" style="width:50px;height:50px;background:#1a4f8a;border-radius:50%;margin:0 auto 8px"></div>
+      <p style="font-size:11px;font-weight:700;color:#64748b">pulso<br>infinite</p>
+    </div>
+    <div style="text-align:center;padding:14px;background:#f8fafc;border-radius:12px;border:1.5px solid #e2e8f0">
+      <div class="anim-deslizar" style="padding:8px 12px;background:#2563eb;color:#fff;border-radius:6px;font-size:11px;font-weight:700;display:inline-block">deslizar</div>
+      <p style="font-size:11px;font-weight:700;color:#64748b;margin-top:8px">entrada suave</p>
+    </div>
+    <div style="text-align:center;padding:14px;background:#f8fafc;border-radius:12px;border:1.5px solid #e2e8f0">
+      <div class="anim-rotar" style="width:40px;height:40px;margin:0 auto 8px;font-size:28px">⚙️</div>
+      <p style="font-size:11px;font-weight:700;color:#64748b">rotate<br>infinite</p>
+    </div>
+    <div style="text-align:center;padding:14px;background:#f8fafc;border-radius:12px;border:1.5px solid #e2e8f0">
+      <div class="anim-latido" style="font-size:32px;display:inline-block">❤️</div>
+      <p style="font-size:11px;font-weight:700;color:#64748b">latido<br>infinite</p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">keyframes.css</span></div>
+    <div class="ebody"><span class="hc">/* 1. Definir la animación con @keyframes */</span>
+<span class="cm">@keyframes</span> <span class="cv">pulso</span> {
+  <span class="cv">0%, 100%</span>  { <span class="cp">transform</span>: <span class="cv">scale(1)</span>;    <span class="cp">opacity</span>: <span class="cv">1</span>; }
+  <span class="cv">50%</span>      { <span class="cp">transform</span>: <span class="cv">scale(1.08)</span>; <span class="cp">opacity</span>: <span class="cv">.85</span>; }
+}
+
+<span class="cm">@keyframes</span> <span class="cv">deslizar</span> {
+  <span class="cv">from</span> { <span class="cp">transform</span>: <span class="cv">translateX(-20px)</span>; <span class="cp">opacity</span>: <span class="cv">0</span>; }
+  <span class="cv">to</span>   { <span class="cp">transform</span>: <span class="cv">translateX(0)</span>;     <span class="cp">opacity</span>: <span class="cv">1</span>; }
+}
+
+<span class="cm">@keyframes</span> <span class="cv">cambio-color</span> {
+  <span class="cv">0%</span>   { <span class="cp">background</span>: <span class="cv">#1a4f8a</span>; }
+  <span class="cv">33%</span>  { <span class="cp">background</span>: <span class="cv">#7c3aed</span>; }
+  <span class="cv">66%</span>  { <span class="cp">background</span>: <span class="cv">#ea580c</span>; }
+  <span class="cv">100%</span> { <span class="cp">background</span>: <span class="cv">#1a4f8a</span>; }
+}
+
+<span class="hc">/* 2. Aplicar la animación al elemento */</span>
+<span class="cs">.pulsante</span> {
+  <span class="cp">animation-name</span>:     <span class="cv">pulso</span>;
+  <span class="cp">animation-duration</span>: <span class="cv">2s</span>;
+  <span class="cp">animation-timing-function</span>: <span class="cv">ease-in-out</span>;
+  <span class="cp">animation-iteration-count</span>: <span class="cv">infinite</span>;  <span class="hc">/* infinite o un número */</span>
+  <span class="cp">animation-direction</span>: <span class="cv">alternate</span>;        <span class="hc">/* va y vuelve */</span>
+  <span class="cp">animation-delay</span>: <span class="cv">0.5s</span>;               <span class="hc">/* empieza después de 0.5s */</span>
+
+  <span class="hc">/* Shorthand: nombre duración timing-function delay iteraciones */</span>
+  <span class="cp">animation</span>: <span class="cv">pulso 2s ease-in-out infinite</span>;
+}
+
+<span class="cs">.entrada</span> {
+  <span class="cp">animation</span>: <span class="cv">deslizar 0.5s ease forwards</span>;
+  <span class="hc">/* forwards: al terminar, queda en el estado final */</span>
+}
+
+<span class="hc">/* animation-fill-mode: */</span>
+<span class="hc">/* forwards: queda en el 100% al terminar */</span>
+<span class="hc">/* backwards: aplica el 0% antes de empezar (con delay) */</span>
+<span class="hc">/* both: forwards + backwards */</span></div>
+  </div>
+
+  <table class="tbl" style="margin-top:12px">
+    <tr><th>Propiedad</th><th>Qué controla</th><th>Valores comunes</th></tr>
+    <tr><td><code>animation-name</code></td><td>Qué @keyframes usa</td><td>El nombre que diste al @keyframes</td></tr>
+    <tr><td><code>animation-duration</code></td><td>Cuánto dura un ciclo</td><td><code>0.3s</code> · <code>1s</code> · <code>2.5s</code></td></tr>
+    <tr><td><code>animation-timing-function</code></td><td>Aceleración del movimiento</td><td><code>ease</code> · <code>linear</code> · <code>ease-in-out</code></td></tr>
+    <tr><td><code>animation-iteration-count</code></td><td>Cuántas veces se repite</td><td><code>1</code> · <code>3</code> · <code>infinite</code></td></tr>
+    <tr><td><code>animation-delay</code></td><td>Cuánto espera antes de empezar</td><td><code>0s</code> · <code>0.5s</code> · <code>1s</code></td></tr>
+    <tr><td><code>animation-fill-mode</code></td><td>Qué pasa antes/después</td><td><code>forwards</code> · <code>backwards</code> · <code>both</code></td></tr>
+  </table>
+</div>
+
+<!-- MÓDULO 3: FILTROS, BACKGROUND-IMAGE Y VARIABLES CSS -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt"><h2>Filtros, imágenes de fondo y variables CSS</h2><p>El toque final: efectos visuales y el sistema de diseño coherente</p></div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <!-- FILTROS -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin-bottom:12px">filter — efectos visuales sobre elementos</h4>
+  <p class="tp"><code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">filter</code> aplica efectos visuales a un elemento: desenfoque, escala de grises, brillo, contraste, saturación. Se puede animar con transition. Pasa el cursor por cada caja:</p>
+
+  <div class="filtros-grid">
+    <div class="filtro-demo f-blur" style="background:linear-gradient(135deg,#1a4f8a,#2563eb)"><span style="font-size:28px">🌊</span><p style="font-size:12px;font-weight:700;color:#fff;margin-top:6px">blur(3px)<br>al hover</p></div>
+    <div class="filtro-demo f-gray" style="background:linear-gradient(135deg,#ea580c,#f59e0b)"><span style="font-size:28px">🎨</span><p style="font-size:12px;font-weight:700;color:#fff;margin-top:6px">grayscale → color<br>al hover</p></div>
+    <div class="filtro-demo f-bright" style="background:linear-gradient(135deg,#7c3aed,#a21caf)"><span style="font-size:28px">✨</span><p style="font-size:12px;font-weight:700;color:#fff;margin-top:6px">brightness(1.4)<br>al hover</p></div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">filtros.css</span></div>
+    <div class="ebody"><span class="hc">/* filter: efectos visuales */</span>
+<span class="cs">.foto</span>           { <span class="cp">filter</span>: <span class="cv">grayscale(100%)</span>; }  <span class="hc">/* blanco y negro */</span>
+<span class="cs">.foto:hover</span>      { <span class="cp">filter</span>: <span class="cv">grayscale(0%)</span>; }   <span class="hc">/* color al hover */</span>
+<span class="cs">.foto</span>            { <span class="cp">transition</span>: <span class="cv">filter 0.4s ease</span>; }
+
+<span class="cs">.desenfocado</span>     { <span class="cp">filter</span>: <span class="cv">blur(4px)</span>; }
+<span class="cs">.brillante</span>       { <span class="cp">filter</span>: <span class="cv">brightness(1.3)</span>; }
+<span class="cs">.oscuro</span>          { <span class="cp">filter</span>: <span class="cv">brightness(0.7)</span>; }
+<span class="cs">.contraste</span>       { <span class="cp">filter</span>: <span class="cv">contrast(1.5)</span>; }
+<span class="cs">.sepia</span>           { <span class="cp">filter</span>: <span class="cv">sepia(80%)</span>; }
+
+<span class="hc">/* Combinados */</span>
+<span class="cs">.foto-vintage</span>    { <span class="cp">filter</span>: <span class="cv">sepia(60%) contrast(1.1) brightness(0.9)</span>; }
+
+<span class="hc">/* background-image: imagen de fondo */</span>
+<span class="cs">.hero</span> {
+  <span class="cp">background-image</span>: <span class="cv">url('mi-imagen.jpg')</span>;
+  <span class="cp">background-size</span>: <span class="cv">cover</span>;        <span class="hc">/* cubre todo sin distorsionar */</span>
+  <span class="cp">background-position</span>: <span class="cv">center</span>;    <span class="hc">/* centrada */</span>
+  <span class="cp">background-repeat</span>: <span class="cv">no-repeat</span>;
+  <span class="cp">min-height</span>: <span class="cv">400px</span>;
+}
+
+<span class="hc">/* Gradiente como background-image */</span>
+<span class="cs">.gradiente</span> {
+  <span class="cp">background-image</span>: <span class="cv">linear-gradient(135deg, #1a4f8a, #7c3aed)</span>;
+}
+
+<span class="hc">/* Imagen con overlay oscuro para leer texto encima */</span>
+<span class="cs">.foto-con-texto</span> {
+  <span class="cp">background-image</span>: <span class="cv">linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),
+                      url('mi-foto.jpg')</span>;
+  <span class="cp">background-size</span>: <span class="cv">cover</span>;
+}</div>
+  </div>
+
+  <!-- VARIABLES CSS -->
+  <h4 style="font-size:15px;font-weight:800;color:#1a4f8a;margin:22px 0 12px">Variables CSS — el color que aparece en todos lados</h4>
+  <p class="tp">Las variables CSS (también llamadas <em>custom properties</em>) permiten guardar un valor con un nombre y reutilizarlo en todo el CSS. Se declaran con <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">--nombre-variable: valor</code> y se usan con <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">var(--nombre-variable)</code>. Definidas en <code style="background:#f1f5f9;color:#7c3aed;padding:2px 4px;border-radius:4px;font-family:'Source Code Pro',monospace">:root</code>, están disponibles en toda la página.</p>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">variables.css</span></div>
+    <div class="ebody"><span class="hc">/* Declarar variables en :root = disponibles en TODA la página */</span>
+<span class="cs">:root</span> {
+  <span class="hc">/* Colores */</span>
+  <span class="cp">--color-principal</span>:   <span class="cv">#1a4f8a</span>;
+  <span class="cp">--color-secundario</span>:  <span class="cv">#2563eb</span>;
+  <span class="cp">--color-acento</span>:      <span class="cv">#fbbf24</span>;
+  <span class="cp">--color-fondo</span>:       <span class="cv">#f0f4f8</span>;
+  <span class="cp">--color-texto</span>:       <span class="cv">#1e293b</span>;
+
+  <span class="hc">/* Tipografía */</span>
+  <span class="cp">--fuente-principal</span>:  <span class="cv">'Nunito'</span>, sans-serif;
+  <span class="cp">--tamaño-base</span>:       <span class="cv">1rem</span>;
+
+  <span class="hc">/* Espaciado */</span>
+  <span class="cp">--espacio-sm</span>:        <span class="cv">0.5rem</span>;
+  <span class="cp">--espacio-md</span>:        <span class="cv">1rem</span>;
+  <span class="cp">--espacio-lg</span>:        <span class="cv">2rem</span>;
+  <span class="cp">--radio-borde</span>:       <span class="cv">14px</span>;
+  <span class="cp">--sombra-base</span>:       <span class="cv">0 2px 12px rgba(0,0,0,.06)</span>;
+
+  <span class="hc">/* Transiciones */</span>
+  <span class="cp">--transicion</span>:        <span class="cv">all 0.3s ease</span>;
+}
+
+<span class="hc">/* Usar con var() */</span>
+<span class="cs">body</span> {
+  <span class="cp">font-family</span>: <span class="cv">var(--fuente-principal)</span>;
+  <span class="cp">color</span>: <span class="cv">var(--color-texto)</span>;
+  <span class="cp">background</span>: <span class="cv">var(--color-fondo)</span>;
+}
+
+<span class="cs">.card</span> {
+  <span class="cp">background</span>: <span class="cv">white</span>;
+  <span class="cp">border-radius</span>: <span class="cv">var(--radio-borde)</span>;
+  <span class="cp">padding</span>: <span class="cv">var(--espacio-lg)</span>;
+  <span class="cp">box-shadow</span>: <span class="cv">var(--sombra-base)</span>;
+  <span class="cp">transition</span>: <span class="cv">var(--transicion)</span>;
+}
+
+<span class="cs">.card:hover</span> {
+  <span class="cp">box-shadow</span>: <span class="cv">0 8px 24px rgba(0,0,0,.12)</span>;
+  <span class="cp">transform</span>: <span class="cv">translateY(-4px)</span>;
+}
+
+<span class="hc">/* Cambiar el tema completo cambiando una sola variable */</span>
+<span class="cm">@media</span> (<span class="cp">prefers-color-scheme</span>: <span class="cv">dark</span>) {
+  <span class="cs">:root</span> {
+    <span class="cp">--color-fondo</span>: <span class="cv">#0f172a</span>;
+    <span class="cp">--color-texto</span>: <span class="cv">#e2e8f0</span>;
+  }
+}</div>
+  </div>
+
+  <div style="background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:16px 20px;margin-top:10px">
+    <p style="font-size:14px;color:#78350f"><strong>El poder de las variables CSS:</strong> Si defines <code style="font-family:'Source Code Pro';font-size:12px">--color-principal: #1a4f8a</code> y lo usas en 50 lugares, para cambiar el color de todo el proyecto solo cambias esa variable. Sin variables, cambiarías los 50 valores manualmente. Es igual que tener un valor que defines una vez — como el azul de la mamá de Renata — y que aparece coherentemente en todos lados.</p>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 1 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#7c3aed,#6d28d9)">
+    <div class="act-num">A1</div>
+    <div><h3>Darle vida a mi proyecto: animaciones y variables definitivas</h3><div class="asub">Individual · 25 minutos · Autoconciencia — el toque final que hace que algo sea completamente tuyo</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#ddd6fe">
+    <div class="meta">
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">⏱ 25 min</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">👤 Individual</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">💻 CSS externo</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">✨</span><span class="eti">El toque final — lo que hace que algo sea tuyo</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">La transición suave de Julia, el color que la mamá de Renata pone en todos lados, la diferencia entre una foto en color y en blanco y negro. <strong>Esta actividad es el toque final de todo el proyecto: las animaciones, los filtros y las variables que lo hacen inconfundiblemente tuyo.</strong></p>
+        <div class="escena-pregunta">💭 ¿Qué animación o efecto visual diría algo de tu personalidad — de cómo te mueves por el mundo?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#7c3aed">1</div><div class="pc"><h4>Consolida todas las variables CSS en el :root de tu estilos.css</h4><p>Revisa todo tu CSS y extrae los colores, fuentes, espaciados y radios repetidos. Conviértelos en variables con nombres descriptivos. Luego reemplaza todos los valores hardcoded por <code>var(--nombre)</code>. Al terminar, el tema visual de toda la página debe controlarse desde el bloque <code>:root</code>.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">2</div><div class="pc"><h4>Agrega transition a todos los elementos interactivos</h4><p>Botones, links del nav, tarjetas, imágenes — todo lo que tenga <code>:hover</code> debe tener transition. Usa el valor guardado en variable: <code>transition: var(--transicion)</code>.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">3</div><div class="pc"><h4>Crea una animación @keyframes que represente algo de ti</h4><p>No tiene que ser compleja. Puede ser un pulso suave en tu h1 al cargar la página, una entrada deslizada para las tarjetas, una rotación lenta en un ícono. El nombre del @keyframes debe decir algo de lo que hace (<code>entrada-suave</code>, <code>latido</code>, <code>giro-lento</code>).</p></div></li>
+      <li class="paso"><div class="pn" style="background:#7c3aed">4</div><div class="pc"><h4>Aplica un efecto filter a las fotos o imágenes</h4><p>Las imágenes en estado normal pueden tener <code>filter: grayscale(20%)</code> (ligeramente desaturadas). Al hover, <code>filter: grayscale(0)</code> (color completo). Añade <code>transition: filter 0.4s ease</code>. Es el efecto "la foto cobra vida al mirarla".</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu CSS final debe tener</div>
+      <ul>
+        <li>Bloque :root completo con todas las variables del proyecto</li>
+        <li>transition en todos los elementos interactivos usando la variable --transicion</li>
+        <li>Al menos un @keyframes personalizado con un nombre que diga algo</li>
+        <li>filter aplicado a imágenes con transition</li>
+        <li>background-image en al menos una sección (imagen real o gradiente)</li>
+        <li>Comentarios CSS que expliquen qué representa cada animación</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Las animaciones son la personalidad del código — lo que lo hace único</h4>
+      <p>Un sitio web sin animaciones funciona. Un sitio con animaciones bien elegidas tiene carácter. Como las personas: funcionar no es suficiente — lo que nos hace reconocibles es la forma en que nos movemos, la consistencia de nuestros "colores", la suavidad o la energía con que cambiamos. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué @keyframes creaste y qué dice de ti? ¿Por qué esa animación y no otra?</li>
+        <li><span>→</span> ¿Las variables CSS de tu proyecto tienen nombres que reflejan algo tuyo, o son genéricos?</li>
+        <li><span>→</span> ¿La transition que elegiste es rápida o lenta? ¿Eso dice algo de cómo cambias tú?</li>
+        <li><span>→</span> ¿Hay algo de tu código que ya, antes de que nadie lo lea, dice "esto lo hizo esa persona"?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 2 -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A2</div>
+    <div><h3>Grayscale y color: lo que se pierde y lo que permanece</h3><div class="asub">Parejas · 20 minutos · Conciencia social — ver qué se pierde cuando quitamos el "color" a las personas</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 20 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Parejas</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 + conversación</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-escuela" style="margin-bottom:18px">
+      <div class="escena-top"><span class="eco">📸</span><span class="eti">Volvamos a las fotos de Nicolás — lo que se pierde en blanco y negro</span></div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">Nicolás sentía que las fotos en blanco y negro perdían algo esencial. <strong>Esta actividad propone convertir en código esa reflexión:</strong> construir una página donde las tarjetas de los integrantes del grupo aparecen en escala de grises y cobran color al ser "vistas" (hover). La metáfora es exacta: algunas personas solo "cobran color" cuando alguien se detiene a mirarlas de verdad.</p>
+        <div class="escena-pregunta">💭 ¿Hay alguien en tu entorno que necesita ser "mirado de verdad" para mostrar su color real?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#16a34a">1</div><div class="pc"><h4>Retomen la página del equipo de guías anteriores</h4><p>O creen una nueva con tarjetas de los dos integrantes. Cada tarjeta tiene imagen de fondo (o un fondo de color), nombre y una frase.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">2</div><div class="pc"><h4>Implementen el efecto grayscale → color (6 min)</h4><p>Estado base: <code>filter: grayscale(100%) brightness(0.85)</code>. Estado hover: <code>filter: grayscale(0%) brightness(1)</code>. Transition de 0.5s ease. El resultado: al pasar el cursor, la tarjeta "cobra vida".</p></div></li>
+      <li class="paso"><div class="pn" style="background:#16a34a">3</div><div class="pc"><h4>Cada uno escribe sobre la metáfora (8 min)</h4><p>En el HTML, bajo cada tarjeta, un <code>&lt;p&gt;</code> que responde: "Lo que se pierde de [nombre] cuando nadie se detiene a verlo/a de verdad es..." Honesto, concreto, real.</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Tarjetas con el efecto grayscale → color al hover con transition suave</li>
+        <li>Un párrafo debajo de cada tarjeta con la reflexión sobre "lo que se pierde"</li>
+        <li>Una conclusión conjunta: ¿qué aprendieron de verse a sí mismos en "blanco y negro"?</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Algunas personas solo muestran su color cuando alguien se detiene a mirarlas</h4>
+      <p>La conciencia social incluye "demostrar empatía y compasión" y "reconocer las fortalezas de los demás". El efecto grayscale → color no es solo un truco de CSS — es una metáfora real: hay personas en nuestro entorno que aparecen "en gris" para la mayoría pero que tienen un color completo cuando alguien se detiene. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué pusiste en "lo que se pierde de mí cuando nadie se detiene a verme"?</li>
+        <li><span>→</span> ¿Hay alguien en tu entorno — familia, colegio, grupo — que vive en "grayscale" para la mayoría y que tú puedes "mirar" de verdad?</li>
+        <li><span>→</span> ¿Hubo algo del párrafo del otro que te sorprendió — algo que no sabías que se perdía de ellos?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVIDAD 3 — CIERRE DEL PROYECTO -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#0f172a,#1e293b)">
+    <div class="act-num">A3</div>
+    <div><h3>Bitácora animada del proyecto: cómo llegué y cómo termino</h3><div class="asub">Individual · 20 minutos · Las 5 competencias CASEL · Cierre del proyecto CSS completo</div></div>
+  </div>
+  <div class="act-bd" style="border-color:#e2e8f0">
+    <div class="meta">
+      <span class="mp" style="background:#f8fafc;border-color:#e2e8f0;color:#334155">⏱ 20 min</span>
+      <span class="mp" style="background:#f8fafc;border-color:#e2e8f0;color:#334155">👤 Individual</span>
+      <span class="mp" style="background:#f8fafc;border-color:#e2e8f0;color:#334155">💻 HTML + CSS completo</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🌿 SEL: Las 5 competencias</span>
+    </div>
+
+    <p class="tp" style="margin-bottom:16px">Esta es la actividad final del proyecto CSS y Socioemocionalidad. Es también la bitácora final — pero con todo lo que aprendiste desde la Guía 11 hasta la 17.</p>
+
+    <ul class="pasos">
+      <li class="paso"><div class="pn" style="background:#334155">1</div><div class="pc"><h4>Crea el archivo <code>bitacora_css_final.html</code></h4><p>Con CSS externo completo que use variables, grid, flexbox, responsive, transiciones y al menos una animación @keyframes de entrada.</p></div></li>
+      <li class="paso"><div class="pn" style="background:#334155">2</div><div class="pc"><h4>Responde en la bitácora — con párrafos reales, no listas</h4><p>Estas son las preguntas que guían el cierre del proyecto CSS (las mismas competencias que el proyecto HTML, pero desde la perspectiva del CSS):</p>
+        <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:18px;margin-top:10px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🔍</span><div><strong style="color:#7c2d12;font-size:13px">Autoconciencia:</strong> <span style="font-size:13px;color:#334155">¿Qué propiedad CSS de este proyecto se siente más "tuya"? ¿Qué dice esa elección sobre cómo te presentas al mundo?</span></div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🧘</span><div><strong style="color:#1e3a8a;font-size:13px">Autocontrol:</strong> <span style="font-size:13px;color:#334155">¿Hubo momentos en este proyecto donde quisiste usar demasiadas animaciones o efectos? ¿Cómo decidiste cuándo era suficiente?</span></div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">🌍</span><div><strong style="color:#14532d;font-size:13px">Conciencia Social:</strong> <span style="font-size:13px;color:#334155">¿El proyecto te ayudó a entender algo de las personas de tu entorno — familia, compañeros, colegio — que antes no veías?</span></div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">💬</span><div><strong style="color:#3b0764;font-size:13px">Habilidades Relacionales:</strong> <span style="font-size:13px;color:#334155">¿Cómo cambió tu forma de colaborar durante las guías de CSS — comparado con las de HTML? ¿Qué aprendiste del proceso de consenso y feedback?</span></div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:18px">⚖️</span><div><strong style="color:#581c87;font-size:13px">Toma de Decisiones:</strong> <span style="font-size:13px;color:#334155">¿Hubo alguna decisión de diseño — de color, de animación, de layout — que te costó tomar? ¿Cómo llegaste a ella?</span></div></div>
+        </div>
+      </div></li>
+      <li class="paso"><div class="pn" style="background:#334155">3</div><div class="pc"><h4>Una frase final para la bitácora</h4><p>Al final del archivo, en el <code>&lt;footer&gt;</code>, escribe una sola frase que resuma lo que fue este proyecto para ti. No el proyecto técnico — el proyecto personal. La que escribirías si alguien te preguntara "¿qué aprendiste?"</p></div></li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 La bitácora final debe ser</div>
+      <ul>
+        <li>Completamente construida con CSS externo que use todas las propiedades de las guías 11–17</li>
+        <li>Con las 5 competencias CASEL respondidas en párrafos reales</li>
+        <li>Con al menos una animación @keyframes de entrada al cargar</li>
+        <li>Con una frase final personal en el footer que cierre el proyecto</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CIERRE NARRATIVO DEL PROYECTO -->
+<div class="cierre">
+  <h2>Siete guías. Un proyecto completo. Algo que solo tú pudiste construir.</h2>
+  <p>Empezaste con la pregunta más básica — ¿qué es CSS? — y terminaste con animaciones que tienen nombre propio, variables que reflejan tu paleta personal, un layout que funciona en el celular de cualquiera y un sistema de diseño que es inconfundiblemente tuyo.</p>
+  <div class="cierre-frase">Lo que construiste no es solo código. Es la versión visual de cómo entiendes el espacio, el color, el movimiento y la estructura. Eso dice más de ti de lo que crees.</div>
+  <p>El CSS que escribiste en estas semanas no se borra cuando cierras el editor. Las decisiones que tomaste — qué colores son los tuyos, cómo prefieres que los cambios ocurran, cuánto espacio le das a cada cosa — esas elecciones son tuyas. Guárdalas.</p>
+</div>
+
+<!-- SÍNTESIS VISUAL FINAL -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div><div class="sublbl">Resumen técnico · Guía 17</div><h3>Lo que aprendiste hoy — y el recorrido completo</h3></div>
+  </div>
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="280" fill="#f8fafc"/>
+      <!-- transition -->
+      <rect x="18" y="18" width="155" height="100" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="155" height="30" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="36" width="155" height="12" fill="#1a4f8a"/>
+      <text x="95" y="34" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="11">transition</text>
+      <text x="28" y="62" fill="#1e40af" font-family="Source Code Pro" font-size="9">transition: all 0.3s ease</text>
+      <text x="28" y="76" fill="#1e40af" font-family="Source Code Pro" font-size="9">property duration timing</text>
+      <text x="28" y="90" fill="#3b82f6" font-family="Nunito" font-size="9">Cambio gradual al hover</text>
+      <text x="28" y="104" fill="#3b82f6" font-family="Nunito" font-size="9">transform: scale/rotate/translate</text>
+      <!-- keyframes -->
+      <rect x="189" y="18" width="165" height="100" rx="10" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+      <rect x="189" y="18" width="165" height="30" rx="10" fill="#ea580c"/>
+      <rect x="189" y="36" width="165" height="12" fill="#ea580c"/>
+      <text x="271" y="34" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="11">@keyframes</text>
+      <text x="199" y="62" fill="#92400e" font-family="Source Code Pro" font-size="9">@keyframes nombre { }</text>
+      <text x="199" y="76" fill="#92400e" font-family="Source Code Pro" font-size="9">0%, 50%, 100%</text>
+      <text x="199" y="90" fill="#c2410c" font-family="Nunito" font-size="9">animation: nombre duración</text>
+      <text x="199" y="104" fill="#c2410c" font-family="Nunito" font-size="9">iteration · delay · fill-mode</text>
+      <!-- filtros -->
+      <rect x="370" y="18" width="155" height="100" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="370" y="18" width="155" height="30" rx="10" fill="#16a34a"/>
+      <rect x="370" y="36" width="155" height="12" fill="#16a34a"/>
+      <text x="447" y="34" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="11">filter + bg-image</text>
+      <text x="380" y="62" fill="#14532d" font-family="Source Code Pro" font-size="9">grayscale · blur</text>
+      <text x="380" y="76" fill="#14532d" font-family="Source Code Pro" font-size="9">brightness · sepia</text>
+      <text x="380" y="90" fill="#166534" font-family="Nunito" font-size="9">background-image: url()</text>
+      <text x="380" y="104" fill="#166534" font-family="Nunito" font-size="9">bg-size: cover · bg-position</text>
+      <!-- variables -->
+      <rect x="541" y="18" width="141" height="100" rx="10" fill="#fdf4ff" stroke="#f0abfc" stroke-width="1.5"/>
+      <rect x="541" y="18" width="141" height="30" rx="10" fill="#a21caf"/>
+      <rect x="541" y="36" width="141" height="12" fill="#a21caf"/>
+      <text x="611" y="34" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="11">Variables CSS</text>
+      <text x="551" y="62" fill="#6b21a8" font-family="Source Code Pro" font-size="9">:root { --color: #val }</text>
+      <text x="551" y="76" fill="#6b21a8" font-family="Source Code Pro" font-size="9">var(--mi-variable)</text>
+      <text x="551" y="90" fill="#7e22ce" font-family="Nunito" font-size="9">Define 1 vez, usa en todo</text>
+      <text x="551" y="104" fill="#7e22ce" font-family="Nunito" font-size="9">Sistema coherente ✅</text>
+      <!-- Guías recorridas -->
+      <rect x="18" y="132" width="664" height="130" rx="10" fill="#1e293b"/>
+      <text x="350" y="152" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="12">Recorrido completo: CSS y Socioemocionalidad · Guías 11–17</text>
+      <text x="40" y="172" fill="#94a3b8" font-family="Nunito" font-size="9">G11: Sintaxis · métodos · selectores · especificidad</text>
+      <text x="40" y="186" fill="#94a3b8" font-family="Nunito" font-size="9">G12: Colores · fuentes · texto · Box Model</text>
+      <text x="40" y="200" fill="#94a3b8" font-family="Nunito" font-size="9">G13: Position · display · overflow · visibility</text>
+      <text x="40" y="214" fill="#94a3b8" font-family="Nunito" font-size="9">G14: Flexbox · justify-content · align-items · flex-grow</text>
+      <text x="380" y="172" fill="#94a3b8" font-family="Nunito" font-size="9">G15: Grid · template-areas · fr · repeat · minmax</text>
+      <text x="380" y="186" fill="#94a3b8" font-family="Nunito" font-size="9">G16: Media queries · responsive · mobile-first · rem</text>
+      <text x="380" y="200" fill="#fbbf24" font-family="Nunito" font-size="9" font-weight="700">G17: Animaciones · @keyframes · filter · variables CSS</text>
+      <rect x="30" y="222" width="640" height="30" rx="6" fill="rgba(251,191,36,.1)" stroke="#fbbf24" stroke-width="1"/>
+      <text x="350" y="242" text-anchor="middle" fill="#fbbf24" font-family="Nunito" font-weight="900" font-size="11">+ 10 guías de HTML · Guías 01–10 · proyecto completo 2025</text>
+    </svg>
+  </div>
+</div>
+
+<!-- RÚBRICA -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div><div class="sublbl">Criterios de valoración · Guía 17 · Cierre</div><h3>¿Cómo se evaluará tu trabajo final?</h3></div>
+  </div>
+  <table class="rubrica">
+    <tr><th style="width:22%">Criterio</th><th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th><th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th><th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th></tr>
+    <tr>
+      <td><strong>Transitions y transforms</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Transition sin timing o aplicada solo a un elemento.</td>
+      <td>Transition en todos los elementos interactivos con timing apropiado.</td>
+      <td>La variable --transicion se usa consistentemente. Los transforms elegidos tienen intención: qué sube, qué escala, qué rota tiene sentido de diseño.</td>
+    </tr>
+    <tr>
+      <td><strong>@keyframes personalizado</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>No usa @keyframes o copia uno genérico sin modificar.</td>
+      <td>Un @keyframes propio bien escrito con al menos dos estados.</td>
+      <td>El nombre del @keyframes y su comportamiento dicen algo de la personalidad del proyecto. animation-fill-mode y delay usados con criterio.</td>
+    </tr>
+    <tr>
+      <td><strong>Variables CSS completas</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Algunas variables pero valores hardcoded mezclados sin criterio.</td>
+      <td>El :root tiene todas las variables del sistema y se usan consistentemente.</td>
+      <td>Las variables tienen nombres descriptivos y coherentes. Cambiar una sola variable del :root cambia el tema completo.</td>
+    </tr>
+    <tr>
+      <td><strong>Identidad visual del proyecto</strong><br><span style="font-size:11px;color:#64748b">SEL · Autoconciencia</span></td>
+      <td>El proyecto tiene buen código pero podría ser de cualquier persona.</td>
+      <td>El proyecto tiene una paleta y un carácter visual reconocible.</td>
+      <td>El proyecto es inconfundiblemente de esa persona: las animaciones, los colores, las transiciones y el layout cuentan una historia coherente de quién lo hizo.</td>
+    </tr>
+    <tr>
+      <td><strong>Bitácora final del proyecto CSS</strong><br><span style="font-size:11px;color:#64748b">SEL · Las 5 competencias</span></td>
+      <td>Respuestas mínimas que no conectan el CSS con la vida personal.</td>
+      <td>Las 5 competencias CASEL respondidas con algo personal y específico.</td>
+      <td>La bitácora es la culminación honesta del proyecto: dice qué cambió, qué aprendió y qué se lleva — no del código, sino de la persona.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto CSS y Socioemocionalidad · Guía 17 · Guía Final · Grado Décimo · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Conciencia Social · Habilidades Relacionales · Toma de Decisiones</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px;font-size:13px;font-weight:800;opacity:1">Fin del Proyecto CSS y Socioemocionalidad</p>
+    <p>Guías 11–17 · Grado Décimo · ENSDB · 2025</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
