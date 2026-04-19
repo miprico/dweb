@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía 03 · Listas, Saltos y Citas · Grado 10° · ENSDB</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:#f0f4f8;color:#1e293b;line-height:1.7;font-size:15px}
+
+/* ══ HEADER ══ */
+.inst-header{background:linear-gradient(135deg,#1a4f8a 0%,#1d4ed8 100%);color:#fff;position:relative;overflow:hidden}
+.inst-header::before{content:'';position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+.inst-header::after{content:'';position:absolute;bottom:-80px;left:35%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.04)}
+.inst-top{display:flex;align-items:center;gap:16px;padding:16px 36px 12px;border-bottom:1px solid rgba(255,255,255,.15);position:relative;z-index:1}
+.inst-logo{width:54px;height:54px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inst-nombre h1{font-size:13.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}
+.inst-nombre p{font-size:11px;opacity:.8;margin-top:2px}
+.inst-ficha{display:grid;grid-template-columns:repeat(5,1fr);position:relative;z-index:1}
+.fc{padding:11px 18px;border-right:1px solid rgba(255,255,255,.12)}
+.fc:last-child{border:0}
+.fc .lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:.65;font-weight:700}
+.fc .val{font-size:12px;font-weight:800;margin-top:2px}
+.guia-badge{display:inline-block;background:#fbbf24;color:#78350f;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;text-transform:uppercase;letter-spacing:1.2px;margin:12px 36px 16px;position:relative;z-index:1}
+
+/* ══ TÍTULO ══ */
+.guia-titulo{background:#fff;border-left:7px solid #1a4f8a;margin:24px 36px 0;border-radius:0 14px 14px 0;padding:22px 30px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+.gnum{font-size:10px;color:#2563eb;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+.guia-titulo h2{font-size:26px;font-weight:900;color:#1a4f8a;line-height:1.2}
+.guia-titulo .gsub{color:#64748b;font-size:14px;margin-top:7px;line-height:1.6}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px}
+.tag-azul{background:#dbeafe;color:#1e40af}
+.tag-verde{background:#dcfce7;color:#166534}
+.tag-ambar{background:#fef3c7;color:#92400e}
+.tag-morado{background:#ede9fe;color:#4c1d95}
+.tag-rosa{background:#fce7f3;color:#9d174d}
+
+/* ══ LAYOUT ══ */
+.pagina{max-width:1100px;margin:28px auto;padding:0 24px;display:flex;flex-direction:column;gap:26px}
+
+/* ══ CARDS ══ */
+.card{background:#fff;border-radius:14px;padding:28px 32px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.card-h{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid #f1f5f9}
+.card-ico{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.card-h h3{font-size:17px;font-weight:900;color:#1a4f8a}
+.sublbl{font-size:10px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-top:1px}
+
+/* ══ ESCENAS NARRATIVAS ══ */
+.escena{border-radius:14px;overflow:hidden;margin-bottom:6px}
+.escena-top{padding:10px 20px;display:flex;align-items:center;gap:10px}
+.escena-top .eco{font-size:22px}
+.escena-top .eti{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff}
+.escena-cuerpo{padding:18px 22px}
+.escena-cuerpo .dialogo{font-size:14.5px;line-height:1.8;color:#1e293b;margin-bottom:14px;font-style:italic}
+.escena-cuerpo .dialogo strong{font-style:normal;font-weight:800}
+.escena-pregunta{background:rgba(255,255,255,.7);border-radius:10px;padding:12px 16px;font-size:13.5px;font-weight:700}
+
+.escena-familia .escena-top{background:#f59e0b}
+.escena-familia .escena-cuerpo{background:#fffbeb;border:1.5px solid #fde68a;border-top:0}
+.escena-familia .escena-pregunta{color:#78350f}
+
+.escena-escuela .escena-top{background:#2563eb}
+.escena-escuela .escena-cuerpo{background:#eff6ff;border:1.5px solid #bfdbfe;border-top:0}
+.escena-escuela .escena-pregunta{color:#1e40af}
+
+.escena-pares .escena-top{background:#7c3aed}
+.escena-pares .escena-cuerpo{background:#f5f3ff;border:1.5px solid #ddd6fe;border-top:0}
+.escena-pares .escena-pregunta{color:#4c1d95}
+
+.escena-interna .escena-top{background:#0d9488}
+.escena-interna .escena-cuerpo{background:#f0fdfa;border:1.5px solid #99f6e4;border-top:0}
+.escena-interna .escena-pregunta{color:#134e4a}
+
+.escena-decision .escena-top{background:#dc2626}
+.escena-decision .escena-cuerpo{background:#fef2f2;border:1.5px solid #fecaca;border-top:0}
+.escena-decision .escena-pregunta{color:#991b1b}
+
+/* ══ MÓDULO SEPARADOR ══ */
+.modulo-sep{background:linear-gradient(135deg,#1a4f8a,#2563eb);border-radius:14px;padding:18px 28px;color:#fff;display:flex;align-items:center;gap:20px}
+.sep-num{font-size:48px;font-weight:900;opacity:.18;line-height:1;flex-shrink:0;font-family:'Source Code Pro',monospace}
+.sep-txt h2{font-size:20px;font-weight:900}
+.sep-txt p{font-size:13px;opacity:.8;margin-top:3px}
+
+/* ══ SECCIÓN LABEL ══ */
+.slbl{display:inline-flex;align-items:center;gap:8px;background:#1a4f8a;color:#fff;font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;padding:5px 16px 5px 10px;border-radius:30px;margin-bottom:16px}
+.slbl .dot{width:8px;height:8px;border-radius:50%;background:#fbbf24}
+
+/* ══ TEXTO ══ */
+.tp{font-size:15px;color:#334155;line-height:1.85;margin-bottom:14px}
+.tp strong{color:#1a4f8a}
+
+/* ══ EDITOR ══ */
+.editor{background:#0f172a;border-radius:12px;overflow:hidden;margin:12px 0}
+.ebar{background:#1e293b;padding:8px 16px;display:flex;align-items:center;gap:10px}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%}
+.dr{background:#ef4444}.dy{background:#f59e0b}.dg{background:#22c55e}
+.fname{font-family:'Source Code Pro',monospace;font-size:12px;color:#94a3b8;margin-left:4px}
+.ebody{padding:18px 22px;font-family:'Source Code Pro',monospace;font-size:13px;line-height:2;overflow-x:auto;white-space:pre}
+.ht{color:#f472b6}.ha{color:#86efac}.hv2{color:#fbbf24}.hc{color:#475569;font-style:italic}.htx{color:#e2e8f0}
+.ln{color:#334155;user-select:none;display:inline-block;width:24px;text-align:right;margin-right:14px;font-size:11px}
+
+/* ══ PREVIEW NAVEGADOR ══ */
+.brow{border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:12px 0}
+.brow-bar{background:#f1f5f9;padding:7px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e2e8f0}
+.bdots{display:flex;gap:5px}
+.bdots span{width:10px;height:10px;border-radius:50%}
+.bdr2{background:#ef4444}.bdy2{background:#f59e0b}.bdg2{background:#22c55e}
+.burl{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:3px 14px;font-size:11px;color:#64748b;flex:1}
+.bcon{padding:20px 26px;background:#fff}
+.bcon h2{font-size:18px;font-weight:800;color:#1f2937;margin-bottom:8px}
+.bcon p{font-size:14px;color:#374151;margin-bottom:8px;line-height:1.7}
+.bcon ul{margin:6px 0 10px 22px;font-size:14px;color:#374151}
+.bcon ol{margin:6px 0 10px 22px;font-size:14px;color:#374151}
+.bcon li{margin-bottom:4px;line-height:1.6}
+.bcon blockquote{border-left:4px solid #93c5fd;padding:10px 16px;margin:10px 0;background:#eff6ff;font-style:italic;color:#1e40af;font-size:14px;border-radius:0 8px 8px 0}
+.bcon hr{border:none;border-top:2px solid #e2e8f0;margin:14px 0}
+.bcon strong{font-weight:800}
+.bcon em{font-style:italic}
+
+/* ══ TABLA ══ */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+.tbl th{background:#1a4f8a;color:#fff;padding:10px 14px;text-align:left;font-weight:800;font-size:12px}
+.tbl td{padding:10px 14px;border-bottom:1px solid #f1f5f9;vertical-align:top;color:#334155}
+.tbl tr:hover td{background:#f8fafc}
+.tbl code{background:#f1f5f9;color:#7c3aed;padding:2px 7px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px;font-weight:600}
+
+/* ══ TIP / WARN ══ */
+.tip{background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#1e40af}
+.tip strong{font-weight:800}
+.warn{background:#fef3c7;border-left:4px solid #d97706;border-radius:0 10px 10px 0;padding:12px 18px;margin:10px 0;font-size:13.5px;color:#92400e}
+.warn strong{font-weight:800}
+
+/* ══ COMPARACIÓN ══ */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.cmp-lado{border-radius:12px;overflow:hidden}
+.cmp-tit{padding:10px 16px;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+.cmp-body{padding:16px;font-size:13px;line-height:1.7}
+
+/* ══ ACTIVIDAD ══ */
+.act-wrap{border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+.act-hd{padding:18px 26px;display:flex;align-items:center;gap:16px;color:#fff}
+.act-num{width:46px;height:46px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;flex-shrink:0}
+.act-hd h3{font-size:17px;font-weight:900}
+.act-hd .asub{font-size:12px;opacity:.85;margin-top:2px}
+.act-bd{background:#fff;padding:24px 28px;border:1.5px solid;border-top:0;border-radius:0 0 14px 14px}
+
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.mp{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid}
+
+/* ══ PASOS ══ */
+.pasos{list-style:none;display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+.paso{display:flex;gap:14px;align-items:flex-start}
+.pn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;margin-top:2px;color:#fff}
+.pc h4{font-size:14px;font-weight:800;color:#1e293b;margin-bottom:3px}
+.pc p{font-size:13.5px;color:#475569;line-height:1.6}
+.pc code{background:#f1f5f9;color:#7c3aed;padding:1px 6px;border-radius:4px;font-family:'Source Code Pro',monospace;font-size:12.5px}
+
+/* ══ CONSIGNA ══ */
+.consigna{background:#fef9c3;border:2px solid #fbbf24;border-radius:12px;padding:18px 22px;margin-top:10px}
+.clbl{font-size:10px;font-weight:900;color:#d97706;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.consigna p{font-size:13.5px;color:#78350f;margin-bottom:6px}
+.consigna ul{margin:6px 0 0 18px;font-size:13.5px;color:#78350f}
+.consigna li{margin-bottom:5px}
+
+/* ══ BLOQUE SEL ══ */
+.sel-bloque{border-radius:14px;padding:22px 26px;position:relative;overflow:hidden;margin-top:14px}
+.sel-bloque::after{content:'SEL';position:absolute;right:16px;top:8px;font-size:64px;font-weight:900;opacity:.07;line-height:1}
+.sel-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:900;padding:4px 12px;border-radius:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:#fff}
+.sel-bloque h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.sel-bloque p{font-size:14px;line-height:1.7;margin-bottom:10px}
+.qs{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qs li{background:rgba(255,255,255,.65);border-radius:10px;padding:11px 16px;font-size:13.5px;display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.qs li span{flex-shrink:0;font-weight:900;margin-top:1px}
+
+.sel-autocon{background:linear-gradient(135deg,#fff7ed,#ffedd5);border:2px solid #fed7aa}
+.sel-autocon .sel-badge{background:#ea580c}
+.sel-autocon h4{color:#7c2d12}
+.sel-autocon p{color:#9a3412}
+.sel-autocon .qs li{color:#78350f}
+.sel-autocon .qs li span{color:#ea580c}
+
+.sel-autoctl{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #bfdbfe}
+.sel-autoctl .sel-badge{background:#2563eb}
+.sel-autoctl h4{color:#1e3a8a}
+.sel-autoctl p{color:#1e40af}
+.sel-autoctl .qs li{color:#1e3a8a}
+.sel-autoctl .qs li span{color:#2563eb}
+
+.sel-social{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac}
+.sel-social .sel-badge{background:#16a34a}
+.sel-social h4{color:#14532d}
+.sel-social p{color:#166534}
+.sel-social .qs li{color:#14532d}
+.sel-social .qs li span{color:#16a34a}
+
+.sel-relac{background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd}
+.sel-relac .sel-badge{background:#7c3aed}
+.sel-relac h4{color:#3b0764}
+.sel-relac p{color:#4c1d95}
+.sel-relac .qs li{color:#3b0764}
+.sel-relac .qs li span{color:#7c3aed}
+
+.sel-decision{background:linear-gradient(135deg,#fdf4ff,#fae8ff);border:2px solid #f0abfc}
+.sel-decision .sel-badge{background:#a21caf}
+.sel-decision h4{color:#581c87}
+.sel-decision p{color:#6b21a8}
+.sel-decision .qs li{color:#581c87}
+.sel-decision .qs li span{color:#a21caf}
+
+/* ══ CITA VISUAL ══ */
+.cita-visual{border-left:5px solid #93c5fd;background:#eff6ff;border-radius:0 12px 12px 0;padding:16px 20px;margin:14px 0;font-style:italic;font-size:15px;color:#1e40af;position:relative}
+.cita-visual::before{content:'"';font-size:48px;color:#bfdbfe;position:absolute;top:-4px;left:14px;line-height:1;font-style:normal;font-weight:900}
+.cita-visual p{padding-left:28px}
+.cita-visual .fuente{font-size:12px;color:#60a5fa;font-style:normal;font-weight:700;margin-top:8px;padding-left:28px}
+
+/* ══ LISTA VISUAL DEMO ══ */
+.demo-listas{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+.demo-lista{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:18px 20px}
+.demo-lista .dl-tit{font-size:11px;font-weight:900;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.demo-lista ul{margin-left:20px;font-size:14px;color:#334155}
+.demo-lista ol{margin-left:20px;font-size:14px;color:#334155}
+.demo-lista li{margin-bottom:6px;line-height:1.5}
+
+/* ══ RÚBRICA ══ */
+.rubrica{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+.rubrica th{background:#1a4f8a;color:#fff;padding:10px 12px;text-align:left;font-weight:800;font-size:11.5px}
+.rubrica td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:top;line-height:1.5}
+.rubrica tr:hover td{background:#f8fafc}
+
+/* ══ FOOTER ══ */
+.guia-footer{background:#1a4f8a;color:#fff;border-radius:14px;padding:20px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.gf-left p{font-size:12px;opacity:.75;margin-top:3px}
+.gf-left strong{font-size:14px;font-weight:800}
+.gf-right{font-size:12px;opacity:.75;text-align:right}
+.gf-right strong{font-size:13px;font-weight:800;opacity:1}
+
+@media(max-width:720px){
+  .inst-ficha{grid-template-columns:repeat(2,1fr)}
+  .cmp{grid-template-columns:1fr}
+  .demo-listas{grid-template-columns:1fr}
+  .guia-titulo{margin:16px 12px 0}
+  .guia-badge{margin:10px 12px 12px}
+  .inst-top{padding:14px 16px 10px}
+  .pagina{padding:0 14px}
+  .card{padding:20px 18px}
+  .guia-footer{flex-direction:column;text-align:center}
+  .gf-right{text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     ENCABEZADO INSTITUCIONAL
+══════════════════════════════════ -->
+<header class="inst-header">
+  <div class="inst-top">
+    <div class="inst-logo">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="#1a4f8a"/>
+        <text x="20" y="16" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="7">ENSDB</text>
+        <text x="20" y="25" text-anchor="middle" fill="white" font-family="Nunito" font-size="5.5">Normal Sup.</text>
+        <text x="20" y="32" text-anchor="middle" fill="white" font-family="Nunito" font-size="5">Barranquilla</text>
+      </svg>
+    </div>
+    <div class="inst-nombre">
+      <h1>Escuela Normal Superior del Distrito de Barranquilla</h1>
+      <p>Departamento de Tecnología e Informática · Barranquilla, Colombia</p>
+    </div>
+  </div>
+  <div class="inst-ficha">
+    <div class="fc"><div class="lbl">Área</div><div class="val">Tecnología e Informática</div></div>
+    <div class="fc"><div class="lbl">Grado</div><div class="val">Décimo (10°)</div></div>
+    <div class="fc"><div class="lbl">Proyecto</div><div class="val">HTML y Socioemocionalidad</div></div>
+    <div class="fc"><div class="lbl">Duración</div><div class="val">90 minutos · 1 sesión</div></div>
+    <div class="fc"><div class="lbl">Modelo</div><div class="val">MOVIEC · CASEL 2025</div></div>
+  </div>
+  <div class="guia-badge">📄 Guía de Trabajo 03</div>
+</header>
+
+<!-- TÍTULO -->
+<div style="max-width:1100px;margin:0 auto;padding:0 24px">
+  <div class="guia-titulo">
+    <div class="gnum">Proyecto HTML y Socioemocionalidad · Guía 03 · Grado Décimo · ENSDB 2025</div>
+    <h2>Listas, Saltos de Línea y Citas en HTML</h2>
+    <p class="gsub">Aprenderás a ordenar ideas, a separar momentos y a darle voz a las palabras que importan — las tuyas y las de quienes te han marcado. Porque organizar lo que piensas en código también es aprender a organizarlo en la vida.</p>
+    <div class="tags">
+      <span class="tag tag-azul">HTML · &lt;ul&gt; · &lt;ol&gt; · &lt;li&gt;</span>
+      <span class="tag tag-azul">&lt;br&gt; · &lt;hr&gt; · &lt;blockquote&gt; · &lt;q&gt;</span>
+      <span class="tag tag-verde">Autoconciencia · Toma de decisiones</span>
+      <span class="tag tag-morado">Conciencia Social · Habilidades relacionales</span>
+      <span class="tag tag-ambar">Escuela · Familia · Pares</span>
+    </div>
+  </div>
+</div>
+
+<div class="pagina">
+
+<!-- ══════════════════════════════════
+     APERTURA: TRES ESCENAS
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fff7ed">🎬</div>
+    <div>
+      <div class="sublbl">Para empezar · Tres momentos reales</div>
+      <h3>Situaciones que quizás reconoces</h3>
+    </div>
+  </div>
+
+  <p class="tp">Lee estas tres situaciones antes de escribir cualquier línea de código. Alguna puede sonar conocida.</p>
+
+  <!-- ESCENA 1: FAMILIA -->
+  <div class="escena escena-familia" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">🏠</span>
+      <span class="eti">En casa · Situación familiar</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        La mamá de Daniela le pregunta por qué llegó tarde. Daniela tiene mil cosas que decir — que la ruta se demoró, que tuvo que esperar a una amiga, que el profe los retuvo, que en realidad no quería llegar a casa tampoco. Pero solo dice: <strong>"No sé."</strong> Su mamá suspira. Daniela se va al cuarto. Ninguna de las dos dijo lo que de verdad pensaba.
+      </p>
+      <div class="escena-pregunta">💭 ¿Cuántas veces tuviste cosas que decir y solo dijiste "no sé" o "nada"?</div>
+    </div>
+  </div>
+
+  <!-- ESCENA 2: ESCUELA -->
+  <div class="escena escena-escuela" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">🏫</span>
+      <span class="eti">En el colegio · Decisión difícil</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Miguel tiene que decidir si hablar o no con el coordinador sobre algo que está pasando en su salón — alguien está siendo maltratado y él lo sabe. Lo ha pensado varios días. Tiene razones para hablar y razones para callarse. <strong>No sabe cómo ordenar esas razones en su cabeza</strong> y eso lo tiene paralizado.
+      </p>
+      <div class="escena-pregunta">💭 ¿Cómo decides cuando tienes muchas razones para hacer algo y muchas para no hacerlo?</div>
+    </div>
+  </div>
+
+  <!-- ESCENA 3: PARES -->
+  <div class="escena escena-pares" style="margin-bottom:16px">
+    <div class="escena-top">
+      <span class="eco">👥</span>
+      <span class="eti">Con compañeros · Palabras que marcan</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Hace tres años, la profesora de primaria le dijo a Laura: <strong>"Tú sí puedes, solo tienes que creerlo."</strong> Laura lo recuerda cada vez que va a rendirse. No sabe si la profesora recuerda haberlo dicho. Pero esa frase cambió algo en ella. A veces una sola oración de alguien puede quedar más tiempo que toda una clase.
+      </p>
+      <div class="escena-pregunta">💭 ¿Hay alguna frase que alguien te dijo y que todavía llevas contigo?</div>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:2px solid #86efac;border-radius:12px;padding:18px 22px;margin-top:4px">
+    <p style="font-size:14px;color:#14532d;line-height:1.8">
+      Daniela tiene muchas cosas que decir pero no sabe cómo organizarlas. Miguel tiene razones mezcladas que lo paralizan. Laura carga una cita que la sostiene. En esta guía aprenderás tres herramientas HTML que sirven exactamente para eso: <strong>listas para ordenar lo que piensas, saltos para separar momentos, y citas para darle lugar a las palabras que importan.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     PROPÓSITOS
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">🎯</div>
+    <div>
+      <div class="sublbl">Propósitos de aprendizaje</div>
+      <h3>¿Qué vas a lograr hoy?</h3>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">📋</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Crear listas ordenadas <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;ol&gt;</code> y desordenadas <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;ul&gt;</code> con elementos <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;li&gt;</code>.</p>
+    </div>
+    <div style="background:#dbeafe;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">↵</span>
+      <p style="font-size:13.5px;font-weight:700;color:#1e40af">Usar <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;br&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;hr&gt;</code> para controlar el espacio y separar momentos en el contenido.</p>
+    </div>
+    <div style="background:#dcfce7;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">💬</span>
+      <p style="font-size:13.5px;font-weight:700;color:#166534">Insertar citas con <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;blockquote&gt;</code> y <code style="font-size:11px;background:rgba(255,255,255,.6);padding:1px 5px;border-radius:4px">&lt;q&gt;</code> para reconocer palabras que vienen de otros y que nos han formado.</p>
+    </div>
+    <div style="background:#ffedd5;border-radius:10px;padding:14px 16px;display:flex;gap:10px">
+      <span style="font-size:20px;flex-shrink:0">⚖️</span>
+      <p style="font-size:13.5px;font-weight:700;color:#9a3412">Usar el HTML como herramienta para ordenar razones, tomar decisiones y reconocer las voces que nos influyen — en la escuela y en la familia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 1: LISTAS
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">01</div>
+  <div class="sep-txt">
+    <h2>Listas &lt;ul&gt;, &lt;ol&gt; y &lt;li&gt;: ordenar lo que se mezcla</h2>
+    <p>Cuando tienes muchas razones o ideas en la cabeza, una lista las separa y las hace manejables</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    HTML tiene dos tipos de listas. La lista <strong>desordenada</strong> (<code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;ul&gt;</code>) muestra puntos o viñetas — para cosas que no tienen un orden específico. La lista <strong>ordenada</strong> (<code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;ol&gt;</code>) numera los elementos — para pasos, prioridades o procesos que sí tienen un orden. Dentro de cualquiera de las dos, cada elemento va en una etiqueta <code style="background:#f1f5f9;color:#7c3aed;padding:2px 6px;border-radius:4px;font-family:'Source Code Pro',monospace">&lt;li&gt;</code> (de "list item", elemento de lista).
+  </p>
+
+  <!-- Conexión con Miguel -->
+  <div class="escena escena-escuela" style="margin-bottom:18px">
+    <div class="escena-top">
+      <span class="eco">💡</span>
+      <span class="eti">Volvamos a Miguel — el que no sabía qué hacer</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Miguel tenía las razones mezcladas en su cabeza. Mira lo que pasaría si las pusiera en una lista HTML — una para las razones para hablar y otra para las razones para callarse:
+      </p>
+    </div>
+  </div>
+
+  <!-- Demo visual de los dos tipos de lista con contenido emocional real -->
+  <div class="demo-listas">
+    <div class="demo-lista">
+      <div class="dl-tit" style="color:#16a34a">● Lista desordenada &lt;ul&gt; — sin orden de importancia</div>
+      <p style="font-size:12px;color:#64748b;margin-bottom:10px">Razones para hablar con el coordinador:</p>
+      <ul>
+        <li>Mi compañero necesita que alguien lo defienda</li>
+        <li>Yo sé lo que está pasando y nadie más lo dice</li>
+        <li>Si fuera yo, quisiera que alguien hablara</li>
+        <li>Guardar esto también me está pesando a mí</li>
+      </ul>
+    </div>
+    <div class="demo-lista">
+      <div class="dl-tit" style="color:#2563eb">1. Lista ordenada &lt;ol&gt; — con orden o prioridad</div>
+      <p style="font-size:12px;color:#64748b;margin-bottom:10px">Pasos que daría antes de hablar:</p>
+      <ol>
+        <li>Hablar primero con mi compañero y preguntarle qué quiere</li>
+        <li>Pensar cómo decirlo sin que suene a chisme</li>
+        <li>Buscar un momento en que el coordinador esté disponible</li>
+        <li>Decirlo con calma y sin nombres si no me da permiso</li>
+      </ol>
+    </div>
+  </div>
+
+  <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px 18px;margin:8px 0 16px">
+    <p style="font-size:14px;color:#14532d"><strong>¿Lo ves?</strong> Miguel no tenía menos razones — las tenía todas mezcladas. Poniéndolas en una lista pudo ver cuántas eran, cuáles pesaban más y qué paso dar primero. Las listas no solo organizan código: <em>organizan el pensamiento.</em></p>
+  </div>
+
+  <!-- Código completo de los dos tipos -->
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">decisiones_miguel.html</span></div>
+    <div class="ebody"><span class="ln">1</span><span class="ht">&lt;h2&gt;</span><span class="htx">Razones para hablar con el coordinador</span><span class="ht">&lt;/h2&gt;</span>
+
+<span class="ln">2</span><span class="hc">&lt;!-- Lista desordenada: no importa cuál va primero --&gt;</span>
+<span class="ln">3</span><span class="ht">&lt;ul&gt;</span>
+<span class="ln">4</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Mi compañero necesita que alguien lo defienda</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">5</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Yo sé lo que está pasando y nadie más lo dice</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">6</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Si fuera yo, quisiera que alguien hablara</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">7</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Guardar esto también me está pesando a mí</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">8</span><span class="ht">&lt;/ul&gt;</span>
+
+<span class="ln">9</span><span class="ht">&lt;h2&gt;</span><span class="htx">Pasos que daría antes de hablar</span><span class="ht">&lt;/h2&gt;</span>
+
+<span class="ln">10</span><span class="hc">&lt;!-- Lista ordenada: el orden sí importa --&gt;</span>
+<span class="ln">11</span><span class="ht">&lt;ol&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Hablar primero con mi compañero y preguntarle qué quiere</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">13</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Pensar cómo decirlo sin que suene a chisme</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">14</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Buscar un momento en que el coordinador esté disponible</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">15</span>  <span class="ht">&lt;li&gt;</span><span class="htx">Decirlo con calma y sin nombres si no me da permiso</span><span class="ht">&lt;/li&gt;</span>
+<span class="ln">16</span><span class="ht">&lt;/ol&gt;</span></div>
+  </div>
+
+  <table class="tbl" style="margin-top:16px">
+    <tr><th>Etiqueta</th><th>¿Qué produce?</th><th>Úsala cuando…</th><th>En tu vida</th></tr>
+    <tr>
+      <td><code>&lt;ul&gt;</code></td>
+      <td>Lista con viñetas (●)</td>
+      <td>Los elementos no tienen un orden específico entre sí</td>
+      <td>Cosas que sientes, razones que tienes, personas que quieres</td>
+    </tr>
+    <tr>
+      <td><code>&lt;ol&gt;</code></td>
+      <td>Lista numerada (1. 2. 3.)</td>
+      <td>El orden importa: pasos, prioridades, secuencias</td>
+      <td>Pasos para tomar una decisión, cosas que harías en orden</td>
+    </tr>
+    <tr>
+      <td><code>&lt;li&gt;</code></td>
+      <td>Un elemento de la lista</td>
+      <td>Siempre — es el contenedor de cada ítem dentro de ul u ol</td>
+      <td>Cada razón, cada paso, cada cosa que quieres decir</td>
+    </tr>
+  </table>
+
+  <div class="tip"><strong>Regla clave:</strong> <code>&lt;li&gt;</code> siempre va dentro de <code>&lt;ul&gt;</code> o <code>&lt;ol&gt;</code>, nunca suelto. Y <code>&lt;ul&gt;</code> u <code>&lt;ol&gt;</code> solo deben contener elementos <code>&lt;li&gt;</code> directamente — no párrafos ni encabezados dentro de ellos.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 2: SALTOS Y LÍNEAS HORIZONTALES
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">02</div>
+  <div class="sep-txt">
+    <h2>Saltos &lt;br&gt; y separadores &lt;hr&gt;: el espacio que también comunica</h2>
+    <p>A veces lo más importante no es lo que dices — es la pausa que dejas entre una cosa y otra</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    <strong>&lt;br&gt;</strong> es un salto de línea simple — como presionar Enter una vez en un mensaje. Sirve para separar líneas dentro del mismo párrafo, sin crear un bloque nuevo. <strong>&lt;hr&gt;</strong> es una línea horizontal — un separador visual que divide secciones o marca un cambio de tema, como cuando en un diario pones una raya entre un día y otro.
+  </p>
+
+  <!-- Conexión con Daniela -->
+  <div class="escena escena-familia" style="margin-bottom:18px">
+    <div class="escena-top">
+      <span class="eco">💡</span>
+      <span class="eti">Volvamos a Daniela — la que no pudo decir nada</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Si Daniela hubiera podido escribir lo que quería decirle a su mamá esa noche, habría necesitado espacio entre cada pensamiento — porque no eran iguales, no venían del mismo lugar. Mira cómo &lt;br&gt; y &lt;hr&gt; le dan forma a eso:
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">lo_que_queria_decir.html</span></div>
+    <div class="ebody"><span class="ln">1</span><span class="ht">&lt;h1&gt;</span><span class="htx">Lo que quería decirte, mamá</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ln">2</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">3</span>  <span class="htx">Llegué tarde porque la ruta se demoró.</span><span class="ht">&lt;br&gt;</span>
+<span class="ln">4</span>  <span class="htx">Tuve que esperar a mi amiga porque no podía dejarla sola.</span><span class="ht">&lt;br&gt;</span>
+<span class="ln">5</span>  <span class="htx">El profe también nos retuvo diez minutos.</span>
+<span class="ln">6</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln">7</span><span class="hc">&lt;!-- hr separa dos momentos distintos — como pasar página --&gt;</span>
+<span class="ln">8</span><span class="ht">&lt;hr&gt;</span>
+
+<span class="ln">9</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">10</span>  <span class="htx">Pero también es verdad que a veces no quiero llegar.</span><span class="ht">&lt;br&gt;</span>
+<span class="ln">11</span>  <span class="htx">No porque no te quiera.</span><span class="ht">&lt;br&gt;</span>
+<span class="ln">12</span>  <span class="htx">Sino porque cuando llego, siento que siempre hay algo mal.</span>
+<span class="ln">13</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln">14</span><span class="ht">&lt;hr&gt;</span>
+
+<span class="ln">15</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">16</span>  <span class="htx">Solo quería que me preguntaras cómo me fue, no por qué llegué tarde.</span>
+<span class="ln">17</span><span class="ht">&lt;/p&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">lo_que_queria_decir.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Lo que quería decirte, mamá</h2>
+      <p>Llegué tarde porque la ruta se demoró.<br>Tuve que esperar a mi amiga porque no podía dejarla sola.<br>El profe también nos retuvo diez minutos.</p>
+      <hr>
+      <p>Pero también es verdad que a veces no quiero llegar.<br>No porque no te quiera.<br>Sino porque cuando llego, siento que siempre hay algo mal.</p>
+      <hr>
+      <p>Solo quería que me preguntaras cómo me fue, no por qué llegué tarde.</p>
+    </div>
+  </div>
+
+  <div style="background:#fffbeb;border:1.5px solid #fde68a;border-radius:10px;padding:14px 18px;margin-top:12px">
+    <p style="font-size:14px;color:#78350f"><strong>¿Ves la diferencia que hace el &lt;hr&gt;?</strong> Sin él, todo parece una queja seguida. Con él, el lector siente que hay tres momentos distintos: las razones externas, la verdad más profunda y la cosa más simple que necesitaba. <em>El espacio también comunica.</em></p>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Etiqueta</th><th>¿Qué hace?</th><th>Importante</th><th>En tu vida</th></tr>
+    <tr>
+      <td><code>&lt;br&gt;</code></td>
+      <td>Salto de línea simple dentro de un párrafo</td>
+      <td>No tiene etiqueta de cierre. Es una etiqueta vacía.</td>
+      <td>Separar pensamientos que pertenecen al mismo bloque emocional</td>
+    </tr>
+    <tr>
+      <td><code>&lt;hr&gt;</code></td>
+      <td>Línea horizontal que divide secciones</td>
+      <td>Tampoco tiene cierre. Es también una etiqueta vacía.</td>
+      <td>Marcar cuando un momento termina y empieza otro diferente</td>
+    </tr>
+  </table>
+
+  <div class="warn"><strong>Úsalos con intención:</strong> <code>&lt;br&gt;</code> no es para añadir espacio vacío entre secciones — para eso están los párrafos <code>&lt;p&gt;</code> o los encabezados. Igual en la vida: las pausas valen cuando tienen sentido, no cuando se usan para evitar decir algo.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     MÓDULO 3: CITAS
+══════════════════════════════════ -->
+<div class="modulo-sep">
+  <div class="sep-num">03</div>
+  <div class="sep-txt">
+    <h2>Citas &lt;blockquote&gt; y &lt;q&gt;: las palabras de otros que nos forman</h2>
+    <p>Algunos no están presentes, pero sus palabras siguen viviendo en nosotros</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="slbl"><span class="dot"></span>Explicación</div>
+
+  <p class="tp">
+    Las citas en HTML son para cuando quieres incluir palabras que no son tuyas — alguien que dijo algo que te marcó, una frase de un libro, algo que te enseñó un familiar. <strong>&lt;blockquote&gt;</strong> es para citas largas que merecen su propio bloque visual. <strong>&lt;q&gt;</strong> es para citas cortas dentro de una oración, donde el navegador añade automáticamente las comillas.
+  </p>
+
+  <!-- Conexión con Laura -->
+  <div class="escena escena-pares" style="margin-bottom:18px">
+    <div class="escena-top">
+      <span class="eco">💡</span>
+      <span class="eti">Volvamos a Laura — la que carga una frase de su profesora</span>
+    </div>
+    <div class="escena-cuerpo">
+      <p class="dialogo">
+        Laura nunca olvidó lo que le dijo su profesora. Esa frase no es suya — pertenece a alguien que pasó por su vida y dejó algo. Cuando Laura la pone en su página web, necesita una manera de distinguir: <strong>esto lo dijo otra persona, y lo reconozco.</strong> Para eso existen las citas en HTML.
+      </p>
+    </div>
+  </div>
+
+  <div class="editor">
+    <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">frases_que_cargo.html</span></div>
+    <div class="ebody"><span class="ln">1</span><span class="ht">&lt;h1&gt;</span><span class="htx">Palabras que siguen conmigo</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ln">2</span><span class="hc">&lt;!-- blockquote: cita larga, con su propio bloque visual --&gt;</span>
+<span class="ln">3</span><span class="ht">&lt;blockquote&gt;</span>
+<span class="ln">4</span>  <span class="htx">Tú sí puedes, solo tienes que creerlo.</span>
+<span class="ln">5</span>  <span class="htx">No te compares con los demás — compárate con quien eras ayer.</span>
+<span class="ht">&lt;/blockquote&gt;</span>
+<span class="ln">6</span><span class="ht">&lt;p&gt;</span><span class="htx">Mi profesora de quinto grado, hace tres años.</span><span class="ht">&lt;/p&gt;</span>
+
+<span class="ln">7</span><span class="ht">&lt;hr&gt;</span>
+
+<span class="ln">8</span><span class="ht">&lt;h2&gt;</span><span class="htx">Lo que esas palabras cambiaron en mí</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ln">9</span><span class="ht">&lt;p&gt;</span>
+<span class="ln">10</span>  <span class="htx">Cada vez que voy a rendirme, recuerdo que ella dijo</span>
+<span class="ln">11</span>  <span class="hc">&lt;!-- q: cita corta dentro de una frase --&gt;</span>
+<span class="ln">12</span>  <span class="ht">&lt;q&gt;</span><span class="htx">solo tienes que creerlo</span><span class="ht">&lt;/q&gt;</span><span class="htx">.</span>
+<span class="ln">13</span>  <span class="htx">Y algo en mí se acomoda de nuevo.</span>
+<span class="ln">14</span><span class="ht">&lt;/p&gt;</span></div>
+  </div>
+
+  <!-- Preview navegador -->
+  <div style="font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin:14px 0 8px">Así se vería en el navegador:</div>
+  <div class="brow">
+    <div class="brow-bar">
+      <div class="bdots"><span class="bdr2"></span><span class="bdy2"></span><span class="bdg2"></span></div>
+      <div class="burl">frases_que_cargo.html</div>
+    </div>
+    <div class="bcon">
+      <h2>Palabras que siguen conmigo</h2>
+      <blockquote>Tú sí puedes, solo tienes que creerlo. No te compares con los demás — compárate con quien eras ayer.</blockquote>
+      <p>Mi profesora de quinto grado, hace tres años.</p>
+      <hr>
+      <h2>Lo que esas palabras cambiaron en mí</h2>
+      <p>Cada vez que voy a rendirme, recuerdo que ella dijo <q>solo tienes que creerlo</q>. Y algo en mí se acomoda de nuevo.</p>
+    </div>
+  </div>
+
+  <table class="tbl" style="margin-top:14px">
+    <tr><th>Etiqueta</th><th>¿Qué produce?</th><th>Úsala cuando…</th><th>En tu vida</th></tr>
+    <tr>
+      <td><code>&lt;blockquote&gt;</code></td>
+      <td>Bloque visual separado con sangría especial</td>
+      <td>La cita es larga o merece destacarse visualmente</td>
+      <td>Una frase completa que alguien te dijo y que cambió algo</td>
+    </tr>
+    <tr>
+      <td><code>&lt;q&gt;</code></td>
+      <td>Texto entre comillas automáticas</td>
+      <td>La cita es corta y va dentro de una oración tuya</td>
+      <td>Recordar una sola frase de alguien dentro de tu propio texto</td>
+    </tr>
+  </table>
+
+  <div class="tip"><strong>Para recordar:</strong> Las citas siempre son de alguien más. Usarlas correctamente es un acto de honestidad — reconocer que esas palabras no son tuyas, que vinieron de otra persona y que eso importa. Igual en la vida: reconocer que lo que somos también viene de los demás.</div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 1 · INDIVIDUAL · TOMA DE DECISIONES
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#a21caf,#7e22ce)">
+    <div class="act-num">A1</div>
+    <div>
+      <h3>Mi lista de razones: una decisión que tengo pendiente</h3>
+      <div class="asub">Individual · 25 minutos · Toma de decisiones responsables</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#f0abfc">
+
+    <div class="meta">
+      <span class="mp" style="background:#fdf4ff;border-color:#f0abfc;color:#6b21a8">⏱ 25 min</span>
+      <span class="mp" style="background:#fdf4ff;border-color:#f0abfc;color:#6b21a8">👤 Individual</span>
+      <span class="mp" style="background:#fdf4ff;border-color:#f0abfc;color:#6b21a8">💻 Editor de código</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⚖️ SEL: Toma de decisiones</span>
+    </div>
+
+    <div class="escena escena-decision" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">⚖️</span>
+        <span class="eti">Antes de escribir código — piensa en esto</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Piensa en algo que tienes pendiente decidir. No tiene que ser enorme. Puede ser: <strong>¿Le digo o no le digo algo a alguien?</strong> ¿Cambio de grupo o me quedo? ¿Hablo o me callo? ¿Pido perdón o espero a que el tiempo pase? Cualquier decisión donde sientas que tienes razones para los dos lados.
+        </p>
+        <div class="escena-pregunta">💭 Esa decisión pendiente es lo que vas a trabajar en HTML hoy.</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#a21caf">1</div>
+        <div class="pc">
+          <h4>Crea el archivo <code>mi_decision.html</code></h4>
+          <p>Con la estructura completa. En el <code>&lt;title&gt;</code> escribe: "Una decisión pendiente — [tu nombre]". En el <code>&lt;h1&gt;</code>, describe la decisión sin dar nombres propios si no quieres.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#a21caf">2</div>
+        <div class="pc">
+          <h4>Crea dos listas &lt;ul&gt; con tus razones</h4>
+          <p>Una lista desordenada titulada con un <code>&lt;h2&gt;</code>: "Razones para hacerlo". Otra lista desordenada con <code>&lt;h2&gt;</code>: "Razones para no hacerlo". Mínimo 3 <code>&lt;li&gt;</code> en cada una. Escribe lo que realmente piensas — no lo que debería decirse.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#a21caf">3</div>
+        <div class="pc">
+          <h4>Usa &lt;hr&gt; entre las dos listas</h4>
+          <p>El separador marca que son dos bloques distintos — dos momentos de tu análisis. Antes del segundo <code>&lt;h2&gt;</code>, pon un <code>&lt;hr&gt;</code>.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#a21caf">4</div>
+        <div class="pc">
+          <h4>Crea una lista &lt;ol&gt; con los pasos que darías</h4>
+          <p>Si decidieras hacer algo, ¿qué pasaría primero? ¿Y después? Crea una lista ordenada con al menos 3 pasos concretos y reales — no ideales, sino posibles para ti.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#a21caf">5</div>
+        <div class="pc">
+          <h4>Agrega un párrafo final con &lt;br&gt; entre líneas</h4>
+          <p>Debajo de todo, en un <code>&lt;p&gt;</code> separado por un <code>&lt;hr&gt;</code>, escribe: qué crees que vas a hacer y por qué. Usa <code>&lt;br&gt;</code> entre frases si son ideas distintas del mismo pensamiento.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Tu archivo debe tener</div>
+      <ul>
+        <li>Un <code>&lt;h1&gt;</code> que describa la decisión</li>
+        <li>Dos listas <code>&lt;ul&gt;</code> con razones a favor y en contra (mínimo 3 <code>&lt;li&gt;</code> cada una)</li>
+        <li>Una lista <code>&lt;ol&gt;</code> con los pasos para actuar (mínimo 3 pasos)</li>
+        <li>Al menos dos <code>&lt;hr&gt;</code> separando los momentos de análisis</li>
+        <li>Un párrafo final con tu conclusión provisional usando <code>&lt;br&gt;</code></li>
+        <li>Comentarios HTML que expliquen por qué pusiste esa razón o ese paso</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-decision">
+      <div class="sel-badge">⚖️ SEL · Toma de Decisiones Responsables</div>
+      <h4>Organizar las razones es el corazón de decidir bien</h4>
+      <p>CASEL define la toma de decisiones responsables como "la capacidad de hacer elecciones constructivas sobre el comportamiento personal considerando las consecuencias para uno mismo y para los demás". No significa decidir siempre lo correcto — significa decidir con conciencia, viendo todas las razones. Las listas que hiciste hoy son exactamente eso: visibilizar lo que normalmente se queda enredado en la cabeza.</p>
+      <p>En tu bitácora responde:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Cambió algo en cómo ves la decisión después de escribir las dos listas? ¿Apareció alguna razón que no habías pensado antes?</li>
+        <li><span>→</span> ¿Cuál de las dos listas te costó más escribir? ¿Por qué crees que fue esa?</li>
+        <li><span>→</span> ¿Los pasos de tu lista &lt;ol&gt; son realmente posibles para ti, o escribiste lo que "debería" hacerse? ¿Qué diferencia hay?</li>
+        <li><span>→</span> ¿Hay alguien de confianza (familia, amigo, docente) con quien podrías compartir esta decisión? ¿Qué te detiene o qué te animaría a hacerlo?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 2 · PAREJAS · AUTOCONCIENCIA
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#ea580c,#c2410c)">
+    <div class="act-num">A2</div>
+    <div>
+      <h3>Lo que soy: listas que me definen (y las que me sorprenden)</h3>
+      <div class="asub">Parejas · 20 minutos · Autoconciencia — verse a uno mismo con más detalle</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#fed7aa">
+
+    <div class="meta">
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">⏱ 20 min</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">👥 Parejas</span>
+      <span class="mp" style="background:#ffedd5;border-color:#fdba74;color:#9a3412">💻 Un computador</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">🔍 SEL: Autoconciencia</span>
+    </div>
+
+    <div class="escena escena-interna" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">🔍</span>
+        <span class="eti">La actividad más difícil: verte como eres, no como quieres parecer</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Normalmente nos presentamos mostrando solo lo que queremos que los demás vean. Esta actividad va más adentro. <strong>Tu compañero/a va a hacerte preguntas que tú no te harías solo.</strong> Y lo que respondan va a construir una página HTML juntos — con listas honestas, no con listas perfectas.
+        </p>
+        <div class="escena-pregunta">💭 ¿Qué pasa cuando alguien te ve con más honestidad de la que tú mismo te tienes?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">1</div>
+        <div class="pc">
+          <h4>Túrnense: uno responde, el otro escucha y anota</h4>
+          <p>10 minutos por persona. El que escucha hace las preguntas de abajo y anota las respuestas <em>sin editar</em> — tal como el otro lo dice, sin suavizarlo ni mejorarlo.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">2</div>
+        <div class="pc">
+          <h4>Preguntas que el escuchador debe hacer</h4>
+          <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:10px;padding:14px 18px;margin-top:8px;font-size:13.5px;color:#7c2d12;line-height:2">
+            ¿Cuáles son tres cosas que sabes hacer bien (de verdad, no para impresionar)?<br>
+            ¿Cuáles son dos cosas en las que todavía te cuesta trabajo?<br>
+            ¿Qué es lo que más te cuesta en el colegio — no en materia, sino en cómo te sientes?<br>
+            ¿Hay algo que haces en casa que nadie nota pero que a ti sí te importa?<br>
+            ¿Qué parte de ti crees que la gente no ve o no entiende?
+          </div>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">3</div>
+        <div class="pc">
+          <h4>Creen el archivo <code>quien_soy_en_listas.html</code></h4>
+          <p>Con las respuestas de cada persona. Usen una <code>&lt;ul&gt;</code> para "Lo que hago bien", otra para "Lo que me cuesta", y una <code>&lt;ol&gt;</code> para "Si pudiera cambiar algo de cómo soy, lo haría en este orden". Separen las secciones con <code>&lt;hr&gt;</code>.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#ea580c">4</div>
+        <div class="pc">
+          <h4>La persona representada revisa y ajusta</h4>
+          <p>Antes de guardar, quien fue entrevistado lee la página y decide: ¿Hay algo que no quiero que quede escrito ahí? Tiene derecho a quitarlo sin explicación. <em>Tu historia es tuya.</em></p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Producto esperado A2</div>
+      <ul>
+        <li>Archivo <code>quien_soy_en_listas.html</code> con las dos secciones (una por persona)</li>
+        <li>Al menos 3 tipos de lista (<code>&lt;ul&gt;</code> y <code>&lt;ol&gt;</code>) bien diferenciadas</li>
+        <li>Uso de <code>&lt;hr&gt;</code> entre secciones de cada persona</li>
+        <li>Uso de <code>&lt;br&gt;</code> donde una misma idea tiene varias líneas</li>
+        <li>Aprobación de ambos integrantes antes de entregar</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-autocon">
+      <div class="sel-badge">🔍 SEL · Autoconciencia</div>
+      <h4>Verse a uno mismo con honestidad — sin juzgarse</h4>
+      <p>La autoconciencia no es solo saber qué te gusta o en qué eres bueno. También es reconocer lo que te cuesta, lo que escondes, lo que no has dicho. Esta actividad fue difícil precisamente porque ir más allá de "soy bueno en matemáticas" requiere valentía. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Qué fue lo más difícil de responder? ¿Por qué crees que fue eso?</li>
+        <li><span>→</span> ¿Hay algo que tu compañero/a notó de ti que tú no habías incluido? ¿Cómo te sentiste con eso?</li>
+        <li><span>→</span> ¿La lista de "lo que me cuesta" fue más corta o más larga de lo que esperabas?</li>
+        <li><span>→</span> ¿Qué parte de la lista decidiste quitar antes de entregar? ¿Por qué?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     ACTIVIDAD 3 · GRUPAL · CONCIENCIA SOCIAL
+══════════════════════════════════ -->
+<div class="act-wrap">
+  <div class="act-hd" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+    <div class="act-num">A3</div>
+    <div>
+      <h3>El muro de frases: palabras que nos sostienen y palabras que nos hunden</h3>
+      <div class="asub">Grupos de 4 · 25 minutos · Conciencia social — el poder de lo que les decimos a los demás</div>
+    </div>
+  </div>
+  <div class="act-bd" style="border-color:#86efac">
+
+    <div class="meta">
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">⏱ 25 min</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">👥 Grupos de 4</span>
+      <span class="mp" style="background:#dcfce7;border-color:#86efac;color:#166534">💻 Un archivo compartido</span>
+      <span class="mp" style="background:#ede9fe;border-color:#c4b5fd;color:#4c1d95">🌍 SEL: Conciencia Social</span>
+    </div>
+
+    <div class="escena escena-pares" style="margin-bottom:18px">
+      <div class="escena-top">
+        <span class="eco">💬</span>
+        <span class="eti">El impacto de las palabras — en la escuela y en la familia</span>
+      </div>
+      <div class="escena-cuerpo">
+        <p class="dialogo">
+          Laura todavía recuerda lo que le dijo su profesora de primaria. Pero también hay personas que recuerdan algo que les dijeron y que los lastimó. Una frase de un familiar, un comentario de un compañero, algo que un adulto lanzó sin pensar. <strong>Las palabras tienen peso — el que da fuerzas y el que aplasta.</strong> En esta actividad vamos a hacer visibles los dos.
+        </p>
+        <div class="escena-pregunta">💭 ¿Eres consciente del impacto que tienen tus palabras en los demás?</div>
+      </div>
+    </div>
+
+    <ul class="pasos">
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">1</div>
+        <div class="pc">
+          <h4>Cada integrante piensa en dos frases (5 min)</h4>
+          <p>Una frase que alguien le dijo y que lo <strong>sostuvo</strong> — de la familia, del colegio, de un amigo. Y una frase que alguien le dijo y que lo <strong>afectó negativamente</strong> — no tiene que ser enorme, puede ser algo pequeño que se quedó. Ambas son anónimas: no se ponen nombres.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">2</div>
+        <div class="pc">
+          <h4>Construyan el archivo <code>muro_de_frases.html</code> (15 min)</h4>
+          <p>Dos secciones con <code>&lt;h2&gt;</code>: "Frases que sostienen" y "Frases que pesan". En cada sección, una lista <code>&lt;ul&gt;</code> donde cada <code>&lt;li&gt;</code> contiene una <code>&lt;blockquote&gt;</code> con la frase anónima, seguida de un <code>&lt;p&gt;</code> pequeño que explica <em>desde dónde viene</em> (familia, colegio, pares) — sin revelar quién.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">3</div>
+        <div class="pc">
+          <h4>Añadan una tercera sección: "Lo que nos gustaría escuchar más"</h4>
+          <p>Una lista <code>&lt;ol&gt;</code> con las tres frases que el grupo quisiera escuchar más seguido — en la familia, en el colegio o entre compañeros. Estas sí las redactan juntos.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <div class="pn" style="background:#16a34a">4</div>
+        <div class="pc">
+          <h4>Socialicen con otro grupo (5 min)</h4>
+          <p>Intercambien sus archivos. Léanlos en el navegador. Respondan: ¿Hay frases que se repiten entre los grupos? ¿Qué dice eso sobre lo que vivimos como generación?</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="consigna">
+      <div class="clbl">📋 Reglas de esta actividad</div>
+      <ul>
+        <li>Todas las frases son anónimas. No se menciona quién las dijo ni quién las recibió.</li>
+        <li>Nadie está obligado a compartir una frase que lo lastime demasiado.</li>
+        <li>El tono es de respeto: no se comenta con burla ni se juzga lo que otros compartieron.</li>
+        <li>Si algo de lo que surge necesita apoyo, el grupo lo reporta al docente con confianza.</li>
+      </ul>
+    </div>
+
+    <div class="sel-bloque sel-social">
+      <div class="sel-badge">🌍 SEL · Conciencia Social</div>
+      <h4>Las palabras que les decimos a los demás también los forman — o los hunden</h4>
+      <p>Esta actividad muestra algo que a veces olvidamos: nosotros también somos el "alguien" que le dice cosas a los demás. Somos la profesora de quinto de alguien, el familiar que comentó algo sin pensar, el compañero cuya frase se quedó. La conciencia social (CASEL) incluye entender el impacto que tenemos en la vida de los demás. En tu bitácora:</p>
+      <ul class="qs">
+        <li><span>→</span> ¿Encontraste frases repetidas entre los grupos? ¿Qué te dice eso?</li>
+        <li><span>→</span> ¿Hay alguna frase de las que "pesan" que tú mismo podrías haber dicho sin darte cuenta?</li>
+        <li><span>→</span> ¿Qué frase de la lista "lo que nos gustaría escuchar más" podrías decirle tú a alguien cercano esta semana?</li>
+        <li><span>→</span> ¿Cómo cambia tu forma de hablar con los demás después de pensar en esto?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     BITÁCORA DE CIERRE
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📓</div>
+    <div>
+      <div class="sublbl">Cierre de la sesión · 10 minutos finales</div>
+      <h3>Bitácora final · Guía 03</h3>
+    </div>
+  </div>
+
+  <p class="tp">Antes de salir, responde en tu cuaderno o en un archivo HTML llamado <code>bitacora_guia03.html</code>. Una lista ordenada con tus aprendizajes del día — no los técnicos, los que te quedaron por dentro.</p>
+
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:20px 24px;margin:14px 0">
+    <p style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Estructura sugerida para tu bitácora en HTML:</p>
+    <div class="editor" style="margin:0">
+      <div class="ebar"><div class="dots"><span class="dr"></span><span class="dy"></span><span class="dg"></span></div><span class="fname">bitacora_guia03.html</span></div>
+      <div class="ebody"><span class="ht">&lt;h1&gt;</span><span class="htx">Bitácora · Guía 03 · [Tu nombre]</span><span class="ht">&lt;/h1&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Lo que aprendí hoy en HTML</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;ul&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="htx">[algo técnico que quedó claro]</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="htx">[algo que todavía me confunde]</span><span class="ht">&lt;/li&gt;</span>
+<span class="ht">&lt;/ul&gt;</span>
+
+<span class="ht">&lt;hr&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Lo que me quedó por dentro</span><span class="ht">&lt;/h2&gt;</span>
+<span class="ht">&lt;ol&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="htx">[el aprendizaje más importante de hoy — no de HTML]</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="htx">[algo sobre mí que noté o me sorprendió]</span><span class="ht">&lt;/li&gt;</span>
+  <span class="ht">&lt;li&gt;</span><span class="htx">[algo que quiero cambiar en cómo me relaciono con los demás]</span><span class="ht">&lt;/li&gt;</span>
+<span class="ht">&lt;/ol&gt;</span>
+
+<span class="ht">&lt;hr&gt;</span>
+
+<span class="ht">&lt;h2&gt;</span><span class="htx">Una frase que me llevo</span><span class="ht">&lt;/h2&gt;</span>
+<span class="hc">&lt;!-- Una frase tuya o de alguien más que resume tu día --&gt;</span>
+<span class="ht">&lt;blockquote&gt;</span><span class="htx">[la frase]</span><span class="ht">&lt;/blockquote&gt;</span>
+<span class="ht">&lt;p&gt;</span><span class="htx">[de dónde viene esa frase o por qué la elegiste]</span><span class="ht">&lt;/p&gt;</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SÍNTESIS VISUAL HTML
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#dbeafe">📊</div>
+    <div>
+      <div class="sublbl">Resumen técnico de la guía</div>
+      <h3>Lo que aprendiste en HTML hoy</h3>
+    </div>
+  </div>
+
+  <div style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden">
+    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;margin:0 auto">
+      <rect width="700" height="300" fill="#f8fafc"/>
+
+      <!-- Col 1: Listas -->
+      <rect x="18" y="18" width="200" height="264" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+      <rect x="18" y="18" width="200" height="38" rx="10" fill="#1a4f8a"/>
+      <rect x="18" y="44" width="200" height="12" fill="#1a4f8a"/>
+      <text x="118" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">Listas</text>
+      <!-- ul -->
+      <text x="32" y="76" fill="#1e40af" font-family="Nunito" font-weight="900" font-size="12">&lt;ul&gt; Desordenada</text>
+      <text x="40" y="93" fill="#3b82f6" font-family="Nunito" font-size="11">● elemento uno</text>
+      <text x="40" y="108" fill="#3b82f6" font-family="Nunito" font-size="11">● elemento dos</text>
+      <text x="40" y="123" fill="#3b82f6" font-family="Nunito" font-size="11">● elemento tres</text>
+      <line x1="32" y1="135" x2="204" y2="135" stroke="#93c5fd" stroke-width="1"/>
+      <!-- ol -->
+      <text x="32" y="152" fill="#1e40af" font-family="Nunito" font-weight="900" font-size="12">&lt;ol&gt; Ordenada</text>
+      <text x="40" y="168" fill="#3b82f6" font-family="Nunito" font-size="11">1. primer paso</text>
+      <text x="40" y="183" fill="#3b82f6" font-family="Nunito" font-size="11">2. segundo paso</text>
+      <text x="40" y="198" fill="#3b82f6" font-family="Nunito" font-size="11">3. tercer paso</text>
+      <line x1="32" y1="210" x2="204" y2="210" stroke="#93c5fd" stroke-width="1"/>
+      <text x="118" y="228" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="10" font-weight="700">Cada ítem en &lt;li&gt;</text>
+      <text x="118" y="243" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="10" font-weight="700">siempre dentro</text>
+      <text x="118" y="258" text-anchor="middle" fill="#1e3a8a" font-family="Nunito" font-size="10">de &lt;ul&gt; o &lt;ol&gt;</text>
+
+      <!-- Col 2: Saltos -->
+      <rect x="250" y="18" width="200" height="264" rx="10" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+      <rect x="250" y="18" width="200" height="38" rx="10" fill="#16a34a"/>
+      <rect x="250" y="44" width="200" height="12" fill="#16a34a"/>
+      <text x="350" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">Saltos y separadores</text>
+      <!-- br -->
+      <text x="264" y="76" fill="#14532d" font-family="Nunito" font-weight="900" font-size="12">&lt;br&gt; Salto de línea</text>
+      <text x="264" y="94" fill="#166534" font-family="Nunito" font-size="11">Dentro del mismo</text>
+      <text x="264" y="109" fill="#166534" font-family="Nunito" font-size="11">párrafo</text>
+      <text x="264" y="126" fill="#166534" font-family="Nunito" font-size="11">Sin etiqueta de cierre</text>
+      <line x1="264" y1="140" x2="436" y2="140" stroke="#86efac" stroke-width="1"/>
+      <!-- hr -->
+      <text x="264" y="158" fill="#14532d" font-family="Nunito" font-weight="900" font-size="12">&lt;hr&gt; Línea divisoria</text>
+      <text x="264" y="176" fill="#166534" font-family="Nunito" font-size="11">Separa secciones</text>
+      <text x="264" y="191" fill="#166534" font-family="Nunito" font-size="11">o momentos distintos</text>
+      <text x="264" y="208" fill="#166534" font-family="Nunito" font-size="11">Sin etiqueta de cierre</text>
+      <line x1="264" y1="222" x2="436" y2="222" stroke="#86efac" stroke-width="1"/>
+      <text x="350" y="242" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="10" font-weight="700">Ambas son etiquetas</text>
+      <text x="350" y="257" text-anchor="middle" fill="#14532d" font-family="Nunito" font-size="10">vacías — sin cierre</text>
+
+      <!-- Col 3: Citas -->
+      <rect x="482" y="18" width="200" height="264" rx="10" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1.5"/>
+      <rect x="482" y="18" width="200" height="38" rx="10" fill="#7c3aed"/>
+      <rect x="482" y="44" width="200" height="12" fill="#7c3aed"/>
+      <text x="582" y="42" text-anchor="middle" fill="white" font-family="Nunito" font-weight="900" font-size="13">Citas</text>
+      <!-- blockquote -->
+      <text x="496" y="76" fill="#3b0764" font-family="Nunito" font-weight="900" font-size="11">&lt;blockquote&gt;</text>
+      <text x="496" y="92" fill="#4c1d95" font-family="Nunito" font-size="11">Cita larga con bloque</text>
+      <text x="496" y="107" fill="#4c1d95" font-family="Nunito" font-size="11">visual propio</text>
+      <rect x="496" y="116" width="4" height="30" rx="2" fill="#a78bfa"/>
+      <text x="506" y="128" fill="#6d28d9" font-family="Nunito" font-size="10" font-style="italic">"Palabras de otro..."</text>
+      <text x="496" y="155" fill="#4c1d95" font-family="Nunito" font-size="11">Para frases que</text>
+      <text x="496" y="170" fill="#4c1d95" font-family="Nunito" font-size="11">cambiaron algo</text>
+      <line x1="496" y1="182" x2="668" y2="182" stroke="#c4b5fd" stroke-width="1"/>
+      <!-- q -->
+      <text x="496" y="200" fill="#3b0764" font-family="Nunito" font-weight="900" font-size="11">&lt;q&gt;</text>
+      <text x="496" y="216" fill="#4c1d95" font-family="Nunito" font-size="11">Cita corta con</text>
+      <text x="496" y="231" fill="#4c1d95" font-family="Nunito" font-size="11">comillas automáticas</text>
+      <text x="496" y="248" fill="#4c1d95" font-family="Nunito" font-size="11">Va dentro de una</text>
+      <text x="496" y="263" fill="#4c1d95" font-family="Nunito" font-size="11">oración tuya</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     RÚBRICA
+══════════════════════════════════ -->
+<div class="card">
+  <div class="card-h">
+    <div class="card-ico" style="background:#fef9c3">📋</div>
+    <div>
+      <div class="sublbl">Criterios de valoración · Guía 03</div>
+      <h3>¿Cómo se evaluará tu trabajo?</h3>
+    </div>
+  </div>
+  <table class="rubrica">
+    <tr>
+      <th style="width:22%">Criterio</th>
+      <th style="width:25%"><span style="color:#fca5a5">Básico (1–2)</span></th>
+      <th style="width:27%"><span style="color:#fcd34d">Satisfactorio (3)</span></th>
+      <th style="width:26%"><span style="color:#86efac">Superior (4–5)</span></th>
+    </tr>
+    <tr>
+      <td><strong>Listas HTML</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa un solo tipo de lista o los &lt;li&gt; están fuera de &lt;ul&gt;/&lt;ol&gt;.</td>
+      <td>Usa correctamente &lt;ul&gt;, &lt;ol&gt; y &lt;li&gt; con diferenciación clara entre ordenada y desordenada.</td>
+      <td>La elección entre &lt;ul&gt; y &lt;ol&gt; refleja comprensión real de cuándo el orden importa y cuándo no.</td>
+    </tr>
+    <tr>
+      <td><strong>&lt;br&gt;, &lt;hr&gt; y citas</strong><br><span style="font-size:11px;color:#64748b">Técnico</span></td>
+      <td>Usa estas etiquetas al azar o no las usa.</td>
+      <td>Usa &lt;br&gt;, &lt;hr&gt; y &lt;blockquote&gt; o &lt;q&gt; correctamente en al menos un archivo.</td>
+      <td>El uso de saltos, separadores y citas comunica estructura emocional — se nota cuándo un momento termina y otro empieza.</td>
+    </tr>
+    <tr>
+      <td><strong>Contenido socioemocional</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Las listas y citas son genéricas o inventadas. No hay conexión real.</td>
+      <td>El contenido nace de una situación real — se nota que pensó en su propia vida.</td>
+      <td>El contenido es honesto, específico y muestra que el estudiante analizó su situación con profundidad — incluyendo razones difíciles de decir.</td>
+    </tr>
+    <tr>
+      <td><strong>Reflexión en bitácora</strong><br><span style="font-size:11px;color:#64748b">SEL</span></td>
+      <td>Respuestas vacías o de una sola palabra.</td>
+      <td>Responde con ideas propias conectadas a la actividad y a su vida.</td>
+      <td>La reflexión muestra que algo cambió — en cómo ve una decisión, cómo se ve a sí mismo o cómo entiende el impacto de las palabras en los demás.</td>
+    </tr>
+    <tr>
+      <td><strong>Participación grupal</strong><br><span style="font-size:11px;color:#64748b">SEL · Relacional</span></td>
+      <td>No participó activamente o rompió el ambiente de confianza.</td>
+      <td>Participó con respeto, escuchó y cumplió su rol.</td>
+      <td>Escuchó de verdad, protegió el espacio de los demás y aportó algo que enriqueció el trabajo colectivo.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="guia-footer">
+  <div class="gf-left">
+    <strong>ENSDB · Escuela Normal Superior del Distrito de Barranquilla</strong>
+    <p>Proyecto HTML y Socioemocionalidad · Guía 03 · Grado Décimo · Tecnología e Informática · 2025</p>
+    <p style="margin-top:3px">Marco CASEL: Autoconciencia · Toma de Decisiones Responsables · Conciencia Social</p>
+  </div>
+  <div class="gf-right">
+    <p>Barranquilla, Colombia · 2025</p>
+    <p style="margin-top:5px">Próxima guía:</p>
+    <strong>Guía 04 → Etiquetas de código, enlaces e imágenes</strong>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
